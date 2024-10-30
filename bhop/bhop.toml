@@ -1,0 +1,74 @@
+[settings]
+# Use this to set the default editor for opening
+# shortcuts to files.
+default_editor="nvim"
+
+# Use this choose how to display the results of the `ls`
+# or `list` command.
+#
+# If set to 0, will print out the entire list of shortcuts
+# at once.
+#
+# If set to some integer N > 0,
+# it will display N shortcuts at once and wait for a keypress
+# before displaying the next N shortcuts.
+ls_display_block=0
+
+# Choose the primary and secondary colors for formatting printing.
+# Use true color format to select the coloring.
+# Example colors are:
+#   blue: [51, 153, 255]
+#   cyan: [51, 255, 255]
+#   pink: [255, 51, 153]
+#   red: [255, 51, 51]
+#   green: [51, 255, 153]
+#   bright green: [153, 255, 51]
+#   yellow: [255, 255, 51]
+#   purple: [153, 51, 255]
+#   orange: [255, 153, 51]
+print_color_primary=[128, 128, 128]
+print_color_secondary=[192, 192, 192]
+
+# Choose whether to prioritize moving to local files or saved shortcuts
+prioritize_shortcuts=false
+
+# Always cd into the matching directory when editing
+always_jump=false
+
+# Set prefix and suffix for all search terms
+# If you don't want permissive search by default, set these to the empty string ""
+search_match_prefix="*"
+search_match_suffix="*"
+
+[editors]
+# Use this section to define alternate editors for individual
+# file extensions.  Set the extension on the right and the command
+# to open the editor for that extension on the right.
+#
+# If a file is opened without a specified extension, the default
+# editor will be used to open it.
+#
+# For example, use Jupyter Notebooks with IPython files, you can set:
+#
+#       ipynb="jupyter-notebook"
+#
+# and anytime bunnyhop is used to open a shortcut to a .ipynb file,
+# it will open it in Jupyter.
+#
+# As another example, if you want to open normal Python files in
+# VSCode, you can set:
+#
+#       py="code"
+#
+# If you want to open Scala files in Intellij, you can set:
+#
+#       sc="idea"
+#       scala="idea"
+#       sbt="idea"
+#
+# Note that it had to be defined for all of the relevant
+# Scala file extensions.
+#
+# I pretty much just use Neovim (the GOAT) for everything but
+# notebooks.  For notebooks I use: `ipynb="euporia-notebook"`
+ipynb="code"

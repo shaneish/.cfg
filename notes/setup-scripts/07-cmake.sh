@@ -1,0 +1,2 @@
+# cmake
+dnf install cmake

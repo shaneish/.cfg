@@ -1,0 +1,8 @@
+mv nushell nushell.bkup
+ls
+mv nu-configs nushell
+ls
+gs
+hp nushell
+ls
+gs

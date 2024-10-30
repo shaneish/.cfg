@@ -1,0 +1,2 @@
+# snap
+dnf install snapd

@@ -1,0 +1,41 @@
+[colors]
+ansi = [
+    "#000000",
+    "#ffd700",
+    "#636363",
+    "#b80d0d",
+    "#ffd700",
+    "#c0c8cf",
+    "#999999",
+    "#aaaaaa",
+]
+background = "#141414"
+brights = [
+    "#333333",
+    "#ffdd05",
+    "#f3ecd4",
+    "#ed1010",
+    "#ffdd05",
+    "#444444",
+    "#999999",
+    "#aaaaaa",
+]
+cursor_bg = "#ffd700"
+cursor_border = "#ffd700"
+foreground = "#ffffff"
+selection_bg = "#ffffff"
+cursor_fg = "#141414"
+selection_fg = "#141414"
+
+[colors.indexed]
+16 = "#aaaaaa"
+17 = "#444444"
+18 = "#121212"
+19 = "#222222"
+20 = "#999999"
+21 = "#999999"
+
+[metadata]
+aliases = []
+author = "shalst: stolen from - metalelf0 (https://github.com/metalelf0)"
+name = "Black Noodle"

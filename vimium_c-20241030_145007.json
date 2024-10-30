@@ -1,0 +1,38 @@
+{
+	"name": "Vimium C",
+	"@time": "10/30/2024, 2:50:07 PM",
+	"time": 1730314207778,
+	"environment": {
+		"extension": "1.99.997",
+		"platform": "linux",
+		"firefox": 1
+	},
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"map <c-j> scrollPageDown",
+		"map <c-k> scrollPageUp",
+		"map <c-h> previousTab",
+		"map <c-s-l> nextTab",
+		"map <c-l> nextTab",
+		"map <c-w> removeTab",
+		"map <c-s-h> previousTab",
+		"map <c-s-r> reload",
+		"map <c-s-w> removeTab",
+		"mapKey <c-s-e> <esc>",
+		"mapKey <c-space> <esc>",
+		"map d<c-l> closeTabsOnRight",
+		"map d<c-h> closeTabsOnLeft",
+		"map Q moveTabToIncognito",
+		"map <a-=> sortTabs",
+		"map <c-s-=> zoomIn",
+		"map <c-s--> zoomOut",
+		"map Y autoCopy",
+		"map <c-t> autoOpen",
+		"map <c-s> searchAs",
+		"map <space><space> clearFindHistory",
+		"mapKey s F",
+		""
+	],
+	"vimSync": true
+}

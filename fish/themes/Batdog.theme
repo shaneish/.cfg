@@ -1,0 +1,31 @@
+# name: 'Batdog'
+# url: ''
+# preferred_background: 303446
+
+fish_color_normal ffffff # #ffffff
+fish_color_command ffffff # #ffffff
+fish_color_quote c0c8cf # #c0c8cf
+fish_color_redirection c0c8cf # #c0c8cf
+fish_color_valid_path c0c8cf # #c0c8cf
+fish_color_end ffd700 # #ffd700
+fish_color_error c0c8cf --bold --underline # #c0c8cf
+fish_color_param c0c8cf # #ffd700
+Fish_color_comment ffd700 --italics # #ffd700
+fish_color_match --background=c0c8cf # #c0c8cf
+fish_color_status ff3939 # #ff3939
+fish_color_selection white --bold --background=brblack
+fish_color_search_match bryellow --background=brblack
+fish_color_history_current --bold
+fish_color_operator ffde00 # #ffde00
+fish_color_escape ffde00 # #ffde00
+fish_color_cwd c1c1c1 # #c1c1c1
+fish_color_cwd_root c1c1c1 # #c1c1c1
+fish_color_autosuggestion 636363 # #636363
+fish_color_user c0c8cf # #c0c8cf
+fish_color_host ffde00 # #ffde00
+fish_pager_color_background
+fish_pager_color_prefix normal --bold --underline
+fish_pager_color_progress brwhite --background=cyan
+fish_pager_color_completion normal
+fish_pager_color_description ffde00 # #ffde00
+fish_pager_color_selected_background --background=brblack

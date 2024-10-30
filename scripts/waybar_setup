@@ -1,0 +1,27 @@
+#!/bin/bash
+
+WAYB_DIR=$HOME/.config/waybar
+WAYB=$WAYB_DIR/config
+WAYB_CURR="$(readlink -f $WAYB)"
+WAYB_NEW=$WAYB_DIR/config-$DESKTOP_SESSION
+
+_lnk() {
+    ln -ns $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
+}
+
+_rm() {
+  if [ -e "$1" ]; then
+    if type -P rip >/dev/null 2>&1; then
+      rip $1
+    else
+      rm $1
+    fi
+  fi
+}
+
+if [[ ! $(basename $WAYB_CURR) == $(basename $WAYB_NEW) ]]; then
+    _rm $WAYB_CURR
+    ln -ns $WAYB_NEW $WAYB
+fi
+
+echo $WAYB_NEW

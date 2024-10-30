@@ -1,0 +1,6 @@
+databricks-connect==15.4
+databricks-sdk==0.33.0
+ipython
+ruff
+git+https://github.com/shaneish/dbrx-sessionizer.git
+git+https://github.com/shaneish/fnkpy.git

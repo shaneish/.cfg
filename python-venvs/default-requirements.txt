@@ -1,0 +1,6 @@
+ipython
+click
+requests
+auto-optional
+tomli
+git+https://github.com/shaneish/fnkpy.git

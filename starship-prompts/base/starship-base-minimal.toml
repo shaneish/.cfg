@@ -1,0 +1,24 @@
+format = "$sudo$username$character"
+command_timeout = 1000
+
+[directory]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_branch]
+disabled = true
+
+[git_status]
+disabled = true
+
+[python]
+symbol = "py"
+format = "\\[[$version]($style)\\]"
+version_format = "py${major}.${minor}"
+style = "#616569"
+disabled = true
+
+[hostname]
+disabled = true

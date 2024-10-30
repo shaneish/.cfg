@@ -1,0 +1,7 @@
+wheel
+pynvim
+ipython
+ruff
+black
+databricks-connect==15.4
+databricks-sdk==0.33.0
