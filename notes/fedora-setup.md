@@ -84,7 +84,7 @@ git config --global user.name "Shane Stephenson"
 git config --global credential.helper store
 gh auth login
 
-git clone https://github.com/oatish/cfg.git $HOME/.config/.cfg
+git clone https://github.com/shaneish/.cfg.git $HOME/.config/.cfg
 
 cd $HOME/.config/.cfg
 stow .
