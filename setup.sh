@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -z "$CONFIG_DIRECTORY" ]; then
     export CONFIG_DIRECTORY=$HOME/.config

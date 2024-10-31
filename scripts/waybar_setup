@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 WAYB_DIR=$HOME/.config/waybar
 WAYB=$WAYB_DIR/config
