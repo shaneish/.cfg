@@ -169,12 +169,15 @@ cat > /etc/keyd/default.conf <<EOL
 
 [main]
 capslock = overload(control, esc)
+esc = capslock
 
 [alt]
 h = left
 l = right
 j = down
 k = up
+v = C-v
+c = C-c
 EOL
 
 systemctl enable keyd && systemctl start keyd

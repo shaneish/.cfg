@@ -102,3 +102,5 @@ $env.NU_PLUGIN_DIRS = [
 
 $env.PATH = (zsh -c "echo $PATH") | append "/usr/local/bin" | str join ":"
 starship init nu | save -f ~/.config/nushell/starship_init.nu
+
+source "/home/shaneish/.config/bhop/scripts/runner.nu"

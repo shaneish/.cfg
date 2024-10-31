@@ -3,6 +3,14 @@ local io = require 'io';
 local os = require 'os';
 local config = {}
 
+local function read_file(path)
+    local file = io.open(path, "rb") -- r read mode and b binary mode
+    if not file then return nil end
+    local content = file:read "*a" -- *a or *all reads the whole file
+    file:close()
+    return content
+end
+
 wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   local scrollback = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows);
 
@@ -43,50 +51,8 @@ Alt = 'ALT'
 NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
-if wezterm.target_triple:find("windows") ~= nil then
-  config.default_domain = 'WSL:Ubuntu'
-  config.window_decorations = "RESIZE"
-  config.window_padding = {
-    left = 10,
-    right = 10,
-    top = 0,
-    bottom = 5,
-  }
-elseif wezterm.target_triple:find("darwin") ~= nil then
-  Alt = 'OPT'
-  NonAlt = 'CMD'
-  AltAlt = 'CMD'
-  config.window_decorations = "RESIZE"
-  config.set_environment_variables = {
-   PATH = "$PATH:$HOME/.fzf/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/bin:/bin:/opt/homebrew/bin:/usr/local/bin",
-  }
-  config.window_padding = {
-    left = 10,
-    right = 10,
-    top = 0,
-    bottom = 2,
-  }
-else
-  config.window_decorations = "NONE"
-  config.set_environment_variables = {
-   PATH = "$PATH:$HOME/.fzf/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/bin:/bin:/home/linuxbrew/bin:/home/linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/go/bin",
-  }
-  config.window_padding = {
-    left = 10,
-    right = 10,
-    top = 0,
-    bottom = 5,
-  }
-  config.front_end = 'Software'
-  if Desktop then
-    if Desktop:find('hyprland') ~= nil then
-      config.enable_wayland  = false
-    end
-  end
-end
 
 config.disable_default_key_bindings = true
--- config.enable_wayland  = false
 config.font = wezterm.font 'JetBrains Mono Regular'
 config.font_size = 8.5
 config.enable_scroll_bar = true
@@ -131,6 +97,57 @@ config.foreground_text_hsb = {
   saturation = 1.8,
   brightness = 1.5,
 }
+
+if wezterm.target_triple:find("windows") ~= nil then
+  config.default_domain = 'WSL:Ubuntu'
+  config.window_decorations = "RESIZE"
+  config.window_padding = {
+    left = 10,
+    right = 10,
+    top = 0,
+    bottom = 5,
+  }
+elseif wezterm.target_triple:find("darwin") ~= nil then
+  Alt = 'OPT'
+  NonAlt = 'CMD'
+  AltAlt = 'CMD'
+  config.window_decorations = "RESIZE"
+  config.set_environment_variables = {
+   PATH = wezterm.home_dir .. "/.fzf/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin:/usr/bin:/bin:/opt/homebrew/bin:/usr/local/bin",
+  }
+  config.window_padding = {
+    left = 10,
+    right = 10,
+    top = 0,
+    bottom = 2,
+  }
+else
+  config.window_decorations = "NONE"
+  config.set_environment_variables = {
+   PATH = wezterm.home_dir .. "/.fzf/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin:/usr/bin:/bin:/home/linuxbrew/bin:/home/linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:" .. wezterm.home_dir .. "/go/bin",
+  }
+  config.window_padding = {
+    left = 10,
+    right = 10,
+    top = 0,
+    bottom = 5,
+  }
+  -- config.front_end = 'Software'
+  if Desktop then
+    if Desktop:find('hyprland') ~= nil then
+      config.enable_wayland  = false
+    end
+  end
+  os_info = read_file("/etc/os-release")
+  if os_info then
+    if os_info:find("nixos") ~= nil then
+      config.front_end="WebGpu"
+      config.set_environment_variables = {
+        PATH = "/run/wrappers/bin:/run/current-system/sw/bin:" .. wezterm.home_dir .. "/.nix-profile/bin/:/nix/profile/bin:/nix/var/nix/profiles/default/bin:" ..wezterm.home_dir .. "/.local/state/nix/profile/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin",
+      }
+    end
+  end
+end
 
 config.key_tables = {
 

@@ -17,6 +17,16 @@ end
 source "$FISH_CONFIG_DIR/env.fish"
 source "$FISH_CONFIG_DIR/functions.fish"
 
+set paths $HOME/.local/bin $HOME/.cargo/bin $HOME/.modular/bin $HOME/.config/scripts $HOME/go/bin
+for p in $paths
+    if test -d $p; and not contains $p $PATH
+        fish_add_path $p
+    end
+end
+
+fish_add_path $HOME/.modular/bin
+fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.local/bin
 
 if status is-interactive
     source "$FISH_CONFIG_DIR/greeting.fish"
@@ -25,9 +35,9 @@ if status is-interactive
         starship init fish | source
     end
     fish_config theme choose Batdog
-    if not string match -q "" (which python)
-        pyv
-    end
+    # if not string match -q "" (which python)
+    #     pyv
+    # end
     set fish_cursor_default block
     set fish_cursor_insert line blink
     set fish_cursor_replace_one underscore blink
@@ -41,4 +51,3 @@ if not string match -q "" (which fzf)
     fzf --fish | source
 end
 
-fish_add_path /home/shane/.modular/bin

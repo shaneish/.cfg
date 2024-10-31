@@ -10,7 +10,8 @@ local config = {
      vim = '" %%',
    },
    default_highlight_group = "CursorLine",
-   custom_highlight_group = { fg = "#222222", bg = "#ffd700", bold = true },
+   -- example highlight group: custom_highlight_group = { fg = "#222222", bg = "#ffd700", bold = true },
+   custom_highlight_group = { },
    symbol = ">>",
    disabled_filetypes = { 'txt', 'text', 'vim' },
 }
@@ -85,7 +86,7 @@ function smartcolumn.setup(user_config)
    end
    -- highlight ReplCodeBlocks guifg=#ffffff guibg=#ffd700
    if not_disabled() then
-     if user_config.custom_highlight_group ~= nil then
+     if next(config.custom_highlight_group) == nil then
        config["highlight_group"] = config.default_highlight_group
      else
        vim.api.nvim_set_hl(0, 'ReplCodeBlocks', config.custom_highlight_group)

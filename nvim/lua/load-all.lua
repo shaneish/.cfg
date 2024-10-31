@@ -9,7 +9,8 @@ require('nvim-tree-config')
 require('diagnostics')
 require('telescope').load_extension('harpoon')
 require('repl-block-highlight').setup({
-  default_highlight_group = "DiffDelete"
+  default_highlight_group = "CursorLine",
+  -- custom_highlight_group = { fg = "#000000", bg = "#7f7f7f", bold = true },
 })
 require("toggleterm").setup()
 require("autoclose").setup({
