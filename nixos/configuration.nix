@@ -64,7 +64,7 @@
     # Enable modesetting for Wayland compositors (hyprland)
     modesetting.enable = true;
     # Use the open source version of the kernel module
-    open = true;
+    open = false;
     # Enable the Nvidia settings menu
     nvidiaSettings = true;
     # Select the appropriate driver version for your specific GPU
@@ -139,20 +139,18 @@
     keyboards = {
       default = {
         ids = [ "*" ];
-    settings = {
-          main = {
-            capslock = "overload(control, esc)";
-        esc = "capslock";
-          };
-          alt = {
-            h = "left";
-            l = "right";
-            j = "down";
-            k = "up";
-            v = "C-v";
-            c = "C-c";
-          };
-    };
+        settings = {
+            main = {
+                capslock = "overload(control, esc)";
+                esc = "capslock";
+            };
+            alt = {
+                h = "left";
+                l = "right";
+                j = "down";
+                k = "up";
+            };
+        };
       };
     };
   };
@@ -210,6 +208,7 @@
     xclip
     wl-clipboard-rs
     google-chrome
+    hyprcursor
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -94,10 +94,10 @@ end
 # if test $COLUMNS -gt (math (max_length $xlarge) + 12) && test $LINES -gt (math (count $xlarge) + 5)
 #     parse_greeting 3 1 $xlarge
 # else if test $COLUMNS -gt (math (max_length $large) + 12) && test $LINES -gt (math (count $large) + 5)
-if test $COLUMNS -gt (math (max_length $large) + 25) && test $LINES -gt (math (count $large) + 20)
+if test $COLUMNS -gt (math (max_length $medium) + 20) && test $LINES -gt (math (count $medium) + 20)
     printf '%s\n' '' ''
     parse_greeting 3 1 $large
-else if test $COLUMNS -gt (math (max_length $medium) + 20) && test $LINES -gt (math (count $medium) + 15)
+else if test $COLUMNS -gt (math (max_length $medium) + 10) && test $LINES -gt (math (count $medium) + 10)
     printf '%s\n' '' ''
     parse_greeting 3 1 $medium
 else

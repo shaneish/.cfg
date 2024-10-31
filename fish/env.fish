@@ -62,6 +62,17 @@ set -gx NVIM_PYENV_ACTIVATE (fd "activate.fish" $NVIM_DIRECTORY -t f | head -n 1
 set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f | head -n 1)
 alias .="$STARSHIP_SWITCHER 0"
 alias nvm="$NVIM_PYENV_ACTIVATE; nvim"
+set python_venv_dir python-venvs pyenvs pyvenv
+set python_venv_priority fast-default default fast venv .venv
+for d in $python_venv_dir
+    for p in $python_venv_priority
+        if test -d $CONFIG_DIRECTORY/$d/$p
+            alias pyv="source $CONFIG_DIRECTORY/$d/$p/bin/activate.fish"
+            alias py="$CONFIG_DIRECTORY/$d/$p/bin/python"
+            break
+        end
+    end
+end
 
 function handle_empty_line
     read -l line

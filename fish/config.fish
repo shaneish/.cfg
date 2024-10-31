@@ -35,9 +35,9 @@ if status is-interactive
         starship init fish | source
     end
     fish_config theme choose Batdog
-    # if not string match -q "" (which python)
-    #     pyv
-    # end
+    if type -q pyv
+        pyv
+    end
     set fish_cursor_default block
     set fish_cursor_insert line blink
     set fish_cursor_replace_one underscore blink
