@@ -69,6 +69,8 @@
     nvidiaSettings = true;
     # Select the appropriate driver version for your specific GPU
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    powerManagement.enable = false; # enable if gpu crashes after sleep
+    powerManagement.finegrained = false; # turns off gpu when not in use
   };
   # Configure keymap in X11
   services.xserver.xkb = {
