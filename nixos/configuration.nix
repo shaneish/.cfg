@@ -15,7 +15,7 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "shnixos"; # Define your hostname.
+  # networking.hostName = "shnixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -147,8 +147,8 @@
             l = "right";
             j = "down";
             k = "up";
-        v = "C-v";
-        c = "C-c";
+            v = "C-v";
+            c = "C-c";
           };
     };
       };
