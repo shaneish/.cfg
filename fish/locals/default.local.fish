@@ -1,3 +1,3 @@
-set BROWSER "/usr/bin/google-chrome-stable"
-set EDITOR "/usr/bin/nvim"
-set SHELL "/usr/bin/fish"
+set BROWSER "google-chrome-stable"
+set EDITOR "nvim"
+set SHELL "fish"
