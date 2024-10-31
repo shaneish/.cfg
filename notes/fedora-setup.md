@@ -65,14 +65,14 @@ fedora-stuff
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && sync
 sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && sync
 sudo dnf install -y fedora-workstation-repositories
-sudo dnf install -y git gcc glibc-devel cmake gdb nodejs python3.13 neovim fzf fish golang stow gh wget libxcb openssl-devel libX11-devel fuse-libs glibc
+sudo dnf install -y git gcc glibc-devel cmake gdb nodejs python3.13 neovim fzf fish golang stow gh wget libxcb openssl-devel libX11-devel fuse-libs glibc llvm
 ```
 
 nvidia-stuff
 ```bash
-# sudo dnf install kernel-devel akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs vulkan vdpauinfo libva-vdpau-driver libva-utils -y && sync && sudo akmods --force && sync
-# sudo dracut --force
-# sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1';
+sudo dnf install kernel-devel
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs vulkan vdpauinfo libva-vdpau-driver libva-utils -y && sync && sudo akmods --force && sync
+sudo dnf upgrade --refresh
 
 # sudo systemctl enable nvidia-hibernate.service nvidia-suspend.service nvidia-resume.service nvidia-powerd.service
 ```

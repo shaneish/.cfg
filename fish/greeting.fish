@@ -91,13 +91,17 @@ function parse_greeting
     set_color normal
 end
 
-if test $COLUMNS -gt (math (max_length $xlarge) + 12) && test $LINES -gt (math (count $xlarge) + 5)
-    parse_greeting 3 1 $xlarge
-else if test $COLUMNS -gt (math (max_length $large) + 12) && test $LINES -gt (math (count $large) + 5)
+# if test $COLUMNS -gt (math (max_length $xlarge) + 12) && test $LINES -gt (math (count $xlarge) + 5)
+#     parse_greeting 3 1 $xlarge
+# else if test $COLUMNS -gt (math (max_length $large) + 12) && test $LINES -gt (math (count $large) + 5)
+if test $COLUMNS -gt (math (max_length $large) + 25) && test $LINES -gt (math (count $large) + 20)
+    printf '%s\n' '' ''
     parse_greeting 3 1 $large
-else if test $COLUMNS -gt (math (max_length $medium) + 12) && test $LINES -gt (math (count $medium) + 5)
+else if test $COLUMNS -gt (math (max_length $medium) + 20) && test $LINES -gt (math (count $medium) + 15)
+    printf '%s\n' '' ''
     parse_greeting 3 1 $medium
 else
+    printf '%s\n' '' ''
     parse_greeting 8 1 $minimal
 end
 

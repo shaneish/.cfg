@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 gaps inner 10
-gaps outer 10
+gaps outer 0
 # default_border none
 # default_floating_border none
 set $term wezterm

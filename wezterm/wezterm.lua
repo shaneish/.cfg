@@ -42,6 +42,7 @@ end)
 Alt = 'ALT'
 NonAlt = 'META'
 AltAlt = 'ALT'
+Desktop = os.getenv("DESKTOP_SESSION")
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Ubuntu'
   config.window_decorations = "RESIZE"
@@ -77,11 +78,17 @@ else
     bottom = 5,
   }
   config.front_end = 'Software'
+  if Desktop then
+    if Desktop:find('hyprland') ~= nil then
+      config.enable_wayland  = false
+    end
+  end
 end
 
 config.disable_default_key_bindings = true
-config.font = wezterm.font 'JetBrains Mono Semibold'
-config.font_size = 9.5
+-- config.enable_wayland  = false
+config.font = wezterm.font 'JetBrains Mono Regular'
+config.font_size = 8.5
 config.enable_scroll_bar = true
 config.color_scheme = "Black Noodle"
 config.default_prog = { 'fish' }
@@ -98,12 +105,21 @@ config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 config.colors = {
-    tab_bar = {
-        background = "rgba(0,0,0,0)"
+  tab_bar = {
+    background = "rgba(0,0,0,0)",
+    active_tab = {
+      fg_color = "#ffd700",
+      bg_color = "#000000"
     },
+    inactive_tab = {
+      fg_color = "#8e8e8e",
+      bg_color = "#242424"
+    }
+  },
 }
 config.window_frame = {
-    font_size = 10
+  font_size = 9,
+  font = wezterm.font 'JetBrains Mono Bold'
 }
 config.inactive_pane_hsb = {
   hue = 1.2,

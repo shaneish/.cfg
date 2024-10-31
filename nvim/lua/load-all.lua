@@ -1,4 +1,5 @@
 servers = { "terraformls", "pyright", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint" }
+mason_servers = { "terraformls", "pyright", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint" }
 require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
@@ -38,7 +39,7 @@ require('mason').setup({
     }
 })
 require('mason-lspconfig').setup {
-    ensure_installed = servers
+    ensure_installed = mason_servers
 }
 require('leap').add_default_mappings()
 require('csvview').setup()

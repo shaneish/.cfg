@@ -20,7 +20,7 @@ _rm() {
 }
 
 if [[ ! $(basename $WAYB_CURR) == $(basename $WAYB_NEW) ]]; then
-    _rm $WAYB_CURR
+    _rm $WAYB
     ln -ns $WAYB_NEW $WAYB
 fi
 

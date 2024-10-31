@@ -1,14 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar at the bottom of your screen
-    "height": 24, // Waybar height
+    "height": 18, // Waybar height
     "spacing": 8,
     "reload_style_on_change": true,
     "position": "top",
     "margin-bottom": 0,
     "margin-top": 6,
-    // "width": 1366, // Waybar width
-    // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-right": ["network", "pulseaudio", "battery", "clock"],
     "sway/workspaces": {

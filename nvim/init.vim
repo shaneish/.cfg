@@ -64,6 +64,7 @@ Plug 'jbyuki/venn.nvim'
 Plug 'pappasam/nvim-repl'
 Plug 'scalameta/nvim-metals'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+Plug 'czheo/mojo.vim'
 call plug#end()
 
 filetype plugin indent on
