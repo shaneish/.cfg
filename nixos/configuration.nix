@@ -45,7 +45,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true; #This line enables sddm
+  services.displayManager.sddm.enable = true; #This line enables sddm
 
   programs.hyprland = { # we use this instead of putting it in systemPackages/users
     enable = true;
@@ -58,14 +58,12 @@
   nixpkgs.config.allowUnfree = true;
   # NVIDIA drivers are unfree.
   services.xserver.videoDrivers = [ "nvidia" ]; # If you are using a hybrid laptop add its iGPU manufacturer
-  hardware.opengl = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
 
   hardware.nvidia = {
     # Enable modesetting for Wayland compositors (hyprland)
     modesetting.enable = true;
-    # Use the open source version of the kernel module (for driver 515.43.04+)
+    # Use the open source version of the kernel module
     open = true;
     # Enable the Nvidia settings menu
     nvidiaSettings = true;
