@@ -87,66 +87,66 @@ PATH = '/usr/bin:/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}:$HOME/.local/bin'
 # You can uncomment this line to open up terminal with alt + enter shortcut
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
-cmd-ctrl-enter = 'exec-and-forget wezterm'
-cmd-ctrl-t = 'exec-and-forget wezterm'
-cmd-ctrl-m = 'exec-and-forget aerospace macos-native-minimize'
+alt-enter = 'exec-and-forget wezterm'
+alt-t = 'exec-and-forget wezterm'
+alt-m = 'exec-and-forget aerospace macos-native-minimize'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-cmd-ctrl-slash = 'layout tiles horizontal vertical'
-cmd-ctrl-comma = 'layout accordion horizontal vertical'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-cmd-ctrl-h = 'focus left'
-cmd-ctrl-j = 'focus down'
-cmd-ctrl-k = 'focus up'
-cmd-ctrl-l = 'focus right'
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
-cmd-ctrl-shift-h = 'move left'
-cmd-ctrl-shift-j = 'move down'
-cmd-ctrl-shift-k = 'move up'
-cmd-ctrl-shift-l = 'move right'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
 # extras
-cmd-ctrl-shift-space = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
-cmd-ctrl-space = 'layout floating tiling' # 'floating toggle' in i3
-cmd-ctrl-shift-f = 'fullscreen'
-cmd-ctrl-shift-r = 'reload-config'
+alt-shift-space = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+alt-space = 'layout floating tiling' # 'floating toggle' in i3
+alt-shift-f = 'fullscreen'
+alt-shift-r = 'reload-config'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-cmd-ctrl-shift-minus = 'resize smart -50'
-cmd-ctrl-shift-equal = 'resize smart +50'
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-cmd-ctrl-1 = 'workspace 1' # terminal
-cmd-ctrl-2 = 'workspace 2' # browser
-cmd-ctrl-3 = 'workspace 3' # webex
-cmd-ctrl-4 = 'workspace 4' # outlook
-cmd-ctrl-5 = 'workspace 5' # outlook inbox
-cmd-ctrl-6 = 'workspace 6'
-cmd-ctrl-7 = 'workspace 7'
-cmd-ctrl-8 = 'workspace 8'
-cmd-ctrl-9 = 'workspace 9' # active scratch
-cmd-ctrl-0 = 'workspace 0' # active call
-cmd-ctrl-b = 'workspace b' # longterm scratch
-cmd-ctrl-s = 'workspace s' # shortterm scratch
+alt-1 = 'workspace 1' # terminal
+alt-2 = 'workspace 2' # browser
+alt-3 = 'workspace 3' # webex
+alt-4 = 'workspace 4' # outlook
+alt-5 = 'workspace 5' # outlook inbox
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9' # active scratch
+alt-0 = 'workspace 0' # active call
+alt-b = 'workspace b' # longterm scratch
+alt-s = 'workspace s' # shortterm scratch
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-cmd-ctrl-shift-1 = 'move-node-to-workspace 1'
-cmd-ctrl-shift-2 = 'move-node-to-workspace 2'
-cmd-ctrl-shift-3 = 'move-node-to-workspace 3'
-cmd-ctrl-shift-4 = 'move-node-to-workspace 4'
-cmd-ctrl-shift-5 = 'move-node-to-workspace 5'
-cmd-ctrl-shift-6 = 'move-node-to-workspace 6'
-cmd-ctrl-shift-7 = 'move-node-to-workspace 7'
-cmd-ctrl-shift-8 = 'move-node-to-workspace 8'
-cmd-ctrl-shift-9 = 'move-node-to-workspace 9'
-cmd-ctrl-shift-0 = 'move-node-to-workspace 0'
-cmd-ctrl-shift-b = 'move-node-to-workspace b'
-cmd-ctrl-shift-s = 'move-node-to-workspace s'
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 0'
+alt-shift-b = 'move-node-to-workspace b'
+alt-shift-s = 'move-node-to-workspace s'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-cmd-ctrl-shift-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'workspace-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-ctrl-l = 'workspace next --wrap-around'
@@ -155,7 +155,7 @@ alt-ctrl-j = 'exec-and-forget aerospace-jump.py prev -o exec'
 alt-ctrl-k = 'exec-and-forget aerospace-jump.py next -o exec'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-cmd-ctrl-shift-enter = 'mode service'
+alt-shift-enter = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -166,15 +166,15 @@ r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
-cmd-ctrl-l = 'resize width -50'
-cmd-ctrl-j = 'resize height +50'
-cmd-ctrl-k = 'resize height -50'
-cmd-ctrl-h = 'resize width +50'
+alt-l = 'resize width -50'
+alt-j = 'resize height +50'
+alt-k = 'resize height -50'
+alt-h = 'resize width +50'
 
-cmd-ctrl-shift-h = ['join-with left', 'mode main']
-cmd-ctrl-shift-j = ['join-with down', 'mode main']
-cmd-ctrl-shift-k = ['join-with up', 'mode main']
-cmd-ctrl-shift-l = ['join-with right', 'mode main']
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
