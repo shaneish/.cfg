@@ -229,6 +229,9 @@
     lua-language-server
     vimPlugins.nvim-treesitter-parsers.julia
     vimPlugins.CopilotChat-nvim
+    neofetch
+    gdb
+    jq
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
