@@ -138,8 +138,8 @@ call H("Delimiter",      s:norm)
 call H("Debug",          s:norm)
 call H("Repeat",         s:norm)
 call H("Label",          s:norm)
-call H("Operator",       s:string_type)
-call H("Exception",      s:string_type)
+call H("Operator",       s:gray_dish)
+call H("Exception",      s:gray_dish)
 
 " ----------
 " - C like -

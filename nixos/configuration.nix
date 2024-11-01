@@ -232,6 +232,8 @@
     neofetch
     gdb
     jq
+    go-task
+    go
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
