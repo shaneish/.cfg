@@ -67,6 +67,7 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'czheo/mojo.vim'
 Plug 'stevearc/aerial.nvim' " navigate by code structure
 Plug 'simrat39/symbols-outline.nvim' " view code structure
+Plug 'romgrk/barbar.nvim'
 call plug#end()
 
 filetype plugin indent on
@@ -439,8 +440,9 @@ nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-]> :cnext<CR>
 nmap <C-[> :cprevious<CR>
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
+nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
+nmap <Tab> :BufferNext<CR>
+nmap <S-Tab> :BufferPrevious<CR>
 xmap <leader><leader>w <cmd>w!<CR>
 xmap <leader><leader>q <cmd>q!<CR>
 

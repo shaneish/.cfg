@@ -15,19 +15,52 @@ let s:light_gray = "#cdcdcd"
 let s:light_yellow = "#fcfca9"
 let s:gray_d = "#3d3d3d"
 let s:gray_dd = "#515151"
+" let s:gray_dd = "#515151"
+" let s:gray_y = "#777777"
 let s:gray_y = "#777777"
 let s:gray_dark = "#202020"
-let s:gray_dish = "#636363"
+" let s:gray_dish = "#636363"
+let s:gray_dish = "#c0c0c0"
+let s:gunmetal = "#818589"
+let s:platinum = "#e5e4e2"
+let s:smoke = "#848884"
+let s:light_gray = "#d3d3d3"
+let s:grey = "#808080"
+let s:pewter = "#899499"
 
-let s:string_type = s:gray_dd
+let s:dark_0 = "#1f1f1f"
+let s:dark_1 = "#1e1e1e"
+let s:med_0 = "#323232"
+let s:med_1 = "#454545"
+let s:med_2 = "#595959"
+let s:med_3 = "#636363"
+let s:med_4 = "#6c6c6c"
+let s:med_5 = "#767676"
+let s:light_0 = "#808080"
+let s:light_1 = "#8a8a8a"
+let s:light_2 = "#949494"
+let s:light_3 = "#9d9d9d"
+let s:light_4 = "#a7a7a7"
+let s:light_5 = "#b1b1b1"
+let s:light_6 = "#bbbbbb"
+let s:light_7 = "#c5c5c5"
+let s:light_8 = "#d8d8d8"
+let s:light_9 = "#e2e2e2"
+let s:light_10 = "#ececec"
+let s:light_11 = "#f6f6f6"
+
+let s:string_type = s:light_1
 let s:string_bg = "NONE"
-let s:high_fg = s:gray_dark
+let s:high_fg = s:dark_0
 let s:high_bg = s:norm
 let s:search_fg = "NONE"
 let s:search_bg = "NONE"
 let s:search_gui = "underdashed,bold"
-let s:comments_fg = s:gray_d
+let s:comments_fg = s:med_4
 let s:comments_bg = "NONE"
+let s:val = s:light_1
+let s:ops = s:med_5
+let s:fn = s:norm
 
 if g:colorscheme_strings_as_comments == 1
     let s:string_type = s:comment_fg
@@ -55,7 +88,7 @@ call H("Normal", s:norm, "#000000")
 call H("Cursor", s:norm)
 call H("LineNr", s:gray_d)
 call H("CursorLineNR", s:norm, "#000000", "bold,underline")
-call H("CursorLine",  s:norm, s:gray_dark)
+call H("CursorLine",  "NONE", s:med_0, "bold")
 
 " -----------------
 " - Number column -
@@ -70,7 +103,7 @@ call H("Folded",       s:gray, "NONE", "NONE")
 " -------------------------
 call H("VertSplit",   "NONE",          "NONE",      "NONE")
 call H("ColorColumn", "NONE",          s:gray_dark, "NONE")
-call H("TabLine",     s:gray,          "NONE",      "NONE")
+call H("TabLine",     s:string_type,          "NONE",      "NONE")
 call H("TabLineFill", s:bright_yellow, "NONE",      "NONE")
 call H("TabLineSel",  s:bright_yellow, "NONE",      "NONE")
 
@@ -95,9 +128,9 @@ call H("MoreMsg",      s:gray_y, "NONE", "NONE")
 " --------------
 " - Visual aid -
 " --------------
-call H("MatchParen",      s:high_fg,              s:gray_dish)
-call H("Visual",          s:high_fg,              s:beige, "bold")
-call H("VisualNOS",       s:high_fg,              s:beige, "bold")
+call H("MatchParen",      s:high_fg,              s:high_bg)
+call H("Visual",          s:high_fg,              s:high_bg, "bold")
+call H("VisualNOS",       s:high_fg,              s:high_bg, "bold")
 call H("NonText",         s:high_fg,              "NONE")
 call H("Todo",            s:high_bg,              "NONE", "undercurl")
 call H("Underlined",      s:high_bg,              "NONE", "undercurl")
@@ -112,21 +145,21 @@ call H("WhiteSpace",      s:bright_yellow,        "NONE")
 " --------------------------------
 " Variable types
 " --------------------------------
-call H("Constant",       s:gray_y,       "NONE")
+call H("Constant",       s:val,       "NONE")
 call H("String",         s:string_type,  s:comments_bg, "bold")
 call H("StringDelimiter",s:norm,  s:comments_bg, "bold")
-call H("Character",      s:gray_y,       "NONE")
-call H("Number",         s:gray_y,       "NONE")
-call H("Boolean",        s:gray_y,       "NONE")
-call H("Float",          s:gray_y,       "NONE")
-call H("Identifier",     s:norm,        "NONE")
-call H("Function",       s:norm,        "NONE")
+call H("Character",      s:val,       "NONE")
+call H("Number",         s:val,       "NONE")
+call H("Boolean",        s:val,       "NONE")
+call H("Float",          s:val,       "NONE")
+call H("Identifier",     s:fn,        "NONE")
+call H("Function",       s:fn,        "NONE")
 
 " --------------------------------
 " Language constructs
 " --------------------------------
-call H("Keyword",        s:gray_dish)
-call H("Statement",      s:norm)
+call H("Keyword",        s:fn)
+call H("Statement",      s:ops)
 call H("Repeat",         s:norm)
 call H("Comment",        s:comments_fg,   s:comments_bg, "italic")
 call H("SpecialComment", s:comments_fg,   s:comments_bg, "italic")
@@ -137,22 +170,22 @@ call H("Tag",            s:norm)
 call H("Delimiter",      s:norm)
 call H("Debug",          s:norm)
 call H("Repeat",         s:norm)
-call H("Label",          s:norm)
-call H("Operator",       s:gray_dish)
-call H("Exception",      s:gray_dish)
+call H("Label",          s:ops)
+call H("Operator",       s:ops)
+call H("Exception",      s:ops)
 
 " ----------
 " - C like -
 " ----------
-call H("PreProc", s:gray_dish)
-call H("Include", s:gray_dish)
-call H("Define", s:gray_dish)
-call H("Macro", s:gray_dish)
-call H("PreCondit", s:gray_dish)
-call H("Type", s:gray_dish)
-call H("StorageClass", s:gray_dish)
-call H("Structure", s:gray_dish)
-call H("TypeDef", s:gray_dish)
+call H("PreProc", s:fn)
+call H("Include", s:fn)
+call H("Define", s:fn)
+call H("Macro", s:fn)
+call H("PreCondit", s:fn)
+call H("Type", s:fn)
+call H("StorageClass", s:fn)
+call H("Structure", s:fn)
+call H("TypeDef", s:fn)
 
 " --------------------------------
 " Diff
