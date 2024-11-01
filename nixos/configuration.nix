@@ -4,6 +4,8 @@
 
 { config, pkgs, ... }:
 
+# %%
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -105,7 +107,6 @@
     description = "shaneish";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      nodejs_20
       discord
       firefox
       flameshot
@@ -157,6 +158,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nodejs_22
     neovim
     python313
     kitty
@@ -209,6 +211,24 @@
     wl-clipboard-rs
     google-chrome
     hyprcursor
+    nerdfonts
+    julia_19
+    github-copilot-cli
+    haskell-language-server
+    sumneko-lua-language-server
+    rust-analyzer
+    pyright
+    tflint
+    zls
+    neocmakelsp
+    vim-language-server
+    typos-lsp
+    terraform-lsp
+    ruff-lsp
+    metals
+    lua-language-server
+    vimPlugins.nvim-treesitter-parsers.julia
+    vimPlugins.CopilotChat-nvim
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

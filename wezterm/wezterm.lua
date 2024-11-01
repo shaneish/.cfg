@@ -104,7 +104,7 @@ if wezterm.target_triple:find("windows") ~= nil then
   config.window_padding = {
     left = 10,
     right = 10,
-    top = 0,
+    top = 5,
     bottom = 5,
   }
 elseif wezterm.target_triple:find("darwin") ~= nil then
@@ -118,7 +118,7 @@ elseif wezterm.target_triple:find("darwin") ~= nil then
   config.window_padding = {
     left = 10,
     right = 10,
-    top = 0,
+    top = 5,
     bottom = 2,
   }
 else
@@ -129,7 +129,7 @@ else
   config.window_padding = {
     left = 10,
     right = 10,
-    top = 0,
+    top = 5,
     bottom = 5,
   }
   -- config.front_end = 'Software'

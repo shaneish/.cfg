@@ -65,6 +65,8 @@ Plug 'pappasam/nvim-repl'
 Plug 'scalameta/nvim-metals'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'czheo/mojo.vim'
+Plug 'stevearc/aerial.nvim' " navigate by code structure
+Plug 'simrat39/symbols-outline.nvim' " view code structure
 call plug#end()
 
 filetype plugin indent on
@@ -289,6 +291,22 @@ function! ResizePane(amount="-5")
     endif
 endfunction
 
+function! MovePane(direction=1)
+    if winwidth(0) != &columns
+        if a:direction == 1
+            return '<C-w>l'
+        else
+            return '<C-w>h'
+        endif
+    else
+        if a:direction == 1
+            return '<C-w>k'
+        else
+            return '<C-w>j'
+        endif
+    endif
+endfunction
+
 "
 " #variables ish
 "
@@ -385,7 +403,7 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " #highlight ish
 highlight SignColumn guibg=NONE
-highlight LspInlayHint guifg=#ffffc5 gui=bold
+highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -400,7 +418,7 @@ imap <C-s> <Plug>(copilot-suggest)
 tmap kj <C-\><C-n>
 tmap <Esc> <C-\><C-n>
 tmap <C-q> <C-\><C-n>:q!<CR>
-tmap <expr> <leader><leader>d CloseIt() . '<CR>'
+tmap <expr> <leader><leader>d '<C-\><C-n>' . CloseIt() . '<CR>'
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 nmap <expr> <space><C-t> ":cd %:p:h<CR><Esc><C-t>"
@@ -459,14 +477,17 @@ nmap <space><space> <leader>
 
 " window stuff
 nmap W <C-w><C-w>
+nmap <leader>w <C-w><C-w>
 nmap dW :clo<Cr><C-w><C-w>
 nmap doW <C-w><C-w>:clo<CR>
-nmap <C-.> <C-W>l
-nmap <C-,> <C-W>h
-nmap <C-.> <C-W>l
-nmap <C-,> <C-W>h
-nmap <expr> <leader>- ResizePane("-5")
-nmap <expr> <leader>= ResizePane("+5")
+nmap <leader>cw :clo<Cr><C-w><C-w>
+nmap <leader>co <C-w><C-w>:clo<CR>
+nmap <C-.> <C-w>l
+nmap <C-,> <C-w>h
+nnoremap <expr> <leader>k MovePane(1)
+nnoremap <expr> <leader>j MovePane(0)
+nnoremap <expr> <leader>- ResizePane("-5")
+nnoremap <expr> <leader>= ResizePane("+5")
 
 " line stuff
 nnoremap <C-o> O<Esc>jo<Esc>k
@@ -476,8 +497,8 @@ nnoremap <leader>o o<Esc>k
 nnoremap <leader>O O<Esc>j
 
 " move stuff
-nnoremap <expr><C-d> '<C-d>' . Centerizer()
-nnoremap <expr><C-u> '<C-u>' . Centerizer()
+nnoremap <expr> <C-d> '<C-d>' . Centerizer()
+nnoremap <expr> <C-u> '<C-u>' . Centerizer()
 nnoremap <expr> <A-C-j> ']]' . Centerizer()
 nnoremap <expr> <A-C-k> '[[' . Centerizer()
 nnoremap <expr> ) ']m' . Centerizer()
@@ -490,12 +511,12 @@ nnoremap <expr> <C-]> ')' . Centerizer()
 nnoremap <expr> <C-[> '(' . Centerizer()
 nnoremap <expr> J Sections(0, 1, 1)
 nnoremap <expr> K Sections(0, 0, 1)
+nnoremap H {zz
+nnoremap L }zz
 nnoremap <expr> <C-j> Sections(0, 1, 0)
 nnoremap <expr> <C-k> Sections(0, 0, 0)
 nnoremap <expr> <leader>J Sections(1, 1, 0)
 nnoremap <expr> <leader>K Sections(1, 0, 0)
-nnoremap <expr> <leader>j Sections(1, 1, 1)
-nnoremap <expr> <leader>k Sections(1, 0, 1)
 nnoremap <expr> j 'j' . Centerizer()
 nnoremap <expr> k 'k' . Centerizer()
 nnoremap <expr> n 'n' . Centerizer()
@@ -562,8 +583,8 @@ xmap <space> <leader>
 xmap <space><space> <leader>
 xnoremap < <gv
 xnoremap > >gv
-xnoremap <leader>k g_
-xnoremap <leader>j _
+xnoremap <leader>l g_
+xnoremap <leader>h _
 xnoremap U J
 xnoremap <expr> j 'j' . Centerizer()
 xnoremap <expr> k 'k' . Centerizer()

@@ -8,10 +8,23 @@ require('lualine-config')
 require('nvim-tree-config')
 require('diagnostics')
 require('telescope').load_extension('harpoon')
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    vim.keymap.set("n", "K", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "J", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+  highlight_on_jump = 1000,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
 require('repl-block-highlight').setup({
   default_highlight_group = "CursorLine",
   -- custom_highlight_group = { fg = "#000000", bg = "#7f7f7f", bold = true },
 })
+require("symbols-outline").setup()
+vim.keymap.set("n", "<leader>s", "<cmd>SymbolsOutline<CR>")
 require("toggleterm").setup()
 require("autoclose").setup({
    options = {
