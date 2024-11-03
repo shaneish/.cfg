@@ -38,7 +38,11 @@ _link_normal() {
 }
 
 if [ -e "$STARSHIP_CONFIG_DIR/starship.toml" ]; then
-    rip $STARSHIP_CONFIG_DIR/starship.toml
+    if command -v rip 2>&1 >/dev/null; then
+        rip $STARSHIP_CONFIG_DIR/starship.toml
+    else
+        rm $STARSHIP_CONFIG_DIR/starship.toml
+    fi
 fi
 
 if [[ $CS == *"$ALT_FILE_IDENTIFIER"* ]]; then

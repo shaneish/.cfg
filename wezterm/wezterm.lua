@@ -70,6 +70,7 @@ config.cursor_thickness = 1
 config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
+config.warn_about_missing_glyphs = false
 config.colors = {
   tab_bar = {
     background = "rgba(0,0,0,0)",
