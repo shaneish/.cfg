@@ -74,7 +74,11 @@ filetype plugin indent on
 filetype plugin on
 let mapleader=" "
 let maplocalleader="\\"
-source $HOME/.config/nvim/theme.vim
+if has('win64')
+    source $HOME/AppData/Local/nvim/theme.vim
+else
+    source $HOME/.config/nvim/theme.vim
+endif
 syntax on
 
 "

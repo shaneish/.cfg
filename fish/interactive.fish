@@ -37,3 +37,9 @@ set fish_cursor_replace underscore blink
 set fish_cursor_external line blink
 set fish_cursor_visual block blink
 set -gx fish_vi_force_cursor line blink
+
+if type -q sk
+    source $FISH_CONFIG_DIR/skim-keybindings.fish
+else if type -q fzf
+    fzf --fish | source
+end

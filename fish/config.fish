@@ -28,7 +28,3 @@ if status is-interactive
     source $FISH_CONFIG_DIR/interactive.fish
 end
 
-if not string match -q "" (which fzf)
-    fzf --fish | source
-end
-
