@@ -124,6 +124,7 @@
       shellcheck
       vlc
       ffmpeg
+      steam
     ];
     shell = pkgs.fish;
   };
@@ -234,6 +235,10 @@
     jq
     go-task
     go
+    lutris
+    protonup-qt
+    ffmpeg
+    imagemagick
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
