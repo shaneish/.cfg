@@ -84,3 +84,20 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+function choose_background
+    set CONF_DIR $HOME/.config
+    set CFG_DIR $CONF_DIR/.cfg
+    set WALL_DIR $CFG_DIR/backgrounds
+    set BACK_FILE (fd 'background\\.\\w+' $CFG_DIR -d 1)
+    echo $WALL_DIR $BACK_FILE
+    set TYPE (random choice jpg png)
+    set NEW (random choice $WALL_DIR/*.$TYPE)
+    echo $TYPE $NEW
+    echo $BACK_FILE
+    if test -L $BACK_FILE
+        echo $BACK_FILE
+        rip $BACK_FILE
+        ln -ns $NEW $CFG_DIR/background.$TYPE
+    end
+end
