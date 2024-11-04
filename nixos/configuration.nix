@@ -237,6 +237,8 @@
     go
     lutris
     protonup-qt
+    ffmpeg
+    imagemagick
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
