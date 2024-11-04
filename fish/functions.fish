@@ -84,3 +84,7 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+function shrt
+    rg '[\\w\-]+=\\"[\\w\\:/\\.\\?\+\\-\\\]+\\"' /Users/h62756/.config/.shrtcut.toml -N | awk -F'=' '{print $1}' | sk | xargs shrtcut --grab
+end
