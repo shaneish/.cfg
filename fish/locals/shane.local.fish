@@ -10,5 +10,3 @@ alias spotify="flatpak run com.spotify.Client"
 
 set -gx BROWSER "/usr/bin/zen-browser"
 set -gx EDITOR "/usr/bin/nvim"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
