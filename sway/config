@@ -8,27 +8,29 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-gaps inner 10
+gaps inner 15
 gaps outer 0
-# default_border none
-# default_floating_border none
+
 set $term wezterm
 set $browser zen-browser
 
+default_border pixel 4
+default_floating_border pixel 4
 titlebar_padding 1
-font pango:JetBrains Mono 1
-titlebar_border_thickness 0
+font pango:JetBrains Mono 0.001
+titlebar_border_thickness 1
 client.focused "#ffd700" "#ffd700" "#000000" "#ffd700" "#ffd700"
-# exec swaymsg "workspace 1; exec $term;"
-# exec swaymsg "workspace 1; exec $browser;"
-# exec swaymsg "workspace 2; exec Discord;"
-# exec swaymsg "workspace 2; exec flatpak run com.spotify.Client;"
-exec swaymsg "waybar -c /home/shane/.config/waybar/config-sway"
+blur enable
+corner_radius 20
+
+exec ~/.config/scripts/waybar_setup
+bar {
+    swaybar_command "waybar"
+}
 
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
@@ -38,12 +40,12 @@ for_window [app_id="^.*"] inhibit_idle fullscreen
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# Recommends: rofi-wayland
-set $rofi_cmd rofi -terminal '$term'
+# Recommends: wofi-wayland
+set $wofi_cmd wofi
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
-# TODO: add window with the next release of rofi-wayland
-set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+# TODO: add window with the next release of wofi-wayland
+set $menu $wofi_cmd --show=drun
 
 ### Output configuration
 #
@@ -91,15 +93,15 @@ output * bg ~/.config/background.png fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    bindsym $mod+Shift+t exec $term
-    bindsym $mod+Shift+b exec $browser
+    bindsym $mod+t exec $term
+    bindsym $mod+b exec $browser
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym $mod+Shift+p exec $HOME/.cfg/scripts/aesthetic_switcher
+    bindsym $mod+Shift+p exec ~/.config/scripts/aesthetic_switcher
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -166,13 +168,13 @@ output * bg ~/.config/background.png fill
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # bindsym $mod+h splith
+    # bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+Shift+v layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen

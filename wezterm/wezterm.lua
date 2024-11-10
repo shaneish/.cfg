@@ -54,9 +54,9 @@ Desktop = os.getenv("DESKTOP_SESSION")
 
 config.disable_default_key_bindings = true
 config.font = wezterm.font 'JetBrains Mono Regular'
-config.font_size = 8.5
+config.font_size = 9
 config.enable_scroll_bar = false
-config.color_scheme = "Black Noodle"
+config.color_scheme = "theme"
 config.default_prog = { 'fish' }
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"

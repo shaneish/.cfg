@@ -9,7 +9,7 @@ ansi = [
     "#999999",
     "#aaaaaa",
 ]
-background = "#141414"
+background = "#000000"
 brights = [
     "#333333",
     "#ffdd05",
@@ -38,4 +38,4 @@ selection_fg = "#141414"
 [metadata]
 aliases = []
 author = "shalst: stolen from - metalelf0 (https://github.com/metalelf0)"
-name = "Black Noodle"
+name = "theme"
