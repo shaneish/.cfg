@@ -49,17 +49,20 @@ let s:light_9 = "#e2e2e2"
 let s:light_10 = "#ececec"
 let s:light_11 = "#f6f6f6"
 
-
-let s:high_fg = s:dark_0
-let s:high_bg = s:norm
+" let s:high_bg = "#fffe62"
+" let s:high_fg = s:dark_0
+" let s:high_bg = "#f0e68c"
+let s:high_bg = s:beige
+let s:high_fg = s:dark_1
 let s:search_fg = "NONE"
-let s:search_bg = "NONE"
+let s:search_bg = s:med_1
 let s:search_gui = "underdashed,bold"
-let s:string_type = s:light_5
-let s:comments_fg = s:med_4
+let s:string_type = s:norm
+let s:comments_fg = s:light_1
 let s:comments_bg = "NONE"
-let s:val = s:med_5
-let s:ops = s:med_5
+" let s:val = s:light_3
+let s:val = s:norm
+let s:ops = s:string_type
 let s:fn = s:norm
 
 set background=dark
@@ -70,7 +73,6 @@ if exists("syntax_on")
     syntax reset
 endif
 let g:colors_name="theme"
-
 
 function! H(group, guifg="NONE", guibg="NONE", gui="NONE")
     exec 'hi ' . a:group . ' guifg=' . a:guifg . ' guibg=' . a:guibg . ' gui=' . a:gui
@@ -83,7 +85,7 @@ call H("Normal", s:norm, "#000000")
 call H("Cursor", s:norm)
 call H("LineNr", s:gray_d)
 call H("CursorLineNR", s:norm, "#000000", "bold,underline")
-call H("CursorLine",  "NONE", s:med_0, "bold")
+call H("CursorLine",  "NONE", s:med_1, "bold")
 
 " -----------------
 " - Number column -
@@ -142,13 +144,13 @@ call H("WhiteSpace",      s:bright_yellow,        "NONE")
 " --------------------------------
 " Variable types
 " --------------------------------
-call H("Constant",       s:val,       "NONE")
+call H("Constant",       s:string_type,       "NONE")
 call H("String",         s:string_type,  s:comments_bg, "bold")
-call H("StringDelimiter",s:string_type,  s:comments_bg, "bold")
-call H("Character",      s:val,       "NONE")
-call H("Number",         s:val,       "NONE")
-call H("Boolean",        s:val,       "NONE")
-call H("Float",          s:val,       "NONE")
+call H("StringDelimiter",s:val,  s:comments_bg, "bold")
+call H("Character",      s:string_type,       "NONE")
+call H("Number",         s:string_type,       "NONE")
+call H("Boolean",        s:string_type,       "NONE")
+call H("Float",          s:string_type,       "NONE")
 call H("Identifier",     s:fn,        "NONE")
 call H("Function",       s:fn,        "NONE")
 

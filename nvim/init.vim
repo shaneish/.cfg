@@ -228,7 +228,7 @@ function! PyFormat()
     endif
 endfunction
 
-let g:mini_jump_val = '15'
+let g:mini_jump_val = '5'
 let g:large_jump_val = '30'
 let g:section_filetypes = ['python']
 function! Sections(big=0, forward=1, context=1)
@@ -410,6 +410,8 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 highlight SignColumn guibg=NONE
 highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
 highlight QuickFixLine guifg=#ffd700 gui=bold
+highlight TabLineSel guifg=#ffd700 gui=bold
+highlight TabLineFill guifg=#ffd700 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -422,7 +424,7 @@ imap <C-s> <Plug>(copilot-suggest)
 
 " Terminal
 tmap kj <C-\><C-n>
-tmap <Esc> <C-\><C-n>
+tmap <Esc><Esc> <C-\><C-n>
 tmap <C-q> <C-\><C-n>:q!<CR>
 tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
 tmap <C-w><C-w> <C-\><C-n><C-w><C-w>
@@ -430,9 +432,6 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 nmap <expr> <space><C-t> ":cd %:p:h<CR><Esc><C-t>"
 nmap <leader><leader>t :call OpenTerm()<CR>
-" nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-" tmap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-" inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 
 " Core
 inoremap <S-CR> <Esc>
@@ -442,8 +441,11 @@ nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader><leader>h :noh<CR>
 nmap <expr> <leader><leader>d CloseIt() . '<CR>'
 xmap <expr> <leader><leader>d CloseIt() . '<CR>'
+nmap <expr> <C-c> CloseIt() . '<CR>'
+xmap <expr> <C-d> CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
+nmap <C-q> <cmd>q!<CR>
 nmap <C-]> :cnext<CR>
 nmap <C-[> :cprevious<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
@@ -486,50 +488,41 @@ nmap <space><space> <leader>
 " window stuff
 nmap W <C-w><C-w>
 nmap <leader>w <C-w><C-w>
-nmap dW :clo<Cr><C-w><C-w>
-nmap doW <C-w><C-w>:clo<CR>
-nmap <leader>w <C-w><C-w>:clo<CR>
+nmap cow <C-w><C-w>:clo<CR>
 nmap <C-.> <C-w>l
 nmap <C-,> <C-w>h
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
-" nnoremap <leader>- :resize -5<CR>
-" nnoremap <leader>= :resize +5<CR>
 
 " line stuff
 nnoremap <C-o> O<Esc>jo<Esc>k
-nnoremap O O<Esc>_C
-nnoremap o o<Esc>_C
 nnoremap <leader>o o<Esc>k
 nnoremap <leader>O O<Esc>j
 
 " move stuff
-nnoremap <expr> <C-d> '<C-d>' . Centerizer()
-nnoremap <expr> <C-u> '<C-u>' . Centerizer()
-nmap <expr> <leader>k '[[' . Centerizer()
-nmap <expr> <leader>j ']]' . Centerizer()
-nnoremap <expr> } '}' . Centerizer()
-nnoremap <expr> { '{' . Centerizer()
-nnoremap <expr> L '}' . Centerizer()
-nnoremap <expr> H '{' . Centerizer()
-nnoremap <expr> J Sections(0, 1, 1)
-nnoremap <expr> K Sections(0, 0, 1)
-nnoremap <expr> <C-j> Sections(0, 1, 0)
-nnoremap <expr> <C-k> Sections(0, 0, 0)
-nnoremap <expr> <leader>J Sections(1, 1, 0)
-nnoremap <expr> <leader>K Sections(1, 0, 0)
+nnoremap <expr> <C-d> '10j' . Centerizer()
+nnoremap <expr> <C-u> '10k' . Centerizer()
+nnoremap <expr> D '<C-d>' . Centerizer()
+nnoremap <expr> U '<C-u>' . Centerizer()
+nnoremap <expr> L 'w' . Centerizer()
+nnoremap <expr> H 'ge' . Centerizer()
+nmap <expr> <leader>j '5j' . Centerizer()
+nmap <expr> <leader>k '5k' . Centerizer()
+nnoremap <expr> <C-j> '}' . Centerizer()
+nnoremap <expr> <C-k> '{' . Centerizer()
 nnoremap <expr> j 'j' . Centerizer()
 nnoremap <expr> k 'k' . Centerizer()
 nnoremap <expr> n 'n' . Centerizer()
 nnoremap <expr> N 'N' . Centerizer()
 
+nnoremap <leader>u J
 nnoremap <leader>l g_
 nnoremap <leader>h _
 
 " copy stuff
 nnoremap <leader>y "+y
-nnoremap <leader>yw BvE"+y
-nnoremap <leader>yy ^vg_"+y
+nnoremap <leader>yw viw"+y
+nnoremap <leader>yy V"+y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 nnoremap <C-y> "+y
@@ -546,7 +539,6 @@ nnoremap <C-space>P "1P
 nnoremap R s
 nnoremap <C-s> <cmd>Pounce<CR>
 
-nnoremap U J
 nnoremap <C-space>j o<Esc>_C<Esc>
 nnoremap <C-space>k O<Esc>_C<Esc>
 nnoremap <C-m>ls :MarksListBuf<CR>
@@ -561,15 +553,14 @@ nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
 
 " Insert remaps
 inoremap  <Esc>
-inoremap <Esc> <Esc>l
-imap <C-l> <Esc>lxi
-imap <C-h> <Esc>xha
+imap <C-l> <Esc>la
+imap <C-h> <Esc>i
+imap <C-space><C-l> <Esc>lxi
+imap <C-space><C-h> <Esc>xi
 inoremap <C-k> <Esc>ka
 inoremap <C-j> <Esc>ja
 inoremap <C-space>l <Esc>A
 inoremap <C-space>h <Esc>I
-inoremap <C-;> <Esc>A
-inoremap <C-h> <Esc>I
 inoremap <C-space>j <Esc>o<Esc>_C
 inoremap <C-space>k <Esc>O<Esc>_C
 inoremap <C-space>C <Esc>lC
@@ -605,27 +596,23 @@ xnoremap d "1d
 xnoremap x "_x
 xnoremap <C-p> "1p
 xnoremap <leader><C-p> "1P
-xnoremap <Esc> <Nop>
-xnoremap <Esc><Esc> <Esc>
-xnoremap <leader>l g_l
+" xnoremap <Esc> <Nop>
+" xnoremap <Esc><Esc> <Esc>
+xnoremap <leader>l g_
 xnoremap <leader>h _
-xnoremap <expr> <A-C-j> ']]' . Centerizer()
-xnoremap <expr> <A-C-k> '[[' . Centerizer()
-xnoremap <expr> ) ']m' . Centerizer()
-xnoremap <expr> ( '[m' . Centerizer()
-xnoremap <expr> <C-0> ']M' . Centerizer()
-xnoremap <expr> <C-9> '[M' . Centerizer()
-xnoremap <expr> } '}' . Centerizer()
-xnoremap <expr> { '{' . Centerizer()
-xnoremap <expr> <C-]> ')' . Centerizer()
-xnoremap <expr> <C-[> '(' . Centerizer()
-xnoremap <expr> J Sections(0, 1, 0)
-xnoremap <expr> K Sections(0, 0, 0)
-xnoremap <expr> <C-j> Sections(0, 1, 1)
-xnoremap <expr> <C-k> Sections(0, 0, 1)
-xnoremap <expr> <leader>J Sections(1, 1, 0)
-xnoremap <expr> <leader>K Sections(1, 0, 0)
-xnoremap <expr> <leader>j Sections(1, 1, 1)
-xnoremap <expr> <leader>k Sections(1, 0, 1)
 xnoremap <expr> <C-i> "o" . CodeBlock() . '<CR><Esc>'
 xnoremap <expr> <C-b> "a" . CodeBlock() . '<Esc>'
+xnoremap <expr> <C-d> '10j' . Centerizer()
+xnoremap <expr> <C-u> '10k' . Centerizer()
+xnoremap <expr> D '<C-d>' . Centerizer()
+xnoremap <expr> U '<C-u>' . Centerizer()
+xnoremap <expr> L 'e' . Centerizer()
+xnoremap <expr> H 'b' . Centerizer()
+xmap <expr> <leader>j '5j' . Centerizer()
+xmap <expr> <leader>k '5k' . Centerizer()
+xnoremap <expr> <C-j> '}' . Centerizer()
+xnoremap <expr> <C-k> '{' . Centerizer()
+xnoremap <expr> j 'j' . Centerizer()
+xnoremap <expr> k 'k' . Centerizer()
+xnoremap <expr> n 'n' . Centerizer()
+xnoremap <expr> N 'N' . Centerizer()

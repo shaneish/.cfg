@@ -10,6 +10,30 @@ local function read_file(path)
     file:close()
     return content
 end
+local function tab_title(tab_info)
+    local title = tab_info.tab_title
+    -- if the tab title is explicitly set, take that
+    if title and #title > 0 then
+        return title
+    end
+    -- Otherwise, use the title from the active pane
+    -- in that tab
+    return tab_info.active_pane.title
+end
+
+function on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_width)
+    local zoomed = ''
+    local index = tab.tab_index + 1
+    local title = tab_title(tab)
+    if tab.active_pane.is_zoomed then
+        zoomed = '🧐'
+    end
+    return {
+        { Text = string.format('%d %s %s ', index, title, zoomed) }
+    }
+end
+
+wezterm.on('format-tab-title', on_format_tab_title)
 
 wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   local scrollback = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows);
@@ -54,7 +78,7 @@ Desktop = os.getenv("DESKTOP_SESSION")
 
 config.disable_default_key_bindings = true
 config.font = wezterm.font 'JetBrains Mono Regular'
-config.font_size = 9
+config.font_size = 10
 config.enable_scroll_bar = false
 config.color_scheme = "theme"
 config.default_prog = { 'fish' }
@@ -85,7 +109,7 @@ config.colors = {
   },
 }
 config.window_frame = {
-  font_size = 9,
+  font_size = 11,
   font = wezterm.font 'JetBrains Mono Bold'
 }
 config.inactive_pane_hsb = {
