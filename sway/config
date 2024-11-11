@@ -176,6 +176,11 @@ output * bg ~/.config/background.png fill
     bindsym $mod+w layout tabbed
     bindsym $mod+Shift+v layout toggle split
 
+    bindsym $mod+Shift+m resize shrink width 10px
+    bindsym $mod+Shift+question resize grow width 10px
+    bindsym $mod+Shift+comma resize shrink width 10px
+    bindsym $mod+Shift+period resize grow width 10px
+
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
