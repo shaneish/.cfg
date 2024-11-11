@@ -228,7 +228,7 @@ function! PyFormat()
     endif
 endfunction
 
-let g:mini_jump_val = '10'
+let g:mini_jump_val = '15'
 let g:large_jump_val = '30'
 let g:section_filetypes = ['python']
 function! Sections(big=0, forward=1, context=1)
@@ -290,24 +290,24 @@ endfunction
 
 function! ResizePane(amount="-5")
     if winwidth(0) != &columns
-        return 'vertical resize ' . a:amount
+        return ':vertical resize ' . a:amount
     else
-        return 'resize ' . a:amount
+        return ':resize ' . a:amount
     endif
 endfunction
 
 function! MovePane(direction=1)
     if winwidth(0) != &columns
         if a:direction == 1
-            return '<C-w>l'
+            return '<C-w>l<CR>'
         else
-            return '<C-w>h'
+            return '<C-w>h<CR>'
         endif
     else
         if a:direction == 1
-            return '<C-w>k'
+            return '<C-w>k<CR>'
         else
-            return '<C-w>j'
+            return '<C-w>j<CR>'
         endif
     endif
 endfunction
@@ -409,6 +409,7 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " #highlight ish
 highlight SignColumn guibg=NONE
 highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
+highlight QuickFixLine guifg=#ffd700 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -423,21 +424,22 @@ imap <C-s> <Plug>(copilot-suggest)
 tmap kj <C-\><C-n>
 tmap <Esc> <C-\><C-n>
 tmap <C-q> <C-\><C-n>:q!<CR>
-tmap <expr> <leader><leader>d '<C-\><C-n>' . CloseIt() . '<CR>'
+tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
+tmap <C-w><C-w> <C-\><C-n><C-w><C-w>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 nmap <expr> <space><C-t> ":cd %:p:h<CR><Esc><C-t>"
 nmap <leader><leader>t :call OpenTerm()<CR>
-nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-tmap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+" nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+" tmap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+" inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 
 " Core
 inoremap <S-CR> <Esc>
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nmap <leader><leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
-nmap <silent> <leader><leader>h :noh<CR>
+nmap <silent> <leader><leader><leader>h :noh<CR>
 nmap <expr> <leader><leader>d CloseIt() . '<CR>'
 xmap <expr> <leader><leader>d CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
@@ -486,14 +488,13 @@ nmap W <C-w><C-w>
 nmap <leader>w <C-w><C-w>
 nmap dW :clo<Cr><C-w><C-w>
 nmap doW <C-w><C-w>:clo<CR>
-nmap <leader>cw :clo<Cr><C-w><C-w>
-nmap <leader>co <C-w><C-w>:clo<CR>
+nmap <leader>w <C-w><C-w>:clo<CR>
 nmap <C-.> <C-w>l
 nmap <C-,> <C-w>h
-nnoremap <expr> <leader>k MovePane(1)
-nnoremap <expr> <leader>j MovePane(0)
-nnoremap <expr> <leader>- ResizePane("-5")
-nnoremap <expr> <leader>= ResizePane("+5")
+nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
+nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
+" nnoremap <leader>- :resize -5<CR>
+" nnoremap <leader>= :resize +5<CR>
 
 " line stuff
 nnoremap <C-o> O<Esc>jo<Esc>k
@@ -505,20 +506,14 @@ nnoremap <leader>O O<Esc>j
 " move stuff
 nnoremap <expr> <C-d> '<C-d>' . Centerizer()
 nnoremap <expr> <C-u> '<C-u>' . Centerizer()
-nnoremap <expr> <A-C-j> ']]' . Centerizer()
-nnoremap <expr> <A-C-k> '[[' . Centerizer()
-nnoremap <expr> ) ']m' . Centerizer()
-nnoremap <expr> ( '[m' . Centerizer()
-nnoremap <expr> <C-0> ']M' . Centerizer()
-nnoremap <expr> <C-9> '[M' . Centerizer()
+nmap <expr> <leader>k '[[' . Centerizer()
+nmap <expr> <leader>j ']]' . Centerizer()
 nnoremap <expr> } '}' . Centerizer()
 nnoremap <expr> { '{' . Centerizer()
-nnoremap <expr> <C-]> ')' . Centerizer()
-nnoremap <expr> <C-[> '(' . Centerizer()
+nnoremap <expr> L '}' . Centerizer()
+nnoremap <expr> H '{' . Centerizer()
 nnoremap <expr> J Sections(0, 1, 1)
 nnoremap <expr> K Sections(0, 0, 1)
-nnoremap H {zz
-nnoremap L }zz
 nnoremap <expr> <C-j> Sections(0, 1, 0)
 nnoremap <expr> <C-k> Sections(0, 0, 0)
 nnoremap <expr> <leader>J Sections(1, 1, 0)
@@ -566,6 +561,7 @@ nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
 
 " Insert remaps
 inoremap  <Esc>
+inoremap <Esc> <Esc>l
 imap <C-l> <Esc>lxi
 imap <C-h> <Esc>xha
 inoremap <C-k> <Esc>ka

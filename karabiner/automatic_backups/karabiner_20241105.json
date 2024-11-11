@@ -46,7 +46,7 @@
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [{ "shell_command": "/Users/h62756/.config/.cfg/scripts/aerospace-jump.py prev -o exec" }],
+                                "to": [{ "shell_command": "pypy3 ~/.config/scripts/aerospace-jump.py prev -o exec" }],
                                 "type": "basic"
                             }
                         ]
@@ -62,7 +62,7 @@
                                         "optional": ["any"]
                                     }
                                 },
-                                "to": [{ "shell_command": "python3 /Users/h62756/.config/.cfg/scripts/aerospace-jump.py next -o exec" }],
+                                "to": [{ "shell_command": "pypy3 ~/.config/scripts/aerospace-jump.py next -o exec" }],
                                 "type": "basic"
                             }
                         ]

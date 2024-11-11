@@ -49,23 +49,18 @@ let s:light_9 = "#e2e2e2"
 let s:light_10 = "#ececec"
 let s:light_11 = "#f6f6f6"
 
-let s:string_type = s:light_1
-let s:string_bg = "NONE"
+
 let s:high_fg = s:dark_0
 let s:high_bg = s:norm
 let s:search_fg = "NONE"
 let s:search_bg = "NONE"
 let s:search_gui = "underdashed,bold"
+let s:string_type = s:light_5
 let s:comments_fg = s:med_4
 let s:comments_bg = "NONE"
-let s:val = s:light_1
+let s:val = s:med_5
 let s:ops = s:med_5
 let s:fn = s:norm
-
-if g:colorscheme_strings_as_comments == 1
-    let s:string_type = s:comment_fg
-    let s:string_bg = s:comment_bg
-endif
 
 set background=dark
 
@@ -114,6 +109,8 @@ call H("Directory", s:norm, "NONE", "underline")
 call H("Search",    s:search_fg, s:search_bg, s:search_gui)
 call H("IncSearch", s:search_fg, s:search_bg, s:search_gui)
 call H("CurSearch", s:search_fg, s:search_bg, "underdouble")
+call H("QuickFix",  s:bright_yellow, "NONE", "underdotted")
+
 " -----------------
 " - Prompt/Status -
 " -----------------
@@ -128,7 +125,7 @@ call H("MoreMsg",      s:gray_y, "NONE", "NONE")
 " --------------
 " - Visual aid -
 " --------------
-call H("MatchParen",      s:high_fg,              s:high_bg)
+call H("MatchParen",      s:bright_yellow,        "NONE", "bold,underdouble")
 call H("Visual",          s:high_fg,              s:high_bg, "bold")
 call H("VisualNOS",       s:high_fg,              s:high_bg, "bold")
 call H("NonText",         s:high_fg,              "NONE")
@@ -147,7 +144,7 @@ call H("WhiteSpace",      s:bright_yellow,        "NONE")
 " --------------------------------
 call H("Constant",       s:val,       "NONE")
 call H("String",         s:string_type,  s:comments_bg, "bold")
-call H("StringDelimiter",s:norm,  s:comments_bg, "bold")
+call H("StringDelimiter",s:string_type,  s:comments_bg, "bold")
 call H("Character",      s:val,       "NONE")
 call H("Number",         s:val,       "NONE")
 call H("Boolean",        s:val,       "NONE")
@@ -159,20 +156,20 @@ call H("Function",       s:fn,        "NONE")
 " Language constructs
 " --------------------------------
 call H("Keyword",        s:fn)
-call H("Statement",      s:ops)
-call H("Repeat",         s:norm)
+call H("Statement",      s:fn)
+call H("Repeat",         s:fn)
 call H("Comment",        s:comments_fg,   s:comments_bg, "italic")
 call H("SpecialComment", s:comments_fg,   s:comments_bg, "italic")
 call H("Conditional",    s:norm)
 call H("Special",        s:norm)
 call H("SpecialChar",    s:norm)
 call H("Tag",            s:norm)
-call H("Delimiter",      s:norm)
+call H("Delimiter",      s:val)
 call H("Debug",          s:norm)
 call H("Repeat",         s:norm)
-call H("Label",          s:ops)
-call H("Operator",       s:ops)
-call H("Exception",      s:ops)
+call H("Label",          s:val)
+call H("Operator",       s:val)
+call H("Exception",      s:val)
 
 " ----------
 " - C like -

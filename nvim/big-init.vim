@@ -745,8 +745,8 @@ nmap <expr> <leader>= ResizePane("+5")
 nmap <space> <leader>
 nmap <space><space> <leader>
 nmap W <C-w><C-w>
-nmap dW :clo<Cr><C-w><C-w>
-nmap doW <C-w><C-w>:clo<CR>
+nmap <leader>cw :clo<Cr><C-w><C-w>
+nmap <leader>co <C-w><C-w>:clo<CR>
 nnoremap <leader>c <C-w>c
 nnoremap <leader>s <C-w>s
 nnoremap <C-o> O<Esc>jo<Esc>k

@@ -1,8 +1,16 @@
 format = "$sudo$username$character"
+right_format = "$directory"
 command_timeout = 1000
 
 [directory]
-disabled = true
+truncate_to_repo = false
+truncation_length = 1
+fish_style_pwd_dir_length = 1
+style = "#ffd700"
+format = "[> $path$read_only]($style) "
+home_symbol = "~"
+read_only = ' -ro'
+truncation_symbol = '.../'
 
 [git_metrics]
 disabled = true
