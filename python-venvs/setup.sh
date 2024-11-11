@@ -1,9 +1,11 @@
-python3.13 -m pip install pipx
+python3.13 -m ensurepip
+python3.13 -m venv $HOME/.cfg/python-venvs/default
+source $HOME/.cfg/python-venvs/default/bin/activate
+python -m pip install -r $HOME/.cfg/python-venvs/default-requirements.txt
+deactivate
 
-python3.13 -m ensurepipe
-python3.13 -m venv $HOME/.cfg/default
-python3.13 -m pip install -r $HOME/.cfg/default/bin/python
-
-pypy3 -m ensurepipe
-pypy3 -m venv $HOME/.cfg/fast
-pypy3 -m pip install -r $HOME/.cfg/fast/bin/python
+pypy3 -m ensurepip
+pypy3 -m venv $HOME/.cfg/python-venvs/fast
+source $HOME/.cfg/python-venvs/fast/bin/activate
+pypy3 -m pip install -r $HOME/.cfg/python-venvs/default-requirements.txt
+deactivate

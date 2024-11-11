@@ -55,7 +55,7 @@ Desktop = os.getenv("DESKTOP_SESSION")
 config.disable_default_key_bindings = true
 config.font = wezterm.font 'JetBrains Mono Regular'
 config.font_size = 8.5
-config.enable_scroll_bar = true
+config.enable_scroll_bar = false
 config.color_scheme = "Black Noodle"
 config.default_prog = { 'fish' }
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
@@ -123,7 +123,7 @@ elseif wezterm.target_triple:find("darwin") ~= nil then
     bottom = 2,
   }
 else
-  config.window_decorations = "NONE"
+  config.window_decorations = "RESIZE"
   config.set_environment_variables = {
    PATH = wezterm.home_dir .. "/.fzf/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin:/usr/bin:/bin:/home/linuxbrew/bin:/home/linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:" .. wezterm.home_dir .. "/go/bin",
   }
@@ -146,7 +146,9 @@ else
       config.set_environment_variables = {
         PATH = "/run/wrappers/bin:/run/current-system/sw/bin:" .. wezterm.home_dir .. "/.nix-profile/bin/:/nix/profile/bin:/nix/var/nix/profiles/default/bin:" ..wezterm.home_dir .. "/.local/state/nix/profile/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin",
       }
-    end
+    elseif os_info:find("arch") ~= nil then
+      config.font = wezterm.font 'JetBrains Mono'
+   end
   end
 end
 

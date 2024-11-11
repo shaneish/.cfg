@@ -28,3 +28,4 @@ if status is-interactive
     source $FISH_CONFIG_DIR/interactive.fish
 end
 
+fish_add_path /home/shane/.modular/bin
