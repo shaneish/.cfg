@@ -1,8 +1,15 @@
 format = "$sudo$username$character"
+right_format = "$directory"
+command_timeout = 1000
 
 [directory]
-disabled = true
-
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+style = "#ffd700"
+format = "[> $path$read_only]($style) "
+home_symbol = "~"
+read_only = ' -ro'
+truncation_symbol = '.../'
 [git_metrics]
 disabled = true
 
@@ -27,8 +34,8 @@ disabled = true
 [character]
 success_symbol = "[ >](#ffd700)"
 error_symbol = "[ x](#ffd700 blink)"
-vimcmd_symbol = "[->](#ffd700 blink)"
-vimcmd_visual_symbol = "[=>](#ffd700 blink)"
+vimcmd_symbol = "[ >](#ffd700)"
+vimcmd_visual_symbol = "[ >](#ffd700 blink)"
 vimcmd_replace_symbol = "[ _](#ffd700)"
 vimcmd_replace_one_symbol = "[ _](#ffd700 blink)"
 

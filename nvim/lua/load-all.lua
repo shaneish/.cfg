@@ -1,5 +1,5 @@
-servers = { "terraformls", "pyright", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint" }
-mason_servers = { "terraformls", "pyright", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint" }
+servers = { "terraformls", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint", "pyright" }
+mason_servers = { "terraformls", "pyright", "lua_ls", "vimls", "rust_analyzer", "zls", "tflint", "ruff_lsp" }
 require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
@@ -9,18 +9,25 @@ require('nvim-tree-config')
 require('diagnostics')
 require('telescope').load_extension('harpoon')
 require("aerial").setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
   on_attach = function(bufnr)
     vim.keymap.set("n", "K", "<cmd>AerialPrev<CR>", { buffer = bufnr })
     vim.keymap.set("n", "J", "<cmd>AerialNext<CR>", { buffer = bufnr })
+    vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLine', { fg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = "#ffd700", bold = true })
   end,
-  highlight_on_jump = 1000,
+  highlight_on_hover = true,
+  highlight_on_jump = 300,
+  show_guides = true,
 })
+vim.api.nvim_set_hl(0, 'ArialLine', { fg = "#ffd700", bold = true })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
 require('repl-block-highlight').setup({
-  default_highlight_group = "CursorLine",
+  default_highlight_group = "Visual",
   -- custom_highlight_group = { fg = "#000000", bg = "#7f7f7f", bold = true },
 })
 require("symbols-outline").setup()
@@ -79,6 +86,7 @@ require("smartcolumn").setup({
     limit_to_window = true,
 })
 require('colorizer').setup()
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = false
@@ -94,7 +102,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'hi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gwa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', 'gwr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', 'gwl', function()
@@ -134,3 +142,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   group = nvim_metals_group,
 })
+

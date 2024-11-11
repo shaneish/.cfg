@@ -237,6 +237,7 @@ pipx install ruff
 pipx install dunk
 pipx install poetry
 pipx install pybuilder
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 kitty

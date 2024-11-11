@@ -199,7 +199,7 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.webex.meetingmanager'
 check-further-callbacks = true
-run = ['move-node-to-workspace 0']
+run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.TextEdit'
@@ -246,15 +246,15 @@ if.window-title-regex-substring = 'resume'
 check-further-callbacks = true
 run = ['move-node-to-workspace 9']
 
-[[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-check-further-callbacks = true
-run = ['move-node-to-workspace 1']
+# [[on-window-detected]]
+# if.app-id = 'net.kovidgoyal.kitty'
+# check-further-callbacks = true
+# run = ['move-node-to-workspace 1']
 
-[[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
-check-further-callbacks = true
-run = ['move-node-to-workspace 1']
+# [[on-window-detected]]
+# if.app-id = 'com.github.wez.wezterm'
+# check-further-callbacks = true
+# run = ['move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
@@ -269,5 +269,5 @@ run = ['move-node-to-workspace 9']
 [[on-window-detected]]
 if.app-id = 'Cisco-Systems.Spark'
 check-further-callbacks = true
-run = ['move-node-to-workspace 3']
+run = ['move-node-to-workspace 0']
 
