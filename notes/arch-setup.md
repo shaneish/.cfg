@@ -73,6 +73,7 @@ yay -S zen-browser-avx2-bin
 yay -S google-chrome
 yay -S python313
 yay -S swayfx
+yay -S hyprshot
 ```
 
 pipx-apps
