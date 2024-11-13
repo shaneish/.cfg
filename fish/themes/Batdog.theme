@@ -7,10 +7,10 @@ fish_color_command ffffff # #ffffff
 fish_color_quote c0c8cf # #c0c8cf
 fish_color_redirection c0c8cf # #c0c8cf
 fish_color_valid_path c0c8cf # #c0c8cf
-fish_color_end ffd700 # #ffd700
+fish_color_end fad5a5 # #fad5a5
 fish_color_error c0c8cf --bold --underline # #c0c8cf
-fish_color_param c0c8cf # #ffd700
-Fish_color_comment ffd700 --italics # #ffd700
+fish_color_param c0c8cf # #fad5a5
+Fish_color_comment fad5a5 --italics # #fad5a5
 fish_color_match --background=c0c8cf # #c0c8cf
 fish_color_status ff3939 # #ff3939
 fish_color_selection white --bold --background=brblack

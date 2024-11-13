@@ -1,3 +1,27 @@
+# yellow codes
+set -gx GOLD ffd700
+set -gx BRASS f9e29c
+set -gx FLAX fad5a5
+set -gx ECRU eedc82
+set -gx JASMINE f9e29c
+set -gx PEAR b4c424
+set -gx CADMIUM fdda0d
+set -gx NAVAJO ffdead
+set -gx EGGNOG f9e29c
+set -gx YELLOWS GOLD BRASS FLAX ECRU JASMINE PEAR CADMIUM NAVAJO EGGNOG
+
+# green codes
+set -gx ARMY 4b5320
+set -gx SEAGREEN 2e8b57
+set -gx ARTICHOKE 8f9779
+set -gx MOSS fad5a5
+set -gx MINT 98fb98
+set -gx EMERAL 50c878
+set -gx HUNTER 3f704d
+set -gx FERN 4f7942
+set -gx SAGE 9DC183
+set -gx FOREST 0B6623
+
 set -l git_atoms "refname" "objecttype" "objectsize" "objectname" "deltabase" "tree" "parent" "numparent" "object" "type" "tag" "author" "authorname" "authoremail" "authordate" "committer" "committername" "committeremail" "committerdate" "tagger" "taggername" "taggeremail" "taggerdate" "creator" "creatordate" "describe" "subject" "body" "trailers" "contents" "signature" "raw" "upstream" "push" "symref" "flag" "HEAD" "color" "worktreepath" "align" "end" "if" "then" "else" "rest" "ahead-behind"
 
 alias ll="eza"

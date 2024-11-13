@@ -6,7 +6,7 @@ command_timeout = 1000
 truncate_to_repo = false
 truncation_length = 1
 fish_style_pwd_dir_length = 1
-style = "#ffd700"
+style = "#fad5a5"
 format = "[> $path$read_only]($style) "
 home_symbol = "~"
 read_only = ' -ro'
@@ -34,12 +34,12 @@ disabled = true
 disabled = true
 
 [character]
-success_symbol = "[ >](#ffd700)"
-error_symbol = "[ x](#ffd700 blink)"
-vimcmd_symbol = "[ >](#ffd700)"
-vimcmd_visual_symbol = "[ >](#ffd700 blink)"
-vimcmd_replace_symbol = "[ _](#ffd700)"
-vimcmd_replace_one_symbol = "[ _](#ffd700 blink)"
+success_symbol = "[ >](#fad5a5)"
+error_symbol = "[ x](#fad5a5 blink)"
+vimcmd_symbol = "[ >](#fad5a5)"
+vimcmd_visual_symbol = "[ >](#fad5a5 blink)"
+vimcmd_replace_symbol = "[ _](#fad5a5)"
+vimcmd_replace_one_symbol = "[ _](#fad5a5 blink)"
 
 [cmd_duration]
 disabled = true
@@ -51,12 +51,12 @@ disabled = true
 disabled = true
 
 [username]
-format = '[🌵](#ffd700)'
+format = '[🌵](#fad5a5)'
 show_always = true
 
 [sudo]
 symbol = "."
-format = '[$symbol](#ffd700) '
+format = '[$symbol](#fad5a5) '
 disabled = false
 
 [package]

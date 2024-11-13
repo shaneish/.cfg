@@ -13,12 +13,12 @@ format = "$sudo$username$character"
 disabled = true
 
 [character]
-success_symbol = "[ >](#ffd700)"
-error_symbol = "[ x](#ffd700 blink)"
-vimcmd_symbol = "[->](#ffd700 blink)"
-vimcmd_visual_symbol = "[=>](#ffd700 blink)"
-vimcmd_replace_symbol = "[ _](#ffd700)"
-vimcmd_replace_one_symbol = "[ _](#ffd700 blink)"
+success_symbol = "[ >](#fad5a5)"
+error_symbol = "[ x](#fad5a5 blink)"
+vimcmd_symbol = "[->](#fad5a5 blink)"
+vimcmd_visual_symbol = "[=>](#fad5a5 blink)"
+vimcmd_replace_symbol = "[ _](#fad5a5)"
+vimcmd_replace_one_symbol = "[ _](#fad5a5 blink)"
 
 [directory]
 truncation_length = 12
@@ -26,9 +26,9 @@ truncate_to_repo = false
 repo_root_style = "#616569 underline"
 read_only_style = "#616569"
 before_repo_root_style = "#616569"
-# repo_root_style = "#ffd700 underline"
-# read_only_style = "#ffd700"
-# before_repo_root_style = "#ffd700"
+# repo_root_style = "#fad5a5 underline"
+# read_only_style = "#fad5a5"
+# before_repo_root_style = "#fad5a5"
 format = "[$path]($style)"
 repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
 home_symbol = "~"
@@ -39,12 +39,12 @@ truncation_symbol = '.../'
 # format = "[$branch]($style)"
 format = "[$symbol $branch]($style) "
 symbol = "|"
-# style = "#ffd700"
+# style = "#fad5a5"
 style = "#616569"
 
 [git_status]
 format = "[\\[$all_status$ahead_behind\\]]($style) "
-# style = "#ffd700"
+# style = "#fad5a5"
 style = "#616569"
 ahead = ">"
 behind = "<"
@@ -67,7 +67,7 @@ trim_at = ""
 disabled = true
 ssh_only = false
 ssh_symbol = "@"
-# style = "#ffd700"
+# style = "#fad5a5"
 style = "#616569"
 
 [username]
@@ -108,7 +108,7 @@ disabled = true
 symbol = ""
 format = "[| $symbol$virtualenv \\[$version\\]]($style)"
 version_format = "${major}.${minor}"
-# style = "#ffd700"
+# style = "#fad5a5"
 style = "#616569"
 
 [quarto]

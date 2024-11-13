@@ -409,9 +409,9 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " #highlight ish
 highlight SignColumn guibg=NONE
 highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
-highlight QuickFixLine guifg=#ffd700 gui=bold
-highlight TabLineSel guifg=#ffd700 gui=bold
-highlight TabLineFill guifg=#ffd700 gui=bold
+highlight QuickFixLine guifg=#fad5a5 gui=bold
+highlight TabLineSel guifg=#fad5a5 gui=bold
+highlight TabLineFill guifg=#fad5a5 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false

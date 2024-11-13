@@ -15,10 +15,10 @@ $python"""
 truncation_length = 15
 truncate_to_repo = false
 fish_style_pwd_dir_length = 1
-repo_root_style = "#ffd700 underline"
-read_only_style = "#ffd700"
-before_repo_root_style = "#ffd700"
-style = "#ffd700"
+repo_root_style = "#fad5a5 underline"
+read_only_style = "#fad5a5"
+before_repo_root_style = "#fad5a5"
+style = "#fad5a5"
 format = "[$path]($style) "
 repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
 home_symbol = "~"
@@ -27,7 +27,7 @@ truncation_symbol = '.../'
 
 [git_status]
 format = "[\\[$all_status$ahead_behind\\]]($style) "
-style = "#ffd700"
+style = "#fad5a5"
 ahead = ">"
 behind = "<"
 diverged = "<>"
@@ -38,7 +38,7 @@ disabled = false
 [git_branch]
 format = "[$symbol $branch]($style) "
 symbol = "|"
-style = "#ffd700"
+style = "#fad5a5"
 
 [git_metrics]
 added_style = '#7abd91'
@@ -51,10 +51,10 @@ format = "[$symbol$hostname]($style) "
 trim_at = ""
 ssh_only = true
 ssh_symbol = "@"
-style = "#ffd700"
+style = "#fad5a5"
 
 [python]
 symbol = ""
 format = "[| $symbol$virtualenv \\[$version\\]]($style) "
 version_format = "${major}.${minor}"
-style = "#ffd700"
+style = "#fad5a5"

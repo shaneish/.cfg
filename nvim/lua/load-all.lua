@@ -12,17 +12,17 @@ require("aerial").setup({
   on_attach = function(bufnr)
     vim.keymap.set("n", "K", "<cmd>AerialPrev<CR>", { buffer = bufnr })
     vim.keymap.set("n", "J", "<cmd>AerialNext<CR>", { buffer = bufnr })
-    vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLine', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = "#fad5a5", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#fad5a5", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = "#fad5a5", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLine', { fg = "#fad5a5", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = "#fad5a5", bold = true })
   end,
   highlight_on_hover = true,
   highlight_on_jump = 300,
   show_guides = true,
 })
-vim.api.nvim_set_hl(0, 'ArialLine', { fg = "#ffd700", bold = true })
+vim.api.nvim_set_hl(0, 'ArialLine', { fg = "#fad5a5", bold = true })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")

@@ -105,3 +105,25 @@ function choose_background
         ln -rs $NEW $CFG_DIR/background.$TYPE
     end
 end
+
+function read_confirm
+  while true
+    read -l -P 'Do you want to continue? [y/N] ' confirm
+    switch $confirm
+      case Y y
+        return 0
+      case '' N n
+        return 1
+    end
+  end
+end
+
+function change_highlight_color
+    set theme_color (rg 'cursor_bg\s+=\s+"#([a-zA-Z0-9]+)"' ~/.config/wezterm/colors/theme.toml -r '$1' -N)
+    echo "Found color: $theme_color, replacing color: $argv[1]"
+    if read_confirm
+        set -gx CURRENT_THEME $theme_color
+        set term_programs wezterm fish nvim starship-prompts sketchybar sway waybar hypr aerospace.toml
+        rg "$theme_color" -l ~/.config/.cfg | xargs sd "$theme_color" $argv[1] -F
+    end
+end

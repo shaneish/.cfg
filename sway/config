@@ -23,7 +23,7 @@ default_floating_border pixel 4
 titlebar_padding 1
 font pango:JetBrains Mono 0.001
 titlebar_border_thickness 1
-client.focused "#ffd700" "#ffd700" "#000000" "#ffd700" "#ffd700"
+client.focused "#ffc300" "#ffc300" "#000000" "#ffc300" "#ffc300"
 blur enable
 corner_radius 20
 
