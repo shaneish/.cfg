@@ -22,7 +22,7 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'muniftanjim/nui.nvim'
@@ -409,9 +409,9 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " #highlight ish
 highlight SignColumn guibg=NONE
 highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
-highlight QuickFixLine guifg=#fad5a5 gui=bold
-highlight TabLineSel guifg=#fad5a5 gui=bold
-highlight TabLineFill guifg=#fad5a5 gui=bold
+highlight QuickFixLine guifg=#f6cd61 gui=bold
+highlight TabLineSel guifg=#f6cd61 gui=bold
+highlight TabLineFill guifg=#f6cd61 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -500,10 +500,10 @@ nnoremap <leader>o o<Esc>k
 nnoremap <leader>O O<Esc>j
 
 " move stuff
-nnoremap <expr> <C-d> '10j' . Centerizer()
-nnoremap <expr> <C-u> '10k' . Centerizer()
-nnoremap <expr> D '<C-d>' . Centerizer()
-nnoremap <expr> U '<C-u>' . Centerizer()
+nnoremap <expr> D '10j' . Centerizer()
+nnoremap <expr> U '10k' . Centerizer()
+nnoremap <expr> <C-d> '<C-d>' . Centerizer()
+nnoremap <expr> <C-u> '<C-u>' . Centerizer()
 nnoremap <expr> L 'w' . Centerizer()
 nnoremap <expr> H 'ge' . Centerizer()
 nmap <expr> <leader>j '5j' . Centerizer()

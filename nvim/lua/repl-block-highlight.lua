@@ -10,7 +10,7 @@ local config = {
      vim = '" %%',
    },
    default_highlight_group = "CursorLine",
-   -- example highlight group: custom_highlight_group = { fg = "#222222", bg = "#fad5a5", bold = true },
+   -- example highlight group: custom_highlight_group = { fg = "#222222", bg = "#f6cd61", bold = true },
    custom_highlight_group = { },
    symbol = ">>",
    disabled_filetypes = { 'txt', 'text', 'vim' },
@@ -84,7 +84,7 @@ function smartcolumn.setup(user_config)
    for option, value in pairs(user_config) do
       config[option] = value
    end
-   -- highlight ReplCodeBlocks guifg=#ffffff guibg=#fad5a5
+   -- highlight ReplCodeBlocks guifg=#ffffff guibg=#f6cd61
    if not_disabled() then
      if next(config.custom_highlight_group) == nil then
        config["highlight_group"] = config.default_highlight_group

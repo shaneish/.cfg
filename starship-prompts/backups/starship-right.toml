@@ -62,12 +62,12 @@ style = "#616569"
 disabled = true
 
 [character]
-success_symbol = "[ >](#fad5a5)"
-error_symbol = "[ x](#fad5a5 blink)"
-vimcmd_symbol = "[->](#fad5a5 blink)"
-vimcmd_visual_symbol = "[=>](#fad5a5 blink)"
-vimcmd_replace_symbol = "[ _](#fad5a5)"
-vimcmd_replace_one_symbol = "[ _](#fad5a5 blink)"
+success_symbol = "[ >](#f6cd61)"
+error_symbol = "[ x](#f6cd61 blink)"
+vimcmd_symbol = "[->](#f6cd61 blink)"
+vimcmd_visual_symbol = "[=>](#f6cd61 blink)"
+vimcmd_replace_symbol = "[ _](#f6cd61)"
+vimcmd_replace_one_symbol = "[ _](#f6cd61 blink)"
 
 [cmd_duration]
 disabled = true
@@ -79,12 +79,12 @@ disabled = true
 disabled = true
 
 [username]
-format = '[🌵](#fad5a5)'
+format = '[🌵](#f6cd61)'
 show_always = true
 
 [sudo]
 symbol = "."
-format = '[$symbol](#fad5a5) '
+format = '[$symbol](#f6cd61) '
 disabled = false
 
 [package]

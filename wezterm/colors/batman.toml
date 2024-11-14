@@ -1,10 +1,10 @@
 [colors]
 ansi = [
     "#000000",
-    "#fad5a5",
+    "#f6cd61",
     "#636363",
     "#b80d0d",
-    "#fad5a5",
+    "#f6cd61",
     "#c0c8cf",
     "#999999",
     "#aaaaaa",
@@ -20,8 +20,8 @@ brights = [
     "#999999",
     "#aaaaaa",
 ]
-cursor_bg = "#fad5a5"
-cursor_border = "#fad5a5"
+cursor_bg = "#f6cd61"
+cursor_border = "#f6cd61"
 foreground = "#ffffff"
 selection_bg = "#ffffff"
 cursor_fg = "#141414"

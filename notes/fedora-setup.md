@@ -134,6 +134,7 @@ cargo install --locked yazi-fm yazi-cli
 cargo install onefetch --force
 cargo install coreutils
 cargo install fselect
+cargo install --locked jaq
 ```
 
 homebrew

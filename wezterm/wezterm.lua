@@ -99,7 +99,7 @@ config.colors = {
   tab_bar = {
     background = "rgba(0,0,0,0)",
     active_tab = {
-      fg_color = "#fad5a5",
+      fg_color = "#f6cd61",
       bg_color = "#000000"
     },
     inactive_tab = {
@@ -367,7 +367,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#fad5a5' } },
+        { Foreground = { Color = '#f6cd61' } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -390,7 +390,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#fad5a5' } },
+        { Foreground = { Color = '#f6cd61' } },
         { Text = 'Workspace name:' },
       },
     action = wezterm.action_callback(function(window, pane, line)

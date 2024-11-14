@@ -118,12 +118,83 @@ function read_confirm
   end
 end
 
-function change_highlight_color
+function theme_highlight
+    set -gx CURRENT_THEME (rg 'cursor_bg\s+=\s+"#([a-zA-Z0-9]+)"' ~/.config/wezterm/colors/theme.toml -r '$1' -N)
+    echo "Current theme highlight: $CURRENT_THEME"
+end
+
+function highlight_color
+    set -l new_color $argv[1]
+    switch $argv[1]
+        case GOLD
+            set new_color f fd700
+        case BRASS
+            set new_color f 9e29c
+        case FLAX
+            set new_color f ad5a5
+        case ECRU
+            set new_color e edc82
+        case JASMINE
+            set new_color f 9e29c
+        case PEAR
+            set new_color b 4c424
+        case CADMIUM
+            set new_color f dda0d
+        case NAVAJO
+            set new_color f fdead
+        case EGGNOG
+            set new_color f 9e29c
+        case SEPIA
+            set new_color e 3b778
+        case ARMY
+            set new_color 4 b5320
+        case SEAGREEN
+            set new_color 2 e8b57
+        case ARTICHOKE
+            set new_color 8 f9779
+        case MOSS
+            set new_color f ad5a5
+        case MINT
+            set new_color 9 8fb98
+        case EMERALD
+            set new_color 5 0c878
+        case HUNTER
+            set new_color 3 f704d
+        case FERN
+            set new_color 4 f7942
+        case SAGE
+            set new_color 9 DC183
+        case FOREST
+            set new_color 0 B6623
+        case OLIVE
+            set new_color 7 08238
+        case LIME
+            set new_color c 7ea46
+        case SALMON
+            set new_color f a8072
+        case TANGERINE
+            set new_color f 08000
+        case BLUISH
+            set new_color b 0c1b3
+        case YELLOWISH
+            set new_color f 6cd61
+        case BROWN
+            set new_color f 6cd61
+    end
+    set new_color (string join '' $new_color)
     set theme_color (rg 'cursor_bg\s+=\s+"#([a-zA-Z0-9]+)"' ~/.config/wezterm/colors/theme.toml -r '$1' -N)
-    echo "Found color: $theme_color, replacing color: $argv[1]"
-    if read_confirm
-        set -gx CURRENT_THEME $theme_color
-        set term_programs wezterm fish nvim starship-prompts sketchybar sway waybar hypr aerospace.toml
-        rg "$theme_color" -l ~/.config/.cfg | xargs sd "$theme_color" $argv[1] -F
+    if test "$argv[2]" = "-s"; or test "$argv[2]" = "--show"
+        set_color $new_color; printf '%s\n' $new_color
+    else
+        trap 'set_color red; echo "ERROR: Color $new_color not found!"' STOP
+        set_color $theme_color; printf '%s\n' "Current color: $theme_color"
+        set_color $new_color; printf '%s\n' "New color: $new_color"
+        if read_confirm
+            set -gx CURRENT_THEME $theme_color
+            set term_programs wezterm fish nvim starship-prompts sketchybar sway waybar hypr aerospace.toml
+            rg "$theme_color" -l ~/.config/.cfg | xargs sd "$theme_color" $new_color -F
+        end
     end
 end
+
+

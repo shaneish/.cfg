@@ -139,6 +139,7 @@ cargo install onefetch --force
 cargo install coreutils
 cargo install fselect
 cargo install starship
+cargo install --locked jaq
 ```
 
 scripts

@@ -10,7 +10,7 @@ let s:dark_brown = "#907f6d"
 let s:norm = "#ffffff"
 let s:yellow_gray = "#414100"
 let s:light_yellow = "#ffffc5"
-let s:bright_yellow = "#fad5a5"
+let s:bright_yellow = "#f6cd61"
 let s:light_gray = "#cdcdcd"
 let s:light_yellow = "#fcfca9"
 let s:gray_d = "#3d3d3d"
@@ -51,7 +51,7 @@ let s:light_11 = "#f6f6f6"
 
 " let s:high_bg = "#fffe62"
 " let s:high_fg = s:dark_0
-" let s:high_bg = "#fad5a5"
+" let s:high_bg = "#f6cd61"
 let s:high_bg = s:beige
 let s:high_fg = s:dark_1
 let s:search_fg = "NONE"
