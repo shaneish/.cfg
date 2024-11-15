@@ -45,13 +45,13 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    color: #ffc300;
-    border-top: 2px solid #ffc300;
+    color: #f6cd61;
+    border-top: 2px solid #f6cd61;
 }
 
 #workspaces button.active {
-    color: #ffc300;
-    border-top: 2px solid #ffc300;
+    color: #f6cd61;
+    border-top: 2px solid #f6cd61;
 }
 
 #workspaces button.persistent {
@@ -136,11 +136,11 @@ window#waybar {
 
 #battery.charging {
     color: #000000;
-    background-color: #ffc300;
+    background-color: #f6cd61;
 }
 
 #battery.warning:not(.charging) {
-    background-color: #ffbe61;
+    background-color: #f6cd61;
     color: black;
 }
 

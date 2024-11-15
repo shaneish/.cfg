@@ -1,0 +1,24 @@
+{
+    "terminal": {
+        "colors": {
+            "primary": "f6cd61",
+            "bright": "8b8000",
+            "background": "000000",
+            "foreground": "ffffff",
+            "mid": "a7a7a7",
+            "light": "c5c5c5",
+            "dark": "767676",
+            "darkest": "323232",
+        },
+        "paths": ["fish", "nvim", "wezterm", "starship", "kitty"]
+    },
+    "other": {
+        "colors": {
+            "primary": "ffbf42",
+            "bright": "ffdf42"
+            "background": "000000",
+            "foreground": "ffffff"
+        },
+        "paths": ["hypr", "sketchybar", "waybar", "aerospace.toml", "sway"]
+    }
+}

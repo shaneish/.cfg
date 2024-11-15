@@ -1,6 +1,5 @@
 # name: 'Batdog'
 # url: ''
-# preferred_background: 303446
 
 fish_color_normal ffffff # #ffffff
 fish_color_command ffffff # #ffffff
@@ -10,18 +9,16 @@ fish_color_valid_path a7a7a7 # #a7a7a7
 fish_color_end f6cd61 # #f6cd61
 fish_color_error ffffff --bold --underline # #ffffff
 fish_color_param a7a7a7 # #f6cd61
-Fish_color_comment f6cd61 --italics # #f6cd61
+Fish_color_comment ffffc5 --italics # #ffffc5
 fish_color_match --background=a7a7a7 # #a7a7a7
 fish_color_status ff3939 # #ff3939
-fish_color_selection white --bold --background=brblack
+fish_color_selection 323232 --bold --background=8b8000 # #323232 #8b8000
 fish_color_search_match bryellow --background=brblack
 fish_color_history_current --bold
 fish_color_operator f6cd61 # #f6cd61
 fish_color_escape f6cd61 # #f6cd61
-fish_color_cwd c1c1c1 # #c1c1c1
-fish_color_cwd_root c1c1c1 # #c1c1c1
-# fish_color_autosuggestion 8b8000 # #8b8000
-# fish_color_autosuggestion 8f8b66 # #8f8b66
+fish_color_cwd c5c5c5 # #c5c5c5
+fish_color_cwd_root c5c5c5 # #c5c5c5
 fish_color_autosuggestion 767676 # #767676
 fish_color_user a7a7a7 # #a7a7a7
 fish_color_host f6cd61 # #f6cd61
@@ -29,5 +26,5 @@ fish_pager_color_background
 fish_pager_color_prefix normal --bold --underline
 fish_pager_color_progress brwhite --background=cyan
 fish_pager_color_completion normal
-fish_pager_color_description f6cd61 # #f6cd61
-fish_pager_color_selected_background --background=brblack
+fish_pager_color_description ffffc5 # #ffffc5
+fish_pager_color_selected_background --background=8b8000

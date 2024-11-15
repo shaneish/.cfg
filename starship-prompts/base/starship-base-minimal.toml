@@ -24,7 +24,7 @@ disabled = true
 symbol = "py"
 format = "\\[[$version]($style)\\]"
 version_format = "py${major}.${minor}"
-style = "#616569"
+style = "#a7a7a7"
 disabled = true
 
 [hostname]
