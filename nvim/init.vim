@@ -312,6 +312,12 @@ function! MovePane(direction=1)
     endif
 endfunction
 
+function! WindowProportion(prop=0.2)
+    let window_size = line('w$') - line('w0')
+    let jump_size = window_size * a:prop
+    return float2nr(jump_size)
+endfunction
+
 "
 " #variables ish
 "
@@ -379,6 +385,8 @@ let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
 let g:repl_split = 'bottom'
 let g:repl_filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
+let g:big_jump = 0.25
+let g:small_jump = 0.1
 
 " #autcmd ish
 autocmd FileType * set formatoptions-=ro
@@ -424,7 +432,8 @@ imap <C-s> <Plug>(copilot-suggest)
 
 " Terminal
 tmap kj <C-\><C-n>
-tmap <Esc><Esc> <C-\><C-n>
+tmap <Esc><Esc> <c-\><c-n>
+tmap <Esc><Esc><Esc> <c-\><c-n><C-w><C-w>
 tmap <C-q> <C-\><C-n>:q!<CR>
 tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
 tmap <C-w><C-w> <C-\><C-n><C-w><C-w>
@@ -487,6 +496,7 @@ nmap <space><space> <leader>
 
 " window stuff
 nmap W <C-w><C-w>
+nmap <Esc><Esc><Esc> <C-w><C-w>
 nmap <leader>w <C-w><C-w>
 nmap cow <C-w><C-w>:clo<CR>
 nmap <C-.> <C-w>l
@@ -500,16 +510,18 @@ nnoremap <leader>o o<Esc>k
 nnoremap <leader>O O<Esc>j
 
 " move stuff
-nnoremap <expr> D '10j' . Centerizer()
-nnoremap <expr> U '10k' . Centerizer()
+" nnoremap <expr> J 'J' . Centerizer()
+" nnoremap <expr> K 'K' . Centerizer()
+nnoremap <expr> D '}' . Centerizer()
+nnoremap <expr> U '{' . Centerizer()
 nnoremap <expr> <C-d> '<C-d>' . Centerizer()
 nnoremap <expr> <C-u> '<C-u>' . Centerizer()
 nnoremap <expr> L 'w' . Centerizer()
 nnoremap <expr> H 'ge' . Centerizer()
-nmap <expr> <leader>j '5j' . Centerizer()
-nmap <expr> <leader>k '5k' . Centerizer()
-nnoremap <expr> <C-j> '}' . Centerizer()
-nnoremap <expr> <C-k> '{' . Centerizer()
+nmap <expr> <leader>j WindowProportion(g:small_jump) . 'j' . Centerizer()
+nmap <expr> <leader>k WindowProportion(g:small_jump) . 'k' . Centerizer()
+nmap <expr> <C-j> WindowProportion(g:big_jump) . 'j' . Centerizer()
+nmap <expr> <C-k> WindowProportion(g:big_jump) . 'k' . Centerizer()
 nnoremap <expr> j 'j' . Centerizer()
 nnoremap <expr> k 'k' . Centerizer()
 nnoremap <expr> n 'n' . Centerizer()
@@ -579,10 +591,6 @@ xnoremap > >gv
 xnoremap <leader>l g_
 xnoremap <leader>h _
 xnoremap U J
-xnoremap <expr> j 'j' . Centerizer()
-xnoremap <expr> k 'k' . Centerizer()
-xnoremap <expr> n 'n' . Centerizer()
-xnoremap <expr> N 'N' . Centerizer()
 xnoremap t<C-c> zz:call ToggleCenterizer()<CR>
 xnoremap <leader>y "+y
 xnoremap <leader>yy "+yy
@@ -596,23 +604,26 @@ xnoremap d "1d
 xnoremap x "_x
 xnoremap <C-p> "1p
 xnoremap <leader><C-p> "1P
-" xnoremap <Esc> <Nop>
-" xnoremap <Esc><Esc> <Esc>
 xnoremap <leader>l g_
 xnoremap <leader>h _
 xnoremap <expr> <C-i> "o" . CodeBlock() . '<CR><Esc>'
 xnoremap <expr> <C-b> "a" . CodeBlock() . '<Esc>'
-xnoremap <expr> <C-d> '10j' . Centerizer()
-xnoremap <expr> <C-u> '10k' . Centerizer()
-xnoremap <expr> D '<C-d>' . Centerizer()
-xnoremap <expr> U '<C-u>' . Centerizer()
-xnoremap <expr> L 'e' . Centerizer()
-xnoremap <expr> H 'b' . Centerizer()
-xmap <expr> <leader>j '5j' . Centerizer()
-xmap <expr> <leader>k '5k' . Centerizer()
-xnoremap <expr> <C-j> '}' . Centerizer()
-xnoremap <expr> <C-k> '{' . Centerizer()
+
 xnoremap <expr> j 'j' . Centerizer()
 xnoremap <expr> k 'k' . Centerizer()
 xnoremap <expr> n 'n' . Centerizer()
 xnoremap <expr> N 'N' . Centerizer()
+xnoremap <expr> D '}' . Centerizer()
+xnoremap <expr> U '{' . Centerizer()
+xnoremap <expr> <C-d> '<C-d>' . Centerizer()
+xnoremap <expr> <C-u> '<C-u>' . Centerizer()
+xnoremap <expr> L 'w' . Centerizer()
+xnoremap <expr> H 'ge' . Centerizer()
+xnoremap <expr> j 'j' . Centerizer()
+xnoremap <expr> k 'k' . Centerizer()
+xnoremap <expr> n 'n' . Centerizer()
+xnoremap <expr> N 'N' . Centerizer()
+xmap <expr> <leader>j WindowProportion(g:small_jump) . 'j' . Centerizer()
+xmap <expr> <leader>k WindowProportion(g:small_jump) . 'k' . Centerizer()
+xmap <expr> <C-j> WindowProportion(g:big_jump) . 'j' . Centerizer()
+xmap <expr> <C-k> WindowProportion(g:big_jump) . 'k' . Centerizer()

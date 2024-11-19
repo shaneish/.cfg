@@ -77,6 +77,8 @@ AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
 config.disable_default_key_bindings = true
+config.animation_fps = 30
+config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono Regular'
 config.font_size = 10
 config.enable_scroll_bar = false
@@ -157,7 +159,6 @@ else
     top = 5,
     bottom = 5,
   }
-  -- config.front_end = 'Software'
   if Desktop then
     if Desktop:find('hyprland') ~= nil then
       config.enable_wayland  = false

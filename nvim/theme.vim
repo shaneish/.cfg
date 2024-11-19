@@ -84,24 +84,24 @@ endfunction
 " --------------------------------
 call H("Normal", s:foreground_color, "#000000")
 call H("Cursor", s:foreground_color)
-call H("LineNr", s:gray_d)
-call H("CursorLineNR", s:foreground_color, "#000000", "bold,underline")
-call H("CursorLine",  "NONE", s:med_1, "bold")
+call H("LineNr", s:dark)
+call H("CursorLineNR", s:primary_color, "#000000", "bold")
+call H("CursorLine",  "NONE", s:darkest, "bold")
 
 " -----------------
 " - Number column -
 " -----------------
 call H("CursorColumn", "NONE",  "NONE", "NONE")
-call H("FoldColumn",   s:gray, "NONE", "NONE")
-call H("SignColumn",   s:gray, "NONE", "NONE")
-call H("Folded",       s:gray, "NONE", "NONE")
+call H("FoldColumn",   s:mid, "NONE", "NONE")
+call H("SignColumn",   s:mid, "NONE", "NONE")
+call H("Folded",       s:mid, "NONE", "NONE")
 
 " -------------------------
 " - Window/Tab delimiters -
 " -------------------------
 call H("VertSplit",   "NONE",          "NONE",      "NONE")
 call H("ColorColumn", "NONE",          s:gray_dark, "NONE")
-call H("TabLine",     s:string_type,          "NONE",      "NONE")
+call H("TabLine",     s:mid,          "NONE",      "NONE")
 call H("TabLineFill", s:primary_color, "NONE",      "NONE")
 call H("TabLineSel",  s:primary_color, "NONE",      "NONE")
 
@@ -117,27 +117,27 @@ call H("QuickFix",  s:primary_color, "NONE", "underdotted")
 " -----------------
 " - Prompt/Status -
 " -----------------
-call H("StatusLine",   s:gray_y, "NONE", "NONE")
-call H("StatusLineNC", s:gray_y, "NONE", "NONE")
-call H("WildMenu",     s:gray_y, "NONE", "NONE")
-call H("Question",     s:gray_y, "NONE", "NONE")
-call H("Title",        s:gray_y, "NONE", "NONE")
-call H("ModeMsg",      s:gray_y, "NONE", "NONE")
-call H("MoreMsg",      s:gray_y, "NONE", "NONE")
+call H("StatusLine",   s:dark, "NONE", "NONE")
+call H("StatusLineNC", s:dark, "NONE", "NONE")
+call H("WildMenu",     s:dark, "NONE", "NONE")
+call H("Question",     s:dark, "NONE", "NONE")
+call H("Title",        s:dark, "NONE", "NONE")
+call H("ModeMsg",      s:dark, "NONE", "NONE")
+call H("MoreMsg",      s:dark, "NONE", "NONE")
 
 " --------------
 " - Visual aid -
 " --------------
-call H("MatchParen",      s:primary_color,        "NONE", "bold,underdouble")
+call H("MatchParen",      s:darkest,              s:high_bg, "bold,underdouble")
 call H("Visual",          s:high_fg,              s:high_bg, "bold")
 call H("VisualNOS",       s:high_fg,              s:high_bg, "bold")
 call H("NonText",         s:high_fg,              "NONE")
-call H("Todo",            s:high_bg,              "NONE", "undercurl")
-call H("Underlined",      s:high_bg,              "NONE", "undercurl")
-call H("Error",           s:high_bg,              "NONE", "undercurl")
-call H("ErrorMsg",        s:high_bg,              "NONE", "undercurl")
-call H("WarningMsg",      s:high_bg,              "NONE", "undercurl")
-call H("Ignore",          s:high_bg,              "NONE", "undercurl")
+call H("Todo",            s:high_bg,              "NONE",    "underline")
+call H("Underlined",      s:high_bg,              "NONE")
+call H("Error",           s:high_bg,              "NONE",    "undercurl")
+call H("ErrorMsg",        s:high_bg,              "NONE",    "undercurl")
+call H("WarningMsg",      s:high_bg,              "NONE",    "undercurl")
+call H("Ignore",          s:high_bg,              "NONE")
 call H("SpecialKey",      s:primary_color,        "NONE")
 call H("WhiteSpaceChar",  s:primary_color,        "NONE")
 call H("WhiteSpace",      s:primary_color,        "NONE")

@@ -14,10 +14,11 @@
     },
     "other": {
         "colors": {
-            "primary": "ffbf42",
-            "bright": "ffdf42"
+            "primary": "ffd300",
+            "bright": "fffe00"
             "background": "000000",
-            "foreground": "ffffff"
+            "foreground": "ffffff",
+            "mid": "808080",
         },
         "paths": ["hypr", "sketchybar", "waybar", "aerospace.toml", "sway"]
     }
