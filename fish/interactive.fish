@@ -22,7 +22,6 @@ for d in $python_venv_dir
     end
 end
 
-fish_vi_key_bindings
 if type -q "starship"
     starship init fish | source
 end
@@ -37,9 +36,12 @@ set fish_cursor_replace underscore blink
 set fish_cursor_external line blink
 set fish_cursor_visual block blink
 set -gx fish_vi_force_cursor line blink
+fish_bash_keybinds
 
 if type -q sk
-    source $FISH_CONFIG_DIR/skim-keybindings.fish
+    skim_key_bindings
 else if type -q fzf
     fzf --fish | source
 end
+
+_custom_keybinds

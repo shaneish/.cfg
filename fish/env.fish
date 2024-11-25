@@ -41,15 +41,21 @@ else
     alias gdm="git diff (gmb)"
     alias gdom="git diff origin/HEAD"
 end
-if type -q "fzf"
-    if type -q "bhop"
-        alias _hp_fzf_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fzf -m | fnk map -f 'f -> f.split()[-1]' | xargs"
-        alias _hp_fzf="bhop __bhop_list__ | rg '\->' | fzf -m | awk -F'->' '{print $2}' | xargs"
-        alias hg="cd (_hp_fzf_fixed)"
-        alias ho="_hp_fzf_fixed $EDITOR"
-    end
-    alias lh="history | nl | awk -F'\t' '{print $2}' | fzf"
+if type -q "sk"
+    alias fuzz="sk"
+    alias skm="sk -m"
+else if type -q "fzf"
+    alias fuzz="fzf"
+    alias fzm="fzf -m"
 end
+
+if type -q "bhop"
+    alias _hp_fuzz_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fuzz -m | fnk map -f 'f -> f.split()[-1]' | xargs"
+    alias _hp_fuzz="bhop __bhop_list__ | rg '\->' | fuzz -m | awk -F'->' '{print $2}' | xargs"
+    alias hg="cd (_hp_fuzz_fixed)"
+    alias ho="_hp_fuzz_fixed $EDITOR"
+end
+alias lh="history | nl | awk -F'\t' '{print $2}' | fuzz"
 
 if type -q "fselect"
     alias fs="fselect"
@@ -60,26 +66,34 @@ set -gx SCRIPTS_DIRECTORY $HOME/.config/scripts
 set -gx NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
 set -gx NVIM_PYENV_ACTIVATE (fd "activate.fish" $NVIM_DIRECTORY -t f | head -n 1)
 set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f | head -n 1)
-alias .="$STARSHIP_SWITCHER 0"
+alias prompt_switch="$STARSHIP_SWITCHER"
 alias nvm="$NVIM_PYENV_ACTIVATE; nvim"
 set python_venv_dir python-venvs pyenvs pyvenv
 set python_venv_priority fast-default default fast venv .venv
+set leave_loop 0
 for d in $python_venv_dir
     for p in $python_venv_priority
         if test -d $CONFIG_DIRECTORY/$d/$p
+            set leave_loop 1
             alias pyv="source $CONFIG_DIRECTORY/$d/$p/bin/activate.fish"
             alias py="$CONFIG_DIRECTORY/$d/$p/bin/python"
             break
         end
     end
-end
-
-function handle_empty_line
-    read -l line
-    if test -z "$line"
-        $STARSHIP_SWITCHER 0
+    if test $leave_loop -eq 1
+        break
     end
 end
 
-bind \r handle_empty_line
+function __alternate_prompt
+    prompt_switch 0
+end
 
+bind -M insert \cp __alternate_prompt
+
+switch (uname)
+    case Darwin
+        alias clip="pbcopy"
+    case *
+        alias clip="xclip -sel clip"
+end

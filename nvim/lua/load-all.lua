@@ -46,8 +46,11 @@ require("autoclose").setup({
 disabled = false,
 })
 require('glow').setup({
-    width = 120,
-    height = 140,
+    width = 240,
+    height = 240,
+    style = "dark",
+    width_ration = 0.95,
+    height_ration = 0.95,
     install_path = '/usr/bin/glow'
 })
 require('mason').setup({

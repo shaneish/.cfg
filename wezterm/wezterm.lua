@@ -240,7 +240,7 @@ config.key_tables = {
 config.keys = {
   {
     key = 'R',
-    mods = 'LEADER',
+    mods = 'CTRL|SHIFT',
     action = wezterm.action.ReloadConfiguration,
   },
   {
@@ -361,6 +361,24 @@ config.keys = {
       patterns = {
         '^([🌵 \\-=>_\\.]{4,5}\\s*)?(.+)'
       },
+    },
+  },
+  {
+    key = 'R',
+    mods = 'LEADER',
+    action = wezterm.action.PromptInputLine {
+      description = wezterm.format {
+        { Foreground = { Color = '#f6cd61' } },
+        { Text = 'Rename workspace:' },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        if line then
+          wezterm.mux.rename_workspace(
+            wezterm.mux.get_active_workspace(),
+            line
+          )
+        end
+      end),
     },
   },
   {

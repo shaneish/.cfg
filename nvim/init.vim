@@ -563,6 +563,12 @@ nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
 nnoremap <expr> <C-i> "o<Esc>_C" . CodeBlock() . '<CR><Esc>'
 nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
 
+" time stuff
+nmap <expr> <leader>dt 'a' . strftime("%Y-%m-%d") . '<Esc>'
+nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d:%H:%M") . '<Esc>'
+nmap <expr> <leader>fts 'a' . strftime("%Y-%m-%d %H:%M %a %b") . '<Esc>'
+nmap <expr> <leader>day 'a' . strftime("%a %b %d %Y %H:%M") . '<Esc>'
+
 " Insert remaps
 inoremap  <Esc>
 imap <C-l> <Esc>la
