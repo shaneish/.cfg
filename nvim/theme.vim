@@ -31,6 +31,7 @@ let s:foreground_color = "#ffffff"
 let s:mid = "#a7a7a7"
 let s:light = "#c5c5c5"
 let s:dark = "#767676"
+let s:darker = "#515151"
 let s:darkest = "#323232"
 
 let s:dark_0 = "#1f1f1f"
@@ -86,7 +87,7 @@ call H("Normal", s:foreground_color, "#000000")
 call H("Cursor", s:foreground_color)
 call H("LineNr", s:dark)
 call H("CursorLineNR", s:primary_color, "#000000", "bold")
-call H("CursorLine",  "NONE", s:darkest, "bold")
+call H("CursorLine",  "NONE", s:darker, "bold")
 
 " -----------------
 " - Number column -
@@ -128,10 +129,10 @@ call H("MoreMsg",      s:dark, "NONE", "NONE")
 " --------------
 " - Visual aid -
 " --------------
-call H("MatchParen",      s:darkest,              s:high_bg, "bold,underdouble")
+call H("MatchParen",      s:background_color,     s:foreground_color, "bold")
 call H("Visual",          s:high_fg,              s:high_bg, "bold")
 call H("VisualNOS",       s:high_fg,              s:high_bg, "bold")
-call H("NonText",         s:high_fg,              "NONE")
+call H("NonText",         s:bright_color,         "NONE")
 call H("Todo",            s:high_bg,              "NONE",    "underline")
 call H("Underlined",      s:high_bg,              "NONE")
 call H("Error",           s:high_bg,              "NONE",    "undercurl")

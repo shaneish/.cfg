@@ -68,6 +68,8 @@ Plug 'czheo/mojo.vim'
 Plug 'stevearc/aerial.nvim' " navigate by code structure
 Plug 'simrat39/symbols-outline.nvim' " view code structure
 Plug 'romgrk/barbar.nvim'
+Plug '3rd/image.nvim'
+Plug 'benlubas/molten-nvim'
 call plug#end()
 
 filetype plugin indent on
@@ -318,6 +320,11 @@ function! WindowProportion(prop=0.2)
     return float2nr(jump_size)
 endfunction
 
+function! AdjustShowBreak()
+    let real_numberwidth = strlen(line('$'))
+    let &showbreak = repeat("\ ", max([&nuw, real_numberwidth]))
+endfunction
+
 "
 " #variables ish
 "
@@ -354,6 +361,8 @@ set splitright
 set conceallevel=0
 set signcolumn=yes:1
 set guicursor+=i:blinkon1,v:blinkon1
+set cpoptions+=n
+set showbreak=...
 
 " #globalvars ish
 let g:indentLine_char = '▏'
@@ -413,6 +422,7 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+command! BW :bn|:bd#
 
 " #highlight ish
 highlight SignColumn guibg=NONE
@@ -433,7 +443,7 @@ imap <C-s> <Plug>(copilot-suggest)
 " Terminal
 tmap kj <C-\><C-n>
 tmap <Esc><Esc> <c-\><c-n>
-tmap <Esc><Esc><Esc> <c-\><c-n><C-w><C-w>
+tmap <C-Space><C-Space> <c-\><c-n><C-w><C-w>
 tmap <C-q> <C-\><C-n>:q!<CR>
 tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
 tmap <C-w><C-w> <C-\><C-n><C-w><C-w>
@@ -450,8 +460,6 @@ nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader><leader>h :noh<CR>
 nmap <expr> <leader><leader>d CloseIt() . '<CR>'
 xmap <expr> <leader><leader>d CloseIt() . '<CR>'
-nmap <expr> <C-c> CloseIt() . '<CR>'
-xmap <expr> <C-d> CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-q> <cmd>q!<CR>
@@ -498,6 +506,7 @@ nmap <space><space> <leader>
 nmap W <C-w><C-w>
 nmap <Esc><Esc><Esc> <C-w><C-w>
 nmap <leader>w <C-w><C-w>
+nmap <C-Space><C-Space> <C-w><C-w>
 nmap cow <C-w><C-w>:clo<CR>
 nmap <C-.> <C-w>l
 nmap <C-,> <C-w>h
@@ -530,6 +539,7 @@ nnoremap <expr> N 'N' . Centerizer()
 nnoremap <leader>u J
 nnoremap <leader>l g_
 nnoremap <leader>h _
+nnoremap <C-g> J
 
 " copy stuff
 nnoremap <leader>y "+y
@@ -596,7 +606,6 @@ xnoremap < <gv
 xnoremap > >gv
 xnoremap <leader>l g_
 xnoremap <leader>h _
-xnoremap U J
 xnoremap t<C-c> zz:call ToggleCenterizer()<CR>
 xnoremap <leader>y "+y
 xnoremap <leader>yy "+yy

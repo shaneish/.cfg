@@ -3,4 +3,6 @@ click
 requests
 auto-optional
 tomli
+pynvim
+jupyter-client
 git+https://github.com/shaneish/fnkpy.git

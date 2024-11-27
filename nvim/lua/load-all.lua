@@ -8,6 +8,7 @@ require('lualine-config')
 require('nvim-tree-config')
 require('diagnostics')
 require('telescope').load_extension('harpoon')
+-- require('image').setup()
 require("aerial").setup({
   on_attach = function(bufnr)
     vim.keymap.set("n", "K", "<cmd>AerialPrev<CR>", { buffer = bufnr })
