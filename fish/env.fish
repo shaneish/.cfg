@@ -42,13 +42,16 @@ else
     alias gdom="git diff origin/HEAD"
 end
 if type -q "sk"
+    alias sk="sk --bind 'ctrl-l:toggle+out,ctrl-h:toggle+in,ctrl-space:toggle'"
     alias fuzz="sk"
     alias skm="sk -m"
 else if type -q "fzf"
+    alias fzf="--bind 'ctrl-l:toggle+out,ctrl-h:toggle+in,ctrl-space:toggle'"
     alias fuzz="fzf"
     alias fzm="fzf -m"
 end
 
+alias opn="fd '' . | fuzz -m | xargs nvim"
 if type -q "bhop"
     alias _hp_fuzz_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fuzz -m | fnk map -f 'f -> f.split()[-1]' | xargs"
     alias _hp_fuzz="bhop __bhop_list__ | rg '\->' | fuzz -m | awk -F'->' '{print $2}' | xargs"
