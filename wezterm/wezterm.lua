@@ -79,7 +79,7 @@ Desktop = os.getenv("DESKTOP_SESSION")
 config.disable_default_key_bindings = true
 config.animation_fps = 30
 config.max_fps = 144
-config.font = wezterm.font 'JetBrains Mono Regular'
+config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
 config.color_scheme = "theme"
@@ -112,7 +112,7 @@ config.colors = {
 }
 config.window_frame = {
   font_size = 11,
-  font = wezterm.font 'JetBrains Mono Bold'
+  font = wezterm.font 'JetBrains Mono'
 }
 config.inactive_pane_hsb = {
   hue = 1.2,

@@ -30,7 +30,7 @@ print_color_primary=[128, 128, 128]
 print_color_secondary=[192, 192, 192]
 
 # Choose whether to prioritize moving to local files or saved shortcuts
-prioritize_shortcuts=false
+prioritize_shortcuts=true
 
 # Always cd into the matching directory when editing
 always_jump=false
