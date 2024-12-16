@@ -4,7 +4,7 @@ CS="$(readlink -f $HOME/.config/starship.toml)"
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 CFG_DIR=$(dirname "$SCRIPT_DIR")
 STARSHIP_PROMPTS_DIR=$CFG_DIR/starship-prompts
-STARSHIP_CONFIG_DIR=$HOME/.config
+STARSHIP_CONFIG_DIR="$(dirname $STARSHIP_PROMPTS_DIR)"
 ALT_FILE_IDENTIFIER="minimal"
 
 _hide() {

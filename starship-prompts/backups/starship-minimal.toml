@@ -4,12 +4,14 @@ command_timeout = 1000
 
 [directory]
 truncate_to_repo = false
+truncation_length = 1
 fish_style_pwd_dir_length = 1
 style = "#f6cd61"
 format = "[> $path$read_only]($style) "
 home_symbol = "~"
 read_only = ' -ro'
 truncation_symbol = '.../'
+
 [git_metrics]
 disabled = true
 
