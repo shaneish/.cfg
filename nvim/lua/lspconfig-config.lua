@@ -1,3 +1,5 @@
+local navbuddy = require("nvim-navbuddy")
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -26,6 +28,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<c-space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    navbuddy.attach(client, bufnr)
 end
 
 -- Update nvim-cmp capabilities and add them to each language server

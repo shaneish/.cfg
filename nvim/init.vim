@@ -70,6 +70,10 @@ Plug 'simrat39/symbols-outline.nvim' " view code structure
 Plug 'romgrk/barbar.nvim'
 Plug '3rd/image.nvim'
 Plug 'benlubas/molten-nvim'
+Plug 'SmiteshP/nvim-navic'
+Plug 'numToStr/Comment.nvim'
+Plug 'SmiteshP/nvim-navbuddy'
+Plug 'jpalardy/vim-slime'
 call plug#end()
 
 filetype plugin indent on
@@ -322,6 +326,7 @@ endfunction
 
 function! AdjustShowBreak()
     let real_numberwidth = strlen(line('$'))
+
     let &showbreak = repeat("\ ", max([&nuw, real_numberwidth]))
 endfunction
 
@@ -396,6 +401,8 @@ let g:repl_split = 'bottom'
 let g:repl_filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
 let g:big_jump = 0.25
 let g:small_jump = 0.1
+let g:slime_cell_delimiter = CodeBlock()
+let g:slime_target = "wezterm"
 
 " #autcmd ish
 autocmd FileType * set formatoptions-=ro
