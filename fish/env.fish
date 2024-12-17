@@ -40,24 +40,15 @@ else
     alias gdm="git diff (gmb)"
     alias gdom="git diff origin/HEAD"
 end
-if type -q "sk"
-    alias sk="sk --bind 'ctrl-l:toggle+out,ctrl-h:toggle+in,ctrl-space:toggle'"
-    alias fuzz="sk"
-    alias skm="sk -m"
-else if type -q "fzf"
-    alias fzf="--bind 'ctrl-l:toggle+out,ctrl-h:toggle+in,ctrl-space:toggle'"
-    alias fuzz="fzf"
-    alias fzm="fzf -m"
-end
 
-alias opn="fd '' . | fuzz -m | xargs nvim"
+alias opn="fd '' . | fz -m | xargs nvim"
 if type -q "bhop"
-    alias _hp_fuzz_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fuzz -m | fnk map -f 'f -> f.split()[-1]' | xargs"
-    alias _hp_fuzz="bhop __bhop_list__ | rg '\->' | fuzz -m | awk -F'->' '{print $2}' | xargs"
-    alias hg="cd (_hp_fuzz_fixed)"
-    alias ho="_hp_fuzz_fixed $EDITOR"
+    alias _hp_fz_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fz -m | fnk map -f 'f -> f.split()[-1]' | xargs"
+    alias _hp_fz="bhop __bhop_list__ | rg '\->' | fz -m | awk -F'->' '{print $2}' | xargs"
+    alias hg="cd (_hp_fz_fixed)"
+    alias ho="_hp_fz_fixed $EDITOR"
 end
-alias lh="history | nl | awk -F'\t' '{print $2}' | fuzz"
+alias lh="history | nl | awk -F'\t' '{print $2}' | fz"
 
 if type -q "fselect"
     alias fs="fselect"

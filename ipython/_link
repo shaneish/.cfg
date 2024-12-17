@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+IPYTHON_CONFIG=$SCRIPT_DIR/ipython_config.py
+IPYTHON_DIR=$HOME/.ipython
+
+for f in "$IPYTHON_DIR"/*; do
+    ln -ns $IPYTHON_CONFIG "$f"/ipython_config.py
+done

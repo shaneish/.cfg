@@ -10,6 +10,7 @@ local function read_file(path)
     file:close()
     return content
 end
+
 local function tab_title(tab_info)
     local title = tab_info.tab_title
     -- if the tab title is explicitly set, take that
@@ -316,8 +317,10 @@ config.keys = {
   { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
   { key = '_', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
   { key = "B", mods = "CTRL|SHIFT", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
-  { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-1) },
-  { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(1) },
+  { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-0.5) },
+  { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
+  -- { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-1) },
+  -- { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(1) },
   { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
   { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
   { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },

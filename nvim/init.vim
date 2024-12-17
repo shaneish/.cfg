@@ -234,6 +234,20 @@ function! PyFormat()
     endif
 endfunction
 
+function! SlimeReplInitCmd()
+    if &filetype == "python"
+        return "wezterm cli split-pane -- " . g:ipython3_host_prog . " --no-autoindent"
+    endif
+endfunction
+
+function! WeztermSlimePane()
+    let pane_id = system(SlimeReplInitCmd())
+    let b:slime_config = {"pane_id": trim(pane_id)}
+    let g:slime_default_config = {"pane_id": trim(pane_id)}
+    let g:slime_dont_ask_default = 1
+    let g:slime_cell_delimiter = CodeBlock()
+endfunction
+
 let g:mini_jump_val = '5'
 let g:large_jump_val = '30'
 let g:section_filetypes = ['python']
@@ -585,6 +599,13 @@ nmap <expr> <leader>dt 'a' . strftime("%Y-%m-%d") . '<Esc>'
 nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d:%H:%M") . '<Esc>'
 nmap <expr> <leader>fts 'a' . strftime("%Y-%m-%d %H:%M %a %b") . '<Esc>'
 nmap <expr> <leader>day 'a' . strftime("%a %b %d %Y %H:%M") . '<Esc>'
+
+" slime stuff
+nmap <leader>rn :call WeztermSlimePane()<CR>
+nmap <leader>rp <Plug>SlimeParagraphSend
+nmap <leader>rr <Plug>SlimeSendCell
+nmap <leader>rl <Plug>SlimeLineSend
+xmap <leader>rr <Plug>SlimeRegionSend
 
 " Insert remaps
 inoremap  <Esc>

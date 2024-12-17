@@ -29,7 +29,7 @@ function emoji --description "Get an emoji"
 end
 
 function emojis --description "Select from emojis"
-    emoji -m $argv | fzf
+    emoji -m $argv | fz
 end
 
 function hp --description "Hop around the terminal"
@@ -76,18 +76,11 @@ function sx --description "Search for summin'"
     rg "$argv" -i -l | xargs nvim -c "/$argv"
 end
 
-function skx --description "Search for summin'"
-    rg "$argv" -i -l | sk --ansi -i -c 'rg --color=always --line-number "{}"' -m | awk -F':' '{print $1}' | xargs nvim -c "/$argv"
+function skx --description "Search for summin' -- but pick"
+    rg "$argv" -i --line-number --color=always | sk --ansi -m | awk -F':' '{print $1}' | xargs nvim -c "/$argv"
 end
 
-function fzx
-    sk --ansi -i -c 'rg --color=always --line-number "{}"' -m | awk -F':' '{print $1} {print $2}' | xargs -n 2 sh -c 'nvim +$2 $1'
-end
-function pfx --description "Search a Python codebase for a string"
-    rg $argv -i -l -T rst -t py -g='!__init__.py' -g="!test_*" -g="!examples/**/*" -g="!databricks/sdk/mixins*" | sk -m | xargs nvim -c "/$argv[1]"
-end
-
-function y
+function _yazi
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
     if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
@@ -131,7 +124,7 @@ end
 
 function theme_highlight
     set -gx CURRENT_THEME (rg 'cursor_bg\s+=\s+"#([a-zA-Z0-9]+)"' ~/.config/wezterm/colors/theme.toml -r '$1' -N)
-    echo "Current theme highlight: $CURRENT_THEME"
+    set_color $CURRENT_THEME; printf '%s\n' "Current theme highlight: $CURRENT_THEME"
 end
 
 function highlight_color

@@ -1,0 +1,71 @@
+#!/bin/bash
+
+DEFAULT_SRC_DIR=$( cd -- "$( dirname -- "${BASH_SRC[0]}" )" &> /dev/null && pwd )
+DEFAULT_DEST_DIR=$(dirname "$(glow --help | rg "[a-zA-Z-0-9\-_/\\\.~]+\.yml" -o)")
+
+_optional() {
+    if [ -e "$1" ]; then
+        echo $1
+    else
+        echo $2
+    fi
+}
+_structured_link() { # symlink from *_SRC_FILE -> *_DEST_FILE
+    for var in "$@"; do
+        src_parsed="${var}_SRC_FILE"
+        dest_parsed="${var}_DEST_FILE"
+        echo "Linking $src_parsed -> $dest_parsed"
+        ln -ns ${!src_parsed} ${!dest_parsed}
+    done
+}
+
+_rm() {
+  if [ -e "$1" ]; then
+    echo "Removing $1..."
+    if type -P rip >/dev/null 2>&1; then
+      rip $1
+    else
+      rm $1
+    fi
+  fi
+}
+
+_mkdir() {
+    if [ ! -f $1 ]; then
+        echo "Making directory $1..."
+        mkdir -p $1
+    fi
+}
+
+_generate() {
+    echo "Creating file $2..."
+    cp $1 $2
+    if [ $# -ge 3 ]; then
+        for i in $(seq 2 $#); do
+            src="__$[$i - 2]__"
+            target=${!i}
+            echo "Imputing $target -> \"$src\"..."
+            sd "$src" "$target" $2
+        done
+    fi
+}
+
+_structured_generate() { # uses template to create config _template_* -> _generated_*
+    _generate _template_${1} _generated_$1 ${@:2}
+}
+
+__main__() {
+    SRC_DIR=$(_optional $1 "$DEFAULT_SRC_DIR")
+    DEST_DIR=$(_optional $2 "$DEFAULT_DEST_DIR")
+    CFG_FILENAME=glow.yml
+    CFG_SRC_FILE=${SRC_DIR}/_generated_${CFG_FILENAME}
+    CFG_DEST_FILE=${DEST_DIR}/${CFG_FILENAME}
+    THEME_SRC_FILE=${SRC_DIR}/theme.yml
+    THEME_DEST_FILE=${DEST_DIR}/theme.yml
+
+    _mkdir "$DEST_DIR"
+    _structured_generate "$CFG_FILENAME" "$THEME_SRC_FILE"
+    _structured_link CFG THEME
+}
+
+__main__ $@
