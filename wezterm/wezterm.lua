@@ -402,6 +402,7 @@ config.keys = {
     },
   },
   { key = 'W', mods = 'LEADER', action = wezterm.action.SwitchToWorkspace },
+  { key = 'W', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(1) },
   {
     key = 'S',
     mods = 'LEADER',
