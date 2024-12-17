@@ -72,6 +72,17 @@ function psx --description "Search a Python codebase for a string"
     rg $argv -i -l -T rst -t py -g='!__init__.py' -g="!test_*" -g="!examples/**/*" -g="!databricks/sdk/mixins*" | xargs nvim -c "/$argv[1]"
 end
 
+function sx --description "Search for summin'"
+    rg "$argv" -i -l | xargs nvim -c "/$argv"
+end
+
+function skx --description "Search for summin'"
+    rg "$argv" -i -l | sk --ansi -i -c 'rg --color=always --line-number "{}"' -m | awk -F':' '{print $1}' | xargs nvim -c "/$argv"
+end
+
+function fzx
+    sk --ansi -i -c 'rg --color=always --line-number "{}"' -m | awk -F':' '{print $1} {print $2}' | xargs -n 2 sh -c 'nvim +$2 $1'
+end
 function pfx --description "Search a Python codebase for a string"
     rg $argv -i -l -T rst -t py -g='!__init__.py' -g="!test_*" -g="!examples/**/*" -g="!databricks/sdk/mixins*" | sk -m | xargs nvim -c "/$argv[1]"
 end

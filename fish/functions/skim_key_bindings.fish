@@ -1,11 +1,5 @@
 #!/bin/fish
 # completion.fish
-# copied and modified from https://github.com/junegunn/fzf/blob/master/shell/key-bindings.fish
-#     ____      ____
-#    / __/___  / __/
-#   / /_/_  / / /_
-#  / __/ / /_/ __/
-# /_/   /___/_/ key-bindings.fish
 #
 # - $SKIM_TMUX_OPTS
 # - $SKIM_CTRL_T_COMMAND
