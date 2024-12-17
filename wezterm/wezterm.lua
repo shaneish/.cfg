@@ -281,6 +281,11 @@ config.keys = {
     },
   },
   {
+    key = 'Q',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.CloseCurrentPane { confirm = false },
+  },
+  {
     key = 'q',
     mods = 'LEADER',
     action = wezterm.action.CloseCurrentPane { confirm = false },

@@ -1,4 +1,4 @@
-prep
+### prep
 ```bash
 # prep
 export ENV_PATH=$HOME/.env
@@ -60,7 +60,7 @@ _path $HOME/tools
 _path /usr/local/bin
 ```
 
-base
+### base
 ```bash
 sudo pacman -S stow # gotta call stow before all the apps are installed nahmsayin??
 git clone https://github.com/shaneish/.cfg.git $HOME/.config/.cfg
@@ -76,7 +76,7 @@ yay -S swayfx
 yay -S hyprshot
 ```
 
-pipx-apps
+### pipx-apps
 ```bash
 python3.13 -m ensurepip
 python3.13 -m pip install pipx
@@ -87,7 +87,7 @@ pipx install pybuilder
 pipx install git+https://github.com/shaneish/fnkpy.git
 ```
 
-git
+### git
 ```bash
 git config --global user.email "stephenson.shane.a@gmail.com"
 git config --global user.name "Shane Stephenson"
@@ -100,7 +100,7 @@ cd $HOME/.config/.cfg
 stow .
 ```
 
-rust
+### rust
 ```bash
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source "$HOME/.cargo/env"
@@ -114,7 +114,7 @@ rustup component add rust-docs
 rustup component add llvm-tools
 ```
 
-cargo-apps
+### cargo-apps
 ```bash
 cargo install ripgrep
 cargo install sd
@@ -131,7 +131,6 @@ cargo install procs
 cargo install rargs
 cargo isntall xh
 cargo install grex
-cargo install yazi
 cargo install choose
 cargo install tealdeer
 cargo install --locked yazi-fm yazi-cli
@@ -139,17 +138,18 @@ cargo install onefetch --force
 cargo install coreutils
 cargo install fselect
 cargo install starship
+cargo install xsv
 cargo install --locked jaq
 ```
 
-scripts
+### scripts
 ```bash
 _path $HOME/.scripts/bin
 _lnkr $HOME/.config/scripts $HOME/.scripts/bin
 sh $HOME/.config/python-venvs/setup.sh
 ```
 
-keyboard-ish
+### keyboard-ish
 ```bash
 mkdir /etc/keyd
 touch /etc/keyd/default.conf
@@ -171,15 +171,7 @@ EOL
 systemctl enable keyd && systemctl start keyd
 ```
 
-nix
-```bash
-# nix profile install nixpkgs#wezterm # wezterm
-# nix profile install nixpkgs#neovim # neovim
-# nix profile install nixpkgs#keyd # keyd
-# nix profile install nixpkgs#python313
-```
-
-neovim
+### neovim
 ```bash
 _env NVIM_CONFIGS $HOME/.config/nvim
 _env EDITOR $(which nvim)
@@ -192,7 +184,7 @@ deactivate
 sudo npm i -g pyright
 ```
 
-magic/modular/mojo/whatever they're calling themselves now lmao
+### magic/modular/mojo/whatever they're calling themselves now lmao
 ```bash
 curl -ssL https://magic.modular.com/de88df84-ddf8-4305-bd78-3195ebbc1314 | bash
 ```
