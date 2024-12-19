@@ -118,13 +118,13 @@ config.window_frame = {
 config.inactive_pane_hsb = {
   hue = 1.2,
   saturation = 1.0,
-  brightness = 0.4,
-}
-config.foreground_text_hsb = {
-  hue = 1.0,
-  saturation = 1.8,
   brightness = 1.5,
 }
+-- config.foreground_text_hsb = {
+--   hue = 1.0,
+--   saturation = 1.8,
+--   brightness = 1.5,
+-- }
 
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Ubuntu'
@@ -284,7 +284,7 @@ config.keys = {
   {
     key = 'Q',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.CloseCurrentPane { confirm = false },
+    action = wezterm.action.CloseCurrentPane { confirm = true },
   },
   {
     key = 'q',
@@ -300,6 +300,11 @@ config.keys = {
     key = 't',
     mods = 'LEADER',
     action = wezterm.action.SpawnTab 'DefaultDomain'
+  },
+  {
+    key = 'T',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SpawnTab 'CurrentPaneDomain'
   },
   {
     key = '"',
@@ -319,8 +324,6 @@ config.keys = {
   { key = "B", mods = "CTRL|SHIFT", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
   { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-0.5) },
   { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
-  -- { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-1) },
-  -- { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(1) },
   { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
   { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
   { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
@@ -333,9 +336,26 @@ config.keys = {
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
   { key = 'c', mods = NonAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
   { key = 'v', mods = NonAlt, action = wezterm.action.PasteFrom 'Clipboard' },
-  { key = 'N', mods = 'LEADER', action = wezterm.action_callback(function(win, pane)
-      local tab, window = pane:move_to_new_window()
-    end)
+  {
+    key = 'N',
+    mods = 'LEADER',
+    action = wezterm.action.PromptInputLine {
+      description = wezterm.format {
+        { Foreground = { Color = '#f6cd61' } },
+        { Text = 'Workspace name:' },
+      },
+      action = wezterm.action_callback(function(win, pane, line)
+        if line then
+          local tab, window = pane:move_to_new_window(line)
+          win:perform_action(
+            wezterm.action.SwitchToWorkspace {
+              name = line,
+            },
+            pane
+          )
+        end
+      end),
+    },
   },
   {
     key = 'n',

@@ -214,9 +214,25 @@ function! OpenTerm()
 endfunction
 
 let g:python_format_on_save = 1
-let g:python_bin = substitute($MYVIMRC, "/init.vim", "", "") . '/.venv/bin/'
+let g:python_bin = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/bin/'
+let g:python_venv_dir = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/'
 let g:python3_host_prog = g:python_bin . 'python3'
 let g:ipython3_host_prog = g:python_bin . 'ipython'
+function! ActivateVenvCmd(venv_dir="")
+    let dir = g:python_venv_dir
+    if a:venv_dir != ""
+        let dir = a:venv_dir
+    endif
+    let script = "activate"
+    let source = "."
+    if &shell == "fish"
+        let script = "activate.fish"
+    elseif &shell == "nu"
+        let script = "activate.nu"
+    endif
+    return source . " " . dir . "bin/" . script
+endfunction
+
 function! ToggleFormat()
     if g:python_format_on_save == 1
         let g:python_format_on_save = 0
@@ -234,9 +250,18 @@ function! PyFormat()
     endif
 endfunction
 
+let g:wezterm_pane_split_direction = -1 " -1 for auto, 0 for bottom, 1 for left
 function! SlimeReplInitCmd()
+    let split_flag = ""
+    if g:wezterm_pane_split_direction == 0
+        let split_flag = "--bottom "
+    elseif g:wezterm_pane_split_direction == 1
+        let split_flag = "--left "
+    endif
+    let cmd = "wezterm cli split-pane " . split_flag . "--cwd " . getcwd() . " -- "
     if &filetype == "python"
-        return "wezterm cli split-pane -- " . g:ipython3_host_prog . " --no-autoindent"
+        " return cmd . ActivateVenvCmd() . "; ipython --no-autoindent"
+        return cmd . g:ipython3_host_prog . " --no-autoindent"
     endif
 endfunction
 
@@ -511,10 +536,9 @@ nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 "
 " Python repl mappings
 "
-nnoremap <Leader>rt <Cmd>ReplToggle<CR>
-nmap <Leader>rc <Plug>ReplSendCell
-nmap <Leader>rr <Plug>ReplSendLine
-xmap <Leader>r  <Plug>ReplSendVisual
+nmap <C-space>rt <Cmd>ReplToggle<CR>
+nmap <C-space>rc <Plug>ReplSendCell
+xmap <C-space>rc  <Plug>ReplSendVisual
 
 ""
 " Normal remaps
@@ -602,10 +626,10 @@ nmap <expr> <leader>day 'a' . strftime("%a %b %d %Y %H:%M") . '<Esc>'
 
 " slime stuff
 nmap <leader>rn :call WeztermSlimePane()<CR>
-nmap <leader>rp <Plug>SlimeParagraphSend
-nmap <leader>rr <Plug>SlimeSendCell
+nmap <leader>rr <Plug>SlimeParagraphSend
+nmap <leader>rc <Plug>SlimeSendCell
 nmap <leader>rl <Plug>SlimeLineSend
-xmap <leader>rr <Plug>SlimeRegionSend
+xmap <leader>rc <Plug>SlimeRegionSend
 
 " Insert remaps
 inoremap  <Esc>

@@ -1,5 +1,7 @@
-python-venvs/
+python-venvs/**/*
 bhop/db
-nvim/.venv
+**/.venv
+**/venv
 **/_generated*
 **/**/_generated*
+**/*.swp

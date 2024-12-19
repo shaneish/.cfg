@@ -444,7 +444,7 @@ c = get_config()  #noqa
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
 #  Choices: any of ['Neutral', 'NoColor', 'LightBG', 'Linux'] (case-insensitive)
 #  Default: 'Neutral'
-# c.InteractiveShell.colors = 'Neutral'
+c.InteractiveShell.colors = 'Linux'
 
 #  Default: False
 # c.InteractiveShell.debug = False
@@ -636,7 +636,7 @@ c.TerminalInteractiveShell.editing_mode = 'vi'
 
 ## Set the editor used by IPython (default to $EDITOR/vi/notepad).
 #  Default: '/usr/bin/nvim'
-# c.TerminalInteractiveShell.editor = '/usr/bin/nvim'
+c.TerminalInteractiveShell.editor = 'nvim'
 
 ## Add shortcuts from 'emacs' insert mode to 'vi' insert mode.
 #  Default: True

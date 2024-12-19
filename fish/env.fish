@@ -1,45 +1,37 @@
-set -l git_atoms "refname" "objecttype" "objectsize" "objectname" "deltabase" "tree" "parent" "numparent" "object" "type" "tag" "author" "authorname" "authoremail" "authordate" "committer" "committername" "committeremail" "committerdate" "tagger" "taggername" "taggeremail" "taggerdate" "creator" "creatordate" "describe" "subject" "body" "trailers" "contents" "signature" "raw" "upstream" "push" "symref" "flag" "HEAD" "color" "worktreepath" "align" "end" "if" "then" "else" "rest" "ahead-behind"
+set -Ux GIT_ATOMS "refname" "objecttype" "objectsize" "objectname" "deltabase" "tree" "parent" "numparent" "object" "type" "tag" "author" "authorname" "authoremail" "authordate" "committer" "committername" "committeremail" "committerdate" "tagger" "taggername" "taggeremail" "taggerdate" "creator" "creatordate" "describe" "subject" "body" "trailers" "contents" "signature" "raw" "upstream" "push" "symref" "flag" "HEAD" "color" "worktreepath" "align" "end" "if" "then" "else" "rest" "ahead-behind"
 
 alias ll="eza"
-alias setclip="xclip -select c"
-alias getclip="xclip -select c -o"
-alias gap="git add -p"
-alias gau="git add -u"
-alias gaa="git add ."
-alias ga="git add"
-alias gc="git commit"
-alias gcm="git commit -m"
-alias gp="git push"
-alias gb="git branch --show-current"
-alias gpo="git push origin"
-alias gpu="git pull origin"
-alias gck="git checkout"
-alias gs="git status"
-alias gco="git checkout"
-alias gcb="git checkout -b"
-alias gpob="git push origin (git branch --show-current)"
-alias gpub="git pull origin (git branch --show-current)"
-alias gbh="git rev-parse --abbrev-ref HEAD"
-alias gf="arrout 3 $git_atoms"
-alias dx="databricks"
-alias gwt="git worktree"
-alias gwtl="git worktree list"
-alias gwta="git worktree add"
-alias gwtr="git worktree remove"
-alias gd="git diff"
-alias goh="git rev-parse --abbrev-ref origin/HEAD"
-alias gmb="gh | sd '\w+/' ''"
 alias cls="clear; fish"
-if type -q "dunk"
-    alias gdd="git diff | dunk"
-    alias gdo="git diff origin/(git branch --show-current) | dunk"
-    alias gdm="git diff (gmb) | dunk"
-    alias gdom="git diff origin/HEAD | dunk"
-else
-    alias gdo="git diff origin/(git branch --show-current)"
-    alias gdm="git diff (gmb)"
-    alias gdom="git diff origin/HEAD"
+
+abbr -a dx databricks
+if type -q "fselect"
+    abbr -a fs fselect
 end
+
+alias git="git --no-pager"
+abbr -a gl git log
+abbr -a gap git add -p
+abbr -a gau git add -u
+abbr -a gaa git add .
+abbr -a ga git add
+abbr -a gcm git commit -m
+abbr -a gb git branch --show-current
+abbr -a gbll git branch -l
+abbr -a gbl git branch -a
+abbr -a gm git merge
+abbr -a gpo git push origin
+abbr -a gpu git pull origin
+abbr -a gco git checkout
+abbr -a gs git status
+abbr -a gcb git checkout -b
+abbr -a gpob git push origin (git branch --show-current)
+abbr -a gpub git pull origin (git branch --show-current)
+abbr -a gwt git worktree
+abbr -a gwtl git worktree list
+abbr -a gwta git worktree add
+abbr -a gwtr git worktree remove
+abbr -a gd git diff
+abbr -a gdo git diff origin/(git branch --show-current)
 
 alias opn="fd '' . | fz -m | xargs nvim"
 if type -q "bhop"
@@ -49,10 +41,6 @@ if type -q "bhop"
     alias ho="_hp_fz_fixed $EDITOR"
 end
 alias lh="history | nl | awk -F'\t' '{print $2}' | fz"
-
-if type -q "fselect"
-    alias fs="fselect"
-end
 
 set -gx CONFIG_DIRECTORY $HOME/.config
 set -gx SCRIPTS_DIRECTORY $HOME/.config/scripts
@@ -80,6 +68,7 @@ end
 
 function __alternate_prompt
     prompt_switch 0
+    commandline -f repaint
 end
 
 bind -M insert \cp __alternate_prompt
