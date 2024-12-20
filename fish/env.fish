@@ -21,6 +21,7 @@ if type -q "bhop"
     alias ho="_hp_fz_fixed $EDITOR"
 end
 abbr -a dx databricks
+abbr -a ai shelldon
 
 # all the git ones
 alias git="git --no-pager"
