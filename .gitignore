@@ -1,7 +1,10 @@
 python-venvs/**/*
-bhop/db
+bhop/db/*
+bhop/scripts/*
 **/.venv
 **/venv
 **/_generated*
 **/**/_generated*
 **/*.swp
+**/cigna*
+fish/locals/cigna_certs.fish

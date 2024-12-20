@@ -140,6 +140,7 @@ cargo install fselect
 cargo install starship
 cargo install xsv
 cargo install --locked jaq
+cargo install toml-cli
 ```
 
 ### scripts

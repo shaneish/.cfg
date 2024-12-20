@@ -32,40 +32,8 @@ function emojis --description "Select from emojis"
     emoji -m $argv | fz
 end
 
-function hp --description "Hop around the terminal"
-    set output (sh -c "bhop $argv")
-    if not string match -q "*|*" $output
-        echo $output
-    else
-        set cmds (string split "|" $output)
-        cd $cmds[1]
-        sh -c "$cmds[2]"
-    end
-end
-
 function manp --description "A simple manpage result without the BS backspace characters"
     man $argv | col -b
-end
-
-function src --description "Search a codebase and open files in your editor"
-    set -l options 'i/include' 'x/exclude' 'd/dont_include_i' 'e/editor'
-    argparse $options -- $argv[2..]
-    set cmd $argv[1]
-    if not set -q _flag_dont_include_i
-        set cmd "$cmd -i"
-    end
-    if set -q _flag_include
-        set cmd = "$cmd -t $_flag_include"
-    end
-    if set -q _flag_exclude
-        set cmd = "$cmd -T $_flag_exclude"
-    end
-    set editor "nvim"
-    if set -q _flag_editor
-        set editor $_flag_editor
-    end
-    set cmd = "rg $cmd -l | xargs $editor -c '/$($argv[1])'"
-    fish -c $cmd
 end
 
 function psx --description "Search a Python codebase for a string"
@@ -76,21 +44,8 @@ function sx --description "Search for summin'"
     rg "$argv" -i -l | xargs nvim -c "/$argv"
 end
 
-function skx --description "Search for summin' -- but pick"
+function sfx --description "Search for summin' -- but pick"
     rg "$argv" -i --line-number --color=always | sk --ansi -m | awk -F':' '{print $1}' | xargs nvim -c "/$argv"
-end
-
-function _yazi
-    set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
-    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-        builtin cd -- "$cwd"
-    end
-    rm -f -- "$tmp"
-end
-
-function shrt
-    rg '[\\w\-]+=\\"[\\w\\:/\\.\\?\+\\-\\\]+\\"' /Users/h62756/.config/.shrtcut.toml -N | awk -F'=' '{print $1}' | sk | xargs shrtcut --grab
 end
 
 function choose_background
@@ -108,18 +63,6 @@ function choose_background
         rip $BACK_FILE
         ln -rs $NEW $CFG_DIR/background.$TYPE
     end
-end
-
-function read_confirm
-  while true
-    read -l -P 'Do you want to continue? [y/N] ' confirm
-    switch $confirm
-      case Y y
-        return 0
-      case '' N n
-        return 1
-    end
-  end
 end
 
 function theme_highlight
