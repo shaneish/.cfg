@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_SRC_DIR=$( cd -- "$( dirname -- "${BASH_SRC[0]}" )" &> /dev/null && pwd )
+DEFAULT_SRC_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 DEFAULT_DEST_DIR=$(dirname "$(glow --help | rg "[a-zA-Z-0-9\-_/\\\.~]+\.yml" -o)")
 
 _optional() {
