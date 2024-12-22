@@ -1,12 +1,15 @@
 _set_python_venv
+_set_fuzzy_finder
 set -Ux GIT_ATOMS "refname" "objecttype" "objectsize" "objectname" "deltabase" "tree" "parent" "numparent" "object" "type" "tag" "author" "authorname" "authoremail" "authordate" "committer" "committername" "committeremail" "committerdate" "tagger" "taggername" "taggeremail" "taggerdate" "creator" "creatordate" "describe" "subject" "body" "trailers" "contents" "signature" "raw" "upstream" "push" "symref" "flag" "HEAD" "color" "worktreepath" "align" "end" "if" "then" "else" "rest" "ahead-behind"
 
 alias lh="history | fz | clip"
 alias ll="eza"
+alias cat="bat"
 alias cls="clear; fish"
 alias clip="xclip -sel clip"
 alias opn="fd '' . | fz -m | xargs nvim"
 alias mvim="nvim -u $HOME/.config/nvim/minit.vim"
+alias cat="bat"
 switch (uname)
     case Darwin
         alias clip="pbcopy"
