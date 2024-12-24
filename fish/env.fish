@@ -25,6 +25,9 @@ abbr -a ai shelldon
 
 # all the git ones
 alias git="git --no-pager"
+alias gdo="git diff origin/(git branch --show-current)"
+alias gpob="git push origin (git branch --show-current)"
+alias gpub="git pull origin (git branch --show-current)"
 abbr -a gl git log
 abbr -a gap git add -p
 abbr -a gau git add -u
@@ -40,11 +43,8 @@ abbr -a gpu git pull origin
 abbr -a gco git checkout
 abbr -a gs git status
 abbr -a gcb git checkout -b
-abbr -a gpob git push origin (git branch --show-current)
-abbr -a gpub git pull origin (git branch --show-current)
 abbr -a gwt git worktree
 abbr -a gwtl git worktree list
 abbr -a gwta git worktree add
 abbr -a gwtr git worktree remove
 abbr -a gd git diff
-abbr -a gdo git diff origin/(git branch --show-current)

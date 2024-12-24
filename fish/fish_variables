@@ -1,9 +1,17 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export BROWSER:zen\x2dbrowser
+SETUVAR --export CFG_DIRECTORY:/home/shane/\x2econfig/\x2ecfg
 SETUVAR --export CICOLOR_FORCE:1
+SETUVAR --export CONFIG_DIRECTORY:/home/shane/\x2econfig
+SETUVAR --export EDITOR:nvim
 SETUVAR --export FISH_CONFIG_DIRECTORY:/home/shane/\x2econfig/fish
 SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1edeltabase\x1etree\x1eparent\x1enumparent\x1eobject\x1etype\x1etag\x1eauthor\x1eauthorname\x1eauthoremail\x1eauthordate\x1ecommitter\x1ecommittername\x1ecommitteremail\x1ecommitterdate\x1etagger\x1etaggername\x1etaggeremail\x1etaggerdate\x1ecreator\x1ecreatordate\x1edescribe\x1esubject\x1ebody\x1etrailers\x1econtents\x1esignature\x1eraw\x1eupstream\x1epush\x1esymref\x1eflag\x1eHEAD\x1ecolor\x1eworktreepath\x1ealign\x1eend\x1eif\x1ethen\x1eelse\x1erest\x1eahead\x2dbehind
+SETUVAR --export NVIM_DIRECTORY:/home/shane/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
+SETUVAR --export PYTHON_VENV:/home/shane/\x2econfig/python\x2dvenvs/fast
+SETUVAR --export SCRIPTS_DIRECTORY:/home/shane/\x2econfig/scripts
+SETUVAR --export SHELL:fish
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_upgraded_to_4_4:\x1d
@@ -47,4 +55,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d8b8000
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/snap/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/shaneish/\x2econfig/scripts\x1e/home/shaneish/\x2ecargo/bin\x1e/home/shane/\x2ejuliaup/bin\x1e/home/shane/\x2emodular/bin\x1e/Users/h62756/\x2emodular/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/shane/go/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin
+SETUVAR fish_user_paths:/home/shane/\x2econfig/scripts\x1e/nix/var/nix/profiles/default/bin\x1e/opt/homebrew/bin\x1e/snap/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/shaneish/\x2econfig/scripts\x1e/home/shaneish/\x2ecargo/bin\x1e/home/shane/\x2ejuliaup/bin\x1e/home/shane/\x2emodular/bin\x1e/Users/h62756/\x2emodular/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/shane/go/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin

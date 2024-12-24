@@ -1,8 +1,5 @@
-source "$FISH_CONFIG_DIR/greeting.fish"
+source "$FISH_CONFIG_DIRECTORY/greeting.fish"
 
-if type -q "starship"
-    starship init fish | source
-end
 if type -q pyv
     pyv
 end

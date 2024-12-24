@@ -1,9 +1,9 @@
 function _set_python_venv
     function _infer_python_venv
         set venv_dir_names $HOME/.local/python-venvs $HOME/.config/python-venvs
-        set venv_priority fast-default default fast venv .venv
-        for d in $python_venv_dir
-            for p in $python_venv_priority
+        set venv_priority fast-default fast default venv .venv
+        for d in $venv_dir_names
+            for p in $venv_priority
                 if test -d $d/$p/bin/activate.fish
                     set -Ux PYTHON_VENV $d/$p
                     return
