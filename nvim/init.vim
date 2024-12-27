@@ -509,6 +509,8 @@ xmap <expr> <leader><leader>d CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-q> <cmd>q!<CR>
+nmap <C-c> :wq!<CR>
+imap <C-c> :wq!<CR>
 nmap <C-]> :cnext<CR>
 nmap <C-[> :cprevious<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
