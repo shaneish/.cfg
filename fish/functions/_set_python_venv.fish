@@ -14,7 +14,7 @@ function _set_python_venv
 
     if set -q argv[1]
         set -gx PYTHON_VENV $argv[1]
-    else if not set -q PYTHON_VENV
+    else if not set -q PYTHON_VENV; or not test -e $PYTHON_VENV
         _infer_python_venv
     end
     if set -q PYTHON_VENV

@@ -32,6 +32,7 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
             builtin cd -- "$cwd"
         end
         rm -f -- "$tmp"
+        commandline -f repaint
     end
 
     function _fuzzy_grep_and_edit
