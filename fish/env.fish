@@ -1,4 +1,5 @@
 _set_python_venv
+_set_fuzzy_finder
 set -Ux GIT_ATOMS "refname" "objecttype" "objectsize" "objectname" "deltabase" "tree" "parent" "numparent" "object" "type" "tag" "author" "authorname" "authoremail" "authordate" "committer" "committername" "committeremail" "committerdate" "tagger" "taggername" "taggeremail" "taggerdate" "creator" "creatordate" "describe" "subject" "body" "trailers" "contents" "signature" "raw" "upstream" "push" "symref" "flag" "HEAD" "color" "worktreepath" "align" "end" "if" "then" "else" "rest" "ahead-behind"
 
 alias lh="history | fz | clip"
@@ -7,6 +8,7 @@ alias cls="clear; fish"
 alias clip="xclip -sel clip"
 alias opn="fd '' . | fz -m | xargs nvim"
 alias mvim="nvim -u $HOME/.config/nvim/minit.vim"
+alias cat="bat"
 switch (uname)
     case Darwin
         alias clip="pbcopy"
@@ -19,6 +21,9 @@ if type -q "bhop"
     alias _hp_fz="bhop __bhop_list__ | rg '\->' | fz -m | awk -F'->' '{print $2}' | xargs"
     alias hg="cd (_hp_fz_fixed)"
     alias ho="_hp_fz_fixed $EDITOR"
+end
+if type -q "bat"
+    alias cat="bat"
 end
 abbr -a dx databricks
 abbr -a ai shelldon

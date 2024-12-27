@@ -1,4 +1,4 @@
-function _get_local_machine_id
+function _get_local_fish_configs
     set -f user_id (id -un)
     set -f machine_name (string lower (uname -a | awk '{print $1}'))
     set -f os_type (string lower (uname -a | awk '{print $1}'))

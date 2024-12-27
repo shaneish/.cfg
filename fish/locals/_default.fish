@@ -10,4 +10,3 @@ fish_add_path -U $HOME/.config/scripts
 fish_add_path -U $HOME/go/bin
 
 fish_config theme choose theme
-fish_config theme save

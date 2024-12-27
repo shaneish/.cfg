@@ -2,7 +2,6 @@
 # VERSION: 3.0
 SETUVAR --export BROWSER:zen\x2dbrowser
 SETUVAR --export CFG_DIRECTORY:/home/shane/\x2econfig/\x2ecfg
-SETUVAR --export CICOLOR_FORCE:1
 SETUVAR --export CONFIG_DIRECTORY:/home/shane/\x2econfig
 SETUVAR --export EDITOR:nvim
 SETUVAR --export FISH_CONFIG_DIRECTORY:/home/shane/\x2econfig/fish
@@ -12,9 +11,8 @@ SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfU
 SETUVAR --export PYTHON_VENV:/home/shane/\x2econfig/python\x2dvenvs/fast
 SETUVAR --export SCRIPTS_DIRECTORY:/home/shane/\x2econfig/scripts
 SETUVAR --export SHELL:fish
-SETUVAR SKIM_LEGACY_KEYBINDINGS:0
+SETUVAR --export _MACHINE_IDENTIFIER:Linux\x2didunno\x2d6\x2e11\x2e9\x2darch1\x2d1
 SETUVAR __fish_initialized:3400
-SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:767676
 SETUVAR fish_color_cancel:\x1d
 SETUVAR fish_color_command:ffffff
@@ -40,6 +38,12 @@ SETUVAR fish_color_selection:323232\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3d8b8
 SETUVAR fish_color_status:ff3939
 SETUVAR fish_color_user:a7a7a7
 SETUVAR fish_color_valid_path:a7a7a7
+SETUVAR --export fish_cursor_default:block
+SETUVAR --export fish_cursor_external:line\x1eblink
+SETUVAR --export fish_cursor_insert:line\x1eblink
+SETUVAR --export fish_cursor_replace:underscore\x1eblink
+SETUVAR --export fish_cursor_replace_one:underscore\x1eblink
+SETUVAR --export fish_cursor_visual:block\x1eblink
 SETUVAR fish_greeting:
 SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_background:\x1d
@@ -55,4 +59,5 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d8b8000
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/shane/\x2econfig/scripts\x1e/nix/var/nix/profiles/default/bin\x1e/opt/homebrew/bin\x1e/snap/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/shaneish/\x2econfig/scripts\x1e/home/shaneish/\x2ecargo/bin\x1e/home/shane/\x2ejuliaup/bin\x1e/home/shane/\x2emodular/bin\x1e/Users/h62756/\x2emodular/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/shane/go/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin
+SETUVAR fish_user_paths:/home/shane/\x2econfig/scripts\x1e/home/shane/\x2emodular/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin\x1e/home/shane/go/bin\x1e/nix/var/nix/profiles/default/bin
+SETUVAR --export fish_vi_force_cursor:line\x1eblink

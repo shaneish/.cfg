@@ -141,6 +141,7 @@ cargo install starship
 cargo install xsv
 cargo install --locked jaq
 cargo install toml-cli
+cargo install git-delta
 ```
 
 ### scripts

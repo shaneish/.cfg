@@ -120,15 +120,14 @@ config.inactive_pane_hsb = {
   saturation = 1.0,
   brightness = 1.5,
 }
--- config.foreground_text_hsb = {
---   hue = 1.0,
---   saturation = 1.8,
---   brightness = 1.5,
--- }
 
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Ubuntu'
   config.window_decorations = "RESIZE"
+  config.window_frame = {
+    font_size = 9,
+    font = wezterm.font 'JetBrains Mono'
+  }
   config.window_padding = {
     left = 10,
     right = 10,
@@ -305,6 +304,14 @@ config.keys = {
     key = 'T',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain'
+  },
+  {
+    key = 'T',
+    mods = 'LEADER',
+    action = wezterm.action.SpawnCommandInNewTab {
+      domain = { DomainName = 'local' },
+      args = { 'powershell' }
+    }
   },
   {
     key = '"',
