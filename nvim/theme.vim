@@ -69,11 +69,7 @@ let s:fn = s:foreground_color
 
 set background=dark
 
-highlight clear
 set termguicolors
-if exists("syntax_on")
-    syntax reset
-endif
 let g:colors_name="theme"
 
 function! H(group, guifg="NONE", guibg="NONE", gui="NONE")

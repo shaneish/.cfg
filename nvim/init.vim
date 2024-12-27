@@ -479,7 +479,6 @@ highlight TabLineFill guifg=#f6cd61 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false
-imap <silent><script><expr> <C-c> copilot#Accept("\<CR>")
 imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
 imap <C-]> <Plug>(copilot-next)
 imap <C-[> <Plug>(copilot-previous)
@@ -508,14 +507,14 @@ nmap <expr> <leader><leader>d CloseIt() . '<CR>'
 xmap <expr> <leader><leader>d CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
-nmap <C-q> <cmd>q!<CR>
+nmap <C-q> :q!<CR>
+nmap <C-c> :wq!<CR>
+imap <C-c> <cmd>wq!<CR>
 nmap <C-]> :cnext<CR>
 nmap <C-[> :cprevious<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
 nmap <Tab> :BufferNext<CR>
 nmap <S-Tab> :BufferPrevious<CR>
-xmap <leader><leader>w <cmd>w!<CR>
-xmap <leader><leader>q <cmd>q!<CR>
 
 " Telescope mappings
 nnoremap <C-space>ff <cmd>Telescope find_files<cr>
@@ -548,9 +547,6 @@ nmap <space> <leader>
 nmap <space><space> <leader>
 
 " window stuff
-nmap W <C-w><C-w>
-nmap <Esc><Esc><Esc> <C-w><C-w>
-nmap <leader>w <C-w><C-w>
 nmap <C-Space><C-Space> <C-w><C-w>
 nmap cow <C-w><C-w>:clo<CR>
 nmap <C-.> <C-w>l
@@ -559,9 +555,9 @@ nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 
 " line stuff
-nnoremap <C-o> O<Esc>jo<Esc>k
-nnoremap <leader>o o<Esc>k
-nnoremap <leader>O O<Esc>j
+nnoremap <C-o><C-o> O<Esc>jo<Esc>k
+nnoremap <C-o><C-j> o<Esc>k
+nnoremap <C-o><C-k> O<Esc>j
 
 " move stuff
 " nnoremap <expr> J 'J' . Centerizer()
@@ -619,10 +615,10 @@ nnoremap <expr> <C-i> "o<Esc>_C" . CodeBlock() . '<CR><Esc>'
 nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
 
 " time stuff
-nmap <expr> <leader>dt 'a' . strftime("%Y-%m-%d") . '<Esc>'
-nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d:%H:%M") . '<Esc>'
-nmap <expr> <leader>fts 'a' . strftime("%Y-%m-%d %H:%M %a %b") . '<Esc>'
-nmap <expr> <leader>day 'a' . strftime("%a %b %d %Y %H:%M") . '<Esc>'
+nmap <expr> <leader>td 'a' . strftime("%Y-%m-%d") . '<Esc>'
+nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d %H:%M:%S") . '<Esc>'
+imap <expr> <C-space>d strftime("%Y-%m-%d")
+imap <expr> <C-space>t strftime("%Y-%m-%d %H:%M:%S")
 
 " slime stuff
 nmap <leader>rn :call WeztermSlimePane()<CR>
@@ -631,23 +627,19 @@ nmap <leader>rc <Plug>SlimeSendCell
 nmap <leader>rl <Plug>SlimeLineSend
 xmap <leader>rc <Plug>SlimeRegionSend
 
-" Insert remaps
+" Insert iemaps
 inoremap  <Esc>
-imap <C-l> <Esc>la
-imap <C-h> <Esc>i
-imap <C-space><C-l> <Esc>lxi
-imap <C-space><C-h> <Esc>xi
-inoremap <C-k> <Esc>ka
-inoremap <C-j> <Esc>ja
+imap <C-h> <Left>
+imap <C-l> <Right>
+imap <C-k> <Up>
+imap <C-j> <Down>
+imap <C-space><C-l> <Right><Bs>
+imap <C-space><C-h> <Bs>
 inoremap <C-space>l <Esc>A
 inoremap <C-space>h <Esc>I
 inoremap <C-space>j <Esc>o<Esc>_C
 inoremap <C-space>k <Esc>O<Esc>_C
-inoremap <C-space>C <Esc>lC
-inoremap <C-d>l <Esc>lC
-inoremap <C-d>h <Esc>v_di
-inoremap <C-d>j <Esc>jddkA
-inoremap <C-d>k <Esc>kddjA
+inoremap <C-space>c <Esc>lC
 inoremap <expr> <C-i> "<Esc>o<Esc>_C" . CodeBlock() . '<CR>'
 inoremap <expr> <C-b> CodeBlock() . ' '
 
