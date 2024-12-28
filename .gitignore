@@ -1,4 +1,3 @@
-python-venvs/**/*
 bhop/db/*
 bhop/scripts/*
 **/.venv
