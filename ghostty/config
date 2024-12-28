@@ -1,0 +1,16 @@
+font-size = 9
+font-thicken = true
+
+shell-integration = fish
+
+keybind = ctrl+shift+|=new_split:right
+# keybind = ctrl+shift+enter=new_split:bottom
+keybind = ctrl+shift+q=close_surface
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+plus=increase_font_size
+# keybind = ctrl+shift+minus=decrease_font_size
+
+clipboard-paste-protection = false
+unfocused-split-opacity = 1.0
+
+theme = Batman

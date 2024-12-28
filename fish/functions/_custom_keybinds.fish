@@ -3,11 +3,10 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
 
     function _copy_previous_command
         set out (history | fz)
-        switch (uname)
-            case Darwin
-                echo $out | sd '\s+$' '' | pbcopy
-            case *
-                echo $out | sd '\s+$' '' | xclip -sel copy
+        if test (uname) = "Darwin"
+            echo $out | sd '\s+$' '' | pbcopy
+        else if test (uname) = "Linux"
+            echo $out | sd '\s+$' '' | xclip -sel copy
         end
     end
 

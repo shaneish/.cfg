@@ -30,11 +30,11 @@ _show() {
 }
 
 _link_alt() {
-    ln -ns $STARSHIP_PROMPTS_DIR/starship-$ALT_FILE_IDENTIFIER.toml $STARSHIP_CONFIG_DIR/starship.toml
+    ln -rs $STARSHIP_PROMPTS_DIR/starship-$ALT_FILE_IDENTIFIER.toml $STARSHIP_CONFIG_DIR/starship.toml
 }
 
 _link_normal() {
-    ln -ns $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
+    ln -rs $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
 }
 
 if [ -e "$STARSHIP_CONFIG_DIR/starship.toml" ]; then

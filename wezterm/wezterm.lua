@@ -116,11 +116,15 @@ config.window_frame = {
   font = wezterm.font 'JetBrains Mono'
 }
 config.inactive_pane_hsb = {
-  hue = 1.2,
-  saturation = 1.0,
-  brightness = 1.5,
+  hue = 1.0,
+  saturation = 0.3,
+  brightness = 0.8,
 }
-
+config.active_pane_hsb = {
+  hue = 1.0,
+  saturation = 1.0,
+  brightness = 2.0,
+}
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Ubuntu'
   config.window_decorations = "RESIZE"
