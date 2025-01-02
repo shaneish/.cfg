@@ -1,2 +1,3 @@
 set -gx EDITOR nvim
-set -fx SHELL fish
+set -gx SHELL fish
+set -gx PYTHON_VENV_DIR ~/.local/python-venvs

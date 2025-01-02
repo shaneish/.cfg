@@ -1,19 +1,19 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export BROWSER:zen\x2dbrowser
-SETUVAR --export CFG_DIRECTORY:/home/shane/\x2econfig/\x2ecfg
+SETUVAR --export CFG_DIRECTORY:/Users/h62756/\x2econfig/\x2ecfg
 SETUVAR --export CICOLOR_FORCE:1
-SETUVAR --export CONFIG_DIRECTORY:/home/shane/\x2econfig
-SETUVAR --export EDITOR:nvim
-SETUVAR --export FISH_CONFIG_DIRECTORY:/home/shane/\x2econfig/fish
+SETUVAR --export CONFIG_DIRECTORY:/Users/h62756/\x2econfig
+SETUVAR --export EDITOR:/opt/homebrew/bin/nvim
+SETUVAR --export FISH_CONFIG_DIRECTORY:/Users/h62756/\x2econfig/fish
 SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1edeltabase\x1etree\x1eparent\x1enumparent\x1eobject\x1etype\x1etag\x1eauthor\x1eauthorname\x1eauthoremail\x1eauthordate\x1ecommitter\x1ecommittername\x1ecommitteremail\x1ecommitterdate\x1etagger\x1etaggername\x1etaggeremail\x1etaggerdate\x1ecreator\x1ecreatordate\x1edescribe\x1esubject\x1ebody\x1etrailers\x1econtents\x1esignature\x1eraw\x1eupstream\x1epush\x1esymref\x1eflag\x1eHEAD\x1ecolor\x1eworktreepath\x1ealign\x1eend\x1eif\x1ethen\x1eelse\x1erest\x1eahead\x2dbehind
-SETUVAR --export NVIM_DIRECTORY:/home/shane/\x2econfig/nvim
+SETUVAR --export MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
+SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
-SETUVAR --export PYTHON_VENV:/home/shane/\x2econfig/python\x2dvenvs/fast
-SETUVAR --export SCRIPTS_DIRECTORY:/home/shane/\x2econfig/scripts
-SETUVAR --export SHELL:fish
+SETUVAR --export SCRIPTS_DIRECTORY:/Users/h62756/\x2econfig/scripts
+SETUVAR --export SHELL:/opt/homebrew/bin/fish
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0
-SETUVAR --export _MACHINE_IDENTIFIER:Linux\x2didunno\x2d6\x2e11\x2e9\x2darch1\x2d1
+SETUVAR --export _MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:767676
 SETUVAR fish_color_cancel:\x1d
@@ -61,5 +61,5 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d8b8000
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/home/shane/\x2econfig/scripts\x1e/home/shane/\x2emodular/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin\x1e/home/shane/go/bin\x1e/nix/var/nix/profiles/default/bin
+SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2emodular/bin\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/home/shane/\x2econfig/scripts\x1e/home/shane/\x2emodular/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin\x1e/home/shane/go/bin\x1e/nix/var/nix/profiles/default/bin
 SETUVAR --export fish_vi_force_cursor:line\x1eblink

@@ -1,6 +1,6 @@
 set local_dir (dirname (dirname (status --current-filename)))
-if test -e $local_dir/cigna_certs.fish
-    source $local_dir/cigna_certs.fish"
+if test -e "$local_dir/cigna_certs.fish"
+    source "$local_dir/cigna_certs.fish"
 end
 
 function dbsx --description "Search the Databricks Python SDK codebase for a string"

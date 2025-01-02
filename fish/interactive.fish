@@ -2,6 +2,7 @@ source "$FISH_CONFIG_DIRECTORY/greeting.fish"
 
 if type -q pyv
     pyv
+    _activate_local_venv
 end
 fish_bash_keybinds
 

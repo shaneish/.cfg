@@ -29,12 +29,20 @@ _show() {
     fi
 }
 
+_link() {
+    if command -v coreutils 2>&1 >/dev/null; then
+        coreutils ln -nrs $1 $2
+    else
+        ln -ns $1 $2
+    fi
+}
+
 _link_alt() {
-    ln -rs $STARSHIP_PROMPTS_DIR/starship-$ALT_FILE_IDENTIFIER.toml $STARSHIP_CONFIG_DIR/starship.toml
+    _link $STARSHIP_PROMPTS_DIR/starship-$ALT_FILE_IDENTIFIER.toml $STARSHIP_CONFIG_DIR/starship.toml
 }
 
 _link_normal() {
-    ln -rs $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
+    _link $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
 }
 
 if [ -e "$STARSHIP_CONFIG_DIR/starship.toml" ]; then
