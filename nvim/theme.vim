@@ -22,7 +22,7 @@ let s:gunmetal = "#818589"
 let s:platinum = "#e5e4e2"
 let s:smoke = "#848884"
 let s:light_gray = "#d3d3d3"
-let s:grey = "#808080"
+let s:grey = "#a6a6a6"
 let s:pewter = "#899499"
 let s:bright_color = "#8b8000"
 let s:primary_color = "#f6cd61"
@@ -83,7 +83,7 @@ call H("Normal", s:foreground_color, "#000000")
 call H("Cursor", s:foreground_color)
 call H("LineNr", s:dark)
 call H("CursorLineNR", s:primary_color, "#000000", "bold")
-call H("CursorLine",  "NONE", s:darker, "bold")
+call H("CursorLine",  s:primary_color, s:darkest, "bold")
 
 " -----------------
 " - Number column -
@@ -98,7 +98,7 @@ call H("Folded",       s:mid, "NONE", "NONE")
 " -------------------------
 call H("VertSplit",   "NONE",          "NONE",      "NONE")
 call H("ColorColumn", "NONE",          s:gray_dark, "NONE")
-call H("TabLine",     s:mid,          "NONE",      "NONE")
+call H("TabLine",     s:mid,           "NONE",      "NONE")
 call H("TabLineFill", s:primary_color, "NONE",      "NONE")
 call H("TabLineSel",  s:primary_color, "NONE",      "NONE")
 
@@ -106,9 +106,9 @@ call H("TabLineSel",  s:primary_color, "NONE",      "NONE")
 " - File Navigation / Searching -
 " -------------------------------
 call H("Directory", s:foreground_color, "NONE", "underline")
-call H("Search",    s:search_fg, s:search_bg, s:search_gui)
-call H("IncSearch", s:search_fg, s:search_bg, s:search_gui)
-call H("CurSearch", s:search_fg, s:search_bg, "underdouble")
+call H("Search",    s:background_color, s:search_bg, s:search_gui)
+call H("IncSearch", s:background_color, s:search_bg, s:search_gui)
+call H("CurSearch", s:background_color, s:search_bg, "underdouble")
 call H("QuickFix",  s:primary_color, "NONE", "underdotted")
 
 " -----------------
@@ -126,8 +126,8 @@ call H("MoreMsg",      s:dark, "NONE", "NONE")
 " - Visual aid -
 " --------------
 call H("MatchParen",      s:background_color,     s:foreground_color, "bold")
-call H("Visual",          s:high_fg,              s:high_bg, "bold")
-call H("VisualNOS",       s:high_fg,              s:high_bg, "bold")
+call H("Visual",          "NONE",                 s:bright_color, "bold")
+call H("VisualNOS",       "NONE",                 s:bright_color, "bold")
 call H("NonText",         s:bright_color,         "NONE")
 call H("Todo",            s:high_bg,              "NONE",    "underline")
 call H("Underlined",      s:high_bg,              "NONE")
@@ -143,14 +143,14 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " Variable types
 " --------------------------------
 call H("Constant",       s:string_type,       "NONE")
-call H("String",         s:string_type,  s:comments_bg, "bold")
-call H("StringDelimiter",s:val,  s:comments_bg, "bold")
+call H("String",         s:string_type,       s:comments_bg, "bold")
+call H("StringDelimiter",s:val,               s:comments_bg, "bold")
 call H("Character",      s:string_type,       "NONE")
 call H("Number",         s:string_type,       "NONE")
 call H("Boolean",        s:string_type,       "NONE")
 call H("Float",          s:string_type,       "NONE")
-call H("Identifier",     s:fn,        "NONE")
-call H("Function",       s:fn,        "NONE")
+call H("Identifier",     s:fn,                "NONE")
+call H("Function",       s:fn,                "NONE")
 
 " --------------------------------
 " Language constructs

@@ -260,6 +260,7 @@ function! SlimeReplInitCmd()
     endif
     let cmd = "wezterm cli split-pane " . split_flag . "--cwd " . getcwd() . " -- "
     if &filetype == "python"
+        let activate = system('source ' . g:python_bin . '/activate.fish')
         " return cmd . ActivateVenvCmd() . "; ipython --no-autoindent"
         return cmd . g:ipython3_host_prog . " --no-autoindent"
     endif

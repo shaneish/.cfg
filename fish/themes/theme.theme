@@ -19,7 +19,7 @@ fish_color_operator f6cd61 # #f6cd61
 fish_color_escape f6cd61 # #f6cd61
 fish_color_cwd c5c5c5 # #c5c5c5
 fish_color_cwd_root c5c5c5 # #c5c5c5
-fish_color_autosuggestion 767676 # #767676
+fish_color_autosuggestion 919191 # #919191
 fish_color_user a7a7a7 # #a7a7a7
 fish_color_host f6cd61 # #f6cd61
 fish_pager_color_background
