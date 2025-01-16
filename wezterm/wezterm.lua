@@ -120,11 +120,11 @@ config.inactive_pane_hsb = {
   saturation = 0.3,
   brightness = 0.8,
 }
-config.active_pane_hsb = {
-  hue = 1.0,
-  saturation = 1.0,
-  brightness = 2.0,
-}
+-- config.active_pane_hsb = {
+--   hue = 1.0,
+--   saturation = 1.0,
+--   brightness = 2.0,
+-- }
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Ubuntu'
   config.window_decorations = "RESIZE"

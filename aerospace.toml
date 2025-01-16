@@ -259,6 +259,11 @@ run = ['move-node-to-workspace 9']
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 check-further-callbacks = true
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+check-further-callbacks = true
 run = ['move-node-to-workspace 2']
 
 [[on-window-detected]]

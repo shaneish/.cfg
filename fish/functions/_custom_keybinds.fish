@@ -57,5 +57,8 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
     bind -M insert \cf _open_yazi
     bind -M insert . _expand_dot_to_parent_directory_path
     bind -M insert \cd _hp
+    bind -M visual y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
+    bind -M normal yy fish_clipboard_copy
+    bind -M insert \ch 'history | fz | string trim -r | clip'
 end
 

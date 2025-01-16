@@ -126,8 +126,8 @@ call H("MoreMsg",      s:dark, "NONE", "NONE")
 " - Visual aid -
 " --------------
 call H("MatchParen",      s:background_color,     s:foreground_color, "bold")
-call H("Visual",          "NONE",                 s:bright_color, "bold")
-call H("VisualNOS",       "NONE",                 s:bright_color, "bold")
+call H("Visual",          s:foreground_color,     s:bright_color, "bold")
+call H("VisualNOS",       s:foreground_color,     s:bright_color, "bold")
 call H("NonText",         s:bright_color,         "NONE")
 call H("Todo",            s:high_bg,              "NONE",    "underline")
 call H("Underlined",      s:high_bg,              "NONE")
