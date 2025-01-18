@@ -114,6 +114,9 @@ window_rules:
       # Ignores any Zebar windows.
       - window_process: { equals: 'zebar' }
 
+      # Snipped Ween Ish
+      - window_process: { equals: 'Snipping Tool' }
+
       # Ignores picture-in-picture windows for browsers.
       - window_title: { regex: '[Pp]icture.in.[Pp]icture' }
         window_class: { regex: 'Chrome_WidgetWin_1|MozillaDialogClass' }
@@ -152,13 +155,13 @@ binding_modes:
 keybindings:
   # Shift focus in a given direction.
   - commands: ['focus --direction left']
-    bindings: ['alt+shift+h', 'alt+shift+left']
+    bindings: ['alt+h', 'alt+shift+left']
   - commands: ['focus --direction right']
-    bindings: ['alt+shift+l', 'alt+shift+right']
+    bindings: ['alt+l', 'alt+shift+right']
   - commands: ['focus --direction up']
-    bindings: ['alt+shift+k', 'alt+shift+up']
+    bindings: ['alt+k', 'alt+shift+up']
   - commands: ['focus --direction down']
-    bindings: ['alt+shift+j', 'alt+shift+down']
+    bindings: ['alt+j', 'alt+shift+down']
 
   # Move focused window in a given direction.
   - commands: ['move --direction left']
@@ -197,15 +200,15 @@ keybindings:
 
   # Change focus from tiling windows -> floating -> fullscreen.
   - commands: ['wm-cycle-focus']
-    bindings: ['alt+space']
+    bindings: ['alt+shift+space']
 
   # Change the focused window to be floating.
   - commands: ['toggle-floating --centered']
-    bindings: ['alt+shift+space']
+    bindings: ['alt+ctrl+space']
 
   # Change the focused window to be tiling.
   - commands: ['toggle-tiling']
-    bindings: ['alt+t']
+    bindings: ['alt+space']
 
   # Change the focused window to be fullscreen.
   - commands: ['toggle-fullscreen']
@@ -225,7 +228,7 @@ keybindings:
 
   # Re-evaluate configuration file.
   - commands: ['wm-reload-config']
-    bindings: ['alt+shift+r']
+    bindings: ['alt+ctrl+r']
 
   # Redraw all windows.
   - commands: ['wm-redraw']
@@ -236,6 +239,9 @@ keybindings:
   # Terminal and Git Bash respectively.
   - commands: ['shell-exec wezterm-gui']
     bindings: ['alt+enter']
+
+  - commands: ['shell-exec wezterm-gui']
+    bindings: ['alt+t']
 
   - commands: ['shell-exec zen.exe']
     bindings: ['alt+b']

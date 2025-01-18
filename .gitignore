@@ -7,3 +7,4 @@ bhop/scripts/*
 **/*.swp
 **/cigna*
 fish/locals/cigna_certs.fish
+fish/fish_variables

@@ -504,19 +504,20 @@ nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nmap <leader><leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader><leader>h :noh<CR>
-nmap <expr> <leader><leader>d CloseIt() . '<CR>'
-xmap <expr> <leader><leader>d CloseIt() . '<CR>'
+nmap <expr> <C-e> CloseIt() . '<CR>'
+xmap <expr> <C-e> CloseIt() . '<CR>'
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
-nmap <C-q> <cmd>q!<CR>
-nmap <C-c> :wq!<CR>
-imap <C-c> <Esc>:wq!<CR>
-imap <C-q> <Esc>:q!<CR>
-nmap <C-]> :cnext<CR>
-nmap <C-[> :cprevious<CR>
+nmap <C-q><C-w> :wq!<CR>
+imap <C-q><C-w> <Esc>:wq!<CR>
+nmap <C-q><C-q> <cmd>q!<CR>
+imap <C-q><C-q> <Esc>:q!<CR>
+nnoremap L :cnext<CR>
+nnoremap H :cprevious<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
 nmap <Tab> :BufferNext<CR>
 nmap <S-Tab> :BufferPrevious<CR>
+inoremap <C-v> <C-r>+
 
 " Telescope mappings
 nnoremap <C-space>ff <cmd>Telescope find_files<cr>
@@ -533,6 +534,7 @@ nnoremap <C-space>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-space>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
+nnoremap <C-g> :Rg 
 
 "
 " Python repl mappings
@@ -551,15 +553,13 @@ nmap <space><space> <leader>
 " window stuff
 nmap <C-Space><C-Space> <C-w><C-w>
 nmap cow <C-w><C-w>:clo<CR>
-nmap <C-.> <C-w>l
-nmap <C-,> <C-w>h
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 
 " line stuff
-nnoremap <C-o><C-o> O<Esc>jo<Esc>k
-nnoremap <C-o><C-j> o<Esc>k
-nnoremap <C-o><C-k> O<Esc>j
+nnoremap <C-space><C-o> O<Esc>jo<Esc>k
+nnoremap <C-o> o<Esc>k
+nnoremap <C-S-o> O<Esc>j
 
 " move stuff
 " nnoremap <expr> J 'J' . Centerizer()
@@ -568,8 +568,6 @@ nnoremap <expr> D '}' . Centerizer()
 nnoremap <expr> U '{' . Centerizer()
 nnoremap <expr> <C-d> '<C-d>' . Centerizer()
 nnoremap <expr> <C-u> '<C-u>' . Centerizer()
-nnoremap <expr> L 'w' . Centerizer()
-nnoremap <expr> H 'ge' . Centerizer()
 nmap <expr> <leader>j WindowProportion(g:small_jump) . 'j' . Centerizer()
 nmap <expr> <leader>k WindowProportion(g:small_jump) . 'k' . Centerizer()
 nmap <expr> <C-j> WindowProportion(g:big_jump) . 'j' . Centerizer()
@@ -582,34 +580,42 @@ nnoremap <expr> N 'N' . Centerizer()
 nnoremap <leader>u J
 nnoremap <leader>l g_
 nnoremap <leader>h _
-nnoremap <C-g> J
+" nnoremap <C-g> J
 
 " copy stuff
-nnoremap <leader>y "+y
-nnoremap <leader>yw viw"+y
-nnoremap <leader>yy V"+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-nnoremap <C-y> "+y
+nnoremap <C-y><C-y> "+yy
+nnoremap <C-y><C-w> "+yiw
 nnoremap <C-p> "+p
-nnoremap <leader><C-p> "+P
+nnoremap <C-space><C-p> "+P
 nnoremap y "0y
 nnoremap yw BvEy
 nnoremap P "0P
 nnoremap p "0p
-nnoremap d "1d
+nnoremap dd "1dd
 nnoremap x "_x
-nnoremap <C-space>p "1p
-nnoremap <C-space>P "1P
+nnoremap <leader>p "1p
+nnoremap <leader>P "1P
+xnoremap <C-y> "+y
+xnoremap <C-p> "+p
+xnoremap <C-space><C-p> "+P
+xnoremap y "0y
+xnoremap yw BvEy
+xnoremap P "0P
+xnoremap p "0p
+xnoremap d "1d
+xnoremap x "_x
+xnoremap <leader>p "1p
+xnoremap <leader>P "1P
+
 nnoremap R s
 nnoremap <C-s> <cmd>Pounce<CR>
-
 nnoremap <C-space>j o<Esc>_C<Esc>
 nnoremap <C-space>k O<Esc>_C<Esc>
 nnoremap <C-m>ls :MarksListBuf<CR>
 nnoremap <leader>B <cmd>call Toggle_Venn()<CR>
 nnoremap <C-m>la :MarksListGlobal<CR>
 nmap <C-f> :set conceallevel=0<CR>
+imap <C-f> :set conceallevel=0<CR>
 nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
 nnoremap t<C-a> :call CycleCodeBlockSuffix()<CR>
 nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
@@ -623,13 +629,14 @@ imap <expr> <C-space>d strftime("%Y-%m-%d")
 imap <expr> <C-space>t strftime("%Y-%m-%d %H:%M:%S")
 
 " slime stuff
-nmap <leader>rn :call WeztermSlimePane()<CR>
-nmap <leader>rr <Plug>SlimeParagraphSend
-nmap <leader>rc <Plug>SlimeSendCell
-nmap <leader>rl <Plug>SlimeLineSend
-xmap <leader>rc <Plug>SlimeRegionSend
+nmap <C-c><C-n> :call WeztermSlimePane()<CR>
+nmap <C-c><C-p> <Plug>SlimeParagraphSend
+nmap <C-c><C-c> <Plug>SlimeSendCell
+nmap <C-c><C-l> <Plug>SlimeLineSend
+nmap <C-c><C-l> <Plug>SlimeLineSend
+xmap <C-c><C-c> <Plug>SlimeRegionSend
 
-" Insert iemaps
+" Insert
 inoremap  <Esc>
 imap <C-h> <Left>
 imap <C-l> <Right>
@@ -653,18 +660,6 @@ xnoremap > >gv
 xnoremap <leader>l g_
 xnoremap <leader>h _
 xnoremap t<C-c> zz:call ToggleCenterizer()<CR>
-xnoremap <leader>y "+y
-xnoremap <leader>yy "+yy
-xnoremap <leader>Y "+yg_
-xnoremap <leader>p "+p
-xnoremap <leader>P "+P
-xnoremap <C-y> "+y
-xnoremap y "0y
-xnoremap p "0p
-xnoremap d "1d
-xnoremap x "_x
-xnoremap <C-p> "1p
-xnoremap <leader><C-p> "1P
 xnoremap <leader>l g_
 xnoremap <leader>h _
 xnoremap <expr> <C-i> "o" . CodeBlock() . '<CR><Esc>'
@@ -680,6 +675,8 @@ xnoremap <expr> <C-d> '<C-d>' . Centerizer()
 xnoremap <expr> <C-u> '<C-u>' . Centerizer()
 xnoremap <expr> L 'w' . Centerizer()
 xnoremap <expr> H 'ge' . Centerizer()
+xnoremap <expr> <C-h> 'b' . Centerizer()
+xnoremap <expr> <C-l> 'e' . Centerizer()
 xnoremap <expr> j 'j' . Centerizer()
 xnoremap <expr> k 'k' . Centerizer()
 xnoremap <expr> n 'n' . Centerizer()
