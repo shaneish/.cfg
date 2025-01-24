@@ -1,4 +1,4 @@
-source "$FISH_CONFIG_DIRECTORY/greeting.fish"
+# source "$FISH_CONFIG_DIRECTORY/greeting.fish"
 
 if type -q pyv
     pyv

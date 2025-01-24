@@ -4,12 +4,12 @@ format = "$sudo$username$character"
 disabled = true
 
 [character]
-success_symbol = "[ >](#f6cd61)"
-error_symbol = "[ x](#f6cd61 blink)"
-vimcmd_symbol = "[->](#f6cd61 blink)"
-vimcmd_visual_symbol = "[=>](#f6cd61 blink)"
-vimcmd_replace_symbol = "[ _](#f6cd61)"
-vimcmd_replace_one_symbol = "[ _](#f6cd61 blink)"
+success_symbol = "[ >](#bebebe)"
+error_symbol = "[ x](#bebebe blink)"
+vimcmd_symbol = "[->](#bebebe blink)"
+vimcmd_visual_symbol = "[=>](#bebebe blink)"
+vimcmd_replace_symbol = "[ _](#bebebe)"
+vimcmd_replace_one_symbol = "[ _](#bebebe blink)"
 
 [directory]
 disabled = true
@@ -25,10 +25,10 @@ disabled = true
 
 [hostname]
 ssh_only = true
-format = "[@$hostname](#f6cd61)"
+format = "[@$hostname](#bebebe)"
 
 [username]
-format = '[🌵](#f6cd61)'
+format = '[🌵](#bebebe)'
 show_always = true
 
 [package]
@@ -108,7 +108,7 @@ symbol = "x"
 
 [sudo]
 symbol = "-"
-format = '[$symbol](#f6cd61)'
+format = '[$symbol](#bebebe)'
 disabled = false
 
 [swift]

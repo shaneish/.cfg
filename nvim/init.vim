@@ -252,16 +252,19 @@ endfunction
 
 let g:wezterm_pane_split_direction = -1 " -1 for auto, 0 for bottom, 1 for left
 function! SlimeReplInitCmd()
+    let wez_cli = "wezterm"
+    if empty($WSL_INTEROP) || has('windows')
+        let wez_cli = wez_cli . ".exe"
+    endif
     let split_flag = ""
     if g:wezterm_pane_split_direction == 0
         let split_flag = "--bottom "
     elseif g:wezterm_pane_split_direction == 1
         let split_flag = "--left "
     endif
-    let cmd = "wezterm cli split-pane " . split_flag . "--cwd " . getcwd() . " -- "
+    let cmd = wez_cli . " cli split-pane " . split_flag . "--cwd " . getcwd() . " -- "
     if &filetype == "python"
         let activate = system('source ' . g:python_bin . '/activate.fish')
-        " return cmd . ActivateVenvCmd() . "; ipython --no-autoindent"
         return cmd . g:ipython3_host_prog . " --no-autoindent"
     endif
 endfunction
@@ -504,14 +507,20 @@ nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nmap <leader><leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader><leader>h :noh<CR>
-nmap <expr> <C-e> CloseIt() . '<CR>'
-xmap <expr> <C-e> CloseIt() . '<CR>'
+nmap <expr> <C-e><C-e> CloseIt() . '<CR>'
+xmap <expr> <C-e><C-e> CloseIt() . '<CR>'
+nmap <C-e><C-w> <cmd>w!<CR>
+imap <C-e><C-w> <cmd>w!<CR>
+xmap <C-e><C-w> <cmd>w!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
+imap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-q><C-w> :wq!<CR>
 imap <C-q><C-w> <Esc>:wq!<CR>
 nmap <C-q><C-q> <cmd>q!<CR>
 imap <C-q><C-q> <Esc>:q!<CR>
+xmap <C-q><C-w> <Esc>:wq!<CR>
+xmap <C-q><C-q> <cmd>q!<CR>
 nnoremap L :cnext<CR>
 nnoremap H :cprevious<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>

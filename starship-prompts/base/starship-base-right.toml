@@ -15,35 +15,35 @@ $python"""
 truncation_length = 15
 truncate_to_repo = false
 fish_style_pwd_dir_length = 1
-repo_root_style = "#f6cd61 underline"
-read_only_style = "#f6cd61"
-before_repo_root_style = "#f6cd61"
-style = "#f6cd61"
-format = "[$path$read_only]($style) "
-repo_root_format = "[> $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
+repo_root_style = "#bebebe underline"
+read_only_style = "#bebebe"
+before_repo_root_style = "#bebebe"
+style = "#bebebe"
+format = "[$path$read_only]($style)"
+repo_root_format = "[>]($style) [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
 home_symbol = "~"
 read_only = '!'
 truncation_symbol = '.../'
 
 [git_status]
-format = "[\\[$all_status$ahead_behind\\]]($style) "
-style = "#f6cd61"
+format = " [$all_status$ahead_behind]($style) "
+style = "#bebebe"
 ahead = ">"
 behind = "<"
-diverged = "<>"
+diverged = "!"
 renamed = "r"
 deleted = "x"
-disabled = false
+disabled = true
 
 [git_branch]
-format = "[$symbol $branch]($style) "
-symbol = "|"
-style = "#f6cd61"
+format = "[$symbol$branch]($style)"
+symbol = ""
+style = "#bebebe"
 
 [git_metrics]
-added_style = '#7abd91'
-deleted_style = '#ff8989'
-format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
+added_style = '#bebebe'
+deleted_style = '#bebebe'
+format = '( [↑$added]($added_style))([↓$deleted]($deleted_style) )'
 disabled = false
 
 [hostname]
@@ -51,10 +51,10 @@ format = "[$symbol$hostname]($style) "
 trim_at = ""
 ssh_only = true
 ssh_symbol = "@"
-style = "#f6cd61"
+style = "#bebebe"
 
 [python]
 symbol = ""
-format = "[| $symbol$virtualenv \\[$version\\]]($style) "
-version_format = "${major}.${minor}"
-style = "#f6cd61"
+format = "[$symbol$virtualenv$version]($style)"
+version_format = ".${minor}"
+style = "#bebebe"

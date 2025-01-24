@@ -7,8 +7,6 @@ function _source_once
             source $potential_file
         end
     end
-    set -U fish_greeting ""
-    fish_config theme choose theme
     fish_vi_key_bindings
     set -Ux fish_cursor_default block
     set -Ux fish_cursor_insert line blink
@@ -17,4 +15,5 @@ function _source_once
     set -Ux fish_cursor_external line blink
     set -Ux fish_cursor_visual block blink
     set -Ux fish_vi_force_cursor line blink
+    change_greeting small
 end

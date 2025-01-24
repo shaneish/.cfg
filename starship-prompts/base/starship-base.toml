@@ -2,12 +2,12 @@
 disabled = true
 
 [character]
-success_symbol = "[ >](#f6cd61)"
-error_symbol = "[ x](#f6cd61 blink)"
-vimcmd_symbol = "[ >](#f6cd61)"
-vimcmd_visual_symbol = "[ >](#f6cd61 blink)"
-vimcmd_replace_symbol = "[ _](#f6cd61)"
-vimcmd_replace_one_symbol = "[ _](#f6cd61 blink)"
+error_symbol =              "[ヽ\\(°〇°\\)ﾉ ](#bebebe)[x](#bebebe blink)"
+success_symbol =            "[ ᕕ\\(o_O \\)ᕗ ](#bebebe)[>](#bebebe)"
+vimcmd_symbol =             "[ ᕙ\\(^ᗜ ^\\)و ](#bebebe)[>](#bebebe)"
+vimcmd_visual_symbol =      "[\\( ˶°ㅁ°\\)! ](#bebebe)[>](#bebebe blink)"
+vimcmd_replace_symbol =     "[  \\(ง'̀-'́\\)ง ](#bebebe)[_](#bebebe)"
+vimcmd_replace_one_symbol = "[⋆✿\\(*´▽`*\\) ](#bebebe)[_](#bebebe blink)"
 
 [cmd_duration]
 disabled = true
@@ -19,12 +19,14 @@ disabled = true
 disabled = true
 
 [username]
-format = '[🌵](#f6cd61)'
-show_always = true
+# format = '[🌵](#bebebe)'
+# 〇△□ ツ
+format = '[\(o_o;\)](#bebebe)'
+show_always = false
 
 [sudo]
 symbol = "."
-format = '[$symbol](#f6cd61) '
+format = '[$symbol](#bebebe) '
 disabled = false
 
 [package]

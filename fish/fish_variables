@@ -1,65 +1,67 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export BROWSER:zen\x2dbrowser
-SETUVAR --export CFG_DIRECTORY:/home/microp/\x2econfig/\x2ecfg
+SETUVAR --export CFG_DIRECTORY:/home/idunno/\x2econfig/\x2ecfg
 SETUVAR --export CICOLOR_FORCE:1
-SETUVAR --export CONFIG_DIRECTORY:/home/microp/\x2econfig
+SETUVAR --export CONFIG_DIRECTORY:/home/idunno/\x2econfig
 SETUVAR --export EDITOR:nvim
-SETUVAR --export FISH_CONFIG_DIRECTORY:/home/microp/\x2econfig/fish
+SETUVAR --export FISH_CONFIG_DIRECTORY:/home/idunno/\x2econfig/fish
 SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1edeltabase\x1etree\x1eparent\x1enumparent\x1eobject\x1etype\x1etag\x1eauthor\x1eauthorname\x1eauthoremail\x1eauthordate\x1ecommitter\x1ecommittername\x1ecommitteremail\x1ecommitterdate\x1etagger\x1etaggername\x1etaggeremail\x1etaggerdate\x1ecreator\x1ecreatordate\x1edescribe\x1esubject\x1ebody\x1etrailers\x1econtents\x1esignature\x1eraw\x1eupstream\x1epush\x1esymref\x1eflag\x1eHEAD\x1ecolor\x1eworktreepath\x1ealign\x1eend\x1eif\x1ethen\x1eelse\x1erest\x1eahead\x2dbehind
-SETUVAR --export MACHINE_IDENTIFIER:Linux\x2ddesktop\x2doatbread\x2dwindows\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
-SETUVAR --export NVIM_DIRECTORY:/home/microp/\x2econfig/nvim
+SETUVAR --export MACHINE_IDENTIFIER:Linux\x2dDESKTOP\x2dBA1383T\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
+SETUVAR --export NVIM_DIRECTORY:/home/idunno/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
-SETUVAR --export SCRIPTS_DIRECTORY:/home/microp/\x2econfig/scripts
+SETUVAR --export SCRIPTS_DIRECTORY:/home/idunno/\x2econfig/scripts
 SETUVAR --export SHELL:fish
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0
-SETUVAR --export _MACHINE_IDENTIFIER:Linux\x2ddesktop\x2doatbread\x2dwindows\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
+SETUVAR --export _MACHINE_IDENTIFIER:Linux\x2dDESKTOP\x2dBA1383T\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
 SETUVAR __fish_initialized:3400
-SETUVAR fish_color_autosuggestion:767676
+SETUVAR fish_color_autosuggestion:6c6c6c
 SETUVAR fish_color_cancel:\x1d
-SETUVAR fish_color_command:ffffff
+SETUVAR fish_color_command:\x1d
 SETUVAR fish_color_comment:\x1d
-SETUVAR fish_color_cwd:c5c5c5
-SETUVAR fish_color_cwd_root:c5c5c5
-SETUVAR fish_color_end:f6cd61
-SETUVAR fish_color_error:ffffff\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
-SETUVAR fish_color_escape:f6cd61
-SETUVAR fish_color_history_current:\x2d\x2dbold
-SETUVAR fish_color_host:f6cd61
+SETUVAR fish_color_cwd:normal
+SETUVAR fish_color_cwd_root:normal
+SETUVAR fish_color_end:\x1d
+SETUVAR --export fish_color_error:ffffff\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_color_escape:\x1d
+SETUVAR fish_color_history_current:\x1d
+SETUVAR fish_color_host:normal
 SETUVAR fish_color_host_remote:\x1d
 SETUVAR fish_color_keyword:\x1d
-SETUVAR fish_color_match:\x2d\x2dbackground\x3da7a7a7
-SETUVAR fish_color_normal:ffffff
-SETUVAR fish_color_operator:f6cd61
+SETUVAR fish_color_match:\x1d
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:\x1d
 SETUVAR fish_color_option:\x1d
-SETUVAR fish_color_param:a7a7a7
-SETUVAR fish_color_quote:a7a7a7
-SETUVAR fish_color_redirection:a7a7a7
-SETUVAR fish_color_search_match:bryellow\x1e\x2d\x2dbackground\x3dbrblack
-SETUVAR fish_color_selection:323232\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3d8b8000
+SETUVAR fish_color_param:\x1d
+SETUVAR --export fish_color_quote:a7a7a7
+SETUVAR fish_color_redirection:\x1d
+SETUVAR fish_color_search_match:\x2d\x2dreverse
+SETUVAR fish_color_selection:\x2d\x2dreverse
 SETUVAR fish_color_status:ff3939
-SETUVAR fish_color_user:a7a7a7
-SETUVAR fish_color_valid_path:a7a7a7
+SETUVAR fish_color_user:normal
+SETUVAR fish_color_valid_path:\x1d
 SETUVAR --export fish_cursor_default:block
 SETUVAR --export fish_cursor_external:line\x1eblink
 SETUVAR --export fish_cursor_insert:line\x1eblink
 SETUVAR --export fish_cursor_replace:underscore\x1eblink
 SETUVAR --export fish_cursor_replace_one:underscore\x1eblink
 SETUVAR --export fish_cursor_visual:block\x1eblink
-SETUVAR fish_greeting:
+SETUVAR --export fish_greeting:\x0a\x1etake\x20arms\x21\x20\x20cacti\x21\x1e\x0a\x1e\u30d8\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
 SETUVAR fish_key_bindings:fish_vi_key_bindings
 SETUVAR fish_pager_color_background:\x1d
 SETUVAR fish_pager_color_completion:normal
-SETUVAR fish_pager_color_description:ffffc5
-SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
-SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_pager_color_description:brblack
+SETUVAR fish_pager_color_prefix:\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brblack
 SETUVAR fish_pager_color_secondary_background:\x1d
 SETUVAR fish_pager_color_secondary_completion:\x1d
 SETUVAR fish_pager_color_secondary_description:\x1d
 SETUVAR fish_pager_color_secondary_prefix:\x1d
-SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d8b8000
+SETUVAR fish_pager_color_selected_background:\x2d\x2dreverse
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2emodular/bin\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/home/shane/\x2econfig/scripts\x1e/home/shane/\x2emodular/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin\x1e/home/shane/go/bin\x1e/nix/var/nix/profiles/default/bin
+SETUVAR fish_user_paths:/home/idunno/\x2econfig/scripts\x1e/home/idunno/\x2ecargo/bin\x1e/home/idunno/\x2elocal/bin\x1e/opt/homebrew/bin\x1e/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2emodular/bin\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/microp/\x2econfig/scripts\x1e/home/microp/\x2ecargo/bin\x1e/home/microp/\x2elocal/bin\x1e/home/shane/\x2econfig/scripts\x1e/home/shane/\x2emodular/bin\x1e/home/shane/\x2ecargo/bin\x1e/home/shane/\x2elocal/bin\x1e/home/shane/go/bin\x1e/nix/var/nix/profiles/default/bin
 SETUVAR --export fish_vi_force_cursor:line\x1eblink
+SETUVAR --export greet:\x20take\x20arms\x21\x20cacti\x21\x1e\x20\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
+SETUVAR --export greeting:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2c\x2a\x2d\x2e\x1e\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7c\x20\x20\x7c\x1e\x20\x20\x20\x20\x20\x2c\x2e\x20\x20\x7c\x20\x20\x7c\x1e\x20\x20\x20\x20\x20\x7c\x20\x7c_\x7c\x20\x20\x7c\x20\x2c\x2e\x1e\x20\x20\x20\x20\x20\x60\x2d\x2d\x2d\x2e\x20\x20\x7c_\x7c\x20\x7c\x1e\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7c\x20\x20\x2e\x2d\x2d\x60\x1e\x20\x20\x20\x20\u1094\x20\u1094\x20\x20\x7c\x20\x20\x7c\x20\u30d8\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29\x1e\x20\u1838\u1d55\x20\u1d55\x20\x20\U00010160\x20\x7c\x20\x20\x7c\x20howdy\x20partner\x21\x20cacti\x21
