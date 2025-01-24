@@ -77,14 +77,25 @@ NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
+local name = 'Grayscale (dark) (terminal.sexy)'
+local whitish = wezterm.color.get_builtin_schemes()[name]
+whitish.background = "#000000"
+whitish.cursor_bg = "#ffd700"
+whitish.cursor_border = "#ffd700"
+whitish.foreground = "#ffffff"
+whitish.selection_bg = "#ffffff"
+config.color_schemes = {
+  [name] = whitish
+}
 config.disable_default_key_bindings = true
 config.animation_fps = 30
 config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
-config.color_scheme = "theme"
-config.default_prog = { 'fish' }
+-- config.color_scheme = "Grayscale Light (base16)" -- "Grayscale (light) (terminal.sexy)" -- # "Grayscale (dark) (terminal.sexy)" -- "Grayscale (light) (terminal.sexy)" -- "theme"
+config.color_scheme = name
+-- config.default_prog = { 'fish' }
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
@@ -126,7 +137,7 @@ config.inactive_pane_hsb = {
 --   brightness = 2.0,
 -- }
 if wezterm.target_triple:find("windows") ~= nil then
-  config.default_domain = 'WSL:Ubuntu'
+  config.default_domain = 'WSL:Arch'
   config.window_decorations = "RESIZE"
   config.window_frame = {
     font_size = 9,
@@ -309,13 +320,54 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain'
   },
+  -- {
+  --  key = 'T',
+  --  mods = 'LEADER',
+  --  action = wezterm.action.SpawnCommandInNewTab {
+  --    domain = { DomainName = 'local' },
+  --    args = { 'powershell' }
+  --  }
+  -- },
   {
-    key = 'T',
+    key = 't',
     mods = 'LEADER',
-    action = wezterm.action.SpawnCommandInNewTab {
-      domain = { DomainName = 'local' },
-      args = { 'powershell' }
-    }
+    action = wezterm.action_callback(function(window, pane)
+
+      local choices = {}
+      local wsl_doms = wezterm.default_wsl_domains()
+      for _, dom in ipairs(wsl_doms) do
+        table.insert(choices, { id = dom.distribution, label = dom.name })
+      end
+      table.insert(choices, { id = 'local', label = 'local' })
+      wezterm.log_info(choices)
+      window:perform_action(
+        wezterm.action.InputSelector {
+          action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
+            if not id and not label then
+              wezterm.log_info 'Cancelled'
+            elseif label == 'local' and wezterm.target_triple:find("windows") ~= nil then
+              inner_window:perform_action(
+                wezterm.action.SpawnCommandInNewTab {
+                  domain = { DomainName = 'local' },
+                  args = { 'powershell' }
+                },
+                inner_pane
+              )
+            else
+              inner_window:perform_action(
+                wezterm.action.SpawnTab {
+                  DomainName = label,
+                },
+              inner_pane
+              )
+            end
+          end),
+          title = 'Domain',
+          choices = choices,
+        },
+        pane
+      )
+    end),
   },
   {
     key = '"',
@@ -345,8 +397,8 @@ config.keys = {
   { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
   { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
-  { key = 'c', mods = NonAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
-  { key = 'v', mods = NonAlt, action = wezterm.action.PasteFrom 'Clipboard' },
+  { key = 'c', mods = Alt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
+  { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
   {
     key = 'N',
     mods = 'LEADER',
