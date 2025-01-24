@@ -466,12 +466,12 @@ autocmd FileType python nmap <leader><C-f> :call PyFormat()<CR>
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2 
 autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
+autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
 command! BW :bn|:bd#
 
 " #highlight ish
@@ -528,18 +528,18 @@ nmap <S-Tab> :BufferPrevious<CR>
 inoremap <C-v> <C-r>+
 
 " Telescope mappings
-nnoremap <C-space>ff <cmd>Telescope find_files<cr>
-noremap <C-space>fg <cmd>Telescope live_grep<cr>
-nnoremap <C-space>fb <cmd>Telescope buffers<cr>
-nnoremap <C-space>fh <cmd>Telescope help_tags<cr>
-nnoremap <C-space>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <C-space>hm <cmd>lua require("harpoon.mark").add_file()<CR>
-nnoremap <C-space>hh <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-space>h] <cmd>lua require("harpoon.ui").nav_next()<CR>
-nnoremap <C-space>h[ <cmd>lua require("harpoon.ui").nav_prev()<CR>
-nnoremap <C-space>h1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-space>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-space>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-t>ff <cmd>Telescope find_files<cr>
+nnoremap <C-t>fg <cmd>Telescope live_grep<cr>
+nnoremap <C-t>fb <cmd>Telescope buffers<cr>
+nnoremap <C-t>fh <cmd>Telescope help_tags<cr>
+nnoremap <C-t>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <C-t>hm <cmd>lua require("harpoon.mark").add_file()<CR>
+nnoremap <C-t>hh <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <C-t>h] <cmd>lua require("harpoon.ui").nav_next()<CR>
+nnoremap <C-t>h[ <cmd>lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <C-t>h1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-t>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-t>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 nnoremap <C-g> :Rg 
@@ -547,9 +547,9 @@ nnoremap <C-g> :Rg
 "
 " Python repl mappings
 "
-nmap <C-space>rt <Cmd>ReplToggle<CR>
-nmap <C-space>rc <Plug>ReplSendCell
-xmap <C-space>rc  <Plug>ReplSendVisual
+nmap <C-t>rt <Cmd>ReplToggle<CR>
+nmap <C-t>rc <Plug>ReplSendCell
+xmap <C-t>rc  <Plug>ReplSendVisual
 
 ""
 " Normal remaps
@@ -559,15 +559,14 @@ nmap <space> <leader>
 nmap <space><space> <leader>
 
 " window stuff
-nmap <C-Space><C-Space> <C-w><C-w>
 nmap cow <C-w><C-w>:clo<CR>
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 
 " line stuff
 nnoremap <C-o><C-o> O<Esc>jo<Esc>kzz
-nnoremap <C-o><C-p> o<Esc>kzz
-nnoremap <C-o><C-i> O<Esc>jzz
+nnoremap <C-o><C-i> o<Esc>kzz
+nnoremap <C-o><C-p> O<Esc>jzz
 
 " move stuff
 " nnoremap <expr> J 'J' . Centerizer()
@@ -594,7 +593,7 @@ nnoremap <leader>h _
 nnoremap <C-y><C-y> "+yy
 nnoremap <C-y><C-w> "+yiw
 nnoremap <C-p> "+p
-nnoremap <C-space><C-p> "+P
+nnoremap <leader><C-p> "+P
 nnoremap y "0y
 nnoremap yw BvEy
 nnoremap P "0P
@@ -605,7 +604,7 @@ nnoremap <leader>p "1p
 nnoremap <leader>P "1P
 xnoremap <C-y> "+y
 xnoremap <C-p> "+p
-xnoremap <C-space><C-p> "+P
+xnoremap <leader><C-p> "+P
 xnoremap y "0y
 xnoremap yw BvEy
 xnoremap P "0P
@@ -617,13 +616,11 @@ xnoremap <leader>P "1P
 
 nnoremap R s
 nnoremap <C-s> <cmd>Pounce<CR>
-nnoremap <C-space>j o<Esc>_C<Esc>
-nnoremap <C-space>k O<Esc>_C<Esc>
 nnoremap <C-m>ls :MarksListBuf<CR>
 nnoremap <leader>B <cmd>call Toggle_Venn()<CR>
 nnoremap <C-m>la :MarksListGlobal<CR>
-nmap <C-f> :set conceallevel=0<CR>
-imap <C-f> :set conceallevel=0<CR>
+nmap <leader><C-f> :set conceallevel=0<CR>
+imap <leader><C-f> :set conceallevel=0<CR>
 nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
 nnoremap t<C-a> :call CycleCodeBlockSuffix()<CR>
 nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
@@ -633,8 +630,6 @@ nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
 " time stuff
 nmap <expr> <leader>td 'a' . strftime("%Y-%m-%d") . '<Esc>'
 nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d %H:%M:%S") . '<Esc>'
-imap <expr> <C-space>d strftime("%Y-%m-%d")
-imap <expr> <C-space>t strftime("%Y-%m-%d %H:%M:%S")
 
 " slime stuff
 nmap <C-c><C-n> :call WeztermSlimePane()<CR>
@@ -650,13 +645,11 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 imap <C-k> <Up>
 imap <C-j> <Down>
-imap <C-space><C-l> <Right><Bs>
-imap <C-space><C-h> <Bs>
-inoremap <C-space>l <Esc>A
-inoremap <C-space>h <Esc>I
-inoremap <C-space>j <Esc>o<Esc>_C
-inoremap <C-space>k <Esc>O<Esc>_C
-inoremap <C-space>c <Esc>lC
+imap <C-l> <Right><Bs>
+imap <C-h> <Bs>
+inoremap <C-j> <Esc>o<Esc>_C
+inoremap <C-k> <Esc>O<Esc>_C
+inoremap <C-c> <Esc>lC
 inoremap <expr> <C-i> "<Esc>o<Esc>_C" . CodeBlock() . '<CR>'
 inoremap <expr> <C-b> CodeBlock() . ' '
 
