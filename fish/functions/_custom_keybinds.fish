@@ -51,6 +51,12 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
         commandline -f repaint
     end
 
+    function _hpfuzzy
+        set d (hp ls | fz | string split ' -> ')
+        cd $d[2]
+        commandline -f repaint
+    end
+
     bind -M insert \cp __alternate_prompt
     bind -M insert \cs _fuzzy_grep_and_edit
     bind -M insert \cu _copy_previous_command
@@ -60,5 +66,6 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
     bind -M visual y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
     bind -M normal yy fish_clipboard_copy
     bind -M insert \ch 'history | fz | string trim -r | clip'
+    bind -M insert \cj _hpfuzzy
 end
 
