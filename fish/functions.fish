@@ -48,6 +48,10 @@ function sfx --description "Search for summin' -- but pick"
     rg "$argv" -i --line-number --color=always | sk --ansi -m | awk -F':' '{print $1}' | xargs nvim -c "/$argv"
 end
 
+function fk --description "fuzzy find with hp"
+    hp (hp ls | fz | awk '{print $1}')
+end
+
 function choose_background
     set CONF_DIR $HOME/.config
     set CFG_DIR $CONF_DIR/.cfg
