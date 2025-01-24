@@ -513,7 +513,6 @@ nmap <C-e><C-w> <cmd>w!<CR>
 imap <C-e><C-w> <cmd>w!<CR>
 xmap <C-e><C-w> <cmd>w!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
-imap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-q><C-w> :wq!<CR>
 imap <C-q><C-w> <Esc>:wq!<CR>
@@ -566,9 +565,9 @@ nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 
 " line stuff
-nnoremap <C-space><C-o> O<Esc>jo<Esc>k
-nnoremap <C-o> o<Esc>k
-nnoremap <C-S-o> O<Esc>j
+nnoremap <C-o><C-o> O<Esc>jo<Esc>kzz
+nnoremap <C-o><C-p> o<Esc>kzz
+nnoremap <C-o><C-i> O<Esc>jzz
 
 " move stuff
 " nnoremap <expr> J 'J' . Centerizer()
