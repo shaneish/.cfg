@@ -98,6 +98,16 @@ EOF
 " #functions ish
 "
 
+" alt default theme
+function! ToggleTheme()
+    if &background == "dark"
+        set background=light
+    else
+        set background=dark
+    endif
+    colorscheme quiet
+endfunction
+
 " Trim Whitespaces
 function! TrimWhitespace()
     let l:save = winsaveview()
@@ -253,7 +263,7 @@ endfunction
 let g:wezterm_pane_split_direction = -1 " -1 for auto, 0 for bottom, 1 for left
 function! SlimeReplInitCmd()
     let wez_cli = "wezterm"
-    if empty($WSL_INTEROP) || has('windows')
+    if !empty($WSL_INTEROP) || has('windows') == 0
         let wez_cli = wez_cli . ".exe"
     endif
     let split_flag = ""
@@ -373,6 +383,9 @@ function! AdjustShowBreak()
     let &showbreak = repeat("\ ", max([&nuw, real_numberwidth]))
 endfunction
 
+function! Test()
+    echo has('win')
+endfunction
 "
 " #variables ish
 "
@@ -466,7 +479,7 @@ autocmd FileType python nmap <leader><C-f> :call PyFormat()<CR>
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2 
+autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
@@ -526,6 +539,7 @@ nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
 nmap <Tab> :BufferNext<CR>
 nmap <S-Tab> :BufferPrevious<CR>
 inoremap <C-v> <C-r>+
+nnoremap <C-t><C-t> :call ToggleTheme()<CR>
 
 " Telescope mappings
 nnoremap <C-t>ff <cmd>Telescope find_files<cr>
@@ -542,7 +556,7 @@ nnoremap <C-t>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-t>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
-nnoremap <C-g> :Rg 
+nnoremap <C-g> :Rg
 
 "
 " Python repl mappings
