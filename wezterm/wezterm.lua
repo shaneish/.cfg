@@ -94,7 +94,7 @@ config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
 -- config.color_scheme = "Grayscale Light (base16)" -- "Grayscale (light) (terminal.sexy)" -- # "Grayscale (dark) (terminal.sexy)" -- "Grayscale (light) (terminal.sexy)" -- "theme"
-config.color_scheme = name
+config.color_scheme = "blk"
 -- config.default_prog = { 'fish' }
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
@@ -378,8 +378,8 @@ config.keys = {
   { key = '}', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(1) },
   { key = "L", mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(1) },
   { key = "H", mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
-  { key = "Tab", mods = Alt, action = wezterm.action.ActivatePaneDirection('Next') },
-  { key = "Tab", mods = Alt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
+  { key = "Tab", mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
+  { key = "Tab", mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
   { key = "J", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
   { key = "K", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
   { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
@@ -397,8 +397,8 @@ config.keys = {
   { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
   { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
-  { key = 'c', mods = Alt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
-  { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
+  { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
+  { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
   {
     key = 'N',
     mods = 'LEADER',

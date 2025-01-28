@@ -633,8 +633,8 @@ nnoremap <C-s> <cmd>Pounce<CR>
 nnoremap <C-m>ls :MarksListBuf<CR>
 nnoremap <leader>B <cmd>call Toggle_Venn()<CR>
 nnoremap <C-m>la :MarksListGlobal<CR>
-nmap <leader><C-f> :set conceallevel=0<CR>
-imap <leader><C-f> :set conceallevel=0<CR>
+nmap <C-f><C-f> :set conceallevel=0<CR>
+imap <C-f><C-f> :set conceallevel=0<CR>
 nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
 nnoremap t<C-a> :call CycleCodeBlockSuffix()<CR>
 nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
