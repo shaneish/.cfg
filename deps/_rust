@@ -1,0 +1,22 @@
+#!/bin/bash
+
+export PATH_PATH=$HOME/.path
+
+_path() {
+  export PATH="$PATH:$1"
+  echo "$1" >> $PATH_PATH
+  if [ ! -e "$1" ]; then
+    mkdir -p $1
+  fi
+}
+
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source "$HOME/.cargo/env"
+_path $HOME/.cargo/bin
+
+rustup component add rust-src
+rustup component add rust-analyzer
+rustup component add clippy
+rustup component add rustfmt
+rustup component add rust-docs
+rustup component add llvm-tools

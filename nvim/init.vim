@@ -260,27 +260,42 @@ function! PyFormat()
     endif
 endfunction
 
-let g:wezterm_pane_split_direction = -1 " -1 for auto, 0 for bottom, 1 for left
-function! SlimeReplInitCmd()
+function! ReplCommand()
+    if &filetype == "python"
+        if exists("g:ipython3_host_prog")
+            if g:ipython3_host_prog != ""
+                return g:ipython3_host_prog . " --no-autoindent"
+            endif
+        endif
+        return "python3 -m ipython --no-autoindent"
+    elseif &filetype == "rust"
+        return "evcxr"
+    elseif &filetype == "julia"
+        return "julia"
+    elseif &filetype == "fish"
+        return "fish"
+    elseif &filetype == "sh" || &filetype == "bash"
+        return "bash"
+    elseif &filetype == "go"
+        return "gore"
+    else
+        let repl = input("Enter command to launch: ")
+        return repl
+    endif
+endfunction
+
+let g:slime_split = "bottom"
+function! WezSlimeReplInitCmd(split=g:slime_split, cwd=getcwd())
     let wez_cli = "wezterm"
     if !empty($WSL_INTEROP) || has('windows') == 0
         let wez_cli = wez_cli . ".exe"
     endif
-    let split_flag = ""
-    if g:wezterm_pane_split_direction == 0
-        let split_flag = "--bottom "
-    elseif g:wezterm_pane_split_direction == 1
-        let split_flag = "--left "
-    endif
-    let cmd = wez_cli . " cli split-pane " . split_flag . "--cwd " . getcwd() . " -- "
-    if &filetype == "python"
-        let activate = system('source ' . g:python_bin . '/activate.fish')
-        return cmd . g:ipython3_host_prog . " --no-autoindent"
-    endif
+    let cmd = wez_cli . " cli split-pane --" . a:split . " --cwd " . a:cwd . " -- "
+    return cmd . ReplCommand()
 endfunction
 
 function! WeztermSlimePane()
-    let pane_id = system(SlimeReplInitCmd())
+    let pane_id = system(WezSlimeReplInitCmd())
     let b:slime_config = {"pane_id": trim(pane_id)}
     let g:slime_default_config = {"pane_id": trim(pane_id)}
     let g:slime_dont_ask_default = 1

@@ -78,8 +78,8 @@ yay -S hyprshot
 
 ### pipx-apps
 ```bash
-python3.13 -m ensurepip
-python3.13 -m pip install pipx
+python3 -m ensurepip
+python3 -m pip install pipx
 pipx install ruff
 pipx install dunk
 pipx install poetry
@@ -143,6 +143,11 @@ cargo install --locked jaq
 cargo install toml-cli
 cargo install git-delta
 cargo install --locked gitui
+cargo install rust-parallel
+
+_alias eza ll
+_alias fselect fs
+_alias rust-parallel rp
 ```
 
 ### scripts

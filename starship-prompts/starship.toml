@@ -55,7 +55,7 @@ style = "#bebebe"
 
 [python]
 symbol = ""
-format = "[$symbol$virtualenv$version]($style)"
+format = " [$symbol$virtualenv$version]($style)"
 version_format = ".${minor}"
 style = "#bebebe"
 [line_break]

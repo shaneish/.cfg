@@ -72,18 +72,43 @@ wezterm.on('select-and-paste', function(window, pane)
   wezterm.action.PasteFrom 'Clipboard'
 end)
 
+function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+function log_table(t)
+  print(dump(t))
+end
+
 Alt = 'ALT'
 NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
+ansi_highlight = "#ffd700"
+bright_highlight = "#f6cd61"
 local name = 'Grayscale (dark) (terminal.sexy)'
 local whitish = wezterm.color.get_builtin_schemes()[name]
 whitish.background = "#000000"
-whitish.cursor_bg = "#ffd700"
-whitish.cursor_border = "#ffd700"
+whitish.cursor_bg = ansi_highlight
+whitish.cursor_border = ansi_highlight
 whitish.foreground = "#ffffff"
 whitish.selection_bg = "#ffffff"
+whitish.brights[4] = ansi_highlight
+whitish.ansi[4] = bright_highlight
+whitish.brights[6] = "#cccccc"
+whitish.ansi[6] = "#eeeeee"
+whitish.brights[5] = "#cccccc"
+whitish.ansi[5] = "#eeeeee"
 config.color_schemes = {
   [name] = whitish
 }
@@ -94,8 +119,9 @@ config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
 -- config.color_scheme = "Grayscale Light (base16)" -- "Grayscale (light) (terminal.sexy)" -- # "Grayscale (dark) (terminal.sexy)" -- "Grayscale (light) (terminal.sexy)" -- "theme"
-config.color_scheme = "blk"
+-- config.color_scheme = "blk"
 -- config.default_prog = { 'fish' }
+config.color_scheme = name
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false

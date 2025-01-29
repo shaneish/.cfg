@@ -25,6 +25,7 @@ if type -q "bat"
 end
 abbr -a dx databricks
 abbr -a ai shelldon
+abbr -a rp rust-parallel
 
 # all the git ones
 alias git="git --no-pager"
