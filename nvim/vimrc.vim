@@ -161,24 +161,24 @@ nnoremap <expr> <C-d> '<C-d>' . Centerizer()
 nnoremap <expr> <C-u> '<C-u>' . Centerizer()
 nnoremap <expr> <C-j> '}' . Centerizer()
 nnoremap <expr> <C-k> '{' . Centerizer()
+nnoremap <expr> <C-h> 'b' . Centerizer()
+nnoremap <expr> <C-l> 'e' . Centerizer()
 nnoremap <expr> j 'j' . Centerizer()
 nnoremap <expr> k 'k' . Centerizer()
 nnoremap <expr> n 'n' . Centerizer()
 nnoremap <expr> N 'N' . Centerizer()
-nnoremap <expr> h 'b' . Centerizer()
-nnoremap <expr> l 'e' . Centerizer()
 nnoremap <leader>l g_
 nnoremap <leader>h _
 xnoremap <expr> <C-d> '<C-d>' . Centerizer()
 xnoremap <expr> <C-u> '<C-u>' . Centerizer()
 xnoremap <expr> <C-j> '}' . Centerizer()
 xnoremap <expr> <C-k> '{' . Centerizer()
+xnoremap <expr> <C-h> 'b' . Centerizer()
+xnoremap <expr> <C-l> 'e' . Centerizer()
 xnoremap <expr> j 'j' . Centerizer()
 xnoremap <expr> k 'k' . Centerizer()
 xnoremap <expr> n 'n' . Centerizer()
 xnoremap <expr> N 'N' . Centerizer()
-xnoremap <expr> h 'b' . Centerizer()
-xnoremap <expr> l 'e' . Centerizer()
 xnoremap <leader>l g_
 xnoremap <leader>h _
 
