@@ -5,6 +5,7 @@ set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
 set -Ux EDITOR "nvim"
 set -Ux SHELL "fish"
 set -Ux PYTHON_VENV_DIR ~/.local/python-venvs
+set -Ux CLI_NOTES $HOME/.config/notes/cmd_examples.txt
 
 fish_add_path -U $HOME/.local/bin
 fish_add_path -U $HOME/.cargo/bin

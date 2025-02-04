@@ -1,0 +1,6 @@
+## : find external ip address
+## : tags: network ; cyber ; ip
+curl ifconfig.me
+## : find internal ip address
+## : tags: network ; cyber ; ip
+hostname -i
