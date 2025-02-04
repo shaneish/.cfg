@@ -4,6 +4,7 @@ set -Ux SCRIPTS_DIRECTORY $HOME/.config/scripts
 set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
 set -Ux EDITOR "nvim"
 set -Ux SHELL "fish"
+set -Ux PYTHON_VENV_DIR ~/.local/python-venvs
 
 fish_add_path -U $HOME/.local/bin
 fish_add_path -U $HOME/.cargo/bin
@@ -12,3 +13,4 @@ fish_add_path -U $HOME/.config/scripts
 fish_add_path -U $HOME/go/bin
 
 fish_config theme choose theme
+
