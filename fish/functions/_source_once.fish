@@ -8,5 +8,13 @@ function _source_once
     set -Ux fish_cursor_external line blink
     set -Ux fish_cursor_visual block blink
     set -Ux fish_vi_force_cursor line blink
+    set -Ux CONFIG_DIRECTORY $HOME/.config
+    set -Ux CFG_DIRECTORY $HOME/.config/.cfg
+    set -Ux SCRIPTS_DIRECTORY $HOME/.config/scripts
+    set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
+    set -Ux EDITOR "nvim"
+    set -Ux SHELL "fish"
+    set -Ux PYTHON_VENV_DIR $HOME/.local/python-venvs
+    set -Ux CLI_NOTES $HOME/.config/notes/cmd_examples.txt
     change_greeting small
 end

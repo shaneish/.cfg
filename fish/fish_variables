@@ -1,23 +1,25 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export BROWSER:zen\x2dbrowser
-SETUVAR --export CFG_DIRECTORY:/home/idunno/\x2econfig/\x2ecfg
+SETUVAR --export CFG_DIRECTORY:/Users/h62756/\x2econfig/\x2ecfg
 SETUVAR --export CICOLOR_FORCE:1
-SETUVAR --export CONFIG_DIRECTORY:/home/idunno/\x2econfig
+SETUVAR --export CLI_NOTES:/Users/h62756/\x2econfig/notes/cmd_examples\x2etxt
+SETUVAR --export CONFIG_DIRECTORY:/Users/h62756/\x2econfig
 SETUVAR --export DBRX_CELL:\x23\x20COMMAND\x20\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d
 SETUVAR --export DBRX_SEPARATOR:\x23\x20COMMAND\x20\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d\x2d
 SETUVAR --export EDITOR:nvim
-SETUVAR --export FISH_CONFIG_DIRECTORY:/home/idunno/\x2econfig/fish
+SETUVAR --export FISH_CONFIG_DIRECTORY:/Users/h62756/\x2econfig/fish
 SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1edeltabase\x1etree\x1eparent\x1enumparent\x1eobject\x1etype\x1etag\x1eauthor\x1eauthorname\x1eauthoremail\x1eauthordate\x1ecommitter\x1ecommittername\x1ecommitteremail\x1ecommitterdate\x1etagger\x1etaggername\x1etaggeremail\x1etaggerdate\x1ecreator\x1ecreatordate\x1edescribe\x1esubject\x1ebody\x1etrailers\x1econtents\x1esignature\x1eraw\x1eupstream\x1epush\x1esymref\x1eflag\x1eHEAD\x1ecolor\x1eworktreepath\x1ealign\x1eend\x1eif\x1ethen\x1eelse\x1erest\x1eahead\x2dbehind
-SETUVAR --export MACHINE_IDENTIFIER:Linux\x2dDESKTOP\x2dBA1383T\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
-SETUVAR --export NVIM_DIRECTORY:/home/idunno/\x2econfig/nvim
+SETUVAR --export MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
+SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
+SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/python\x2dvenvs
 SETUVAR --export PY_REPL_CELL:\x23\x20\x25\x25
 SETUVAR --export PY_REPL_SEPARATOR:\x23\x20\x25\x25
-SETUVAR --export SCRIPTS_DIRECTORY:/home/idunno/\x2econfig/scripts
+SETUVAR --export SCRIPTS_DIRECTORY:/Users/h62756/\x2econfig/scripts
 SETUVAR --export SHELL:fish
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0
-SETUVAR --export _MACHINE_IDENTIFIER:Linux\x2dDESKTOP\x2dBA1383T\x2d5\x2e15\x2e167\x2e4\x2dmicrosoft\x2dstandard\x2dWSL2
+SETUVAR --export _MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:6c6c6c
 SETUVAR fish_color_cancel:\x1d

@@ -1,5 +1,5 @@
 function _custom_keybinds -d "select and copy from a previously submitted command"
-    set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f | head -n 1)
+    set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f --follow | head -n 1)
 
     function _copy_previous_command
         set out (history | fz)
