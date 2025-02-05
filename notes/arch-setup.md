@@ -67,11 +67,7 @@ git clone https://github.com/shaneish/.cfg.git $HOME/.config/.cfg
 cd $HOME/.config/.cfg
 stow .
 
-sudo pacman -S ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols-mono github-cli cmake keyd fish wezterm pypy3 go neofetch kitty waybar discord spotify-launcher nodejs npm base-devel zig jq hyprland waybar wofi hyprpaper
-yay -S neovim-git
-yay -S zen-browser-avx2-bin
-yay -S google-chrome
-yay -S python313
+sudo pacman -S ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols-mono github-cli cmake keyd fish wezterm pypy3 go kitty waybar discord spotify-launcher nodejs npm base-devel zig jq hyprland waybar wofi hyprpaper neovim
 yay -S swayfx
 yay -S hyprshot
 ```
@@ -119,12 +115,14 @@ rustup component add llvm-tools
 cargo install ripgrep
 cargo install sd
 cargo install rm-improved
+cargo install fd-find
+cargo install bhop
+cargo install --locked jaq
+
 cargo install eza
 cargo install lsd
 cargo install --locked bat
 cargo install skim
-cargo install fd-find
-cargo install bhop
 cargo install nu
 cargo install ouch
 cargo install procs
@@ -139,8 +137,6 @@ cargo install coreutils
 cargo install fselect
 cargo install starship
 cargo install xsv
-cargo install --locked jaq
-cargo install toml-cli
 cargo install git-delta
 cargo install --locked gitui
 cargo install rust-parallel

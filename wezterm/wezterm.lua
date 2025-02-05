@@ -247,32 +247,25 @@ config.key_tables = {
   },
   scroll_mode = {
     { key = "Escape", action = 'PopKeyTable' },
-
     { key = "UpArrow", action = wezterm.action.ScrollByLine(-1) },
     { key = "DownArrow", action = wezterm.action.ScrollByLine(1) },
     { key = "k", action = wezterm.action.ScrollByLine(-1) },
     { key = "j", action = wezterm.action.ScrollByLine(1) },
-
     { key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(-5) },
     { key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(5) },
     { key = "K", mods = "SHIFT", action = wezterm.action.ScrollByLine(-5) },
     { key = "J", mods = "SHIFT", action = wezterm.action.ScrollByLine(5) },
-
     { key = "k", mods = "CTRL", action = wezterm.action.ScrollByPage(-0.5) },
     { key = "j", mods = "CTRL", action = wezterm.action.ScrollByPage(0.5) },
     { key = "k", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByPage(-1) },
     { key = "j", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByPage(1) },
-
     { key = "p", action = wezterm.action.ScrollToPrompt(-1) },
     { key = "n", action = wezterm.action.ScrollToPrompt(1) },
     { key = "{", action = wezterm.action.ScrollToPrompt(-1) },
     { key = "}", action = wezterm.action.ScrollToPrompt(1) },
-
     { key = "g", action = wezterm.action.ScrollToTop },
     { key = "G", mods = "SHIFT", action = wezterm.action.ScrollToBottom },
-
     { key = "z", action = wezterm.action.TogglePaneZoomState },
-
     { key = "y", action = wezterm.action.ActivateCopyMode },
     { key = "/", action = wezterm.action.Search("CurrentSelectionOrEmptyString") },
   },
@@ -360,12 +353,25 @@ config.keys = {
     action = wezterm.action_callback(function(window, pane)
 
       local choices = {}
-      local wsl_doms = wezterm.default_wsl_domains()
-      for _, dom in ipairs(wsl_doms) do
-        table.insert(choices, { id = dom.distribution, label = dom.name })
+      if wezterm.target_triple:find("windows") ~= nil then
+        local wsl_doms = wezterm.default_wsl_domains()
+        for _, dom in ipairs(wsl_doms) do
+          table.insert(choices, { id = dom.distribution, label = dom.name })
+        end
+        table.insert(choices, { id = 'local', label = 'local' })
+        wezterm.log_info(choices)
+      else
+        local shells = io.open("/etc/shells", "r"):read("*all")
+        for _, shell in ipairs({ 'bash', 'fish', 'zsh', 'sh', 'powershell', 'pwsh', 'nu' }) do
+          for line in shells:gmatch("([^\n]*)\n?") do
+            if string.find(line, "/" .. shell) then
+              table.insert(choices, { id = line, label = shell })
+              break
+            end
+          end
+        end
+        wezterm.log_info(choices)
       end
-      table.insert(choices, { id = 'local', label = 'local' })
-      wezterm.log_info(choices)
       window:perform_action(
         wezterm.action.InputSelector {
           action = wezterm.action_callback(function(inner_window, inner_pane, id, label)
@@ -379,12 +385,20 @@ config.keys = {
                 },
                 inner_pane
               )
-            else
+            elseif wezterm.target_triple:find("windows") ~= nil then
               inner_window:perform_action(
                 wezterm.action.SpawnTab {
                   DomainName = label,
                 },
               inner_pane
+              )
+            else
+              inner_window:perform_action(
+                wezterm.action.SpawnCommandInNewTab {
+                  domain = { DomainName = 'local' },
+                  args = { id }
+                },
+                inner_pane
               )
             end
           end),
