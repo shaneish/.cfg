@@ -1,4 +1,4 @@
-function _custom_keybinds -d "select and copy from a previously submitted command"
+function _custom_keybinds -d "it is what it says it is"
     set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f --follow | head -n 1)
 
     function _copy_previous_command
@@ -53,8 +53,10 @@ function _custom_keybinds -d "select and copy from a previously submitted comman
 
     function _hpfuzzy
         set d (hp ls | fz | string split ' -> ')
-        cd $d[2]
-        commandline -f repaint
+        if string length --quiet $d[2]
+            cd $d[2]
+            commandline -f repaint
+        end
     end
 
     bind -M insert \cp __alternate_prompt

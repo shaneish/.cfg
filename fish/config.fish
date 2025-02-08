@@ -21,10 +21,10 @@ if status is-interactive
     fish_bash_keybinds
     _custom_keybinds
 
-    if type -q sk
-        skim_key_bindings
-    else if type -q fzf
+    if type -q fzf
         fzf --fish | source
+    else if type -q sk
+        skim_key_bindings
     end
 
     alias lh="history | fz | clip"
