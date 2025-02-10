@@ -1,4 +1,4 @@
-format = "$sudo$username$character"
+format = "$character"
 right_format = "$directory"
 command_timeout = 1000
 
@@ -6,8 +6,350 @@ command_timeout = 1000
 truncate_to_repo = false
 truncation_length = 1
 fish_style_pwd_dir_length = 1
-style = "#ffffff"
-format = "[>]($style) [$path$read_only](#ffffff) "
+style = "#ffc700"
+format = "[>]($style) [$path$read_only](#ffc700) "
 home_symbol = "~"
 read_only = '!'
 truncation_symbol = '.../'
+[line_break]
+disabled = true
+
+[character]
+error_symbol =              " [x](#ffc700 blink)"
+success_symbol =            " [>](#ffc700)"
+vimcmd_symbol =             " [>](#ffc700)"
+vimcmd_visual_symbol =      " [>](#ffc700 blink)"
+vimcmd_replace_symbol =     " [_](#ffc700)"
+vimcmd_replace_one_symbol = " [_](#ffc700 blink)"
+
+[cmd_duration]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[battery]
+disabled = true
+
+[username]
+format = '[$user](#ffc700)'
+show_always = true
+
+[sudo]
+symbol = "~"
+format = '[$symbol](#ffc700)'
+disabled = false
+
+[hostname]
+format = "[$symbol$hostname]($style)"
+trim_at = ""
+ssh_only = true
+ssh_symbol = "@"
+style = "#ffc700"
+
+[package]
+symbol = ".pkg"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[perl]
+symbol = ".pl"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[php]
+symbol = ".php"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[pijul_channel]
+symbol = "pijul"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[pulumi]
+symbol = ".yml"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[purescript]
+symbol = ".purs"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[quarto]
+symbol = ".qmd"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[raku]
+symbol = ".raku"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[ruby]
+symbol = ".rb"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[rust]
+symbol = ".rs"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[scala]
+symbol = ".sc"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[spack]
+symbol = "spack"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[solidity]
+symbol = ".sol"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[status]
+symbol = "x"
+
+[swift]
+symbol = ".swift"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[typst]
+symbol = "typst"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[terraform]
+symbol = ".tf"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[zig]
+symbol = ".zig"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[aws]
+symbol = ".aws"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[azure]
+symbol = ".az"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[bun]
+symbol = ".js"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[c]
+symbol = ".c"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[cobol]
+symbol = ".cbl"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[conda]
+symbol = ".conda"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[crystal]
+symbol = ".cr"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[cmake]
+symbol = ".cmake"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[daml]
+symbol = ".daml"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[dart]
+symbol = ".dart"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[deno]
+symbol = ".js"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[dotnet]
+symbol = ".net"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[docker_context]
+symbol = "docker "
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[elixir]
+symbol = ".exs"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[elm]
+symbol = ".elm"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[fennel]
+symbol = ".fnl"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[fossil_branch]
+symbol = ".fossil"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[gcloud]
+symbol = ".gcp"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[gleam]
+symbol = ".gleam"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[golang]
+symbol = ".go"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[gradle]
+symbol = ".gradle"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[guix_shell]
+symbol = ".guix"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[hg_branch]
+symbol = ".hg"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[java]
+symbol = ".java"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[julia]
+symbol = ".jl"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[kotlin]
+symbol = ".kt"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[lua]
+symbol = ".lua"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[nodejs]
+symbol = ".js"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[meson]
+symbol = ".meson"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[nats]
+symbol = ".nats"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[nim]
+symbol = ".nim"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[nix_shell]
+symbol = ".nix"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[ocaml]
+symbol = ".ml"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[opa]
+symbol = ".opa"
+format = '[$symbol](#ffc700) '
+disabled = true
+
+[os.symbols]
+AIX = "aix"
+Alpaquita = "alq"
+AlmaLinux = "alma"
+Alpine = "alp"
+Amazon = "amz"
+Android = "andr"
+Arch = "rch"
+Artix = "atx"
+CentOS = "cent"
+Debian = "deb"
+DragonFly = "dfbsd"
+Emscripten = "emsc"
+EndeavourOS = "ndev"
+Fedora = "fed"
+FreeBSD = "fbsd"
+Garuda = "garu"
+Gentoo = "gent"
+HardenedBSD = "hbsd"
+Illumos = "lum"
+Kali = "kali"
+Linux = "lnx"
+Mabox = "mbox"
+Macos = "mac"
+Manjaro = "mjo"
+Mariner = "mrn"
+MidnightBSD = "mid"
+Mint = "mint"
+NetBSD = "nbsd"
+NixOS = "nix"
+OpenBSD = "obsd"
+OpenCloudOS = "ocos"
+openEuler = "oeul"
+openSUSE = "osuse"
+OracleLinux = "orac"
+Pop = "pop"
+Raspbian = "rasp"
+Redhat = "rhl"
+RedHatEnterprise = "rhel"
+RockyLinux = "rky"
+Redox = "redox"
+Solus = "sol"
+SUSE = "suse"
+Ubuntu = "ubnt"
+Ultramarine = "ultm"
+Unknown = "unk"
+Void = "void"
+Windows = "win"

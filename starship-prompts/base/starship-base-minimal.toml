@@ -1,4 +1,4 @@
-format = "$sudo$username$character"
+format = "$character"
 right_format = "$directory"
 command_timeout = 1000
 
@@ -6,26 +6,8 @@ command_timeout = 1000
 truncate_to_repo = false
 truncation_length = 1
 fish_style_pwd_dir_length = 1
-style = "#bebebe"
-format = "[>]($style) [$path$read_only](#bebebe) "
+style = "#ffffff"
+format = "[>]($style) [$path$read_only](#ffffff) "
 home_symbol = "~"
 read_only = '!'
 truncation_symbol = '.../'
-[git_metrics]
-disabled = true
-
-[git_branch]
-disabled = true
-
-[git_status]
-disabled = true
-
-[python]
-symbol = "py"
-format = "\\[[$version]($style)\\]"
-version_format = "py${major}.${minor}"
-style = "#a7a7a7"
-disabled = true
-
-[hostname]
-disabled = true

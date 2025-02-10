@@ -1,4 +1,4 @@
-format = "$sudo$username$character"
+format = "$sudo$username$hostname$character"
 command_timeout = 1000
 
 right_format = """
@@ -45,13 +45,6 @@ added_style = '#ffffff'
 deleted_style = '#ffffff'
 format = '( [↑$added]($added_style))([↓$deleted]($deleted_style) )'
 disabled = false
-
-[hostname]
-format = "[$symbol$hostname]($style) "
-trim_at = ""
-ssh_only = true
-ssh_symbol = "@"
-style = "#ffffff"
 
 [python]
 symbol = ""
