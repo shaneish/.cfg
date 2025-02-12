@@ -1,4 +1,4 @@
-local smartcolumn = {}
+local repl_highlight = {}
 
 local max_sign_nr = 0
 local config = {
@@ -78,7 +78,7 @@ local function detect()
   end
 end
 
-function smartcolumn.setup(user_config)
+function repl_highlight.setup(user_config)
    user_config = user_config or {}
 
    for option, value in pairs(user_config) do
@@ -99,4 +99,4 @@ function smartcolumn.setup(user_config)
    end
 end
 
-return smartcolumn
+return repl_highlight

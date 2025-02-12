@@ -1,4 +1,6 @@
 function pyv
+    set avail_venvs (ls $PYTHON_VENV_DIR | sort -n) (fd "pyvenv" --extension cfg --exact-depth 2 -L -H | xargs dirname)
+    echo $avail_venvs
     function _infer_python_venv
         set venv_priority fast venv .venv 3.13 3.12 3.11 3.10 3.9
         for d in $PYTHON_VENV_DIR

@@ -59,6 +59,27 @@ function _custom_keybinds -d "it is what it says it is"
         end
     end
 
+    function bind_bang
+        switch (commandline -t)[-1]
+            case "!"
+                commandline -t -- $history[1]
+                commandline -f repaint
+            case "*"
+                commandline -i !
+        end
+    end
+
+    function bind_dollar
+        switch (commandline -t)[-1]
+            case "!"
+                commandline -f backward-delete-char history-token-search-backward
+            case "*"
+                commandline -i '$'
+        end
+    end
+
+    bind ! bind_bang
+    bind '$' bind_dollar
     bind -M insert \cp __alternate_prompt
     bind -M insert \cs _fuzzy_grep_and_edit
     bind -M insert \cu _copy_previous_command
