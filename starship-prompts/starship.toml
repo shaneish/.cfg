@@ -48,9 +48,10 @@ disabled = false
 
 [python]
 symbol = ""
-format = " [$symbol$virtualenv$version]($style)"
-version_format = ".${minor}"
+format = " [$symbol$virtualenv $version]($style)"
+version_format = "\\($major.${minor}\\)"
 style = "#ffc700"
+
 [line_break]
 disabled = true
 

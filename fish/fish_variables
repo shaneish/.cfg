@@ -13,7 +13,12 @@ SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1e
 SETUVAR --export MACHINE_IDENTIFIER:Linux\x2didunnoshane\x2dp1\x2d6\x2e13\x2e1\x2darch1\x2d1
 SETUVAR --export NVIM_DIRECTORY:/home/idunnoshane/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
+<<<<<<< HEAD
+SETUVAR --export PYTHON_VENV:/Users/h62756/\x2elocal/python\x2dvenvs/fast
+SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/python\x2dvenvs
+=======
 SETUVAR --export PYTHON_VENV_DIR:/home/idunnoshane/\x2elocal/python\x2dvenvs
+>>>>>>> 738f2e54151a9e81ac31abca50f5b40b3cb8cba5
 SETUVAR --export PY_REPL_CELL:\x23\x20\x25\x25
 SETUVAR --export PY_REPL_SEPARATOR:\x23\x20\x25\x25
 SETUVAR --export SCRIPTS_DIRECTORY:/home/idunnoshane/\x2econfig/scripts

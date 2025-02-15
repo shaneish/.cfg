@@ -83,7 +83,7 @@ call H("Normal", s:foreground_color, "#000000")
 call H("Cursor", s:foreground_color)
 call H("LineNr", s:dark)
 call H("CursorLineNR", s:primary_color, "#000000", "bold")
-call H("CursorLine",  s:primary_color, s:darkest, "bold")
+call H("CursorLine",  "NONE", s:darkest, "bold")
 
 " -----------------
 " - Number column -

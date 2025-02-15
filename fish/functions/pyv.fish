@@ -1,23 +1,14 @@
 function pyv
-    set avail_venvs (ls $PYTHON_VENV_DIR | sort -n) (fd "pyvenv" --extension cfg --exact-depth 2 -L -H | xargs dirname)
-    echo $avail_venvs
-    function _infer_python_venv
-        set venv_priority fast venv .venv 3.13 3.12 3.11 3.10 3.9
-        for d in $PYTHON_VENV_DIR
-            for p in $venv_priority
-                if test -e $d/$p/bin/activate.fish
-                    set -gx PYTHON_VENV $d/$p
-                    source $d/$p/bin/activate.fish
-                    return
-                end
-            end
-        end
-    end
-
     if set -q argv[1]
-        set -gx PYTHON_VENV $PYTHON_VENV_DIR/$argv
+        set -Ux PYTHON_VENV $PYTHON_VENV_DIR/$argv
         source $PYTHON_VENV/bin/activate.fish
-    else
-        _infer_python_venv
+    else if ! test -n "$VIRTUAL_ENV"
+        set -fx found_venv (fd "pyvenv" --extension cfg --exact-depth 2 -L -H $PYTHON_VENV_DIR | tail -n 1 | xargs dirname)
+        set -fx local_venv (fd "pyvenv" --extension cfg --exact-depth 2 -L -H | sort -n | tail -n 1 | xargs dirname)
+        if test -n "$local_venv"
+            set -fx found_venv $local_venv
+        end
+        set -Ux PYTHON_VENV $found_venv
+        source $found_venv/bin/activate.fish
     end
 end

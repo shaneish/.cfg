@@ -1,4 +1,5 @@
 function _source_once
+    pyv
     set -Ux FISH_CONFIG_DIRECTORY (dirname (dirname (status --current-filename)))
     fish_vi_key_bindings
     set -Ux fish_cursor_default block
