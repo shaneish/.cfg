@@ -69,5 +69,9 @@ if status is-interactive
     abbr -a gwta git worktree add
     abbr -a gwtr git worktree remove
     abbr -a gd git diff
+
+    if test -e $PYTHON_VENV/bin/activate.fish
+        source $PYTHON_VENV/bin/activate.fish
+    end
 end
 

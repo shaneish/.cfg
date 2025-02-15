@@ -1,6 +1,5 @@
-"
+" %%
 " plug-ish ish
-"
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -74,6 +73,7 @@ Plug 'SmiteshP/nvim-navic'
 Plug 'numToStr/Comment.nvim'
 Plug 'SmiteshP/nvim-navbuddy'
 Plug 'jpalardy/vim-slime'
+Plug 'Klafyvel/vim-slime-cells'
 call plug#end()
 
 filetype plugin indent on
@@ -87,16 +87,14 @@ else
 endif
 syntax on
 
-"
+" %%
 " Lua-ish ish
-"
 lua << EOF
 require('load-all')
 EOF
 
-"
+" %%
 " #functions ish
-"
 
 " alt default theme
 function! ToggleTheme()
@@ -154,7 +152,7 @@ let g:code_block_comment = substitute(substitute(&commentstring, '%s', '', 'g'),
 let g:code_block_suffix = "%%"
 let g:code_block_alt_file_types = ["md", "markdown", "rmd", "rmarkdown", "journal"]
 let g:code_block_databricks_notebook_identifier = "COMMAND ----------"
-let g:code_block_type_annotation_priority = [g:code_block_suffix, "python", "sql", "console", g:code_block_databricks_notebook_identifier, "scala", "rust", "julia"]
+let g:code_block_type_annotation_priority = [g:code_block_suffix,  g:code_block_databricks_notebook_identifier]
 
 function! CodeBlock()
     if index(g:code_block_alt_file_types, &filetype) >= 0
@@ -169,6 +167,8 @@ let g:code_block_current = CodeBlock()
 
 function! UpdateCodeBlockSuffix()
     let g:code_block_suffix = input("Enter the code block type suffix: ")
+    let g:code_block_current = CodeBlock()
+    let g:slime_cell_delimiter = CodeBlock()
 endfunction
 
 function! CycleCodeBlockSuffix()
@@ -182,6 +182,9 @@ function! CycleCodeBlockSuffix()
     else
         let g:code_block_type_annotation = g:code_block_type_annotation_priority[0]
     endif
+    let g:code_block_current = CodeBlock()
+    let g:slime_cell_delimiter = CodeBlock()
+    silent call feedkeys("i \<Esc>x", "i")
     echo "Selected: " .. g:code_block_suffix
 endfunction
 
@@ -401,10 +404,11 @@ endfunction
 function! Test()
     echo has('win')
 endfunction
-"
-" #variables ish
-"
 
+" %%
+" #variables ish
+
+" %%
 " #settings ish"
 set linespace=10
 set mouse=a
@@ -429,7 +433,7 @@ set title
 set matchpairs+=<:>
 set iskeyword-=_
 set swapfile
-set guifont=JetBrains\ Mono\ 13
+" set guifont=JetBrains\ Mono\ 13
 set fillchars+=vert:\│
 set completeopt=menu,menuone,noselect
 set shell=fish
@@ -474,6 +478,8 @@ let g:big_jump = 0.25
 let g:small_jump = 0.1
 let g:slime_cell_delimiter = CodeBlock()
 let g:slime_target = "wezterm"
+let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
+let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
 " #autcmd ish
 autocmd FileType * set formatoptions-=ro
@@ -554,7 +560,7 @@ nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
 nmap <Tab> :BufferNext<CR>
 nmap <S-Tab> :BufferPrevious<CR>
 inoremap <C-v> <C-r>+
-nnoremap <C-t><C-t> :call ToggleTheme()<CR>
+nnoremap <C-t><C-s> :call ToggleTheme()<CR>
 
 " Telescope mappings
 nnoremap <C-t>ff <cmd>Telescope find_files<cr>
@@ -573,16 +579,8 @@ nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 nnoremap <C-g> :Rg
 
-"
-" Python repl mappings
-"
-nmap <C-t>rt <Cmd>ReplToggle<CR>
-nmap <C-t>rc <Plug>ReplSendCell
-xmap <C-t>rc  <Plug>ReplSendVisual
-
-""
+" %%
 " Normal remaps
-"
 nnoremap <Esc> <Nop>
 nmap <space> <leader>
 nmap <space><space> <leader>
@@ -618,6 +616,7 @@ nnoremap <leader>l g_
 nnoremap <leader>h _
 " nnoremap <C-g> J
 
+" %%
 " copy stuff
 nnoremap <C-y><C-y> "+yy
 nnoremap <C-y><C-w> "+yiw
@@ -651,23 +650,40 @@ nnoremap <C-m>la :MarksListGlobal<CR>
 nmap <C-f><C-f> :set conceallevel=0<CR>
 imap <C-f><C-f> :set conceallevel=0<CR>
 nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
-nnoremap t<C-a> :call CycleCodeBlockSuffix()<CR>
-nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
-nnoremap <expr> <C-i> "o<Esc>_C" . CodeBlock() . '<CR><Esc>'
-nnoremap <expr> <C-b> "a" . CodeBlock() . ' '
+nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g:code_block_current<CR>
+nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
+nnoremap <expr> <C-t><C-b> "A" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-j> "o" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-k> "O" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-j><C-j> "o" . CodeBlock() . '<CR>'
+nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-j><C-k> "o" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-k><C-j> "O" . CodeBlock() . '<Esc>o'
+nnoremap <expr> <C-t><C-t><C-j> "o<Esc>o" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-t><C-k> "O<Esc>O" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-t><C-j><C-j> "o<Esc>o" . CodeBlock() . '<CR><CR>'
+nnoremap <expr> <C-t><C-t><C-k><C-k> "O<Esc>O" . CodeBlock() . '<Esc>O<Esc>O'
+nnoremap <expr> <C-t><C-t><C-j><C-k> "o<Esc>o" . CodeBlock() . '<Esc>kO'
+nnoremap <expr> <C-t><C-t><C-k><C-j> "O<Esc>O" . CodeBlock() . '<Esc>jo'
 
+" %%
 " time stuff
 nmap <expr> <leader>td 'a' . strftime("%Y-%m-%d") . '<Esc>'
 nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d %H:%M:%S") . '<Esc>'
 
+" %%
 " slime stuff
 nmap <C-c><C-n> :call WeztermSlimePane()<CR>
 nmap <C-c><C-p> <Plug>SlimeParagraphSend
 nmap <C-c><C-c> <Plug>SlimeSendCell
 nmap <C-c><C-l> <Plug>SlimeLineSend
-nmap <C-c><C-l> <Plug>SlimeLineSend
+nmap <C-c><C-s> <Plug>SlimeConfig
+nmap <c-c><c-m> <Plug>SlimeCellsSendAndGoToNext
+nmap <c-c><c-j> <Plug>SlimeCellsNext
+nmap <c-c><c-k> <Plug>SlimeCellsPrev
 xmap <C-c><C-c> <Plug>SlimeRegionSend
 
+" %%
 " Insert
 inoremap  <Esc>
 imap <C-h> <Left>
@@ -679,9 +695,9 @@ imap <C-h> <Bs>
 inoremap <C-j> <Esc>o<Esc>_C
 inoremap <C-k> <Esc>O<Esc>_C
 inoremap <C-c> <Esc>lC
-inoremap <expr> <C-i> "<Esc>o<Esc>_C" . CodeBlock() . '<CR>'
 inoremap <expr> <C-b> CodeBlock() . ' '
 
+" %%
 " Visual remaps
 xmap <space> <leader>
 xmap <space><space> <leader>

@@ -13,6 +13,7 @@ SETUVAR --export GIT_ATOMS:refname\x1eobjecttype\x1eobjectsize\x1eobjectname\x1e
 SETUVAR --export MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
 SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
 SETUVAR --export OPENAI_API_KEY:sk\x2dproj\x2dyl959T7UDwRG6D_v\x2d\x2d7kuuIr_qfUM5MrfPkdARrBUGPpVZPUvZzyirmm4RqXGgzihkkVsldUrAT3BlbkFJ03kBw_k7GNYTVr12r1tfZOIH4nWsNVFICeCQ5dmiHEDewDaCWbPKCefbsZxkVwnIJG1ZT3PXMA
+SETUVAR --export PYTHON_VENV:/Users/h62756/\x2elocal/python\x2dvenvs/fast
 SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/python\x2dvenvs
 SETUVAR --export PY_REPL_CELL:\x23\x20\x25\x25
 SETUVAR --export PY_REPL_SEPARATOR:\x23\x20\x25\x25
