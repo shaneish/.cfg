@@ -12,10 +12,11 @@ _optional() {
 }
 
 _find_newest_python() {
-    for i in $(seq 13 -1 9); do
+    for i in $(seq 15 -1 9); do
         if command -v "python3.${i}" 2>&1 >/dev/null; then
             PYTHON_V="3.${i}"
             PYTHON="python${PYTHON_V}"
+            $PYTHON -m ensurepip
             echo "Found $PYTHON as most recent version..."
             _create_venv $PYTHON $PYTHON_V $1
         fi
@@ -54,9 +55,19 @@ __main__() {
     _mkdir "$DEST_DIR"
     cd $DEST_DIR
 
-    _find_newest_python $SRC_DIR/default.txt
+    if [ $# -eq 0 ]; then
+        if [ -z "$2" ]; then
+            _create_venv $1 $2 $SRC_DIR/default.txt
+        else
+            shortened="$(echo $1 | sed 's/python//g')"
+            _create_venv $1 $shortened $SRC_DIR/default.txt
+        fi
+    else
+        _find_newest_python $SRC_DIR/default.txt
+    fi
 
     if command -v pypy3 2>&1 >/dev/null; then
+        pyp3 -m ensurepip
         _create_venv pypy3 fast $SRC_DIR/default.txt
     fi
 }

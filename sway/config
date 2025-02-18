@@ -16,7 +16,7 @@ gaps inner 5
 gaps outer 0
 
 set $term wezterm
-set $browser zen-browser
+set $browser brave
 
 default_border pixel 4
 default_floating_border pixel 4
