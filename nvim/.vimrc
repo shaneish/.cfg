@@ -51,6 +51,12 @@ function! ToggleNetrw()
     endif
 endfunction
 
+function! WindowProportion(prop=0.20)
+    let window_size = line('w$') - line('w0')
+    let jump_size = window_size * a:prop
+    return float2nr(jump_size)
+endfunction
+
 " #settings ish"
 set termguicolors
 set linespace=10
@@ -126,19 +132,28 @@ tmap <expr> <C-e><C-e> '<C-\><C-n>' . CloseIt() . '<CR>'
 inoremap <S-CR> <Esc>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap <expr> <C-e><C-e> CloseIt() . '<CR>'
-nmap <C-w><C-w> <cmd>w!<CR>
+nmap <C-e><C-w> <cmd>w!<CR>
 nmap <C-q><C-q> <cmd>q!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-w><C-q> :w!<CR>:q!<CR>
-nnoremap ] :cnext<CR>
-nnoremap [ :cprevious<CR>
+nnoremap L :cnext<CR>
+nnoremap H :cprev<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprev<CR>
 inoremap <C-v> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
-nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
+nmap \ :call ToggleNetrw()<CR>
+
+" grepy grep
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --hidden\ --glob\ ‘!.git’
+endif
+nmap <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
+nmap <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
+nmap <C-g><C-g> :grep <cword> *<CR>:copen<CR>
+nmap <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
 
 " window stuff
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
@@ -158,12 +173,18 @@ nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-j> }zz
 nnoremap <C-k> {zz
+nnoremap J )zz
+nnoremap K (zz
 nnoremap <C-h> gezz
 nnoremap <C-l> wzz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap <leader>l g_
 nnoremap <leader>h _
+nmap <expr> D WindowProportion() . 'jzz'
+nmap <expr> U WindowProportion() . 'kzz'
+nnoremap <C-i> J
+
 xnoremap <C-d> <C-d>zz
 xnoremap <C-u> <C-u>zz
 xnoremap <C-j> }zz
@@ -174,6 +195,8 @@ xnoremap n nzz
 xnoremap N Nzz
 xnoremap <leader>l g_
 xnoremap <leader>h _
+xmap <expr> D WindowProportion() . 'jzz'
+xmap <expr> U WindowProportion() . 'kzz'
 
 " copy stuff
 nnoremap dd "1dd

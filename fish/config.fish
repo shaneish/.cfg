@@ -1,22 +1,18 @@
-if type -q brew
-    eval "$(brew shellenv)"
-end
-
 set -l certs_file (dirname (status --current-filename))/certs.fish
 if test -e $certs_file
     source $certs_file
 end
 
 if status is-interactive
+    if type -q "starship"
+        starship init fish | source
+    end
     set _MACHINE_IDENTIFIER (uname -a | awk '{print $1"-"$2"-"$3}')
     if not set -q MACHINE_IDENTIFIER; or not test $_MACHINE_IDENTIFIER = "$MACHINE_IDENTIFIER"
         _source_once
         set -Ux MACHINE_IDENTIFIER $_MACHINE_IDENTIFIER
     end
 
-    if type -q "starship"
-        starship init fish | source
-    end
     if type -q fzf
         fzf --fish | source
     else if type -q sk

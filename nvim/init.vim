@@ -1,20 +1,14 @@
 let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
-let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/theme.vim"
 if filereadable(vimrc)
-    if has('win64')
-        source $HOME/AppData/Local/nvim/.vimrc
-    else
-        source $HOME/.config/nvim/.vimrc
-    endif
+    execute 'source ' . vimrc
 else
     source $HOME/.vimrc
 endif
+
+let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/theme.vim"
 if filereadable(theme)
-    if has("win64")
-        source $HOME/AppData/Local/nvim/theme.vim
-    else
-        source $HOME/.config/nvim/theme.vim
-    endif
+    execute 'source ' . theme
+    set background=dark
 endif
 
 " plug-ish ish
@@ -60,7 +54,6 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'cameron-wags/rainbow_csv.nvim'
 Plug 'hat0uma/csvview.nvim'
-Plug 'duane9/nvim-rg'
 Plug 'github/copilot.vim'
 Plug 'UnsafeOats/oatjump.nvim'
 Plug 'folke/zen-mode.nvim'
@@ -286,27 +279,28 @@ imap <C-s> <Plug>(copilot-suggest)
 " Terminal
 nmap <leader><leader>t :call OpenTerm()<CR>
 
-" Maps
-nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
-nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
-nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
+" Buffers
+nmap <C-b><C-f> <cmd>BufferPick<CR>
+nmap <C-b><C-p> <cmd>BufferPin<CR>
+nmap <C-b><C-r> <cmd>BufferRestore<CR>
+nmap <C-b><C-d> <cmd>BufferOrderByDirectory<CR>
+nmap <Tab> <cmd>BufferNext<CR>
+nmap <S-Tab> <cmd>BufferPrevious<CR>
 
 " Plugin mappings
-nnoremap <C-t>ff <cmd>Telescope find_files<cr>
-nnoremap <C-t>fg <cmd>Telescope live_grep<cr>
-nnoremap <C-t>fb <cmd>Telescope buffers<cr>
-nnoremap <C-t>fh <cmd>Telescope help_tags<cr>
-nnoremap <C-t>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <C-t>hm <cmd>lua require("harpoon.mark").add_file()<CR>
-nnoremap <C-t>hh <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-t>h] <cmd>lua require("harpoon.ui").nav_next()<CR>
-nnoremap <C-t>h[ <cmd>lua require("harpoon.ui").nav_prev()<CR>
-nnoremap <C-t>h1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-t>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-t>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-t>f <cmd>Telescope find_files<cr>
+nnoremap <C-t>g <cmd>Telescope live_grep<cr>
+nnoremap <C-t>b <cmd>Telescope buffers<cr>
+nnoremap <C-t>/ <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <C-t>m <cmd>lua require("harpoon.mark").add_file()<CR>
+nnoremap <C-t>t <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <C-t>] <cmd>lua require("harpoon.ui").nav_next()<CR>
+nnoremap <C-t>[ <cmd>lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <C-t>1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-t>2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-t>3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
-nnoremap <leader>gm <cmd>MergetoolToggle<CR>
-nnoremap <C-g> :Rg
+nnoremap <C-g><C-m> <cmd>MergetoolToggle<CR>
 
 " slime stuff
 nmap <C-c><C-n> :call WeztermSlimePane()<CR>
@@ -330,9 +324,8 @@ nnoremap <expr> <C-t><C-k> "O" . CodeBlock() . '<Esc>'
 nnoremap <expr> <C-t><C-j><C-j> "o" . CodeBlock() . '<CR>'
 nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
 
-" if has('win64')
-"     source $HOME/AppData/Local/nvim/theme.vim
-" else
-"     source $HOME/.config/nvim/theme.vim
-" endif
-
+nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
+nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
+nnoremap <leader><leader>r :source $MYVIMRC<CR>
+nnoremap L :cnext<CR>
+nnoremap H :cprevious<CR>

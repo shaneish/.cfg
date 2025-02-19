@@ -118,9 +118,6 @@ config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
--- config.color_scheme = "Grayscale Light (base16)" -- "Grayscale (light) (terminal.sexy)" -- # "Grayscale (dark) (terminal.sexy)" -- "Grayscale (light) (terminal.sexy)" -- "theme"
--- config.color_scheme = "blk"
--- config.default_prog = { 'fish' }
 config.color_scheme = name
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
@@ -135,6 +132,18 @@ config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 config.warn_about_missing_glyphs = false
+config.font_rules = {
+  {
+    intensity = "Bold",
+    italic = false,
+    font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Normal" }),
+  },
+  {
+    intensity = "Bold",
+    italic = true,
+    font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic" }),
+  },
+}
 config.colors = {
   tab_bar = {
     background = "rgba(0,0,0,0)",

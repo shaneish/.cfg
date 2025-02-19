@@ -14,27 +14,6 @@ let s:mid = "#a7a7a7"
 let s:dark = "#767676"
 let s:darkest = "#323232"
 
-let s:dark_0 = "#1f1f1f"
-let s:dark_1 = "#1e1e1e"
-let s:med_0 = "#323232"
-let s:med_1 = "#454545"
-let s:med_2 = "#595959"
-let s:med_3 = "#636363"
-let s:med_4 = "#6c6c6c"
-let s:med_5 = "#767676"
-let s:light_0 = "#808080"
-let s:light_1 = "#8a8a8a"
-let s:light_2 = "#949494"
-let s:light_3 = "#9d9d9d"
-let s:light_4 = "#a7a7a7"
-let s:light_5 = "#b1b1b1"
-let s:light_6 = "#bbbbbb"
-let s:light_7 = "#c5c5c5"
-let s:light_8 = "#d8d8d8"
-let s:light_9 = "#e2e2e2"
-let s:light_10 = "#ececec"
-let s:light_11 = "#f6f6f6"
-
 let s:high_bg = s:bright_color
 let s:high_fg = s:background_color
 let s:search_fg = "NONE"
@@ -81,6 +60,7 @@ call H("ColorColumn", "NONE",          s:gray_dark, "NONE")
 call H("TabLine",     s:mid,           "NONE",      "NONE")
 call H("TabLineFill", s:primary_color, "NONE",      "NONE")
 call H("TabLineSel",  s:primary_color, "NONE",      "NONE")
+call H("Title",  s:primary_color, "NONE",      "NONE")
 
 " -------------------------------
 " - File Navigation / Searching -
@@ -122,22 +102,22 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " --------------------------------
 " Variable types
 " --------------------------------
-call H("Constant",       s:string_type,       "NONE")
+call H("Constant",       s:string_type,       "NONE", "bold")
 call H("String",         s:string_type,       s:comments_bg, "bold")
 call H("StringDelimiter",s:val,               s:comments_bg, "bold")
-call H("Character",      s:string_type,       "NONE")
-call H("Number",         s:string_type,       "NONE")
-call H("Boolean",        s:string_type,       "NONE")
-call H("Float",          s:string_type,       "NONE")
-call H("Identifier",     s:fn,                "NONE")
-call H("Function",       s:fn,                "NONE")
+call H("Character",      s:string_type,       "NONE", "bold")
+call H("Number",         s:string_type,       "NONE", "bold")
+call H("Boolean",        s:string_type,       "NONE", "bold")
+call H("Float",          s:string_type,       "NONE", "bold")
+call H("Identifier",     s:fn,                "NONE", "NONE")
+call H("Function",       s:fn,                "NONE", "NONE")
 
 " --------------------------------
 " Language constructs
 " --------------------------------
-call H("Keyword",        s:fn)
-call H("Statement",      s:fn)
-call H("Repeat",         s:fn)
+call H("Keyword",        s:fn, "NONE", "bold")
+call H("Statement",      s:fn, "NONE", "NONE")
+call H("Repeat",         s:fn, "NONE", "NONE")
 call H("Comment",        s:comments_fg,   s:comments_bg, "italic")
 call H("SpecialComment", s:comments_fg,   s:comments_bg, "italic")
 call H("Conditional",    s:foreground_color)
@@ -187,3 +167,26 @@ call H("SpellBad",       "#ebe9e6", "NONE", "undercurl")
 call H("SpellCap",       "#ebe9e6", "NONE", "undercurl")
 call H("SpellLocal",     "#ebe9e6", "NONE", "undercurl")
 call H("SpellRare",      "#ebe9e6", "NONE", "undercurl")
+
+" this is just down here to remember and reference
+let s:dark_0 = "#1f1f1f"
+let s:dark_1 = "#1e1e1e"
+let s:med_0 = "#323232"
+let s:med_1 = "#454545"
+let s:med_2 = "#595959"
+let s:med_3 = "#636363"
+let s:med_4 = "#6c6c6c"
+let s:med_5 = "#767676"
+let s:light_0 = "#808080"
+let s:light_1 = "#8a8a8a"
+let s:light_2 = "#949494"
+let s:light_3 = "#9d9d9d"
+let s:light_4 = "#a7a7a7"
+let s:light_5 = "#b1b1b1"
+let s:light_6 = "#bbbbbb"
+let s:light_7 = "#c5c5c5"
+let s:light_8 = "#d8d8d8"
+let s:light_9 = "#e2e2e2"
+let s:light_10 = "#ececec"
+let s:light_11 = "#f6f6f6"
+

@@ -554,7 +554,7 @@ imap <C-q><C-q> <Esc>:q!<CR>
 xmap <C-q><C-w> <Esc>:wq!<CR>
 xmap <C-q><C-q> <cmd>q!<CR>
 nnoremap L :cnext<CR>
-nnoremap H :cprevious<CR>
+nnoremap H :cprev<CR>
 nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
 nmap <Tab> :BufferNext<CR>
 nmap <S-Tab> :BufferPrevious<CR>
@@ -576,7 +576,8 @@ nnoremap <C-t>h2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <C-t>h3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
-nnoremap <C-g> :Rg
+nnoremap <C-g><C-f> :Rg 
+nnoremap <C-g><C-g> :Rg <cword><CR>
 
 " %%
 " Normal remaps

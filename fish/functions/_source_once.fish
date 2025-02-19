@@ -1,5 +1,4 @@
 function _source_once
-    pyv
     set -Ux FISH_CONFIG_DIRECTORY (dirname (dirname (status --current-filename)))
     fish_vi_key_bindings
     set -Ux fish_cursor_default block
@@ -13,9 +12,15 @@ function _source_once
     set -Ux CFG_DIRECTORY $HOME/.config/.cfg
     set -Ux SCRIPTS_DIRECTORY $HOME/.config/scripts
     set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
-    set -Ux EDITOR "nvim"
-    set -Ux SHELL "fish"
     set -Ux PYTHON_VENV_DIR $HOME/.local/python-venvs
     set -Ux CLI_NOTES $HOME/.config/notes/cmd_examples.txt
+    set -U fish_user_paths
+    fish_add_path -U $HOME/.local/bin
+    fish_add_path -U $HOME/.cargo/bin
+    fish_add_path -U $HOME/.modular/bin
+    fish_add_path -U $HOME/.config/scripts
+    fish_add_path -U $HOME/.go/bin
+    fish_add_path -U $HOME/go/bin
+    pyv
     change_greeting small
 end
