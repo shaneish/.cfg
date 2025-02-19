@@ -327,5 +327,6 @@ nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
-nnoremap L :cnext<CR>
-nnoremap H :cprevious<CR>
+nmap H :cprev<CR>
+nmap L :cnext<CR>
+nmap H :cprev<CR>
