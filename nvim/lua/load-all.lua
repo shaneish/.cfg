@@ -4,7 +4,6 @@ require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
-require('lualine-config')
 require('nvim-tree-config')
 require('diagnostics')
 require('telescope').load_extension('harpoon')
@@ -25,28 +24,27 @@ require("aerial").setup({
   show_guides = true,
 })
 vim.api.nvim_set_hl(0, 'ArialLine', { fg = "#f6cd61", bold = true })
--- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
-require('repl-block-highlight').setup({
-  default_highlight_group = "Visual",
-  -- custom_highlight_group = { fg = "#000000", bg = "#7f7f7f", bold = true },
-})
+-- require('repl-block-highlight').setup({
+--   default_highlight_group = "Visual",
+--   custom_highlight_group = { fg = "#000000", bg = "#7f7f7f", bold = true },
+--})
 require("symbols-outline").setup()
 vim.keymap.set("n", "<leader>s", "<cmd>SymbolsOutline<CR>")
 require("toggleterm").setup()
-require("autoclose").setup({
-   options = {
-      disabled_filetypes = { "text" },
-      disable_when_touch = false,
-      touch_regex = "[%w(%[{]",
-      bidirectional_disable_when_touch = true,
-      pair_spaces = false,
-      auto_indent = true,
-      disable_command_mode = false,
-   },
-disabled = false,
-})
+-- require("autoclose").setup({
+--    options = {
+--       disabled_filetypes = { "text" },
+--       disable_when_touch = false,
+--       touch_regex = "[%w(%[{]",
+--       bidirectional_disable_when_touch = true,
+--       pair_spaces = false,
+--       auto_indent = true,
+--       disable_command_mode = false,
+--    },
+-- disabled = false,
+-- })
 require('glow').setup({
     width = 240,
     height = 240,
@@ -85,7 +83,7 @@ require('marks').setup({
   },
   mappings = {}
 })
-require('oatjump').setup()
+-- require('oatjump').setup()
 require("smartcolumn").setup({
     colorcolumn = 140,
     limit_to_window = true,

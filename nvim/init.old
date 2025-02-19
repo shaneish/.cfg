@@ -1,6 +1,5 @@
-"
+" %%
 " plug-ish ish
-"
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -23,7 +22,6 @@ Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'muniftanjim/nui.nvim'
 Plug 'tpope/vim-sensible'
@@ -74,6 +72,7 @@ Plug 'SmiteshP/nvim-navic'
 Plug 'numToStr/Comment.nvim'
 Plug 'SmiteshP/nvim-navbuddy'
 Plug 'jpalardy/vim-slime'
+Plug 'Klafyvel/vim-slime-cells'
 call plug#end()
 
 filetype plugin indent on
@@ -87,16 +86,24 @@ else
 endif
 syntax on
 
-"
+" %%
 " Lua-ish ish
-"
 lua << EOF
 require('load-all')
 EOF
 
-"
+" %%
 " #functions ish
-"
+
+" alt default theme
+function! ToggleTheme()
+    if &background == "dark"
+        set background=light
+    else
+        set background=dark
+    endif
+    colorscheme quiet
+endfunction
 
 " Trim Whitespaces
 function! TrimWhitespace()
@@ -115,16 +122,9 @@ function! Centerizer(keys="")
     endif
 endfunction
 
+
 function! ToggleCenterizer()
   let s:centerize = !s:centerize
-endfunction
-
-function! CloseIt()
-    if len(win_findbuf(bufnr('%'))) > 1
-        return ':clo'
-    else
-        return ':silent! bd!'
-    endif
 endfunction
 
 " CSV-ish stuff
@@ -139,12 +139,19 @@ function! ToggleMappings()
     let s:mappingsState = !s:mappingsState
 endfunction
 
-" code block functions
+function! CloseIt()
+    if len(win_findbuf(bufnr('%'))) > 1
+        return ':clo'
+    else
+        return ':silent! bd!'
+    endif
+endfunction
+
 let g:code_block_comment = substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g')
 let g:code_block_suffix = "%%"
 let g:code_block_alt_file_types = ["md", "markdown", "rmd", "rmarkdown", "journal"]
 let g:code_block_databricks_notebook_identifier = "COMMAND ----------"
-let g:code_block_type_annotation_priority = [g:code_block_suffix, "python", "sql", "console", g:code_block_databricks_notebook_identifier, "scala", "rust", "julia"]
+let g:code_block_type_annotation_priority = [g:code_block_suffix,  g:code_block_databricks_notebook_identifier]
 
 function! CodeBlock()
     if index(g:code_block_alt_file_types, &filetype) >= 0
@@ -159,6 +166,8 @@ let g:code_block_current = CodeBlock()
 
 function! UpdateCodeBlockSuffix()
     let g:code_block_suffix = input("Enter the code block type suffix: ")
+    let g:code_block_current = CodeBlock()
+    let g:slime_cell_delimiter = CodeBlock()
 endfunction
 
 function! CycleCodeBlockSuffix()
@@ -172,7 +181,17 @@ function! CycleCodeBlockSuffix()
     else
         let g:code_block_type_annotation = g:code_block_type_annotation_priority[0]
     endif
+    let g:code_block_current = CodeBlock()
+    let g:slime_cell_delimiter = CodeBlock()
+    silent call feedkeys("i \<Esc>x", "i")
     echo "Selected: " .. g:code_block_suffix
+endfunction
+
+function! CheckLine(empty, not)
+    if getline(".") =~ '^\s*$'
+        return a:empty
+    endif
+    return a:not
 endfunction
 
 function! BuffJump()
@@ -226,6 +245,23 @@ function! ActivateVenvCmd(venv_dir="")
     return source . " " . dir . "bin/" . script
 endfunction
 
+function! ToggleFormat()
+    if g:python_format_on_save == 1
+        let g:python_format_on_save = 0
+        echo "Formatting disabled"
+    else
+        let g:python_format_on_save = 1
+        echo "Formatting enabled"
+    endif
+endfunction
+
+function! PyFormat()
+    if g:python_format_on_save == 1
+        execute "!" . g:python3_host_prog . " -m ruff %"
+        execute "e!"
+    endif
+endfunction
+
 function! ReplCommand()
     if &filetype == "python"
         if exists("g:ipython3_host_prog")
@@ -268,6 +304,66 @@ function! WeztermSlimePane()
     let g:slime_cell_delimiter = CodeBlock()
 endfunction
 
+let g:mini_jump_val = '5'
+let g:large_jump_val = '30'
+let g:section_filetypes = ['python']
+function! Sections(big=0, forward=1, context=1)
+    let out = ''
+    if a:context == 1
+        if index(g:section_filetypes, &filetype) >= 0
+            if a:big == 1
+                if a:forward == 1
+                    let out = ']]'
+                else
+                    let out = '[]'
+                endif
+            else
+                if a:forward == 1
+                    let out = ']m'
+                else
+                    let out = '[m'
+                endif
+            endif
+        else
+            if a:big == 1
+                if a:forward == 1
+                    let out = ']m'
+                else
+                    let out = '[m'
+                endif
+            else
+                if a:forward == 1
+                    let out = '}'
+                else
+                    let out = '{'
+                endif
+            endif
+        endif
+    else
+        echo "no context"
+        if a:big == 0
+            echo "not big"
+            if a:forward == 1
+                echo "forward"
+                let out = g:mini_jump_val . 'j'
+            else
+                echo "backwards"
+                let out = g:mini_jump_val . 'k'
+            endif
+        else
+            echo "big"
+            if a:forward == 1
+                echo "forward"
+                let out = g:large_jump_val . 'j'
+            else
+                echo "backwards"
+                let out = g:large_jump_val . 'k'
+            endif
+        endif
+    endif
+    return out . Centerizer()
+endfunction
+
 function! ResizePane(amount="-5")
     if winwidth(0) != &columns
         return ':vertical resize ' . a:amount
@@ -276,27 +372,45 @@ function! ResizePane(amount="-5")
     endif
 endfunction
 
+function! MovePane(direction=1)
+    if winwidth(0) != &columns
+        if a:direction == 1
+            return '<C-w>l<CR>'
+        else
+            return '<C-w>h<CR>'
+        endif
+    else
+        if a:direction == 1
+            return '<C-w>k<CR>'
+        else
+            return '<C-w>j<CR>'
+        endif
+    endif
+endfunction
+
+function! WindowProportion(prop=0.2)
+    let window_size = line('w$') - line('w0')
+    let jump_size = window_size * a:prop
+    return float2nr(jump_size)
+endfunction
+
 function! AdjustShowBreak()
     let real_numberwidth = strlen(line('$'))
 
     let &showbreak = repeat("\ ", max([&nuw, real_numberwidth]))
 endfunction
 
-"
+function! Test()
+    echo has('win')
+endfunction
+
+" %%
 " #variables ish
-"
 
-" #highlight ish
-highlight SignColumn guibg=NONE
-highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
-highlight QuickFixLine guifg=#f6cd61 gui=bold
-highlight TabLineSel guifg=#f6cd61 gui=bold
-highlight TabLineFill guifg=#f6cd61 gui=bold
-
+" %%
 " #settings ish"
 set linespace=10
 set mouse=a
-set clipboard=unnamed
 set nocompatible
 set showmatch
 set expandtab
@@ -304,6 +418,7 @@ set autoindent
 set number relativenumber
 set cursorline
 set ttyfast
+set backupdir=~/.config/nvim/nvim-temp
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
 set incsearch ignorecase smartcase hlsearch
 set wildmode=longest,list,full wildmenu
@@ -317,15 +432,16 @@ set title
 set matchpairs+=<:>
 set iskeyword-=_
 set swapfile
+" set guifont=JetBrains\ Mono\ 13
 set fillchars+=vert:\│
 set completeopt=menu,menuone,noselect
+set shell=fish
 set splitright
 set conceallevel=0
+set signcolumn=yes:1
 set guicursor+=i:blinkon1,v:blinkon1
 set cpoptions+=n
 set showbreak=...
-set laststatus=2
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " #globalvars ish
 let g:indentLine_char = '▏'
@@ -361,18 +477,42 @@ let g:big_jump = 0.25
 let g:small_jump = 0.1
 let g:slime_cell_delimiter = CodeBlock()
 let g:slime_target = "wezterm"
-let g:conceallevel = 0
-
-" let &t_EI = "\e[2 q"
-" let &t_SI = "\e[5 q"
+let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
+let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
 " #autcmd ish
+autocmd FileType * set formatoptions-=ro
+autocmd BufRead,BufNewFile *.hcl set filetype=hcl
+autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
+autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
+autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl
+autocmd Filetype terraform setlocal ts=2 sw=2 expandtab
+autocmd Filetype hcl setlocal ts=2 sw=2 expandtab
+autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
+autocmd BufWritePre *.tf lua vim.lsp.buf.format()
+autocmd BufRead,BufNewFile *.csv.txt set filetype=csv
+autocmd BufRead,BufNewFile *.tsv.txt set filetype=tsv
 autocmd BufRead,BufNewFile *.toml set filetype=toml
+autocmd FileType csv nmap <C-f> :call ToggleMappings()<CR>
+autocmd FileType tsv nmap <C-f> :call ToggleMappings()<CR>
+autocmd FileType python nmap <leader><C-f> :call PyFormat()<CR>
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType haskell setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
+autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
+command! BW :bn|:bd#
+
+" #highlight ish
+highlight SignColumn guibg=NONE
+highlight LspInlayHint guifg=#ffffc5 gui=bold,underdotted
+highlight QuickFixLine guifg=#f6cd61 gui=bold
+highlight TabLineSel guifg=#f6cd61 gui=bold
+highlight TabLineFill guifg=#f6cd61 gui=bold
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -382,13 +522,44 @@ imap <C-[> <Plug>(copilot-previous)
 imap <C-e> <Plug>(copilot-dismiss)
 imap <C-s> <Plug>(copilot-suggest)
 
-" slime stuff
-nmap <C-c><C-n> :call WeztermSlimePane()<CR>
-nmap <C-c><C-p> <Plug>SlimeParagraphSend
-nmap <C-c><C-c> <Plug>SlimeSendCell
-nmap <C-c><C-l> <Plug>SlimeLineSend
-nmap <C-c><C-l> <Plug>SlimeLineSend
-xmap <C-c><C-c> <Plug>SlimeRegionSend
+" Terminal
+tmap kj <C-\><C-n>
+tmap <Esc><Esc> <c-\><c-n>
+tmap <C-Space><C-Space> <c-\><c-n><C-w><C-w>
+tmap <C-q> <C-\><C-n>:q!<CR>
+tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
+tmap <C-w><C-w> <C-\><C-n><C-w><C-w>
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
+nmap <expr> <space><C-t> ":cd %:p:h<CR><Esc><C-t>"
+nmap <leader><leader>t :call OpenTerm()<CR>
+
+" Core
+inoremap <S-CR> <Esc>
+nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
+nmap <leader><leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <leader><leader><leader>t :call TrimWhitespace()<CR>
+nmap <silent> <leader><leader><leader>h :noh<CR>
+nmap <expr> <C-e><C-e> CloseIt() . '<CR>'
+xmap <expr> <C-e><C-e> CloseIt() . '<CR>'
+nmap <C-e><C-w> <cmd>w!<CR>
+imap <C-e><C-w> <cmd>w!<CR>
+xmap <C-e><C-w> <cmd>w!<CR>
+nmap <leader><leader>w <cmd>w!<CR>
+nmap <leader><leader>q <cmd>q!<CR>
+nmap <C-q><C-w> :wq!<CR>
+imap <C-q><C-w> <Esc>:wq!<CR>
+nmap <C-q><C-q> <cmd>q!<CR>
+imap <C-q><C-q> <Esc>:q!<CR>
+xmap <C-q><C-w> <Esc>:wq!<CR>
+xmap <C-q><C-q> <cmd>q!<CR>
+nnoremap L :cnext<CR>
+nnoremap H :cprevious<CR>
+nmap <silent> <leader><Tab> <cmd>BufferPick<CR>
+nmap <Tab> :BufferNext<CR>
+nmap <S-Tab> :BufferPrevious<CR>
+inoremap <C-v> <C-r>+
+nnoremap <C-t><C-s> :call ToggleTheme()<CR>
 
 " Telescope mappings
 nnoremap <C-t>ff <cmd>Telescope find_files<cr>
@@ -407,103 +578,155 @@ nnoremap <C-m>h <cmd>Telescope harpoon marks<CR>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 nnoremap <C-g> :Rg
 
-" Terminal
-tmap kj <C-\><C-n>
-tmap <C-space> <c-\><c-n>
-tmap <C-Space><C-Space> <c-\><c-n><C-w><C-w>
-tmap <expr> <C-d> '<C-\><C-n>' . CloseIt() . '<CR>'
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
-nmap <leader><leader>t :call OpenTerm()<CR>
-
-" Core
-inoremap <S-CR> <Esc>
-nmap \ :call ToggleNetrw()<CR>
-nmap <silent> <leader><leader>h :noh<CR>
-nmap <expr> <C-e><C-e> CloseIt() . '<CR>'
-nmap <C-e><C-w> <cmd>w!<CR>
-nmap <C-e><C-q> <cmd>q!<CR>
-nmap <leader><leader>w <cmd>w!<CR>
-nmap <leader><leader>q <cmd>q!<CR>
-nmap <C-w><C-q> :w!<CR>:q!<CR>
-nnoremap ] :cnext<CR>
-nnoremap [ :cprevious<CR>
-nmap <Tab> :BufferNext<CR>
-nmap <S-Tab> :BufferPrevious<CR>
-inoremap <C-v> <C-r>+
-
-nnoremap <C-s> <cmd>Pounce<CR>
-nnoremap <C-m>ls :MarksListBuf<CR>
-nnoremap <C-m>la :MarksListGlobal<CR>
-nnoremap <C-f><C-f> :set conceallevel=0<CR>
-nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
-nnoremap t<C-a> :call CycleCodeBlockSuffix()<CR>
-nnoremap t<C-t> :call UpdateCodeBlockSuffix()<CR>
-nnoremap <expr> <C-i> "o<CR><Esc>_C" . CodeBlock() . '<CR><CR><Esc>'
+" %%
+" Normal remaps
+nnoremap <Esc> <Nop>
+nmap <space> <leader>
+nmap <space><space> <leader>
 
 " window stuff
+nmap cow <C-w><C-w>:clo<CR>
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
-nnoremap <C-b> :call BuffJump()<CR>
+
+" line stuff
+nnoremap <C-o><C-o> O<Esc>jo<Esc>kzz
+nnoremap <C-o><C-i> o<Esc>kzz
+nnoremap <C-o><C-p> O<Esc>jzz
 
 " move stuff
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-nnoremap <C-j> }zz
-nnoremap <C-k> {zz
-nnoremap <C-h> gezz
-nnoremap <C-l> wzz
-nnoremap j jzz
-nnoremap k kzz
-nnoremap n nzz
-nnoremap N Nzz
+" nnoremap <expr> J 'J' . Centerizer()
+" nnoremap <expr> K 'K' . Centerizer()
+nnoremap <expr> D '}' . Centerizer()
+nnoremap <expr> U '{' . Centerizer()
+nnoremap <expr> <C-d> '<C-d>' . Centerizer()
+nnoremap <expr> <C-u> '<C-u>' . Centerizer()
+nmap <expr> <leader>j WindowProportion(g:small_jump) . 'j' . Centerizer()
+nmap <expr> <leader>k WindowProportion(g:small_jump) . 'k' . Centerizer()
+nmap <expr> <C-j> WindowProportion(g:big_jump) . 'j' . Centerizer()
+nmap <expr> <C-k> WindowProportion(g:big_jump) . 'k' . Centerizer()
+nnoremap <expr> j 'j' . Centerizer()
+nnoremap <expr> k 'k' . Centerizer()
+nnoremap <expr> n 'n' . Centerizer()
+nnoremap <expr> N 'N' . Centerizer()
+
+nnoremap <leader>u J
 nnoremap <leader>l g_
 nnoremap <leader>h _
-xnoremap <C-d> <C-d>zz
-xnoremap <C-u> <C-u>zz
-xnoremap <C-j> }zz
-xnoremap <C-k> {zz
-xnoremap <C-h> bzz
-xnoremap <C-l> ezz
-xnoremap j jzz
-xnoremap k kzz
-xnoremap n nzz
-xnoremap N Nzz
-xnoremap <leader>l g_
-xnoremap <leader>h _
+" nnoremap <C-g> J
 
+" %%
 " copy stuff
+nnoremap <C-y><C-y> "+yy
+nnoremap <C-y><C-w> "+yiw
+nnoremap <C-p> "+p
+nnoremap <leader><C-p> "+P
+nnoremap y "0y
+nnoremap yw BvEy
+nnoremap P "0P
+nnoremap p "0p
 nnoremap dd "1dd
-nnoremap d "1d
 nnoremap x "_x
 nnoremap <leader>p "1p
 nnoremap <leader>P "1P
-xnoremap dd "1dd
+xnoremap <C-y> "+y
+xnoremap <C-p> "+p
+xnoremap <leader><C-p> "+P
+xnoremap y "0y
+xnoremap yw BvEy
+xnoremap P "0P
+xnoremap p "0p
 xnoremap d "1d
 xnoremap x "_x
 xnoremap <leader>p "1p
 xnoremap <leader>P "1P
 
+nnoremap R s
+nnoremap <C-s> <cmd>Pounce<CR>
+nnoremap <C-m>ls :MarksListBuf<CR>
+nnoremap <leader>B <cmd>call Toggle_Venn()<CR>
+nnoremap <C-m>la :MarksListGlobal<CR>
+nmap <C-f><C-f> :set conceallevel=0<CR>
+imap <C-f><C-f> :set conceallevel=0<CR>
+nnoremap t<C-c> zz:call ToggleCenterizer()<CR>
+nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g:code_block_current<CR>
+nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
+nnoremap <expr> <C-t><C-b> "A" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-j> "o" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-k> "O" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-j><C-j> "o" . CodeBlock() . '<CR>'
+nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-j><C-k> "o" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-k><C-j> "O" . CodeBlock() . '<Esc>o'
+nnoremap <expr> <C-t><C-t><C-j> "o<Esc>o" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-t><C-k> "O<Esc>O" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-t><C-j><C-j> "o<Esc>o" . CodeBlock() . '<CR><CR>'
+nnoremap <expr> <C-t><C-t><C-k><C-k> "O<Esc>O" . CodeBlock() . '<Esc>O<Esc>O'
+nnoremap <expr> <C-t><C-t><C-j><C-k> "o<Esc>o" . CodeBlock() . '<Esc>kO'
+nnoremap <expr> <C-t><C-t><C-k><C-j> "O<Esc>O" . CodeBlock() . '<Esc>jo'
+
+" %%
+" time stuff
+nmap <expr> <leader>td 'a' . strftime("%Y-%m-%d") . '<Esc>'
+nmap <expr> <leader>ts 'a' . strftime("%Y-%m-%d %H:%M:%S") . '<Esc>'
+
+" %%
+" slime stuff
+nmap <C-c><C-n> :call WeztermSlimePane()<CR>
+nmap <C-c><C-p> <Plug>SlimeParagraphSend
+nmap <C-c><C-c> <Plug>SlimeSendCell
+nmap <C-c><C-l> <Plug>SlimeLineSend
+nmap <C-c><C-s> <Plug>SlimeConfig
+nmap <c-c><c-m> <Plug>SlimeCellsSendAndGoToNext
+nmap <c-c><c-j> <Plug>SlimeCellsNext
+nmap <c-c><c-k> <Plug>SlimeCellsPrev
+xmap <C-c><C-c> <Plug>SlimeRegionSend
+
+" %%
 " Insert
 inoremap  <Esc>
 imap <C-h> <Left>
 imap <C-l> <Right>
 imap <C-k> <Up>
 imap <C-j> <Down>
-imap '' ''<Esc>i
-imap "" ""<Esc>i
-imap (( ()<Esc>i
-imap [[ []<Esc>i
-imap {{ {}<Esc>i
-imap << <><Esc>i
+imap <C-l> <Right><Bs>
+imap <C-h> <Bs>
+inoremap <C-j> <Esc>o<Esc>_C
+inoremap <C-k> <Esc>O<Esc>_C
+inoremap <C-c> <Esc>lC
+inoremap <expr> <C-b> CodeBlock() . ' '
 
+" %%
 " Visual remaps
+xmap <space> <leader>
+xmap <space><space> <leader>
 xnoremap < <gv
 xnoremap > >gv
-xnoremap S' <Esc>`<i'<Esc>`>la'<Esc>`<
-xnoremap S" <Esc>`<i"<Esc>`>la"<Esc>`<
-xnoremap S) <Esc>`<i(<Esc>`>la)<Esc>`<
-xnoremap S] <Esc>`<i[<Esc>`>la]<Esc>`<
-xnoremap S} <Esc>`<i{<Esc>`>la}<Esc>`<
-xnoremap S> <Esc>`<i<<Esc>`>la><Esc>`<
-xnoremap Sd <Esc>`<x`>hx`<v`>hh
+xnoremap <leader>l g_
+xnoremap <leader>h _
+xnoremap t<C-c> zz:call ToggleCenterizer()<CR>
+xnoremap <leader>l g_
+xnoremap <leader>h _
+xnoremap <expr> <C-i> "o" . CodeBlock() . '<CR><Esc>'
+xnoremap <expr> <C-b> "a" . CodeBlock() . '<Esc>'
+
+xnoremap <expr> j 'j' . Centerizer()
+xnoremap <expr> k 'k' . Centerizer()
+xnoremap <expr> n 'n' . Centerizer()
+xnoremap <expr> N 'N' . Centerizer()
+xnoremap <expr> D '}' . Centerizer()
+xnoremap <expr> U '{' . Centerizer()
+xnoremap <expr> <C-d> '<C-d>' . Centerizer()
+xnoremap <expr> <C-u> '<C-u>' . Centerizer()
+xnoremap <expr> L 'w' . Centerizer()
+xnoremap <expr> H 'ge' . Centerizer()
+xnoremap <expr> <C-h> 'b' . Centerizer()
+xnoremap <expr> <C-l> 'e' . Centerizer()
+xnoremap <expr> j 'j' . Centerizer()
+xnoremap <expr> k 'k' . Centerizer()
+xnoremap <expr> n 'n' . Centerizer()
+xnoremap <expr> N 'N' . Centerizer()
+xmap <expr> <leader>j WindowProportion(g:small_jump) . 'j' . Centerizer()
+xmap <expr> <leader>k WindowProportion(g:small_jump) . 'k' . Centerizer()
+xmap <expr> <C-j> WindowProportion(g:big_jump) . 'j' . Centerizer()
+xmap <expr> <C-k> WindowProportion(g:big_jump) . 'k' . Centerizer()
