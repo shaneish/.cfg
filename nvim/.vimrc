@@ -195,6 +195,8 @@ augroup END
 augroup compatibility
     autocmd!
     autocmd VimEnter * silent !echo -ne "\\e[2 q"
+    autocmd VimEnter * silent nmap H :cprev<CR>
+    autocmd VimEnter * silent nmap L :cnext<CR>
 augroup END
 
 augroup colorscheme_madness
@@ -230,8 +232,8 @@ nmap <C-q><C-q> <cmd>q!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-w><C-q> :w!<CR>:q!<CR>
-nnoremap L :cnext<CR>
-nnoremap H :cprev<CR>
+nmap L :cnext<CR>
+nmap H :cprev<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprev<CR>
 inoremap <C-v> <C-r>+
@@ -243,10 +245,10 @@ nmap \ :call ToggleNetrw()<CR>
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --hidden\ --glob\ ‘!.git’
 endif
-nmap <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
-nmap <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
-nmap <C-g><C-g> :grep <cword> *<CR>:copen<CR>
-nmap <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
+nmap <silent> <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
+nmap <silent> <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
+nmap <silent> <C-g><C-g> :grep <cword> *<CR>:copen<CR>
+nmap <silent> <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
 
 " window stuff
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
