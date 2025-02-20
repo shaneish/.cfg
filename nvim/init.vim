@@ -253,6 +253,12 @@ let g:slime_target = "wezterm"
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
+highlight SignColumn guibg=NONE
+highlight LspInlayHint guifg=#ffd700 gui=bold,underdotted
+highlight QuickFixLine guifg=#ffd700 gui=bold
+highlight TabLineSel guifg=#ffd700 gui=bold
+highlight TabLineFill guifg=#ffd700 gui=bold
+
 autocmd FileType * set formatoptions-=ro
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform

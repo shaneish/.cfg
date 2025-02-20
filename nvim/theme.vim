@@ -102,13 +102,13 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " --------------------------------
 " Variable types
 " --------------------------------
-call H("Constant",       s:string_type,       "NONE", "bold")
-call H("String",         s:string_type,       s:comments_bg, "bold")
-call H("StringDelimiter",s:val,               s:comments_bg, "bold")
-call H("Character",      s:string_type,       "NONE", "bold")
-call H("Number",         s:string_type,       "NONE", "bold")
-call H("Boolean",        s:string_type,       "NONE", "bold")
-call H("Float",          s:string_type,       "NONE", "bold")
+call H("Constant",       s:string_type,       "NONE", "NONE")
+call H("String",         s:string_type,       s:comments_bg, "NONE")
+call H("StringDelimiter",s:val,               s:comments_bg, "NONE")
+call H("Character",      s:string_type,       "NONE", "NONE")
+call H("Number",         s:string_type,       "NONE", "NONE")
+call H("Boolean",        s:string_type,       "NONE", "NONE")
+call H("Float",          s:string_type,       "NONE", "NONE")
 call H("Identifier",     s:fn,                "NONE", "NONE")
 call H("Function",       s:fn,                "NONE", "NONE")
 
@@ -116,7 +116,7 @@ call H("Function",       s:fn,                "NONE", "NONE")
 " Language constructs
 " --------------------------------
 call H("Keyword",        s:fn, "NONE", "bold")
-call H("Statement",      s:fn, "NONE", "NONE")
+call H("Statement",      s:fn, "NONE", "bold")
 call H("Repeat",         s:fn, "NONE", "NONE")
 call H("Comment",        s:comments_fg,   s:comments_bg, "italic")
 call H("SpecialComment", s:comments_fg,   s:comments_bg, "italic")
@@ -128,7 +128,7 @@ call H("Delimiter",      s:val)
 call H("Debug",          s:foreground_color)
 call H("Repeat",         s:foreground_color)
 call H("Label",          s:val)
-call H("Operator",       s:val)
+call H("Operator",       s:val, "NONE", "bold")
 call H("Exception",      s:val)
 
 " ----------
