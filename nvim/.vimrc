@@ -1,6 +1,8 @@
 filetype plugin indent on
 let mapleader=" "
 let maplocalleader="\\"
+let &t_EI = "\e[2 q"
+let &t_SI = "\e[5 q"
 colorscheme quiet
 syntax on
 
@@ -57,24 +59,82 @@ function! WindowProportion(prop=0.20)
     return float2nr(jump_size)
 endfunction
 
+function! Fishified(path="")
+    let path = a:path
+    if a:path == ""
+        let path = expand('%:p')
+    endif
+    let path_info = pathshorten(substitute(path, expand('$HOME'), '~', 'g'))
+    if a:path == ""
+        let b:path_info = path_info
+    endif
+    return trim(path_info)
+endfunction
+
+function! GitInfo(dir="", prefix="")
+    let dir = a:dir
+    let git_info = ""
+    if a:dir == ""
+        let dir = expand('%:p:h')
+    endif
+    let repo = trim(system("basename $(git -C " . dir . " rev-parse --show-toplevel)"))
+    if !(repo =~ "fatal: *") && !(repo =~ "basename: *")
+        let git_info = git_info . repo
+    endif
+    let branch = trim(system("git -C " . dir . " branch --show-current"))
+    if !(branch =~ "fatal: *")
+        let git_info = git_info . " (" . branch . ")"
+    endif
+    if git_info != ""
+        let git_info = a:prefix . git_info
+    endif
+    if a:dir == ""
+        let b:git_info = git_info
+    endif
+    return trim(git_info)
+endfunction
+
+function! Pairs(c)
+    if a:c == "("
+        return ")"
+    elseif a:c == ")"
+        return "("
+    elseif a:c == "<"
+        return ">"
+    elseif a:c == ">"
+        return "<"
+    elseif a:c == "["
+        return "]"
+    elseif a:c == "]"
+        return "["
+    elseif a:c == "{"
+        return "}"
+    elseif a:c == "}"
+        return "{"
+    endif
+    return a:c
+endfunction
+
 " #settings ish"
 set termguicolors
 set linespace=10
 set mouse=a
-set clipboard=unnamedplus
 set nocompatible
 set showmatch
 set expandtab
+set smarttab
 set autoindent
 set number relativenumber
 set cursorline
+set cursorcolumn
+set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set ttyfast
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
+set tabstop=4 softtabstop=4 shiftwidth=4
 set incsearch ignorecase smartcase hlsearch
 set wildmode=longest,list,full wildmenu
 set ruler laststatus=5 showcmd showmode
-set list listchars=trail:»,tab:»-
 set wrap breakindent
+set linebreak
 set encoding=utf-8
 set textwidth=0
 set hidden
@@ -88,36 +148,69 @@ set splitright
 set conceallevel=0
 set guicursor+=i:blinkon1,v:blinkon1
 set cpoptions+=n
-set showbreak=...
+set showbreak=·· " ↳…
+set formatoptions-=o
 set laststatus=2
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-highlight SignColumn guibg=NONE
-highlight LspInlayHint guifg=#f6cd61 gui=bold,underdotted
-highlight QuickFixLine guifg=#f6cd61 gui=bold
-" highlight TabLine guifg=#a7a7a7
-" highlight TabLineSel guifg=#f6cd61 guibg=#000000 gui=bold
-" highlight TabLineFill guifg=#f6cd61 gui=bold
+let b:git_info = GitInfo("", "> ")
+let b:path_info = Fishified()
+set statusline=buff:\ %n\ >\ lines:\ %L\ (%P)\ >\ %{b:path_info}\ %{b:git_info}
 
 " #autcmd ish
-autocmd BufRead,BufNewFile *.toml set filetype=toml
-autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType haskell setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
+augroup new_file_types
+    autocmd!
+    autocmd BufRead,BufNewFile *.toml set filetype=toml
+augroup END
 
-let &t_EI = "\e[2 q"
-let &t_SI = "\e[5 q"
-augroup myCmds
-    au!
+augroup weird_two_space_formats
+    autocmd!
+    autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    autocmd FileType haskell setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+augroup terminal_madness
+    autocmd!
+    autocmd BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+augroup END
+
+augroup errytime
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter *.toml setlocal conceallevel=0
+    autocmd VimEnter,BufEnter,WinEnter *.md setlocal conceallevel=0
+    autocmd VimEnter,BufEnter,WinEnter *.json setlocal conceallevel=0
+    autocmd VimEnter,BufEnter,WinEnter *.yaml setlocal conceallevel=0
+    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("", "> ")
+    autocmd VimEnter,BufEnter,WinEnter * silent call Fishified()
+    autocmd VimEnter,BufEnter,WinEnter * nmap H :cprev<CR>
+    autocmd VimEnter,BufEnter,WinEnter * nmap L :cnext<CR>
+    autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=buff:\ %n\ >\ lines:\ %L\ (%P)\ >\ %{b:path_info}\ %{b:git_info}
+augroup END
+
+augroup compatibility
+    autocmd!
     autocmd VimEnter * silent !echo -ne "\\e[2 q"
 augroup END
+
+augroup colorscheme_madness
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * highlight StatusLine guibg=#ffd700 guifg=#000000 gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight NonText guifg=#ffd700 gui=bold
+    " autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
+augroup END
+
+if ! has('nvim')
+    augroup buff_fix
+        autocmd!
+        autocmd VimEnter,BufEnter,WinEnter * nmap <S-Tab> :bprev<CR>
+        autocmd VimEnter,BufEnter,WinEnter * nmap <Tab> :bnext<CR>
+    augroup END
+endif
 
 " Terminal
 tmap kj <C-\><C-n>
@@ -160,55 +253,44 @@ nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 nmap cow <C-w><C-w>:clo<CR>
 nnoremap <C-b> :call BuffJump()<CR>
-nmap <C-f> :set conceallevel=0<CR>
-imap <C-f> :set conceallevel=0<CR>
 
 " line stuff
-nnoremap <C-o><C-o> O<Esc>jo<Esc>kzz
-nnoremap <C-o><C-k> o<Esc>kzz
-nnoremap <C-o><C-j> O<Esc>jzz
+nnoremap <C-o><C-o> O<Esc>jo<Esc>k
+nnoremap <C-o><C-j> o<Esc>k
+nnoremap <C-o><C-k> O<Esc>j
 
 " move stuff
-nnoremap <C-d> <C-d>zz
-nnoremap <C-u> <C-u>zz
-nnoremap <C-j> }zz
-nnoremap <C-k> {zz
-nnoremap J )zz
-nnoremap K (zz
-nnoremap <C-h> gezz
-nnoremap <C-l> wzz
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap <leader>l g_
-nnoremap <leader>h _
-nmap <expr> D WindowProportion() . 'jzz'
-nmap <expr> U WindowProportion() . 'kzz'
+noremap j gj
+noremap k gk
+noremap J )zz
+noremap K (zz
+noremap <C-j> }zz
+noremap <C-k> {zz
+noremap <expr> D WindowProportion() . 'jzz'
+noremap <expr> U WindowProportion() . 'kzz'
+noremap <leader>l g$
+noremap <leader>h g^
 nnoremap <C-i> J
+nnoremap <C-h> ge
+nnoremap <C-l> w
+xnoremap <C-h> b
+xnoremap <C-l> e
 
-xnoremap <C-d> <C-d>zz
-xnoremap <C-u> <C-u>zz
-xnoremap <C-j> }zz
-xnoremap <C-k> {zz
-xnoremap <C-h> bzz
-xnoremap <C-l> ezz
-xnoremap n nzz
-xnoremap N Nzz
-xnoremap <leader>l g_
-xnoremap <leader>h _
-xmap <expr> D WindowProportion() . 'jzz'
-xmap <expr> U WindowProportion() . 'kzz'
+for k in ["<C-d>", "<C-u>", "n", "N"]
+    execute 'map '.k.' '.k.'zz'
+endfor
 
 " copy stuff
+nnoremap yy 0vg_"+y
 nnoremap dd "1dd
-nnoremap d "1d
-nnoremap x "_x
-nnoremap <leader>p "1p
-nnoremap <leader>P "1P
-xnoremap dd "1dd
-xnoremap d "1d
-xnoremap x "_x
-xnoremap <leader>p "1p
-xnoremap <leader>P "1P
+noremap y "+y
+noremap p "+p
+noremap P "+P
+noremap d "1d
+noremap x "_x
+noremap C "1C
+noremap <leader>p "1p
+noremap <leader>P "1P
 
 " Insert
 inoremap  <Esc>
@@ -216,39 +298,19 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 imap <C-k> <Up>
 imap <C-j> <Down>
-imap '' ''<Esc>i
-imap `` ``<Esc>i
-imap "" ""<Esc>i
-imap (( ()<Esc>i
-imap [[ []<Esc>i
-imap {{ {}<Esc>i
-imap << <><Esc>i
+for k in ["(", "[", "{", "<"]
+    execute 'inoremap '.k.k.' '.k.Pairs(k).'<Esc>i'
+endfor
+for k in ["'", '"', "`", "*", "_"]
+    execute 'inoremap '.k.k.k.' '.k.k.'<Esc>i'
+endfor
 
 " Visual remaps
 xnoremap < <gv
 xnoremap > >gv
-xnoremap S' <Esc>`<i'<Esc>`>la'<Esc>`<
-xnoremap S` <Esc>`<i`<Esc>`>la`<Esc>`<
-xnoremap S" <Esc>`<i"<Esc>`>la"<Esc>`<
-xnoremap S) <Esc>`<i(<Esc>`>la)<Esc>`<
-xnoremap S] <Esc>`<i[<Esc>`>la]<Esc>`<
-xnoremap S} <Esc>`<i{<Esc>`>la}<Esc>`<
-xnoremap S> <Esc>`<i<<Esc>`>la><Esc>`<
-xnoremap S<Space> <Esc>`<i<Space><Esc>`>la<Space><Esc>`<
-xnoremap Sv' <Esc>`<i'<Esc>`>la'<Esc>v`<
-xnoremap Sv` <Esc>`<i`<Esc>`>la`<Esc>v`<
-xnoremap Sv" <Esc>`<i"<Esc>`>la"<Esc>v`<
-xnoremap Sv) <Esc>`<i(<Esc>`>la)<Esc>v`<
-xnoremap Sv] <Esc>`<i[<Esc>`>la]<Esc>v`<
-xnoremap Sv} <Esc>`<i{<Esc>`>la}<Esc>v`<
-xnoremap Sv> <Esc>`<i<<Esc>`>la><Esc>v`<
-xnoremap Sv<Space> <Esc>`<i<Space><Esc>`>la<Space><Esc>v`<
 xnoremap Svv <Esc>`<hv`>l
-xnoremap Sr<Space> <Esc>`<r<Space>`>r<Space>v`<
-xnoremap Sr' <Esc>`<r'`>r'v`<
-xnoremap Sr` <Esc>`<r``>r`v`<
-xnoremap Sr" <Esc>`<r"`>r"v`<
-xnoremap Sr) <Esc>`<r(`>r)v`<
-xnoremap Sr] <Esc>`<r[`>r]v`<
-xnoremap Sr} <Esc>`<r{`>r}v`<
-xnoremap Sr> <Esc>`<r<`>r>v`<
+for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
+    execute 'xnoremap S'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>`<'
+    execute 'xnoremap Sv'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>v`<'
+    execute 'xnoremap Sr'.k.' <Esc>`<r'.Pairs(k).'`>r'.k.'v`<'
+endfor

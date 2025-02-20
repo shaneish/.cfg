@@ -60,7 +60,7 @@ call H("ColorColumn", "NONE",          s:gray_dark, "NONE")
 call H("TabLine",     s:mid,           "NONE",      "NONE")
 call H("TabLineFill", s:primary_color, "NONE",      "NONE")
 call H("TabLineSel",  s:primary_color, "NONE",      "NONE")
-call H("Title",  s:primary_color, "NONE",      "NONE")
+call H("Title",       s:primary_color, "NONE",      "NONE")
 
 " -------------------------------
 " - File Navigation / Searching -
@@ -74,8 +74,8 @@ call H("QuickFix",  s:primary_color, "NONE", "underdotted")
 " -----------------
 " - Prompt/Status -
 " -----------------
-call H("StatusLine",   s:dark, "NONE", "NONE")
-call H("StatusLineNC", s:dark, "NONE", "NONE")
+call H("StatusLine",  s:primary_color, s:gray_dark, "bold")
+call H("StatusLineNC",  s:primary_color, s:gray_dark, "bold")
 call H("WildMenu",     s:dark, "NONE", "NONE")
 call H("Question",     s:dark, "NONE", "NONE")
 call H("Title",        s:dark, "NONE", "NONE")

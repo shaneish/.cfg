@@ -1,16 +1,20 @@
-## : find external ip address
-## : tags: network ; cyber ; ip
+# find external ip address # tags: network ; cyber ; ip
 curl ifconfig.me
-## : find internal ip address
-## : tags: network ; cyber ; ip
+
+# find internal ip address # tags: network ; cyber ; ip
 hostname -i
-## : 
+
+# add member to databricks group
 databricks account groups patch 597930865050407 --profile ACCOUNT_SP --json '{"schemas":["urn:ietf:params:scim:api:messages:2.0:PatchOp"],"Operations":[{"op":"add","value":{"members":[{"value":"5285070397745246"}]}}]}'
-## : 
+
+# convert json file to string that can be fed into the above databricks request to add a member to a group
 cat adt.json | sd '_USER_ID_' 5285070397745246 | jaq -r '.|tostring'
-## : 
-## : -h
-## : get rule-set for a new databricks sp
+
+# get assignable roles for service principal sp in databricks
 databricks account access-control get-rule-set accounts/fa626343-b073-475d-898f-a6d5841649f3/servicePrincipals/e6c9a787-c67a-45f7-85a5-1f51ac3d7f48/ruleSets/default "" --profile ACCOUNT_SP
-## : get assignable roles for service principal sp in databricks
+
+# get assignable roles for service principal sp in databricks
 databricks account access-control get-assignable-roles-for-resource accounts/fa626343-b073-475d-898f-a6d5841649f3/servicePrincipals/e6c9a787-c67a-45f7-85a5-1f51ac3d7f48 --profile ACCOUNT_SP
+
+# get and set monitor and resolution info
+xrandr

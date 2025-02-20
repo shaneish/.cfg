@@ -284,8 +284,8 @@ nmap <C-b><C-f> <cmd>BufferPick<CR>
 nmap <C-b><C-p> <cmd>BufferPin<CR>
 nmap <C-b><C-r> <cmd>BufferRestore<CR>
 nmap <C-b><C-d> <cmd>BufferOrderByDirectory<CR>
-nmap <Tab> <cmd>BufferNext<CR>
-nmap <S-Tab> <cmd>BufferPrevious<CR>
+nmap <silent> <Tab> <cmd>BufferNext<CR>
+nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 
 " Plugin mappings
 nnoremap <C-t>f <cmd>Telescope find_files<cr>
