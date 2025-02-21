@@ -271,8 +271,8 @@ autocmd BufWritePre *.tf lua vim.lsp.buf.format()
 autocmd BufRead,BufNewFile *.csv.txt set filetype=csv
 autocmd BufRead,BufNewFile *.tsv.txt set filetype=tsv
 autocmd BufRead,BufNewFile *.toml set filetype=toml
-autocmd FileType csv nmap <C-f><C-f> :call ToggleMappings()<CR>
-autocmd FileType tsv nmap <C-f><C-f> :call ToggleMappings()<CR>
+autocmd FileType csv nmap <leader>f :call ToggleMappings()<CR>
+autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:false
@@ -332,7 +332,7 @@ nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
 
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
+inoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
 nmap H :cprev<CR>
 nmap L :cnext<CR>
-nmap H :cprev<CR>

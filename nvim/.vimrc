@@ -71,25 +71,36 @@ function! Fishified(path="")
     return trim(path_info)
 endfunction
 
-function! GitInfo(dir="", prefix="")
+function! Existor(var="", alt="")
+    let out = a:alt
+    if exists(a:var)
+        execute 'let out = ' . a:var
+    endif
+    return out
+endfunction
+
+function! GitInfo(type="repo", var="", dir="", label="", prefix="", suffix="", separator="")
     let dir = a:dir
     let git_info = ""
+    let label = a:label
+    if a:label == ""
+        let label = a:type
+    endif
+    let git_info_suffix = Existor('g:git_info_suffix', a:suffix)
+    let git_info_prefix = Existor('g:git_info_prefix', a:prefix)
+    let git_info_separator = Existor('g:git_info_separator', a:separator)
     if a:dir == ""
         let dir = expand('%:p:h')
     endif
-    let repo = trim(system("basename $(git -C " . dir . " rev-parse --show-toplevel)"))
-    if !(repo =~ "fatal: *") && !(repo =~ "basename: *")
-        let git_info = git_info . repo
+    let info = trim(system("basename $(git -C " . dir . " rev-parse --show-toplevel)"))
+    if a:type == "branch"
+        let info = trim(system("git -C " . dir . " branch --show-current"))
     endif
-    let branch = trim(system("git -C " . dir . " branch --show-current"))
-    if !(branch =~ "fatal: *")
-        let git_info = git_info . " (" . branch . ")"
+    if !(info =~ "fatal: *") && !(info =~ "basename: *")
+        let git_info = git_info . git_info_prefix . label . git_info_separator . info . git_info_suffix
     endif
-    if git_info != ""
-        let git_info = a:prefix . git_info
-    endif
-    if a:dir == ""
-        let b:git_info = git_info
+    if a:var != ""
+        execute 'let ' . a:var . ' = git_info'
     endif
     return trim(git_info)
 endfunction
@@ -113,6 +124,14 @@ function! Pairs(c)
         return "{"
     endif
     return a:c
+endfunction
+
+function! ToggleConcealLevel()
+    if &conceallevel == 0
+        setlocal conceallevel=2
+    else
+        setlocal conceallevel=0
+    endif
 endfunction
 
 " #settings ish"
@@ -151,9 +170,13 @@ set cpoptions+=n
 set showbreak=·· " ↳…
 set formatoptions-=o
 set laststatus=2
-let b:git_info = GitInfo("", "> ")
+let g:sl_s = " | "
+let g:sl_p = "."
+let g:sl_sep = ": "
+let b:git_info_branch = GitInfo("branch", "b:git_info_branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
+let b:git_info_repo = GitInfo("repo", "b:git_info_repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
 let b:path_info = Fishified()
-set statusline=buff:\ %n\ >\ lines:\ %L\ (%P)\ >\ %{b:path_info}\ %{b:git_info}
+set statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
 
 " #autcmd ish
 augroup new_file_types
@@ -185,11 +208,13 @@ augroup errytime
     autocmd VimEnter,BufEnter,WinEnter *.md setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.json setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.yaml setlocal conceallevel=0
-    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("", "> ")
+    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("branch", "b:git_info_branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
+    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("repo", "b:git_info_repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
     autocmd VimEnter,BufEnter,WinEnter * silent call Fishified()
     autocmd VimEnter,BufEnter,WinEnter * nmap H :cprev<CR>
     autocmd VimEnter,BufEnter,WinEnter * nmap L :cnext<CR>
-    autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=buff:\ %n\ >\ lines:\ %L\ (%P)\ >\ %{b:path_info}\ %{b:git_info}
+    autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
+    " autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ .buff->%n\ .lines->%L->%P)\ %{b:git_info_branch}%{b:git_info_repo}\.path->%{b:path_info}
 augroup END
 
 augroup compatibility
@@ -240,6 +265,8 @@ inoremap <C-v> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap \ :call ToggleNetrw()<CR>
+nmap <C-f> :call ToggleConcealLevel()
+imap <C-f> :call ToggleConcealLevel()
 
 " grepy grep
 if executable('rg')
