@@ -3,6 +3,7 @@ go
 bhop
 bhop/db/*
 bhop/scripts/*
+fish/fish_variables
 **/.venv
 **/venv
 **/_generated*
