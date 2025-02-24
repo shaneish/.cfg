@@ -10,31 +10,27 @@ _alias() {
 cargo install ripgrep
 cargo install sd
 cargo install rm-improved
-cargo install eza
-cargo install lsd
 cargo install --locked bat
-cargo install skim
 cargo install fd-find
+cargo install --locked jaq
+cargo install --locked yazi-fm yazi-cli
+cargo install rust-parallel
+cargo install fselect
+cargo isntall xh
+cargo install coreutils
 cargo install bhop
-cargo install nu
+cargo install xsv
+cargo install eza
+cargo install skim
 cargo install ouch
 cargo install procs
 cargo install rargs
-cargo isntall xh
 cargo install grex
 cargo install choose
 cargo install tealdeer
-cargo install --locked yazi-fm yazi-cli
 cargo install onefetch --force
-cargo install coreutils
-cargo install fselect
 cargo install starship
-cargo install xsv
-cargo install --locked jaq
-cargo install toml-cli
-cargo install git-delta
-cargo install --locked gitui
-cargo install rust-parallel
+cargo install nu
 
 _alias eza ll
 _alias fselect fs

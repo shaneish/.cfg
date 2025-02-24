@@ -32,9 +32,6 @@ if status is-interactive
         alias hg="cd (_hp_fz_fixed)"
         alias ho="_hp_fz_fixed $EDITOR"
     end
-    if type -q "bat"
-        alias cat="bat"
-    end
     abbr -a dx databricks
     abbr -a rp rust-parallel
 
@@ -71,3 +68,7 @@ if status is-interactive
     end
 end
 
+
+# Wasmer
+export WASMER_DIR="/home/idunnoshane/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

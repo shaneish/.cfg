@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export PATH_PATH=$HOME/.path
 export PATH_FISH_PATH=$HOME/.path.fish
@@ -16,9 +16,10 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y
 source "$HOME/.cargo/env"
 _path $HOME/.cargo/bin
 
-rustup component add rust-src
-rustup component add rust-analyzer
-rustup component add clippy
-rustup component add rustfmt
-rustup component add rust-docs
-rustup component add llvm-tools
+cargo install ripgrep
+cargo install sd
+cargo install rm-improved
+cargo install fd-find
+cargo isntall xh
+cargo install --locked jaq
+cargo install --locked yazi-fm yazi-cli

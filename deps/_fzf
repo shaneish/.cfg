@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+export PATH_PATH=$HOME/.path
+export PATH_FISH_PATH=$HOME/.path.fish
+
+_path() {
+  export PATH="$PATH:$1"
+  echo "$1" >> $PATH_PATH
+  echo "fish_add_path $1" >> $PATH_FISH_PATH
+  if [ ! -e "$1" ]; then
+    mkdir -p $1
+  fi
+}
+
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install
+_path $HOME/.fzf/bin

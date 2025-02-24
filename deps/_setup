@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+
+SETUP_PATH=$HOME/.init.sh
+SETUP_ZSH_PATH=$HOME/.init.zsh
+SETUP_FISH_PATH=$HOME/.init.fish
+OS="$(uname -s)"
+ARCH="$(uname -m)"
+TEMP="$(mktemp -d)"
+
+case $OS in
+    "Linux")
+        case $ARCH in
+        "x86_64")
+            ARCH=amd64
+            ;;
+        "aarch64")
+            ARCH=arm64
+            ;;
+        "armv6" | "armv7l")
+            ARCH=armv6l
+            ;;
+        "armv8")
+            ARCH=arm64
+            ;;
+        "i686")
+            ARCH=386
+            ;;
+        .*386.*)
+            ARCH=386
+            ;;
+        esac
+        PLATFORM="linux-$ARCH"
+    ;;
+    "Darwin")
+          case $ARCH in
+          "x86_64")
+              ARCH=amd64
+              ;;
+          "arm64")
+              ARCH=arm64
+              ;;
+          esac
+        PLATFORM="darwin-$ARCH"
+    ;;
+esac
+_path() {
+  export PATH="$PATH:$1"
+  echo "export PATH=$PATH:$1" >> $SETUP_PATH
+  echo "fish_add_path $1" >> $SETUP_FISH_PATH
+  if [ ! -e "$1" ]; then
+    mkdir -p $1
+  fi
+}
+
+_alias() {
+  alias $1="$2"
+  echo "alias $1=\"$2\"" >> $SETUP_PATH
+  echo "alias $1=\"$2\"" >> $SETUP_FISH_PATH
+}
+
+_env() {
+  export $1="$1"
+  echo "export $1=\"$2\"" >> $SETUP_PATH
+  echo "set -Ux $1 \"$2\"" >> $SETUP_FISH_PATH
+}
+
+_src() {
+  source "$1"
+  echo "source \"$1\"" >> $SOURCE_PATH
+  if [ -n "$2" ]; then
+    echo "source \"$2\"" >> $SOURCE_FISH_PATH
+  else
+    echo "source \"$1\"" >> $SOURCE_FISH_PATH
+  fi
+  if [ -n "$3" ]; then
+    echo "source \"$3\"" >> $SOURCE_ZSH_PATH
+  fi
+}
+
+_eval() {
+  eval "$($1)"
+  echo "eval \"$($1)\"" >> $SETUP_PATH
+  if [ -n "$2" ]; then
+    echo "eval \"$($2)\"" >> $SETUP_FISH_PATH
+  else
+    echo "eval \"$($1)\"" >> $SETUP_FISH_PATH
+  fi
+  if [ -n "$3" ]; then
+    echo "eval \"$($3)\"" >> $SETUP_ZSH_PATH
+  fi
+}
+
+_env SETUP_PATH "$HOME/.init.sh"
+_env SETUP_FISH_PATH "$HOME/.init.fish"
+_env SETUP_ZSH_PATH "$HOME/.init.zsh"
+_env CONFIG_DIR "$CONFIG_DIR"
+
+echo "moving into config dir $CONFIG_DIR..."
+cd $CONFIG_DIR
+
+echo "installing rust..."
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+_src "$HOME/.cargo/env"
+_path $HOME/.cargo/bin
+
+echo "updating rust..."
+rustup component add rust-src
+rustup component add rust-analyzer
+rustup component add clippy
+rustup component add rustfmt
+rustup component add rust-docs
+rustup component add llvm-tools
+
+echo "installing cargo dependencies..."
+cargo install ripgrep
+cargo install sd
+cargo install rm-improved
+cargo install --locked bat
+cargo install fd-find
+cargo install --locked jaq
+cargo install --locked yazi-fm yazi-cli
+cargo install rust-parallel
+cargo install fselect
+cargo isntall xh
+cargo install coreutils
+cargo install bhop
+cargo install xsv
+cargo install eza
+cargo install skim
+cargo install ouch
+cargo install procs
+cargo install rargs
+cargo install grex
+cargo install choose
+cargo install tealdeer
+cargo install onefetch --force
+cargo install starship
+cargo install nu
+
+_alias eza ll
+_alias fselect fs
+_alias rust-parallel rp
+_src $HOME/.config/bhop/scripts/runner.sh $HOME/.config/bhop/scripts/runner.fish $HOME/.config/bhop/scripts/runner.zsh
+
+echo "installing tmux..."
+git clone https://github.com/tmux/tmux.git $HOME/.tmux
+cd $HOME/.tmux
+sh autogen.sh
+./configure
+make && sudo make install
+_path $HOME/.tmux
+cd $CONFIG_DIR
+
+echo "installing fzf..."
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install
+_path $HOME/.fzf/bin
+
+echo "installing go..."
+_env GOROOT $HOME/.go
+_env GOPATH $HOME/go
+GO_VERSION=$(xh "https://go.dev/VERSION?m=text" | rg 'go(\d{1}\.\d+\.\d+)' -r '$1')
+
+echo "installing wasmer..."
+curl https://get.wasmer.io -sSfL | sh
+_src $HOME/.wasmer/wasmer.sh
