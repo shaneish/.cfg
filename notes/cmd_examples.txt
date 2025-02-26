@@ -18,3 +18,13 @@ databricks account access-control get-assignable-roles-for-resource accounts/fa6
 
 # get and set monitor and resolution info
 xrandr
+
+# use sqlite3 to query and filter a csv 
+sqlite3 $(mktemp) ".mode csv" ".import daily_user_logins_by_day.csv logins" "SELECT * FROM logins WHERE env = 'PROD';"
+
+# sort csv by column header 
+cat eap_table_objects.csv | xsv sort -s platform,env | xsv table
+
+# get token metadata for databricks obo token; sp management; dbrx 
+databricks token-management get 4153e3bef0530f31e20e5494f2b1384743b148b7de80e3be5423abee6145de57
+

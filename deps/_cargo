@@ -1,12 +1,5 @@
 #!/bin/bash
 
-export ALIAS_PATH=$HOME/.alias
-
-_alias() {
-  alias $1="$2"
-  echo "alias $1=\"$2\"" >> $ALIAS_PATH
-}
-
 cargo install ripgrep
 cargo install sd
 cargo install rm-improved
@@ -21,16 +14,11 @@ cargo install coreutils
 cargo install bhop
 cargo install xsv
 cargo install eza
-cargo install skim
 cargo install ouch
-cargo install procs
-cargo install rargs
-cargo install grex
 cargo install choose
 cargo install tealdeer
 cargo install onefetch --force
 cargo install starship
-cargo install nu
 
 _alias eza ll
 _alias fselect fs

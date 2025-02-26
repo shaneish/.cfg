@@ -1,20 +1,11 @@
 #!/usr/bin/env bash
 
-export PATH_PATH=$HOME/.path
-export PATH_FISH_PATH=$HOME/.path.fish
+export TMUX_DIR=$HOME/.tmux
+CURRENT=$(pwd)
 
-_path() {
-  export PATH="$PATH:$1"
-  echo "$1" >> $PATH_PATH
-  echo "fish_add_path $1" >> $PATH_FISH_PATH
-  if [ ! -e "$1" ]; then
-    mkdir -p $1
-  fi
-}
-
-git clone https://github.com/tmux/tmux.git $HOME/.tmux
-cd $HOME/.tmux
+git clone https://github.com/tmux/tmux.git $TMUX_DIR
+cd $TMUX_DIR
 sh autogen.sh
 ./configure
 make && sudo make install
-_path $HOME/.tmux
+cd $CURRENT

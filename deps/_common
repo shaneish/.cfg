@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+export SETUP_PATH=$HOME/.init.sh
+export SETUP_ZSH_PATH=$HOME/.init.zsh
+export SETUP_FISH_PATH=$HOME/.init.fish
+export OS="$(uname -s)"
+export ARCH="$(uname -m)"
+export TEMP="$(mktemp -d)"
+
+case $OS in
+    "Linux")
+        case $ARCH in
+        "x86_64")
+            ARCH=amd64
+            ;;
+        "aarch64")
+            ARCH=arm64
+            ;;
+        "armv6" | "armv7l")
+            ARCH=armv6l
+            ;;
+        "armv8")
+            ARCH=arm64
+            ;;
+        "i686")
+            ARCH=386
+            ;;
+        .*386.*)
+            ARCH=386
+            ;;
+        esac
+        PLATFORM="linux-$ARCH"
+    ;;
+    "Darwin")
+          case $ARCH in
+          "x86_64")
+              ARCH=amd64
+              ;;
+          "arm64")
+              ARCH=arm64
+              ;;
+          esac
+        PLATFORM="darwin-$ARCH"
+    ;;
+esac
+_path() {
+  export PATH="$PATH:$1"
+  echo "export PATH=$PATH:$1" >> $SETUP_PATH
+  echo "fish_add_path $1" >> $SETUP_FISH_PATH
+  if [ ! -e "$1" ]; then
+    mkdir -p $1
+  fi
+}
+
+_alias() {
+  alias $1="$2"
+  echo "alias $1=\"$2\"" >> $SETUP_PATH
+  echo "alias $1=\"$2\"" >> $SETUP_FISH_PATH
+}
+
+_env() {
+  export $1="$1"
+  echo "export $1=\"$2\"" >> $SETUP_PATH
+  echo "set -Ux $1 \"$2\"" >> $SETUP_FISH_PATH
+}
+
+_src() {
+  source "$1"
+  echo "source \"$1\"" >> $SOURCE_PATH
+  if [ -n "$2" ]; then
+    echo "source \"$2\"" >> $SOURCE_FISH_PATH
+  else
+    echo "source \"$1\"" >> $SOURCE_FISH_PATH
+  fi
+  if [ -n "$3" ]; then
+    echo "source \"$3\"" >> $SOURCE_ZSH_PATH
+  fi
+}
+
+_eval() {
+  eval "$($1)"
+  echo "eval \"$($1)\"" >> $SETUP_PATH
+  if [ -n "$2" ]; then
+    echo "eval \"$($2)\"" >> $SETUP_FISH_PATH
+  else
+    echo "eval \"$($1)\"" >> $SETUP_FISH_PATH
+  fi
+  if [ -n "$3" ]; then
+    echo "eval \"$($3)\"" >> $SETUP_ZSH_PATH
+  fi
+}

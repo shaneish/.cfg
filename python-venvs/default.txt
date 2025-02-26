@@ -1,7 +1,6 @@
 ipython
-click
 requests
-auto-optional
 pynvim
 jupyter-client
 pipx
+ruff

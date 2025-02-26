@@ -67,8 +67,3 @@ if status is-interactive
         source $PYTHON_VENV/bin/activate.fish
     end
 end
-
-
-# Wasmer
-export WASMER_DIR="/home/idunnoshane/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

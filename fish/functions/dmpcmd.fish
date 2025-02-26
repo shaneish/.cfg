@@ -1,5 +1,6 @@
 function dmpcmd -d "use fuzzy finder to select command and dump into cmd notes file"
-    echo "\n" >> $CLI_NOTES
-    printf '# %s ' $argv >> $CLI_NOTES
-    set cmd (history | fz -m) >> $CLI_NOTES
+    printf '\n# %s' $argv >> $CLI_NOTES
+    printf "\n" >> $CLI_NOTES
+    set cmd (history | fz -m)
+    printf $cmd >> $CLI_NOTES
 end

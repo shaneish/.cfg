@@ -287,6 +287,7 @@ nnoremap <C-b> :call BuffJump()<CR>
 nnoremap <C-o><C-o> O<Esc>jo<Esc>k
 nnoremap <C-o><C-j> o<Esc>k
 nnoremap <C-o><C-k> O<Esc>j
+nnoremap <C-o><C-k> O<Esc>j
 
 " move stuff
 noremap j gj
@@ -327,11 +328,16 @@ imap <C-h> <Left>
 imap <C-l> <Right>
 imap <C-k> <Up>
 imap <C-j> <Down>
-for k in ["(", "[", "{", "<"]
-    execute 'inoremap '.k.k.' '.k.Pairs(k).'<Esc>i'
-endfor
-for k in ["'", '"', "`", "*", "_"]
-    execute 'inoremap '.k.k.k.' '.k.k.'<Esc>i'
+imap <C-c> <Esc>0C
+inoremap <C-'> ""<Esc>i
+inoremap <C-[> {}<Esc>i
+inoremap <C-`> ``<Esc>i
+inoremap <C-9> ()<Esc>i
+inoremap <C-,> <><Esc>i
+inoremap <C-8> **<Esc>i
+inoremap <C--> __<Esc>i
+for k in ["'", '"', "(", "{", "[", "<", "*", "_"]
+    execute 'inoremap '.k.Pairs(k).'<BS> '.k.Pairs(k).'<Esc>i'
 endfor
 
 " Visual remaps

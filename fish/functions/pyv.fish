@@ -1,5 +1,5 @@
 function pyv
-    if set -q argv[1]
+    if test -e $PYTHON_VENV_DIR/$argv[1]/bin/activate.fish
         set -Ux PYTHON_VENV $PYTHON_VENV_DIR/$argv
         source $PYTHON_VENV/bin/activate.fish
     else if ! test -n "$VIRTUAL_ENV"

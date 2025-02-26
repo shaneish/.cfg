@@ -276,9 +276,9 @@ autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:false
-imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
-imap <C-]> <Plug>(copilot-next)
-imap <C-[> <Plug>(copilot-previous)
+imap <silent><script><expr> <Left> copilot#Accept("\<CR>")
+imap <Down> <Plug>(copilot-next)
+imap <Up> <Plug>(copilot-previous)
 imap <C-e> <Plug>(copilot-dismiss)
 imap <C-s> <Plug>(copilot-suggest)
 
