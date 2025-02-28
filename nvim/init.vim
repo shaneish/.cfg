@@ -74,6 +74,7 @@ Plug 'numToStr/Comment.nvim'
 Plug 'SmiteshP/nvim-navbuddy'
 Plug 'jpalardy/vim-slime'
 Plug 'Klafyvel/vim-slime-cells'
+Plug 'drybalka/tree-climber.nvim'
 call plug#end()
 
 " Lua-ish ish
@@ -319,6 +320,18 @@ nmap <c-c><c-j> <Plug>SlimeCellsNext
 nmap <c-c><c-k> <Plug>SlimeCellsPrev
 xmap <C-c><C-c> <Plug>SlimeRegionSend
 
+" tree climber
+augroup TreeClimber
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>k :lua require('tree-climber').swap_prev()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>j :lua require('tree-climber').swap_next()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>v v:lua require('tree-climber').select_node()<CR>
+augroup END
+
 nnoremap <C-s> <cmd>Pounce<CR>
 nnoremap <C-m>ls :MarksListBuf<CR>
 nnoremap <C-m>la :MarksListGlobal<CR>
@@ -334,5 +347,3 @@ nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
 inoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
-nmap H :cprev<CR>
-nmap L :cnext<CR>

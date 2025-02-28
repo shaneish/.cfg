@@ -2,15 +2,15 @@ filetype plugin indent on
 let mapleader=" "
 let maplocalleader="\\"
 let &t_EI = "\e[2 q"
-let &t_SI = "\e[5 q"
 colorscheme quiet
 syntax on
-
 function! TrimWhitespace()
     let l:save = winsaveview()
     %s/\\\@<!\s\+$//e
     call winrestview(l:save)
 endfunction
+
+let &t_SI = "\e[5 q"
 
 function! BuffJump()
     ls
@@ -211,8 +211,8 @@ augroup errytime
     autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("branch", "b:git_info_branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
     autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("repo", "b:git_info_repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
     autocmd VimEnter,BufEnter,WinEnter * silent call Fishified()
-    autocmd VimEnter,BufEnter,WinEnter * nmap H :cprev<CR>
-    autocmd VimEnter,BufEnter,WinEnter * nmap L :cnext<CR>
+    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-,> :cprev<CR>
+    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-.> :cnext<CR>
     autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
     " autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ .buff->%n\ .lines->%L->%P)\ %{b:git_info_branch}%{b:git_info_repo}\.path->%{b:path_info}
 augroup END
@@ -220,8 +220,6 @@ augroup END
 augroup compatibility
     autocmd!
     autocmd VimEnter * silent !echo -ne "\\e[2 q"
-    autocmd VimEnter * silent nmap H :cprev<CR>
-    autocmd VimEnter * silent nmap L :cnext<CR>
 augroup END
 
 augroup colorscheme_madness
@@ -257,8 +255,8 @@ nmap <C-q><C-q> <cmd>q!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-w><C-q> :w!<CR>:q!<CR>
-nmap L :cnext<CR>
-nmap H :cprev<CR>
+nmap <C-.> :cnext<CR>
+nmap <C-,> :cprev<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprev<CR>
 inoremap <C-v> <C-r>+
