@@ -12,7 +12,7 @@ function _source_once
     set -Ux CFG_DIRECTORY $HOME/.config/.cfg
     set -Ux SCRIPTS_DIRECTORY $HOME/.config/scripts
     set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
-    set -Ux PYTHON_VENV_DIR $HOME/.local/python-venvs
+    set -Ux PYTHON_VENV_DIR $HOME/.local/venvs
     set -Ux CLI_NOTES $HOME/.config/notes/cmd_examples.txt
     set -U fish_user_paths
     fish_add_path -U $HOME/.local/bin

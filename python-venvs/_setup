@@ -17,7 +17,6 @@ _find_newest_python() {
     for i in $(seq 15 -1 9); do
         if command -v "python3.${i}" 2>&1 >/dev/null; then
             PYTHON="python${PYTHON_V}"
-            $PYTHON -m ensurepip
             echo "Found $PYTHON as most recent version..."
             _create_venv $PYTHON $DEFAULT_PYTHON_NAME $1
         fi
@@ -57,7 +56,7 @@ __main__() {
     _mkdir "$PYTHON_VENV_DIR"
     cd $PYTHON_VENV_DIR
 
-    if [ $# -eq 0 ]; then
+    if [ ! $# -eq 0 ]; then
         if [ -z "$2" ]; then
             _create_venv $1 $2 $SRC_DIR/default.txt
         else
