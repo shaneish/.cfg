@@ -75,13 +75,17 @@ Plug 'SmiteshP/nvim-navbuddy'
 Plug 'jpalardy/vim-slime'
 Plug 'Klafyvel/vim-slime-cells'
 Plug 'drybalka/tree-climber.nvim'
+Plug 'milanglacier/yarepl.nvim' " https://github.com/milanglacier/yarepl.nvim
 call plug#end()
 
+" %%
 " Lua-ish ish
 lua << EOF
 require('load-all')
 EOF
 
+" %%
+" util functions
 let s:mappingsState=1
 command! TM call ToggleMappings()
 function! ToggleMappings()
@@ -93,11 +97,43 @@ function! ToggleMappings()
     let s:mappingsState = !s:mappingsState
 endfunction
 
-let g:code_block_comment = substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g')
-let g:code_block_suffix = "%%"
+function! MovePane(direction=1)
+    if winwidth(0) != &columns
+        if a:direction == 1
+            return '<C-w>l<CR>'
+        else
+            return '<C-w>h<CR>'
+        endif
+    else
+        if a:direction == 1
+            return '<C-w>k<CR>'
+        else
+            return '<C-w>j<CR>'
+        endif
+    endif
+endfunction
+
+" %%
+" code block stuff
+let g:default_code_block_suffix = "%%"
 let g:code_block_databricks_notebook_identifier = "COMMAND ----------"
 let g:code_block_alt_file_types = ["md", "markdown", "rmd", "rmarkdown", "journal"]
-let g:code_block_type_annotation_priority = [g:code_block_suffix,  g:code_block_databricks_notebook_identifier]
+let g:code_block_databricks_file_types = ["python"]
+let g:code_block_type_annotation_priority = [g:default_code_block_suffix,  g:code_block_databricks_notebook_identifier]
+
+function! InferCodeBlockSuffix()
+    if index(g:code_block_alt_file_types, &filetype) >= 0
+        return ""
+    elseif index(g:code_block_databricks_file_types, &filetype) >= 0
+        let search_result = search(g:code_block_databricks_notebook_identifier, "n")
+        if search_result != 0
+            return g:code_block_databricks_notebook_identifier
+        endif
+    endif
+    return g:default_code_block_suffix
+endfunction
+
+let g:code_block_suffix = InferCodeBlockSuffix()
 
 function! CodeBlock()
     if index(g:code_block_alt_file_types, &filetype) >= 0
@@ -106,9 +142,12 @@ function! CodeBlock()
         let g:code_block_comment = substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g')
     endif
     let g:code_block_current = g:code_block_comment . ' ' . g:code_block_suffix
+    let g:slime_cell_delimiter = g:code_block_current
     return g:code_block_current
 endfunction
+
 let g:code_block_current = CodeBlock()
+let g:slime_cell_delimiter = CodeBlock()
 
 function! UpdateCodeBlockSuffix()
     let g:code_block_suffix = input("Enter the code block type suffix: ")
@@ -133,10 +172,12 @@ function! CycleCodeBlockSuffix()
     echo "Selected: " .. g:code_block_suffix
 endfunction
 
+" %%
 " Terminal-ish stuff
 let g:term_proportion_default = 3
 let g:term_lines_to_resize = 40
 let g:term_default_window_size = 20
+
 function! OpenTermSize(vertical=0)
     if a:vertical == 0
         let current_window_size = &lines
@@ -156,6 +197,8 @@ function! OpenTerm()
     execute "startinsert"
 endfunction
 
+" %%
+" slime stuff
 function! ReplCommand()
     if &filetype == "python"
         if exists("g:ipython3_host_prog")
@@ -198,22 +241,8 @@ function! WeztermSlimePane()
     let g:slime_cell_delimiter = CodeBlock()
 endfunction
 
-function! MovePane(direction=1)
-    if winwidth(0) != &columns
-        if a:direction == 1
-            return '<C-w>l<CR>'
-        else
-            return '<C-w>h<CR>'
-        endif
-    else
-        if a:direction == 1
-            return '<C-w>k<CR>'
-        else
-            return '<C-w>j<CR>'
-        endif
-    endif
-endfunction
-
+" %%
+" config stuff
 let g:python_bin = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/bin/'
 let g:python_venv_dir = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/'
 let g:python3_host_prog = g:python_bin . 'python3'
@@ -254,11 +283,17 @@ let g:slime_target = "wezterm"
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
-highlight SignColumn guibg=NONE
-highlight LspInlayHint guifg=#ffd700 gui=bold,underdotted
-highlight QuickFixLine guifg=#ffd700 gui=bold
-highlight TabLineSel guifg=#ffd700 gui=bold
-highlight TabLineFill guifg=#ffd700 gui=bold
+augroup CheckEveryTime
+    autocmd!
+    autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
+    autocmd VimEnter,BufEnter,WinEnter * highlight LspInlayHint guifg=#ffd700 gui=bold,underdotted
+    autocmd VimEnter,BufEnter,WinEnter * highlight QuickFixLine guifg=#ffd700 gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineSel guifg=#ffd700 gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineFill guifg=#ffd700 gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * let g:code_block_suffix = InferCodeBlockSuffix()
+    autocmd VimEnter,BufEnter,WinEnter * let g:code_block_current = CodeBlock()
+    autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()
+augroup END
 
 autocmd FileType * set formatoptions-=ro
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
@@ -316,6 +351,7 @@ nmap <C-c><C-c> <Plug>SlimeSendCell
 nmap <C-c><C-l> <Plug>SlimeLineSend
 nmap <C-c><C-s> <Plug>SlimeConfig
 nmap <c-c><c-m> <Plug>SlimeCellsSendAndGoToNext
+nmap <c-c><leader> <Plug>SlimeCellsSendAndGoToNext
 nmap <c-c><c-j> <Plug>SlimeCellsNext
 nmap <c-c><c-k> <Plug>SlimeCellsPrev
 xmap <C-c><C-c> <Plug>SlimeRegionSend
@@ -323,13 +359,13 @@ xmap <C-c><C-c> <Plug>SlimeRegionSend
 " tree climber
 augroup TreeClimber
     autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>k :lua require('tree-climber').swap_prev()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>j :lua require('tree-climber').swap_next()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <leader>v v:lua require('tree-climber').select_node()<CR>
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>k :lua require('tree-climber').swap_prev()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>j :lua require('tree-climber').swap_next()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
 augroup END
 
 nnoremap <C-s> <cmd>Pounce<CR>
@@ -344,6 +380,6 @@ nnoremap <expr> <C-t><C-j><C-j> "o" . CodeBlock() . '<CR>'
 nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
 
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
-nnoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
-inoremap <C-f><C-f> :lua vim.lsp.buf.formatting()<CR>
+nnoremap <C-f><C-l> :lua vim.lsp.buf.formatting()<CR>
+inoremap <C-f><C-l> :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>

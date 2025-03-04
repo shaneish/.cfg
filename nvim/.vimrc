@@ -263,8 +263,8 @@ inoremap <C-v> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap \ :call ToggleNetrw()<CR>
-nmap <C-f> :call ToggleConcealLevel()
-imap <C-f> :call ToggleConcealLevel()
+nmap <C-f><C-f> :call ToggleConcealLevel()<CR>
+imap <C-f><C-f> :call ToggleConcealLevel()<CR>
 
 " grepy grep
 if executable('rg')
@@ -292,12 +292,14 @@ noremap j gj
 noremap k gk
 noremap J )zz
 noremap K (zz
-noremap <C-j> }zz
-noremap <C-k> {zz
+nnoremap <C-j> }jzz
+nnoremap <C-k> {kzz
 noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$
 noremap <leader>h g^
+xnoremap <C-j> j}kzz
+xnoremap <C-k> k{jzz
 nnoremap <C-i> J
 nnoremap <C-h> ge
 nnoremap <C-l> w
@@ -328,14 +330,16 @@ imap <C-k> <Up>
 imap <C-j> <Down>
 imap <C-c> <Esc>0C
 inoremap <C-'> ""<Esc>i
+inoremap <C-'>' ''<Esc>i
 inoremap <C-[> {}<Esc>i
+inoremap <C-[>[ []<Esc>i
 inoremap <C-`> ``<Esc>i
 inoremap <C-9> ()<Esc>i
 inoremap <C-,> <><Esc>i
 inoremap <C-8> **<Esc>i
 inoremap <C--> __<Esc>i
 for k in ["'", '"', "(", "{", "[", "<", "*", "_"]
-    execute 'inoremap '.k.Pairs(k).'<BS> '.k.Pairs(k).'<Esc>i'
+    execute 'inoremap <C-s>'.k.' '.k.Pairs(k).'<Esc>i'
 endfor
 
 " Visual remaps

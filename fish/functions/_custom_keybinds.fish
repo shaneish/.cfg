@@ -89,6 +89,6 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M visual y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
     bind -M normal yy fish_clipboard_copy
     bind -M insert \ch 'history | fz | string trim -r | clip'
-    bind -M insert \cj _hpfuzzy
+    bind -M insert \cg _hpfuzzy
 end
 

@@ -3,6 +3,16 @@ local io = require 'io';
 local os = require 'os';
 local config = {}
 
+local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
+wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
+resurrect.state_manager.periodic_save({
+    interval_seconds = 300,
+    save_tabs = true,
+    save_windows = true,
+    save_workspaces = true,
+})
+resurrect.state_manager.set_max_nlines(5000)
+
 local function read_file(path)
     local file = io.open(path, "rb") -- r read mode and b binary mode
     if not file then return nil end
@@ -44,10 +54,9 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   f:write(scrollback);
   f:flush();
   f:close();
-
   window:perform_action(wezterm.action{ SpawnCommandInNewTab = {
     domain = "CurrentPaneDomain",
-    args={ "nvim", '-U', '$HOME/.config/nvim/minit.vim', '+', name }
+    args={ 'nvim', '-u', '$HOME/.config/nvim/.vimrc', '+', name }
     }
   }, pane)
 
@@ -119,7 +128,7 @@ config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
 config.color_scheme = name
-config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
+config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_opacity = 0.99
@@ -132,6 +141,7 @@ config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 config.warn_about_missing_glyphs = false
+
 config.font_rules = {
   {
     intensity = "Bold",
@@ -144,6 +154,7 @@ config.font_rules = {
     font = wezterm.font("JetBrains Mono", { weight = "Bold", stretch = "Normal", style = "Italic" }),
   },
 }
+
 config.colors = {
   tab_bar = {
     background = "rgba(0,0,0,0)",
@@ -166,6 +177,7 @@ config.inactive_pane_hsb = {
   saturation = 0.3,
   brightness = 0.8,
 }
+
 -- config.active_pane_hsb = {
 --   hue = 1.0,
 --   saturation = 1.0,
@@ -184,6 +196,7 @@ if wezterm.target_triple:find("windows") ~= nil then
     top = 5,
     bottom = 5,
   }
+
 elseif wezterm.target_triple:find("darwin") ~= nil then
   Alt = 'OPT'
   NonAlt = 'CMD'
@@ -198,6 +211,7 @@ elseif wezterm.target_triple:find("darwin") ~= nil then
     top = 5,
     bottom = 2,
   }
+
 else
   config.window_decorations = "RESIZE"
   config.set_environment_variables = {
@@ -214,6 +228,7 @@ else
       config.enable_wayland  = false
     end
   end
+
   os_info = read_file("/etc/os-release")
   if os_info then
     if os_info:find("nixos") ~= nil then
@@ -254,6 +269,7 @@ config.key_tables = {
     },
     { key = 'Escape', action = 'PopKeyTable' },
   },
+
   scroll_mode = {
     { key = "Escape", action = 'PopKeyTable' },
     { key = "UpArrow", action = wezterm.action.ScrollByLine(-1) },
@@ -287,8 +303,8 @@ config.keys = {
     action = wezterm.action.ReloadConfiguration,
   },
   {
-    key = 'p',
-    mods = 'LEADER',
+    key = 'P',
+    mods = 'CTRL|SHIFT',
     action = wezterm.action.ActivateKeyTable {
         name = 'pane_adjust',
         one_shot = false,
@@ -310,7 +326,7 @@ config.keys = {
     },
   },
   {
-    key = '-',
+    key = 'v',
     mods = 'LEADER',
     action = wezterm.action.SplitVertical {
         domain = 'CurrentPaneDomain',
@@ -323,6 +339,14 @@ config.keys = {
         domain = 'CurrentPaneDomain',
     },
   },
+  {
+    key = 'h',
+    mods = 'LEADER',
+    action = wezterm.action.SplitHorizontal {
+        domain = 'CurrentPaneDomain',
+    },
+  },
+
   {
     key = 'Q',
     mods = 'CTRL|SHIFT',
@@ -338,29 +362,16 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.CloseCurrentTab { confirm = false },
   },
-  {
-    key = 't',
-    mods = 'LEADER',
-    action = wezterm.action.SpawnTab 'DefaultDomain'
-  },
+
   {
     key = 'T',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain'
   },
-  -- {
-  --  key = 'T',
-  --  mods = 'LEADER',
-  --  action = wezterm.action.SpawnCommandInNewTab {
-  --    domain = { DomainName = 'local' },
-  --    args = { 'powershell' }
-  --  }
-  -- },
   {
-    key = 't',
+    key = 'S',
     mods = 'LEADER',
     action = wezterm.action_callback(function(window, pane)
-
       local choices = {}
       if wezterm.target_triple:find("windows") ~= nil then
         local wsl_doms = wezterm.default_wsl_domains()
@@ -418,29 +429,32 @@ config.keys = {
       )
     end),
   },
+
   {
     key = '"',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.TogglePaneZoomState,
   },
+
   { key = '{', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(-1) },
   { key = '}', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(1) },
-  { key = "L", mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(1) },
-  { key = "H", mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
-  { key = "Tab", mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
-  { key = "Tab", mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
+  { key = 'L', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(1) },
+  { key = 'H', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 'Tab', mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
+  { key = 'Tab', mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
   { key = "J", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
   { key = "K", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
   { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
   { key = '_', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
-  { key = "B", mods = "CTRL|SHIFT", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
+  { key = 'e', mods = "LEADER", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
+  { key = 'd', mods = 'LEADER', action = wezterm.action.ShowDebugOverlay },
   { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-0.5) },
   { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
   { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
   { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
   { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
   { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
-  { key = 's', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
+  { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
   { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
   { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
   { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
@@ -448,8 +462,9 @@ config.keys = {
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
   { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
   { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
+
   {
-    key = 'N',
+    key = 'M',
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
@@ -470,12 +485,13 @@ config.keys = {
     },
   },
   {
-    key = 'n',
+    key = 'm',
     mods = 'LEADER',
     action = wezterm.action_callback(function(win, pane)
       local tab, window = pane:move_to_new_tab()
     end),
   },
+
   {
     key = 'f',
     mods = 'LEADER',
@@ -503,6 +519,7 @@ config.keys = {
       },
     },
   },
+
   {
     key = 'R',
     mods = 'LEADER',
@@ -536,10 +553,9 @@ config.keys = {
       end),
     },
   },
-  { key = 'W', mods = 'LEADER', action = wezterm.action.SwitchToWorkspace },
-  { key = 'W', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(1) },
+
   {
-    key = 'S',
+    key = 's',
     mods = 'LEADER',
     action = wezterm.action.ShowLauncherArgs {
       flags = 'WORKSPACES',
@@ -573,8 +589,77 @@ config.keys = {
       wezterm.action.Search({ CaseSensitiveString = "" }),
     }),
   },
-  { key = 'l', mods = 'LEADER', action = wezterm.action.SwitchWorkspaceRelative(1) },
-  { key = 'h', mods = 'LEADER', action = wezterm.action.SwitchWorkspaceRelative(-1) },
+
+  { key = 'N', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(1) },
+  { key = 'B', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(-1) },
+
+  {
+    key = 'P',
+    mods = "LEADER",
+    action = wezterm.action_callback(function(win, pane)
+        resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())
+      end),
+  },
+  {
+    key = 'W',
+    mods = "LEADER",
+    action = resurrect.window_state.save_window_action(),
+  },
+  {
+    key = 'T',
+    mods = "LEADER",
+    action = resurrect.tab_state.save_tab_action(),
+  },
+  {
+    key = "p",
+    mods = "LEADER",
+    action = wezterm.action_callback(function(win, pane)
+        resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())
+        resurrect.window_state.save_window_action()
+      end),
+  },
+
+  {
+    key = 'L',
+    mods = "LEADER",
+    action = wezterm.action_callback(function(win, pane)
+      resurrect.fuzzy_loader.fuzzy_load(win, pane, function(id, label)
+        local type = string.match(id, "^([^/]+)") -- match before '/'
+        id = string.match(id, "([^/]+)$") -- match after '/'
+        id = string.match(id, "(.+)%..+$") -- remove file extention
+        local opts = {
+          relative = true,
+          restore_text = true,
+          on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+        }
+        if type == "workspace" then
+          local opts = {
+            close_open_tabs = true,
+            window = pane:window(),
+            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+            relative = true,
+            restore_text = true,
+          }
+          local state = resurrect.state_manager.load_state(id, "workspace")
+          resurrect.workspace_state.restore_workspace(state, opts)
+        elseif type == "window" then
+          local opts = {
+            close_open_tabs = true,
+            window = pane:window(),
+            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+            relative = true,
+            restore_text = true,
+          }
+          local state = resurrect.state_manager.load_state(id, "window")
+          resurrect.window_state.restore_window(pane:window(), state, opts)
+        elseif type == "tab" then
+          local state = resurrect.state_manager.load_state(id, "tab")
+          resurrect.tab_state.restore_tab(pane:tab(), state, opts)
+        end
+      end)
+    end),
+  },
+
 }
 
 return config
