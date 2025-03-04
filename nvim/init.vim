@@ -359,14 +359,22 @@ xmap <C-c><C-c> <Plug>SlimeRegionSend
 " tree climber
 augroup TreeClimber
     autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent noremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>k :lua require('tree-climber').swap_prev()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>j :lua require('tree-climber').swap_next()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * silent nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
+    autocmd VimEnter,BufEnter,WinEnter * noremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * noremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * noremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * noremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>k :lua require('tree-climber').swap_prev()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>j :lua require('tree-climber').swap_next()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
 augroup END
+
+noremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+noremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+noremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+noremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
+nnoremap <silent> <leader>k :lua require('tree-climber').swap_prev()<CR>zz
+nnoremap <silent> <leader>j :lua require('tree-climber').swap_next()<CR>zz
+nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
 
 nnoremap <C-s> <cmd>Pounce<CR>
 nnoremap <C-m>ls :MarksListBuf<CR>
