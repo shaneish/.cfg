@@ -28,3 +28,6 @@ cat eap_table_objects.csv | xsv sort -s platform,env | xsv table
 # get token metadata for databricks obo token; sp management; dbrx 
 databricks token-management get 4153e3bef0530f31e20e5494f2b1384743b148b7de80e3be5423abee6145de57
 
+
+# list only files that were created today
+fselect select abspath from ~/.local/share/wezterm where created = CURRENT_DATE

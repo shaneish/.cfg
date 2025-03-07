@@ -229,6 +229,20 @@ check-further-callbacks = true
 run = ['layout floating']
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'Outlook'
+if.window-title-regex-substring = 'Reminder'
+if.during-aerospace-startup = false
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Webex'
+if.window-title-regex-substring = 'reminder'
+if.during-aerospace-startup = false
+check-further-callbacks = true
+run = ['layout floating']
+
+[[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
 if.window-title-regex-substring = '.+Inbox'
 check-further-callbacks = true

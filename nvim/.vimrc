@@ -59,6 +59,11 @@ function! WindowProportion(prop=0.20)
     return float2nr(jump_size)
 endfunction
 
+function! TrimAndPaste()
+    let @"+ = trim(@"+ )
+    normal p
+endfunction
+
 function! Fishified(path="")
     let path = a:path
     if a:path == ""
@@ -285,7 +290,6 @@ nnoremap <C-b> :call BuffJump()<CR>
 nnoremap <C-o><C-o> O<Esc>jo<Esc>k
 nnoremap <C-o><C-j> o<Esc>k
 nnoremap <C-o><C-k> O<Esc>j
-nnoremap <C-o><C-k> O<Esc>j
 
 " move stuff
 noremap j gj
@@ -321,6 +325,8 @@ noremap x "_x
 noremap C "1C
 noremap <leader>p "1p
 noremap <leader>P "1P
+noremap <C-p> :call TrimAndPaste()<CR>
+noremap <leader><C-p> :call TrimAndPaste()<CR>
 
 " Insert
 inoremap  <Esc>

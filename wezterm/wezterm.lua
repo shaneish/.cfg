@@ -103,8 +103,8 @@ NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
-ansi_highlight = "#ffd700"
-bright_highlight = "#f6cd61"
+local ansi_highlight = "#ffd700"
+local bright_highlight = "#f6cd61"
 local name = 'Grayscale (dark) (terminal.sexy)'
 local whitish = wezterm.color.get_builtin_schemes()[name]
 whitish.background = "#000000"
@@ -121,6 +121,8 @@ whitish.ansi[5] = "#eeeeee"
 config.color_schemes = {
   [name] = whitish
 }
+log_table(whitish)
+
 config.disable_default_key_bindings = true
 config.animation_fps = 30
 config.max_fps = 144
@@ -442,8 +444,8 @@ config.keys = {
   { key = 'H', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
   { key = 'Tab', mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
   { key = 'Tab', mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
-  { key = "J", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
-  { key = "K", mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
+  { key = 'J', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
+  { key = 'K', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
   { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
   { key = '_', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
   { key = 'e', mods = "LEADER", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
@@ -452,8 +454,8 @@ config.keys = {
   { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
   { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
   { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
-  { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
-  { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
+  -- { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
+  -- { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
   { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
   { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
   { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
@@ -582,7 +584,7 @@ config.keys = {
     },
   },
   {
-    key = "g",
+    key = 'g',
     mods = "LEADER",
     action = wezterm.action.Multiple({
       wezterm.action.CopyMode("ClearPattern"),
@@ -611,7 +613,7 @@ config.keys = {
     action = resurrect.tab_state.save_tab_action(),
   },
   {
-    key = "p",
+    key = 'p',
     mods = "LEADER",
     action = wezterm.action_callback(function(win, pane)
         resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())

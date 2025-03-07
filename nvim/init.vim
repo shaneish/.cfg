@@ -312,11 +312,11 @@ autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:false
-imap <silent><script><expr> <Left> copilot#Accept("\<CR>")
-imap <Down> <Plug>(copilot-next)
-imap <Up> <Plug>(copilot-previous)
-imap <C-e> <Plug>(copilot-dismiss)
-imap <C-s> <Plug>(copilot-suggest)
+imap <silent><script><expr> <C-s><C-l> copilot#Accept("\<CR>")
+imap <C-s><C-j> <Plug>(copilot-next)
+imap <C-s><C-k> <Plug>(copilot-previous)
+imap <C-s><C-h> <Plug>(copilot-dismiss)
+imap <C-s><C-s> <Plug>(copilot-suggest)
 
 " Terminal
 nmap <leader><leader>t :call OpenTerm()<CR>
@@ -368,24 +368,16 @@ augroup TreeClimber
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
 augroup END
 
-noremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-noremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-noremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-noremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-nnoremap <silent> <leader>k :lua require('tree-climber').swap_prev()<CR>zz
-nnoremap <silent> <leader>j :lua require('tree-climber').swap_next()<CR>zz
-nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
-
 nnoremap <C-s> <cmd>Pounce<CR>
 nnoremap <C-m>ls :MarksListBuf<CR>
 nnoremap <C-m>la :MarksListGlobal<CR>
 nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g:code_block_current<CR>
 nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
 nnoremap <expr> <C-t><C-b> "A" . CodeBlock() . '<Esc>'
-nnoremap <expr> <C-t><C-j> "o" . CodeBlock() . '<Esc>'
-nnoremap <expr> <C-t><C-k> "O" . CodeBlock() . '<Esc>'
-nnoremap <expr> <C-t><C-j><C-j> "o" . CodeBlock() . '<CR>'
-nnoremap <expr> <C-t><C-k><C-k> "O" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-j> "o<Esc>0C" . CodeBlock() . '<Esc>k'
+nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>k'
+nnoremap <expr> <C-t><C-j><C-j> "o<Esc>0C" . CodeBlock() . '<CR>'
+nnoremap <expr> <C-t><C-k><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>O'
 
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <C-f><C-l> :lua vim.lsp.buf.formatting()<CR>

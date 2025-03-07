@@ -1,14 +1,14 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export CFG_DIRECTORY:/home/idunnoshane/\x2econfig/\x2ecfg
-SETUVAR --export CLI_NOTES:/home/idunnoshane/\x2econfig/notes/cmd_examples\x2etxt
-SETUVAR --export CONFIG_DIRECTORY:/home/idunnoshane/\x2econfig
-SETUVAR --export FISH_CONFIG_DIRECTORY:/home/idunnoshane/\x2econfig/fish
-SETUVAR --export MACHINE_IDENTIFIER:Linux\x2didunnoshane\x2dp1\x2d6\x2e12\x2e15\x2d1\x2dlts
-SETUVAR --export NVIM_DIRECTORY:/home/idunnoshane/\x2econfig/nvim
-SETUVAR --export PYTHON_VENV:/home/idunnoshane/\x2elocal/venvs/python
-SETUVAR --export PYTHON_VENV_DIR:/home/idunnoshane/\x2elocal/venvs
-SETUVAR --export SCRIPTS_DIRECTORY:/home/idunnoshane/\x2econfig/scripts
+SETUVAR --export CFG_DIRECTORY:/Users/h62756/\x2econfig/\x2ecfg
+SETUVAR --export CLI_NOTES:/Users/h62756/\x2econfig/notes/cmd_examples\x2etxt
+SETUVAR --export CONFIG_DIRECTORY:/Users/h62756/\x2econfig
+SETUVAR --export FISH_CONFIG_DIRECTORY:/Users/h62756/\x2econfig/fish
+SETUVAR --export MACHINE_IDENTIFIER:Darwin\x2dJJ4DNV2JYM\x2etld\x2d23\x2e4\x2e0
+SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
+SETUVAR --export PYTHON_VENV:\x1d
+SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/venvs
+SETUVAR --export SCRIPTS_DIRECTORY:/Users/h62756/\x2econfig/scripts
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:6c6c6c
@@ -57,7 +57,7 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dreverse
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/idunnoshane/go/bin\x1e/home/idunnoshane/\x2econfig/scripts\x1e/home/idunnoshane/\x2ecargo/bin\x1e/home/idunnoshane/\x2elocal/bin
+SETUVAR fish_user_paths:/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2emodular/bin\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin
 SETUVAR --export fish_vi_force_cursor:line\x1eblink
 SETUVAR --export greet:\x20take\x20arms\x21\x20cacti\x21\x1e\x20\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
 SETUVAR --export greeting:\x20\x1e\x20howdy\x21\x20take\x20arms\x21\x1e\x20cacti\x21\x20\u30d8\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
