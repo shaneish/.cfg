@@ -1,7 +1,10 @@
 filetype plugin indent on
 let mapleader=" "
 let maplocalleader="\\"
-let &t_EI = "\e[2 q"
+if ! has('nvim')
+    let &t_EI = "\e[2 q"
+    let &t_SI = "\e[5 q"
+endif
 colorscheme quiet
 syntax on
 function! TrimWhitespace()
@@ -9,8 +12,6 @@ function! TrimWhitespace()
     %s/\\\@<!\s\+$//e
     call winrestview(l:save)
 endfunction
-
-let &t_SI = "\e[5 q"
 
 function! BuffJump()
     ls
@@ -76,24 +77,16 @@ function! Fishified(path="")
     return trim(path_info)
 endfunction
 
-function! Existor(var="", alt="")
-    let out = a:alt
-    if exists(a:var)
-        execute 'let out = ' . a:var
-    endif
-    return out
-endfunction
-
-function! GitInfo(type="repo", var="", dir="", label="", prefix="", suffix="", separator="")
+function! GitInfo(type="repo", dir="", label="", prefix="", suffix="", separator="")
     let dir = a:dir
     let git_info = ""
     let label = a:label
     if a:label == ""
         let label = a:type
     endif
-    let git_info_suffix = Existor('g:git_info_suffix', a:suffix)
-    let git_info_prefix = Existor('g:git_info_prefix', a:prefix)
-    let git_info_separator = Existor('g:git_info_separator', a:separator)
+    let git_info_suffix = a:suffix
+    let git_info_prefix = a:prefix
+    let git_info_separator = a:separator
     if a:dir == ""
         let dir = expand('%:p:h')
     endif
@@ -103,9 +96,6 @@ function! GitInfo(type="repo", var="", dir="", label="", prefix="", suffix="", s
     endif
     if !(info =~ "fatal: *") && !(info =~ "basename: *")
         let git_info = git_info . git_info_prefix . label . git_info_separator . info . git_info_suffix
-    endif
-    if a:var != ""
-        execute 'let ' . a:var . ' = git_info'
     endif
     return trim(git_info)
 endfunction
@@ -137,6 +127,36 @@ function! ToggleConcealLevel()
     else
         setlocal conceallevel=0
     endif
+endfunction
+
+function! WindowProportion(prop=0.25)
+    let window_size = line('w$') - line('w0')
+    let jump_size = window_size * a:prop
+    return float2nr(jump_size)
+endfunction
+
+function! NextBlankLine(prop=0.5)
+    let next_blank_line = search('^$\n\s*\S', 'n') - line('.')
+    let next_prop_jump = WindowProportion(a:prop)
+    let jump_dist = next_prop_jump
+    if 0 < next_blank_line
+        if next_blank_line < jump_dist
+            let jump_dist = next_blank_line
+        endif
+    endif
+    return jump_dist
+endfunction
+
+function! PrevBlankLine(prop=0.5)
+    let prev_blank_line = line('.') - search('^$\n\s*\S', 'nb')
+    let prev_prop_jump = WindowProportion(a:prop)
+    let jump_dist = prev_prop_jump
+    if 0 < prev_blank_line
+        if prev_blank_line < jump_dist
+            let jump_dist = prev_blank_line
+        endif
+    endif
+    return jump_dist
 endfunction
 
 " #settings ish"
@@ -178,8 +198,8 @@ set laststatus=2
 let g:sl_s = " | "
 let g:sl_p = "."
 let g:sl_sep = ": "
-let b:git_info_branch = GitInfo("branch", "b:git_info_branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
-let b:git_info_repo = GitInfo("repo", "b:git_info_repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
+let b:git_info_branch = GitInfo("branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
+let b:git_info_repo = GitInfo("repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
 let b:path_info = Fishified()
 set statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
 
@@ -191,14 +211,8 @@ augroup END
 
 augroup weird_two_space_formats
     autocmd!
-    autocmd FileType toml setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-    autocmd FileType go setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-    autocmd FileType haskell setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-    autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType toml,markdown,html,css,xml,json setlocal shiftwidth=2 tabstop=2 softtabstop=2 conceallevel=0
+    autocmd FileType lua,haskell setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 augroup terminal_madness
@@ -213,18 +227,12 @@ augroup errytime
     autocmd VimEnter,BufEnter,WinEnter *.md setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.json setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.yaml setlocal conceallevel=0
-    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("branch", "b:git_info_branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
-    autocmd VimEnter,BufEnter,WinEnter * silent call GitInfo("repo", "b:git_info_repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
-    autocmd VimEnter,BufEnter,WinEnter * silent call Fishified()
-    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-,> :cprev<CR>
-    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-.> :cnext<CR>
+    autocmd VimEnter,BufEnter,WinEnter * silent let b:git_info_branch = GitInfo("branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
+    autocmd VimEnter,BufEnter,WinEnter * silent let b:git_info_repo = GitInfo("repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
+    autocmd VimEnter,BufEnter,WinEnter * silent let b:path_info = Fishified()
+    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-,> :cprev<CR> " :lprev
+    autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-.> :cnext<CR> " :lnext
     autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
-    " autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ .buff->%n\ .lines->%L->%P)\ %{b:git_info_branch}%{b:git_info_repo}\.path->%{b:path_info}
-augroup END
-
-augroup compatibility
-    autocmd!
-    autocmd VimEnter * silent !echo -ne "\\e[2 q"
 augroup END
 
 augroup colorscheme_madness
@@ -235,10 +243,11 @@ augroup colorscheme_madness
 augroup END
 
 if ! has('nvim')
-    augroup buff_fix
+    augroup compatibility
         autocmd!
         autocmd VimEnter,BufEnter,WinEnter * nmap <S-Tab> :bprev<CR>
         autocmd VimEnter,BufEnter,WinEnter * nmap <Tab> :bnext<CR>
+        autocmd VimEnter,BufEnter,WinEnter * silent !echo -ne "\\e[2 q"
     augroup END
 endif
 
@@ -253,23 +262,22 @@ tmap <expr> <C-e><C-e> '<C-\><C-n>' . CloseIt() . '<CR>'
 
 " Core
 inoremap <S-CR> <Esc>
-nmap <silent> <leader><leader>h :noh<CR>
 nmap <expr> <C-e><C-e> CloseIt() . '<CR>'
 nmap <C-e><C-w> <cmd>w!<CR>
 nmap <C-q><C-q> <cmd>q!<CR>
 nmap <leader><leader>w <cmd>w!<CR>
 nmap <leader><leader>q <cmd>q!<CR>
 nmap <C-w><C-q> :w!<CR>:q!<CR>
-nmap <C-.> :cnext<CR>
-nmap <C-,> :cprev<CR>
+nmap <C-.> :cnext<CR> " :lnext
+nmap <C-,> :cprev<CR> " :lprev
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprev<CR>
 inoremap <C-v> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap \ :call ToggleNetrw()<CR>
-nmap <C-f><C-f> :call ToggleConcealLevel()<CR>
-imap <C-f><C-f> :call ToggleConcealLevel()<CR>
+nmap <C-f><C-t> :call ToggleConcealLevel()<CR>
+imap <C-f><C-t> :call ToggleConcealLevel()<CR>
 
 " grepy grep
 if executable('rg')
@@ -284,7 +292,7 @@ nmap <silent> <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
 nnoremap <expr> <leader>= ResizePane("+5") . '<CR>'
 nmap cow <C-w><C-w>:clo<CR>
-nnoremap <C-b> :call BuffJump()<CR>
+nnoremap <leader>bj :call BuffJump()<CR>
 
 " line stuff
 nnoremap <C-o><C-o> O<Esc>jo<Esc>k
@@ -296,14 +304,12 @@ noremap j gj
 noremap k gk
 noremap J )zz
 noremap K (zz
-nnoremap <C-j> }jzz
-nnoremap <C-k> {kzz
+noremap <expr> <C-j> NextBlankLine() . 'jzz'
+noremap <expr> <C-k> PrevBlankLine() . 'kzz'
 noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$
 noremap <leader>h g^
-xnoremap <C-j> j}kzz
-xnoremap <C-k> k{jzz
 nnoremap <C-i> J
 nnoremap <C-h> ge
 nnoremap <C-l> w
@@ -325,7 +331,6 @@ noremap x "_x
 noremap C "1C
 noremap <leader>p "1p
 noremap <leader>P "1P
-noremap <C-p> :call TrimAndPaste()<CR>
 noremap <leader><C-p> :call TrimAndPaste()<CR>
 
 " Insert
@@ -356,4 +361,13 @@ for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
     execute 'xnoremap S'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>`<'
     execute 'xnoremap Sv'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>v`<'
     execute 'xnoremap Sr'.k.' <Esc>`<r'.Pairs(k).'`>r'.k.'v`<'
+endfor
+for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
+    for v in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
+        execute "nmap Ss".k.v.' F'.k.'vf'.k.'Sr'.v.'<Esc>'
+    endfor
+endfor
+
+for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
+    execute "nmap Sw".k.' viwS'.k.'l'
 endfor

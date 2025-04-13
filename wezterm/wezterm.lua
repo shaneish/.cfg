@@ -454,8 +454,8 @@ config.keys = {
   { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
   { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
   { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
-  -- { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
-  -- { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
+  { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
+  { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
   { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
   { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
   { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
@@ -518,6 +518,15 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '^([🌵 \\-=>_\\.]{4,5}\\s*)?(.+)'
+      },
+    },
+  },
+  {
+    key = 'g',
+    mods = 'LEADER',
+    action = wezterm.action.QuickSelectArgs {
+      patterns = {
+        '[\\w\\-\\.]+',
       },
     },
   },
@@ -584,7 +593,7 @@ config.keys = {
     },
   },
   {
-    key = 'g',
+    key = '/',
     mods = "LEADER",
     action = wezterm.action.Multiple({
       wezterm.action.CopyMode("ClearPattern"),

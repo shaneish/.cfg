@@ -19,6 +19,7 @@ cargo install choose
 cargo install tealdeer
 cargo install onefetch --force
 cargo install starship
+cargo install tree-rs
 
 _alias eza ll
 _alias fselect fs

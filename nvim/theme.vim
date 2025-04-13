@@ -14,18 +14,6 @@ let s:mid = "#a7a7a7"
 let s:dark = "#767676"
 let s:darkest = "#323232"
 
-let s:high_bg = s:bright_color
-let s:high_fg = s:background_color
-let s:search_fg = "NONE"
-let s:search_bg = s:mid
-let s:search_gui = "underdashed,bold"
-let s:string_type = s:foreground_color
-let s:comments_fg = s:grey
-let s:comments_bg = "NONE"
-let s:val = s:foreground_color
-let s:ops = s:foreground_color
-let s:fn = s:foreground_color
-
 set background=dark
 
 set termguicolors
@@ -48,9 +36,9 @@ call H("CursorLine",  "NONE", s:darkest, "bold")
 " - Number column -
 " -----------------
 call H("CursorColumn", "NONE",  "NONE", "NONE")
-call H("FoldColumn",   s:mid, "NONE", "NONE")
-call H("SignColumn",   s:mid, "NONE", "NONE")
-call H("Folded",       s:mid, "NONE", "NONE")
+call H("FoldColumn",   s:mid,   "NONE", "NONE")
+call H("SignColumn",   s:mid,   "NONE", "NONE")
+call H("Folded",       s:mid,   "NONE", "NONE")
 
 " -------------------------
 " - Window/Tab delimiters -
@@ -66,35 +54,35 @@ call H("Title",       s:primary_color, "NONE",      "NONE")
 " - File Navigation / Searching -
 " -------------------------------
 call H("Directory", s:foreground_color, "NONE", "underline")
-call H("Search",    s:background_color, s:search_bg, s:search_gui)
-call H("IncSearch", s:background_color, s:search_bg, s:search_gui)
-call H("CurSearch", s:background_color, s:search_bg, "underdouble")
-call H("QuickFix",  s:primary_color, "NONE", "underdotted")
+call H("Search",    s:background_color, s:mid, "underdashed,bold")
+call H("IncSearch", s:background_color, s:mid, "underdashed,bold")
+call H("CurSearch", s:background_color, s:mid, "underdouble")
+call H("QuickFix",  s:primary_color,    "NONE", "underdotted")
 
 " -----------------
 " - Prompt/Status -
 " -----------------
-call H("StatusLine",  s:primary_color, s:gray_dark, "bold")
-call H("StatusLineNC",  s:primary_color, s:gray_dark, "bold")
-call H("WildMenu",     s:dark, "NONE", "NONE")
-call H("Question",     s:dark, "NONE", "NONE")
-call H("Title",        s:dark, "NONE", "NONE")
-call H("ModeMsg",      s:dark, "NONE", "NONE")
-call H("MoreMsg",      s:dark, "NONE", "NONE")
+call H("StatusLine",   s:primary_color, s:gray_dark, "bold")
+call H("StatusLineNC", s:primary_color, s:gray_dark, "bold")
+call H("WildMenu",     s:dark,          "NONE",      "NONE")
+call H("Question",     s:dark,          "NONE",      "NONE")
+call H("Title",        s:dark,          "NONE",      "NONE")
+call H("ModeMsg",      s:dark,          "NONE",      "NONE")
+call H("MoreMsg",      s:dark,          "NONE",      "NONE")
 
 " --------------
 " - Visual aid -
 " --------------
 call H("MatchParen",      s:background_color,     s:foreground_color, "bold")
-call H("Visual",          s:foreground_color,     s:bright_color, "bold")
-call H("VisualNOS",       s:foreground_color,     s:bright_color, "bold")
+call H("Visual",          s:foreground_color,     s:bright_color,     "bold")
+call H("VisualNOS",       s:foreground_color,     s:bright_color,     "bold")
 call H("NonText",         s:bright_color,         "NONE")
-call H("Todo",            s:high_bg,              "NONE",    "underline")
-call H("Underlined",      s:high_bg,              "NONE")
-call H("Error",           s:high_bg,              "NONE",    "undercurl")
-call H("ErrorMsg",        s:high_bg,              "NONE",    "undercurl")
-call H("WarningMsg",      s:high_bg,              "NONE",    "undercurl")
-call H("Ignore",          s:high_bg,              "NONE")
+call H("Todo",            s:bright_color,         "NONE",             "underline")
+call H("Underlined",      s:bright_color,         "NONE")
+call H("Error",           s:bright_color,         "NONE",             "undercurl")
+call H("ErrorMsg",        s:bright_color,         "NONE",             "undercurl")
+call H("WarningMsg",      s:bright_color,         "NONE",             "undercurl")
+call H("Ignore",          s:bright_color,         "NONE")
 call H("SpecialKey",      s:primary_color,        "NONE")
 call H("WhiteSpaceChar",  s:primary_color,        "NONE")
 call H("WhiteSpace",      s:primary_color,        "NONE")
@@ -102,47 +90,47 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " --------------------------------
 " Variable types
 " --------------------------------
-call H("Constant",       s:string_type,       "NONE", "NONE")
-call H("String",         s:string_type,       s:comments_bg, "NONE")
-call H("StringDelimiter",s:val,               s:comments_bg, "NONE")
-call H("Character",      s:string_type,       "NONE", "NONE")
-call H("Number",         s:string_type,       "NONE", "NONE")
-call H("Boolean",        s:string_type,       "NONE", "NONE")
-call H("Float",          s:string_type,       "NONE", "NONE")
-call H("Identifier",     s:fn,                "NONE", "NONE")
-call H("Function",       s:fn,                "NONE", "NONE")
+call H("Constant",       s:foreground_color,       "NONE", "NONE")
+call H("String",         s:foreground_color,       "NONE", "NONE")
+call H("StringDelimiter",s:foreground_color,       "NONE", "NONE")
+call H("Character",      s:foreground_color,       "NONE", "NONE")
+call H("Number",         s:foreground_color,       "NONE", "NONE")
+call H("Boolean",        s:foreground_color,       "NONE", "NONE")
+call H("Float",          s:foreground_color,       "NONE", "NONE")
+call H("Identifier",     s:foreground_color,       "NONE", "NONE")
+call H("Function",       s:foreground_color,       "NONE", "NONE")
 
 " --------------------------------
 " Language constructs
 " --------------------------------
-call H("Keyword",        s:fn, "NONE", "bold")
-call H("Statement",      s:fn, "NONE", "bold")
-call H("Repeat",         s:fn, "NONE", "NONE")
-call H("Comment",        s:comments_fg,   s:comments_bg, "italic")
-call H("SpecialComment", s:comments_fg,   s:comments_bg, "italic")
-call H("Conditional",    s:foreground_color)
-call H("Special",        s:foreground_color)
-call H("SpecialChar",    s:foreground_color)
-call H("Tag",            s:foreground_color)
-call H("Delimiter",      s:val)
+call H("Keyword",        s:foreground_color, "NONE", "bold")
+call H("Statement",      s:foreground_color, "NONE", "bold")
+call H("Repeat",         s:foreground_color, "NONE", "NONE")
+call H("Comment",        s:grey,             "NONE", "italic")
+call H("SpecialComment", s:grey,             "NONE", "italic")
+call H("Conditional",    s:foreground_color, "NONE", "bold")
+call H("Special",        s:foreground_color, "NONE", "bold")
+call H("SpecialChar",    s:foreground_color, "NONE", "bold")
+call H("Tag",            s:foreground_color, "NONE", "bold")
+call H("Delimiter",      s:foreground_color)
 call H("Debug",          s:foreground_color)
 call H("Repeat",         s:foreground_color)
-call H("Label",          s:val)
-call H("Operator",       s:val, "NONE", "bold")
-call H("Exception",      s:val)
+call H("Label",          s:foreground_color)
+call H("Operator",       s:foreground_color, "NONE", "bold")
+call H("Exception",      s:foreground_color, "NONE", "bold")
 
 " ----------
 " - C like -
 " ----------
-call H("PreProc", s:fn)
-call H("Include", s:fn)
-call H("Define", s:fn)
-call H("Macro", s:fn)
-call H("PreCondit", s:fn)
-call H("Type", s:fn)
-call H("StorageClass", s:fn)
-call H("Structure", s:fn)
-call H("TypeDef", s:fn)
+call H("PreProc",      s:foreground_color, "NONE", "bold")
+call H("Include",      s:foreground_color, "NONE", "bold")
+call H("Define",       s:foreground_color, "NONE", "bold")
+call H("Macro",        s:foreground_color, "NONE", "bold")
+call H("PreCondit",    s:foreground_color, "NONE", "bold")
+call H("Type",         s:foreground_color, "NONE", "bold")
+call H("StorageClass", s:foreground_color, "NONE", "bold")
+call H("Structure",    s:foreground_color, "NONE", "bold")
+call H("TypeDef",      s:foreground_color, "NONE", "bold")
 
 " --------------------------------
 " Diff

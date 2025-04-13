@@ -25,6 +25,7 @@ if status is-interactive
     alias ll="eza"
     alias cls="clear; fish"
     alias opn="fd '' . | fz -m | xargs $EDITOR"
+    alias vym="source $HOME/.config/nvim/venv/bin/activate.fish; nvim"
     abbr -a fs fselect
     if type -q "bhop"
         alias _hp_fz_fixed="bhop __bhop_list__ | fnk filter -f 'f -> \":\" not in f' | fz -m | fnk map -f 'f -> f.split()[-1]' | xargs"
@@ -65,5 +66,11 @@ if status is-interactive
 
     if test -e $PYTHON_VENV/bin/activate.fish
         source $PYTHON_VENV/bin/activate.fish
+    else
+        for f in (ls $PYTHON_VENV_DIR 2> /dev/null | sort --numeric --reverse)
+            if test -e $f/bin/activate.fish
+                source $f/bin/activate.fish
+            end
+        end
     end
 end
