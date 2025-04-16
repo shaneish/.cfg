@@ -10,6 +10,7 @@ syntax on
 function! TrimWhitespace()
     let l:save = winsaveview()
     %s/\\\@<!\s\+$//e
+    %s/\r//g
     call winrestview(l:save)
 endfunction
 
@@ -127,36 +128,6 @@ function! ToggleConcealLevel()
     else
         setlocal conceallevel=0
     endif
-endfunction
-
-function! WindowProportion(prop=0.25)
-    let window_size = line('w$') - line('w0')
-    let jump_size = window_size * a:prop
-    return float2nr(jump_size)
-endfunction
-
-function! NextBlankLine(prop=0.5)
-    let next_blank_line = search('^$\n\s*\S', 'n') - line('.')
-    let next_prop_jump = WindowProportion(a:prop)
-    let jump_dist = next_prop_jump
-    if 0 < next_blank_line
-        if next_blank_line < jump_dist
-            let jump_dist = next_blank_line
-        endif
-    endif
-    return jump_dist
-endfunction
-
-function! PrevBlankLine(prop=0.5)
-    let prev_blank_line = line('.') - search('^$\n\s*\S', 'nb')
-    let prev_prop_jump = WindowProportion(a:prop)
-    let jump_dist = prev_prop_jump
-    if 0 < prev_blank_line
-        if prev_blank_line < jump_dist
-            let jump_dist = prev_blank_line
-        endif
-    endif
-    return jump_dist
 endfunction
 
 " #settings ish"
@@ -304,8 +275,8 @@ noremap j gj
 noremap k gk
 noremap J )zz
 noremap K (zz
-noremap <expr> <C-j> NextBlankLine() . 'jzz'
-noremap <expr> <C-k> PrevBlankLine() . 'kzz'
+noremap <C-j> )jzz
+noremap <C-k> (kzz
 noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$

@@ -56,7 +56,7 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   f:close();
   window:perform_action(wezterm.action{ SpawnCommandInNewTab = {
     domain = "CurrentPaneDomain",
-    args={ 'nvim', '-u', '$HOME/.config/nvim/.vimrc', '+', name }
+    args={ 'nvim', '+', name }
     }
   }, pane)
 

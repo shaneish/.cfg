@@ -76,6 +76,8 @@ Plug 'Klafyvel/vim-slime-cells'
 Plug 'drybalka/tree-climber.nvim'
 Plug 'milanglacier/yarepl.nvim' " https://github.com/milanglacier/yarepl.nvim
 Plug 'meatballs/notebook.nvim'
+Plug 'sindrets/diffview.nvim'
+Plug 'aaronik/treewalker.nvim'
 call plug#end()
 
 " %%

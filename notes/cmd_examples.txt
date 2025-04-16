@@ -31,3 +31,7 @@ databricks token-management get 4153e3bef0530f31e20e5494f2b1384743b148b7de80e3be
 
 # list only files that were created today
 fselect select abspath from ~/.local/share/wezterm where created = CURRENT_DATE
+# filter out all valid databricks config profiles with fnk
+databricks auth profiles | fnk -m '_.split()' -f '_[2] in ["YES", "Valid"]' -m 'f"{_[0].ljust(20)}{_[1]}"'
+# easily show readable grep from csv using cat, rg, and xsv
+cat access.audit.csv | rg -i deltaPipelines | xsv table

@@ -4,6 +4,7 @@ require('telescope').load_extension('harpoon')
 require('csvview').setup()
 require('rainbow_csv').setup()
 require('colorizer').setup()
+require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
 local navbuddy = require("nvim-navbuddy")
 
 -- %% modularly defined deps
@@ -103,16 +104,16 @@ require('marks').setup({
       annotate = false,
   },
   mappings = {
-    set_next = "<C-f><leader>",
-    toggle = "<C-f><C-m>",
+    set_next = "<C-f><C-n>",
+    toggle = "<C-f><C-f>",
     next = "<C-f><C-j>",
     prev = "<C-f><C-k>",
     preview = "<C-f>p",
     annotate = "<C-f>o",
     next_bookmark = "<C-f><C-l>",
     prev_bookmark = "<C-f><C-h>",
-    delete_line = "<C-f>d",
-    delete_buf = "<C-f>c",
+    delete_line = "<C-f><C-d>",
+    delete_buf = "<C-f><C-c>",
     delete_bookmark = "<C-f>x",
     set_bookmark0 = "<C-f>0",
     set_bookmark1 = "<C-f>1",
@@ -170,7 +171,7 @@ vim.keymap.set('n', '<C-e><C-t>', function()
 end)
 
 -- %% lsp
-local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqqls" }
+local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls" }
 local opts = { noremap=true, silent=true }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require('lspconfig')
@@ -178,17 +179,18 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>D', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>i', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>t', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>c', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-l>r', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gc', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader><leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     navbuddy.attach(client, bufnr)
 end

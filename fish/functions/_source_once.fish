@@ -14,6 +14,7 @@ function _source_once
     set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
     set -Ux PYTHON_VENV_DIR $HOME/.local/venvs
     set -Ux CLI_NOTES $HOME/.config/notes/cmd_examples.txt
+    set -Ux EDITOR nvim
     set -U fish_user_paths
     fish_add_path -U $HOME/.local/bin
     fish_add_path -U $HOME/.cargo/bin

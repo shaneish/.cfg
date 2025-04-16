@@ -16,7 +16,7 @@ _optional() {
 _find_newest_python() {
     for i in $(seq 15 -1 9); do
         if command -v "python3.${i}" 2>&1 >/dev/null; then
-            PYTHON="python${PYTHON_V}"
+            PYTHON="python3.${i}"
             echo "Found $PYTHON as most recent version..."
             _create_venv $PYTHON $DEFAULT_PYTHON_NAME $1
         fi
