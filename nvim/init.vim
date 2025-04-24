@@ -78,6 +78,9 @@ Plug 'milanglacier/yarepl.nvim' " https://github.com/milanglacier/yarepl.nvim
 Plug 'meatballs/notebook.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'aaronik/treewalker.nvim'
+Plug 'jinh0/eyeliner.nvim'
+Plug 'jake-stewart/multicursor.nvim'
+Plug 'rhysd/clever-f.vim'
 call plug#end()
 
 " %%
@@ -102,7 +105,7 @@ endfunction
 function! MovePane(direction=1)
     if winwidth(0) != &columns
         if a:direction == 1
-            return '<C-w>l<CR>'
+return '<C-w>l<CR>'
         else
             return '<C-w>h<CR>'
         endif
@@ -300,6 +303,8 @@ augroup CheckEveryTime
     autocmd VimEnter,BufEnter,WinEnter * highlight QuickFixLine guifg=#ffd700 gui=bold
     autocmd VimEnter,BufEnter,WinEnter * highlight TabLineSel guifg=#ffd700 gui=bold
     autocmd VimEnter,BufEnter,WinEnter * highlight TabLineFill guifg=#ffd700 gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight EyelinerPrimary guifg=#ffd700 guibg=#000000 gui=underline,bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight EyelinerSecondary guifg=#ffffff guibg=#767676 gui=underline
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_suffix = InferCodeBlockSuffix()
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_current = CodeBlock()
     autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()

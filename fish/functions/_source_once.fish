@@ -44,6 +44,7 @@ function _source_once
     add_to_path_maybe $HOME/.go/bin
     add_to_path_maybe $HOME/go/bin
 
+    pyv
     change_greeting small
     fish_vi_key_bindings
 end

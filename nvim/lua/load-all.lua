@@ -4,7 +4,6 @@ require('telescope').load_extension('harpoon')
 require('csvview').setup()
 require('rainbow_csv').setup()
 require('colorizer').setup()
-require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
 local navbuddy = require("nvim-navbuddy")
 
 -- %% modularly defined deps
@@ -67,13 +66,40 @@ require'nvim-tree'.setup {
     },
 }
 
--- %%
+-- %% treewalker
+require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
+-- movement
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
+
+-- swapping
+vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
+
+-- %% notebook
 require('notebook').setup {
     insert_blank_line = true,
     show_index = true,
     show_cell_type = true,
     virtual_text_style = { fg = "#ffd700", italic = true },
 }
+
+-- %% eyeliner
+require('eyeliner').setup({ forward = true})
+vim.g.clever_f_not_overwrites_standard_mappings = 1
+vim.keymap.set(
+  {"n", "x", "o"},
+  "f",
+  function() 
+    require("eyeliner").highlight({ forward = true })
+    return "<Plug>(clever-f-f)"
+  end,
+  {expr = true}
+)
 
 -- %% symbols outline
 require("symbols-outline").setup()
@@ -137,6 +163,79 @@ require("smartcolumn").setup({
     colorcolumn = 110,
     limit_to_window = true,
 })
+
+-- %% multicursor
+local mc = require("multicursor-nvim")
+mc.setup()
+vim.keymap.set({"n", "x"}, "<up>", function() mc.lineAddCursor(-1) end)
+vim.keymap.set({"n", "x"}, "<down>", function() mc.lineAddCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader><up>", function() mc.lineSkipCursor(-1) end)
+vim.keymap.set({"n", "x"}, "<leader><down>", function() mc.lineSkipCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader>n", function() mc.matchAddCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader>s", function() mc.matchSkipCursor(1) end)
+vim.keymap.set({"n", "x"}, "<leader>N", function() mc.matchAddCursor(-1) end)
+vim.keymap.set({"n", "x"}, "<leader>S", function() mc.matchSkipCursor(-1) end)
+vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
+vim.keymap.set("n", "<c-leftdrag>", mc.handleMouseDrag)
+vim.keymap.set("n", "<c-leftrelease>", mc.handleMouseRelease)
+vim.keymap.set({"n", "x"}, "<leader>m", mc.toggleCursor)
+-- Pressing `gaip` will add a cursor on each line of a paragraph.
+vim.keymap.set("n", "ga", mc.addCursorOperator)
+-- Clone every cursor and disable the originals.
+vim.keymap.set({"n", "x"}, "<leader>mdc", mc.duplicateCursors)
+-- Align cursor columns.
+vim.keymap.set("n", "<leader>ma", mc.alignCursors)
+-- Split visual selections by regex.
+vim.keymap.set("x", "<leader>ms", mc.splitCursors)
+-- match new cursors within visual selections by regex.
+vim.keymap.set("x", "M", mc.matchCursors)
+-- bring back cursors if you accidentally clear them
+vim.keymap.set("n", "<leader>mgv", mc.restoreCursors)
+-- Add a cursor for all matches of cursor word/selection in the document.
+vim.keymap.set({"n", "x"}, "<leader>mA", mc.matchAllAddCursors)
+-- Rotate the text contained in each visual selection between cursors.
+vim.keymap.set("x", "<leader>mt", function() mc.transposeCursors(4) end)
+vim.keymap.set("x", "<leader>mT", function() mc.transposeCursors(2) end)
+-- Append/insert for each line of visual selections.
+-- Similar to block selection insertion.
+vim.keymap.set("x", "I", mc.insertVisual)
+vim.keymap.set("x", "A", mc.appendVisual)
+-- Increment/decrement sequences, treating all cursors as one sequence.
+vim.keymap.set({"n", "x"}, "<leader>mi", mc.sequenceIncrement)
+vim.keymap.set({"n", "x"}, "<leader>md", mc.sequenceDecrement)
+-- Add a cursor and jump to the next/previous search result.
+vim.keymap.set("n", "<leader>/n", function() mc.searchAddCursor(1) end)
+vim.keymap.set("n", "<leader>/N", function() mc.searchAddCursor(-1) end)
+-- Jump to the next/previous search result without adding a cursor.
+vim.keymap.set("n", "<leader>/s", function() mc.searchSkipCursor(1) end)
+vim.keymap.set("n", "<leader>/S", function() mc.searchSkipCursor(-1) end)
+-- Add a cursor to every search result in the buffer.
+vim.keymap.set("n", "<leader>m/A", mc.searchAllAddCursors)
+-- Pressing `<leader>miwap` will create a cursor in every match of the
+-- string captured by `iw` inside range `ap`.
+-- This action is highly customizable, see `:h multicursor-operator`.
+vim.keymap.set({"n", "x"}, "<leader><leader>m", mc.operator)
+-- Mappings defined in a keymap layer only apply when there are
+-- multiple cursors. This lets you have overlapping mappings.
+mc.addKeymapLayer(function(layerSet)
+
+    -- Select a different cursor as the main one.
+    layerSet({"n", "x"}, "<left>", mc.prevCursor)
+    layerSet({"n", "x"}, "<right>", mc.nextCursor)
+
+    -- Delete the main cursor.
+    layerSet({"n", "x"}, "<leader>x", mc.deleteCursor)
+
+    -- Enable and clear cursors using escape.
+    layerSet("n", "<esc>", function()
+        if not mc.cursorsEnabled() then
+            mc.enableCursors()
+        else
+            mc.clearCursors()
+        end
+    end)
+end)
+
 
 -- %% diagnostics
 local signs = { Error = "✘", Warn = "", Hint = "•", Info = "" }
