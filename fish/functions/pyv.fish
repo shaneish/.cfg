@@ -5,13 +5,15 @@ function pyv
         set -Ux PYTHON_VENV "$PYTHON_VENV_DIR/$argv"
         source $PYTHON_VENV/bin/activate.fish
     else
-        set -fx found_venv (fd "pyvenv" --extension cfg --exact-depth 2 -L -H $PYTHON_VENV_DIR | tail -n 1 | xargs dirname)
-        set -fx local_venv (fd "pyvenv" --extension cfg --exact-depth 2 -L -H | sort -n | tail -n 1 | xargs dirname)
+        set local_venv (_activate_local_venv --validate)
         if test -n "$local_venv"
-            set -fx found_venv $local_venv
+            source $local_venv/bin/activate.fish
+        else if test -n "$PYTHON_VENV"; and test -e "$PYTHON_VENV/bin/activate.fish"
+            source "$PYTHON_VENV/bin/activate.fish"
+        else
+            set -fx found_venv (fd "pyvenv" --extension cfg --exact-depth 2 -L -H $PYTHON_VENV_DIR | tail -n 1 | xargs dirname)
+            set -Ux PYTHON_VENV $found_venv
+            source $found_venv/bin/activate.fish
         end
-        set -Ux PYTHON_VENV $found_venv
-        echo $found_venv
-        source $found_venv/bin/activate.fish
     end
 end
