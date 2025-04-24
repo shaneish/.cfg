@@ -166,6 +166,7 @@ set cpoptions+=n
 set showbreak=·· " ↳…
 set formatoptions-=o
 set laststatus=2
+set wrap
 let g:sl_s = " | "
 let g:sl_p = "."
 let g:sl_sep = ": "
@@ -256,7 +257,7 @@ if executable('rg')
 endif
 nmap <silent> <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
 nmap <silent> <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
-nmap <silent> <C-g><C-g> :grep <cword> *<CR>:copen<CR>
+nmap <silent> <C-g><C-g> :grep <cword> %<CR>:copen<CR>
 nmap <silent> <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
 
 " window stuff

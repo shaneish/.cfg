@@ -22,6 +22,6 @@ function _source_once
     fish_add_path -U $HOME/.config/scripts
     fish_add_path -U $HOME/.go/bin
     fish_add_path -U $HOME/go/bin
-    pyv
+    # pyv
     change_greeting small
 end
