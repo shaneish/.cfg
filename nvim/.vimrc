@@ -61,6 +61,30 @@ function! WindowProportion(prop=0.20)
     return float2nr(jump_size)
 endfunction
 
+function! NextBlankLine(prop=0.50)
+    let next_blank_line = search('^$\n\s*\S', 'n') - line('.')
+    let next_prop_jump = WindowProportion(a:prop)
+    let jump_dist = next_prop_jump
+    if 0 < next_blank_line
+        if next_blank_line < jump_dist
+            let jump_dist = next_blank_line
+        endif
+    endif
+    return jump_dist
+endfunction
+
+function! PrevBlankLine(prop=0.50)
+    let prev_blank_line = line('.') - search('^$\n\s*\S', 'nb')
+    let prev_prop_jump = WindowProportion(a:prop)
+    let jump_dist = prev_prop_jump
+    if 0 < prev_blank_line
+        if prev_blank_line < jump_dist
+            let jump_dist = prev_blank_line
+        endif
+    endif
+    return jump_dist
+endfunction
+
 function! TrimAndPaste()
     let @"+ = trim(@"+ )
     normal p
@@ -257,7 +281,7 @@ if executable('rg')
 endif
 nmap <silent> <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
 nmap <silent> <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
-nmap <silent> <C-g><C-g> :grep <cword> %<CR>:copen<CR>
+nmap <silent> <C-g><C-g> :grep <cword> '%'<CR>:copen<CR>
 nmap <silent> <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
 
 " window stuff
@@ -276,12 +300,14 @@ noremap j gj
 noremap k gk
 noremap J )zz
 noremap K (zz
-noremap <C-j> )jzz
-noremap <C-k> (kzz
+noremap <expr> <C-j> NextBlankLine() . 'jzzg^'
+noremap <expr> <C-k> PrevBlankLine() . 'kzzg^'
 noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$
 noremap <leader>h g^
+noremap <expr> <leader>k WindowProportion(0.25) . 'k'
+noremap <expr> <leader>j WindowProportion(0.25) . 'j'
 nnoremap <C-i> J
 nnoremap <C-h> ge
 nnoremap <C-l> w
@@ -307,22 +333,12 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 
 " Insert
 inoremap  <Esc>
-imap <C-h> <Left>
-imap <C-l> <Right>
-imap <C-k> <Up>
-imap <C-j> <Down>
-imap <C-c> <Esc>0C
-inoremap <C-'> ""<Esc>i
-inoremap <C-'>' ''<Esc>i
-inoremap <C-[> {}<Esc>i
-inoremap <C-[>[ []<Esc>i
-inoremap <C-`> ``<Esc>i
-inoremap <C-9> ()<Esc>i
-inoremap <C-,> <><Esc>i
-inoremap <C-8> **<Esc>i
-inoremap <C--> __<Esc>i
-for k in ["'", '"', "(", "{", "[", "<", "*", "_"]
-    execute 'inoremap <C-s>'.k.' '.k.Pairs(k).'<Esc>i'
+inoremap <C-c> <Esc>0C
+for k in ["'", '"', "`", "(", "{", "[", "<"]
+"    execute 'inoremap '.k.' '.k.Pairs(k).'<Esc>i'
+"    if index(["(", "{", "[", "<"], k) == -1
+"        execute 'inoremap '.k.k.' '.k.Pairs(k).'<Esc>i'
+"    endif
 endfor
 
 " Visual remaps
@@ -336,10 +352,10 @@ for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
 endfor
 for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
     for v in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-        execute "nmap Ss".k.v.' F'.k.'vf'.k.'Sr'.v.'<Esc>'
+        execute 'nmap Ss'.k.v.' F'.k.'vf'.k.'Sr'.v.'<Esc>'
     endfor
 endfor
 
 for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-    execute "nmap Sw".k.' viwS'.k.'l'
+    execute 'nmap Sw'.k.' viwS'.k.'l'
 endfor

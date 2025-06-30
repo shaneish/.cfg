@@ -1,4 +1,0 @@
-databricks-connect
-databricks-sdk
-delta-spark
-git+https://github.com/shaneish/dbrx-sessionizer.git

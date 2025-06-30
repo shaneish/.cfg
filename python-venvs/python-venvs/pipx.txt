@@ -1,3 +1,0 @@
-ruff
-dunk
-git+https://github.com/shaneish/fnkpy.git

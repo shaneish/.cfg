@@ -1,6 +1,6 @@
 -- %% simple deps
 require('telescope')
-require('telescope').load_extension('harpoon')
+-- require('telescope').load_extension('harpoon')
 require('csvview').setup()
 require('rainbow_csv').setup()
 require('colorizer').setup()
@@ -67,18 +67,18 @@ require'nvim-tree'.setup {
 }
 
 -- %% treewalker
-require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
--- movement
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
-
--- swapping
-vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
+-- require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
+-- -- movement
+-- vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+-- vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
+-- 
+-- -- swapping
+-- vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
+-- vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
+-- vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
+-- vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
 
 -- %% notebook
 require('notebook').setup {
@@ -310,9 +310,10 @@ require('mason').setup({
     }
 })
 
-require('mason-lspconfig').setup {
-    ensure_installed = servers
-}
+require('mason-lspconfig').setup({
+    ensure_installed = servers,
+    automatic_enable = false,
+})
 
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
@@ -353,6 +354,10 @@ local function jvmish(on_attach_params)
     group = nvim_metals_group,
   })
 end
+
+-- %% copilot chat
+require("CopilotChat").setup()
+vim.keymap.set("n", "<leader><leader>c", ":CopilotChatToggle<CR>")
 
 -- %% archived
 

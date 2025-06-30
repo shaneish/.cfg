@@ -1,6 +1,0 @@
-ipython
-requests
-pynvim
-jupyter-client
-pipx
-ruff

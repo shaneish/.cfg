@@ -67,9 +67,14 @@ end)
 wezterm.on('update-right-status', function(window, pane)
   local name = window:active_key_table()
   if name then
-    name = 'TABLE: ' .. name
+    name = 'TABLE: ' .. name .. '  '
+  else
+    name = 'WINDOW: ' .. window:active_workspace() .. '  '
   end
-  window:set_right_status(name or '')
+  window:set_right_status(wezterm.format {
+        { Foreground = { Color = '#f6cd61' } },
+        { Text = name },
+      })
 end)
 
 wezterm.on('select-and-paste', function(window, pane)
@@ -496,7 +501,7 @@ config.keys = {
 
   {
     key = 'f',
-    mods = 'LEADER',
+    mods = 'CTRL|SHIFT',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '[\\w\\-\\.\\/~]+',
@@ -505,7 +510,7 @@ config.keys = {
   },
   {
     key = 'f',
-    mods = 'CTRL|SHIFT',
+    mods = 'LEADER',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '\\S+',
@@ -524,11 +529,27 @@ config.keys = {
   {
     key = 'g',
     mods = 'LEADER',
-    action = wezterm.action.QuickSelectArgs {
-      patterns = {
-        '[\\w\\-\\.]+',
-      },
-    },
+    action = wezterm.action_callback(function(window, pane)
+      local temp_dir = '/tmp'
+      local handle = io.popen("mkdir -p /tmp/shsesh/; mktemp -d /tmp/shsesh/$(basename $(echo $SHELL))-XXXXXX", "r")
+      if handle then
+        temp_dir = handle:read("*a")
+        handle:close()
+      end
+      temp_dir = string.gsub(temp_dir, '^%s+', '')
+      temp_dir = string.gsub(temp_dir, '%s+$', '')
+      temp_dir = string.gsub(temp_dir, '[\n\r]+', ' ')
+      window:perform_action(
+        wezterm.action.SwitchToWorkspace {
+          name = temp_dir,
+          spawn = {
+            domain = "CurrentPaneDomain",
+            cwd = temp_dir,
+          },
+        },
+        pane
+      )
+      end),
   },
 
   {
@@ -546,6 +567,7 @@ config.keys = {
             line
           )
         end
+        window:set_right_status(window:active_workspace())
       end),
     },
   },
@@ -601,8 +623,16 @@ config.keys = {
     }),
   },
 
-  { key = 'N', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(1) },
-  { key = 'B', mods = 'CTRL|SHIFT', action = wezterm.action.SwitchWorkspaceRelative(-1) },
+  { key = 'N', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function(window, pane, line)
+      window:perform_action(wezterm.action.SwitchWorkspaceRelative(1), pane)
+      window:update_right_status(window:active_workspace())
+    end),
+  },
+  { key = 'B', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function(window, pane, line)
+      window:perform_action(wezterm.action.SwitchWorkspaceRelative(-1), pane)
+      window:update_right_status(window:active_workspace())
+    end),
+  },
 
   {
     key = 'P',
