@@ -1,0 +1,4 @@
+--target=~/.local/bin
+--ignore=.stowrc
+--ignore=_setup
+--ignore=README.md

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+export TMUX_DIR=$HOME/.tmux
+CURRENT=$(pwd)
+
+git clone https://github.com/tmux/tmux.git $TMUX_DIR
+cd $TMUX_DIR
+sh autogen.sh
+./configure
+make && sudo make install
+cd $CURRENT

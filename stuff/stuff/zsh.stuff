@@ -1,0 +1,12 @@
+# vim stuff
+bindkey -v
+bindkey -M viins 'kj' vi-cmd-mode
+
+[ ! -z "$(which setxkbmap)" ] && setxkbmap -option ctrl:nocaps
+[ ! -z "$(which cargo)" ] && source "$HOME/.cargo/env"
+[ ! -z "$(which starship)" ] && eval "$(starship init bash)"
+[ ! -z "$(which bhop)" ] && source "$HOME/.config/bhop/scripts/runner.zsh"
+
+# lazy stuff
+mc() { mkdir $1; cd $1; }
+grop() { rg $1 -l | xargs $EDITOR; }

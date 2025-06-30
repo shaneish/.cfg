@@ -1,0 +1,39 @@
+#!/bin/bash
+
+sql_file="/tmp/dxsql/$(date +%Y-%m-%d)/sql__$(date +%H-%m-%S).py"
+mkdir -p $(dirname $sql_file)
+cd $(dirname $sql_file)
+echo $sql_file
+
+if [[ $1 != "" ]]; then
+    sql_file=$1.py
+fi
+
+cat > $sql_file << 'EOL'
+# COMMAND ----------
+
+from dbrxish.session import SeshBuilder
+
+
+sesh = SeshBuilder().set_fast_dbutils()
+spark, dbutils, wc = sesh.get_session()
+sql = sesh.sql_editor()
+
+# COMMAND ----------
+
+sql - """
+    -- Query
+"""
+
+# COMMAND ----------
+EOL
+
+if [[ $EDITOR == "" ]]; then
+    EDITOR="nvim"
+fi
+
+if [[ $EDITOR == *vim* ]]; then
+    $EDITOR $sql_file -c "/-- Query"
+else
+    $EDITOR $sql_file
+fi

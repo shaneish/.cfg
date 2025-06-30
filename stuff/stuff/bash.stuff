@@ -1,0 +1,8 @@
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+[ ! -z "$(which setxkbmap)" ] && setxkbmap -option ctrl:nocaps
+[ ! -z "$(which cargo)" ] && source "$HOME/.cargo/env"
+[ ! -z "$(which starship)" ] && eval "$(starship init bash)"
+[ ! -z "$(which bhop)" ] && source "$HOME/.config/bhop/scripts/runner.sh"

@@ -1,0 +1,4 @@
+.vimrc:
+    - url: https://tinyurl.com/shaneish
+    - cmd: curl -L https://tinyurl.com/shaneish > ~/.vimrc
+

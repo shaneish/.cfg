@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+CS="$(readlink -f $HOME/.config/starship.toml)"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+if [ -e "$HOME/.config/starship.toml" ]; then
+    rm "$HOME/.config/starship.toml"
+fi
+
+if [ "$1" = "0" ]; then
+    ln -s $SCRIPT_DIR/starship-minimal.toml $HOME/.config/starship.toml
+elif [ "$1" = "1" ]; then
+    ln -s $SCRIPT_DIR/starship.toml $HOME/.config/starship.toml
+elif [ "$1" = "-1" ]; then
+    if [ "$PWD" != "$HOME" ]; then
+        ln -s $SCRIPT_DIR/starship.toml $HOME/.config/starship.toml
+    else
+        ln -s $SCRIPT_DIR/starship-minimal.toml $HOME/.config/starship.toml
+    fi
+else
+    if [[ $CS == *"minimal"* ]]; then
+        ln -s $SCRIPT_DIR/starship.toml $HOME/.config/starship.toml
+    else
+        ln -s $SCRIPT_DIR/starship-minimal.toml $HOME/.config/starship.toml
+    fi
+fi

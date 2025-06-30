@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DEFAULT_SRC_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+IPYTHON_CONFIG=$DEFAULT_SRC_DIR/ipython_config.py
+IPYTHON_DIR=$HOME/.ipython
+
+for f in "$IPYTHON_DIR"/*; do
+    ln -ns $IPYTHON_CONFIG "$f"/ipython_config.py
+done

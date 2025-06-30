@@ -1,0 +1,8 @@
+#!/bin/bash
+
+python3 -m ensurepip
+python3 -m pip install pipx
+pipx install ruff
+pipx install dunk
+pipx install poetry
+pipx install git+https://github.com/shaneish/fnkpy.git

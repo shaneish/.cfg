@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+export SETUP_PATH=$HOME/.init.sh
+export SETUP_ZSH_PATH=$HOME/.init.zsh
+export SETUP_FISH_PATH=$HOME/.init.fish
+export OS="$(uname -s)"
+export ARCH="$(uname -m)"
+export TEMP="$(mktemp -d)"
+export SCRIPT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+export CONFIG_DIR=$(dirname "$SCRIPT_DIR")
+
+source $SCRIPT_DIR/_common
+
+_env SETUP_PATH "$HOME/.init.sh"
+_env SETUP_FISH_PATH "$HOME/.init.fish"
+_env SETUP_ZSH_PATH "$HOME/.init.zsh"
+_env CONFIG_DIR "$CONFIG_DIR"
+
+echo "moving into config dir $CONFIG_DIR..."
+cd $CONFIG_DIR
+
+echo "installing rust..."
+sh $SCRIPT_DIR/_rust
+
+echo "installing cargo dependencies..."
+sh $SCRIPT_DIR/_cargo
+_path "$HOME/.cargo/bin"
+
+_alias eza ll
+_alias fselect fs
+_alias rust-parallel rp
+_src $HOME/.config/bhop/scripts/runner.sh $HOME/.config/bhop/scripts/runner.fish $HOME/.config/bhop/scripts/runner.zsh
+
+echo "setting up python..."
+sh $CONFIG_DIR/python-venvs/_setup
+_path "$HOME/.local/venvs/python/bin"
+_path "$HOME/.local/venvs/pypy/bin"
+
+echo "installing tmux..."
+sh TMUX_DIR=$HOME/.tmux
+source $SCRIPT_DIR/_tmux
+
+echo "installing fzf..."
+sh $SCRIPT_DIR/_fzf
+_path $HOME/.fzf/bin
+
+echo "installing go..."
+_env GOROOT $HOME/.go
+_env GOPATH $HOME/go
+GO_VERSION=$(xh "https://go.dev/VERSION?m=text" | rg 'go(\d{1}\.\d+\.\d+)' -r '$1')
+
+echo "installing wasmer..."
+curl https://get.wasmer.io -sSfL | sh
+_src $HOME/.wasmer/wasmer.sh

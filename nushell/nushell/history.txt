@@ -1,0 +1,23 @@
+mv nushell nushell.bkup
+ls
+mv nu-configs nushell
+ls
+gs
+hp nushell
+ls
+gs
+ls
+echo ya ya
+ls
+cd .config/nu
+cd .config/nushell
+ls
+rg polars
+ls
+ls plugins
+rg plugins
+nvim env.nu +97
+rip $nu.plugin-path
+rebuild nushell
+nvim /home/shaneish/.config/.cfg/bhop/scripts/runner.nu
+ls

@@ -1,0 +1,7 @@
+--target=~/
+--ignore=.stowrc
+--ignore=setup
+--include=.vimrc
+--include=.zshrc
+--include=.bashrc
+--include=.tmux.conf

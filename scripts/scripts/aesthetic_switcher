@@ -1,0 +1,66 @@
+#!/bin/bash
+
+CS="$(readlink -f $HOME/.config/starship.toml)"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+CFG_DIR=$(dirname "$SCRIPT_DIR")
+STARSHIP_PROMPTS_DIR=$CFG_DIR/starship-prompts
+STARSHIP_CONFIG_DIR="$(dirname $STARSHIP_PROMPTS_DIR)"
+ALT_FILE_IDENTIFIER="minimal"
+
+_hide() {
+    if command -v sketchybar 2>&1 >/dev/null; then
+       sketchybar --bar hidden=true
+    elif command -v waybar 2>&1 >/dev/null; then
+       killall waybar
+    fi
+}
+
+_show() {
+    if command -v sketchybar 2>&1 >/dev/null; then
+      sketchybar --bar hidden=false
+    elif [ $DESKTOP_SESSION == *"sway"* ]; then
+        if command -v waybar 2>&1 >/dev/null; then
+            swaymsg exec waybar
+        fi
+    else
+        if command -v waybar 2>&1 >/dev/null; then
+            hyprctl dispatch exec waybar
+        fi
+    fi
+}
+
+_link() {
+    if command -v coreutils 2>&1 >/dev/null; then
+        coreutils ln -nrs $1 $2
+    else
+        ln -ns $1 $2
+    fi
+}
+
+_link_alt() {
+    _link $STARSHIP_PROMPTS_DIR/starship-$ALT_FILE_IDENTIFIER.toml $STARSHIP_CONFIG_DIR/starship.toml
+}
+
+_link_normal() {
+    _link $STARSHIP_PROMPTS_DIR/starship.toml $STARSHIP_CONFIG_DIR/starship.toml
+}
+
+if [ -e "$STARSHIP_CONFIG_DIR/starship.toml" ]; then
+    if command -v rip 2>&1 >/dev/null; then
+        rip $STARSHIP_CONFIG_DIR/starship.toml
+    else
+        rm $STARSHIP_CONFIG_DIR/starship.toml
+    fi
+fi
+
+if [[ $CS == *"$ALT_FILE_IDENTIFIER"* ]]; then
+    _link_normal
+    if [ "$1" != "0" ]; then
+        _show
+    fi
+else
+    if [ "$1" != "0" ]; then
+        _hide
+    fi
+    _link_alt
+fi

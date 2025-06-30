@@ -1,0 +1,64 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export CFG_DIRECTORY:/Users/h62756/\x2econfig/\x2ecfg
+SETUVAR --export CLI_NOTES:/Users/h62756/\x2econfig/notes/cmd_examples\x2etxt
+SETUVAR --export CONFIG_DIRECTORY:/Users/h62756/\x2econfig
+SETUVAR --export EDITOR:nvim
+SETUVAR --export FISH_CONFIG_DIRECTORY:/Users/h62756/\x2econfig/fish
+SETUVAR --export MACHINE_IDENTIFIER:JJ4DNV2JYM\x2etld__Darwin__arm64
+SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
+SETUVAR --export PYTHON_VENV:\x2evenv
+SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/venvs
+SETUVAR --export SCRIPTS_DIRECTORY:/Users/h62756/\x2econfig/scripts
+SETUVAR SKIM_LEGACY_KEYBINDINGS:0
+SETUVAR __fish_initialized:3800
+SETUVAR fish_color_autosuggestion:6c6c6c
+SETUVAR fish_color_cancel:\x1d
+SETUVAR fish_color_command:\x1d
+SETUVAR fish_color_comment:\x1d
+SETUVAR fish_color_cwd:normal
+SETUVAR fish_color_cwd_root:normal
+SETUVAR fish_color_end:\x1d
+SETUVAR --export fish_color_error:ffffff\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_color_escape:\x1d
+SETUVAR fish_color_history_current:\x1d
+SETUVAR fish_color_host:normal
+SETUVAR fish_color_host_remote:\x1d
+SETUVAR fish_color_keyword:\x1d
+SETUVAR fish_color_match:\x1d
+SETUVAR fish_color_normal:normal
+SETUVAR fish_color_operator:\x1d
+SETUVAR fish_color_option:\x1d
+SETUVAR fish_color_param:\x1d
+SETUVAR --export fish_color_quote:a7a7a7
+SETUVAR fish_color_redirection:\x1d
+SETUVAR fish_color_search_match:\x2d\x2dreverse
+SETUVAR fish_color_selection:\x2d\x2dreverse
+SETUVAR fish_color_status:ff3939
+SETUVAR fish_color_user:normal
+SETUVAR fish_color_valid_path:\x1d
+SETUVAR --export fish_cursor_default:block
+SETUVAR --export fish_cursor_external:line\x1eblink
+SETUVAR --export fish_cursor_insert:line\x1eblink
+SETUVAR --export fish_cursor_replace:underscore\x1eblink
+SETUVAR --export fish_cursor_replace_one:underscore\x1eblink
+SETUVAR --export fish_cursor_visual:block\x1eblink
+SETUVAR --export fish_greeting:\x0a\x1etake\x20arms\x21\x20\x20cacti\x21\x1e\x0a\x1e\u30d8\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
+SETUVAR fish_key_bindings:fish_vi_key_bindings
+SETUVAR fish_pager_color_background:\x1d
+SETUVAR fish_pager_color_completion:normal
+SETUVAR fish_pager_color_description:brblack
+SETUVAR fish_pager_color_prefix:\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brblack
+SETUVAR fish_pager_color_secondary_background:\x1d
+SETUVAR fish_pager_color_secondary_completion:\x1d
+SETUVAR fish_pager_color_secondary_description:\x1d
+SETUVAR fish_pager_color_secondary_prefix:\x1d
+SETUVAR fish_pager_color_selected_background:\x2d\x2dreverse
+SETUVAR fish_pager_color_selected_completion:\x1d
+SETUVAR fish_pager_color_selected_description:\x1d
+SETUVAR fish_pager_color_selected_prefix:\x1d
+SETUVAR fish_user_paths:/Users/h62756/\x2econfig/scripts\x1e/Users/h62756/\x2emodular/bin\x1e/Users/h62756/\x2ecargo/bin\x1e/Users/h62756/\x2elocal/bin\x1e/Users/h62756/\x2econfig/\x2ecfg/bin
+SETUVAR --export fish_vi_force_cursor:line\x1eblink
+SETUVAR --export greet:\x20take\x20arms\x21\x20cacti\x21\x1e\x20\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
+SETUVAR --export greeting:\x20\x1e\x20howdy\x21\x20take\x20arms\x21\x1e\x20cacti\x21\x20\u30d8\x28\x20\x5eo\x5e\x29\u30ce\uff3c\x28\x5e_\x5e\x20\x29
