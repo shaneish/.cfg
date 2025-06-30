@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+from subprocess import check_output
+from pathlib import Path
+from argparse import ArgumentParser, Namespace
+
+
+def relative_parent_path(p1: str | Path, p2: str | Path) -> str:
+    p1, p2 = str(p1), str(p2)
+    if p1 in p2:
+        return p2.replace(p1, "")
+    elif p2 in p1:
+        return p1.replace(p2, "")
+    return ""
+
+
+class GitException(Exception):
+    pass
+
+
+def qsh(cmd: str, exception: Exception | None = None) -> str:
+    try:
+        return check_output(cmd, shell=True, universal_newlines=True).strip()
+    except Exception as e:
+        raise (exception or e)
+
+
+def get_args() -> Namespace:
+    parser = ArgumentParser()
+    parser.add_argument(
+        "filepath",
+        type=str,
+        help="Path to file to create GitHub link to"
+    )
+    parser.add_argument(
+        "-l",
+        "--lines",
+        type=str,
+        default=None,
+        help="Lines to generate permalink to in format `-l 125` for a single line or `-l 125:145` for a range"
+    )
+    return parser.parse_args()
+
+
+def main(f: str | None = None, lower_line: int | None = None, upper_line: int | None = None) -> str:
+    args = get_args()
+    f = f or args.filepath
+    if not f:
+        raise FileNotFoundError(2, "No file path specified.")
+    lower_line = lower_line or args.lines.split(":")[0] if args.lines else None
+    upper_line = upper_line or args.lines.split(":")[-1] if (args.lines and len(args.lines.split(":")) > 1) else None
+    f_path = Path(f).absolute()
+    if not f_path.exists():
+        raise FileNotFoundError(2, f"File {f} does not exist.")
+    try:
+        os.chdir(f_path.parent)
+    except Exception as _:
+        raise FileNotFoundError(2, f"Parent directory {str(f_path.parent)} does not exist.")
+    git_dir = Path(qsh("git rev-parse --show-toplevel", GitException(1, f"Cannot find git repo from {os.getcwd()}")))
+    if (git_dir / ".git").is_file():
+        git_dir_worktree = Path(qsh(f"cat {str(git_dir / '.git')}").lstrip("gitdir: "))
+        if git_dir_worktree.is_dir():
+            for prnt in git_dir.parents:
+                if prnt.name == ".git":
+                    git_dir_worktree = prnt.parent
+                    break
+    rpath = relative_parent_path(f_path, git_dir)
+    remote_url = qsh("git config --get remote.origin.url", GitException(1, f"Cannot find remote origin URL for file {f}"))
+    if remote_url.startswith("git@"):
+        remote_url = remote_url.replace(":", "/").replace("git@", "")
+    remote_url = remote_url.removesuffix(".git").removeprefix("https://").removeprefix("http://")
+    git_branch = qsh("git branch --show-current", GitException(1, "Unable to determine current git branch"))
+    blob_base = Path(remote_url) / "blob" / git_branch / rpath.strip("/")
+    range = None
+    if lower_line:
+        range = f"#L{lower_line}"
+    if (upper_line) and (upper_line != lower_line):
+        range = f"{range}-{upper_line}"
+    if range:
+        blob_base = str(blob_base) + range
+    url = "https://" + str(blob_base)
+    print(url)
+    return url
+
+
+if __name__ == "__main__":
+    main()

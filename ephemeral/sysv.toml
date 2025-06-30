@@ -1,0 +1,59 @@
+[environment_vars]
+EDITOR = "nvim"
+SHELL = "fish"
+CONFIGS = "$HOME/.config"
+
+[environment_vars.windows]
+CONFIGS = "%APPDATA%"
+
+[path]
+cargo = "$HOME/.cargo/bin"
+local = "$HOME/.local/bin"
+
+[path.windows]
+cargo = "%USERPROFILE%\\.cargo\\bin"
+local = null
+
+[path.macos]
+brew = "/opt/homebrew/bin"
+
+[aliases]
+gap = "git add -p"
+gau = "git add -u"
+gaa = "git add ."
+ga = "git add"
+gc = "git commit"
+gcm = "git commit -m"
+gp = "git push"
+gb = "git branch --show-current"
+gpo = "git push origin"
+gpu = "git pull origin"
+gck = "git checkout"
+gs = "git status"
+gco = "git checkout"
+gcb = "git checkout -b"
+gpob = "git push origin (git branch --show-current)"
+gpub = "git pull origin (git branch --show-current)"
+gbh = "git rev-parse --abbrev-ref HEAD"
+gf = "arrout 3 $git_atoms"
+dx = "databricks"
+cat = "bat --paging=never --decorations=never"
+gwt = "git worktree"
+gwtl = "git worktree list"
+gwta = "git worktree add"
+gwtr = "git worktree remove"
+gh = "git rev-parse --abbrev-ref origin/HEAD"
+gmb = "gh | sd '\w+/' ''"
+gd = "git diff"
+gdo = "git diff origin/(git branch --show-current)"
+gdm = "git diff (gmb)"
+gdom = "git diff origin/HEAD"
+set_clip = "xclip -selection clipboard"
+
+[aliases.sh]
+gpob = "git push origin $(git branch --show-current)"
+gpub = "git pull origin $(git branch --show-current)"
+gdo = "git diff origin/$(git branch --show-current)"
+
+[aliases.mac]
+set_clip = "pbcopy"

@@ -1,0 +1,17 @@
+--target=~/.config
+--include=aerospace.toml
+--include=starship.toml
+--include=fish
+--include=git
+--include=glow
+--include=hypr
+--include=karabiner
+--include=keyd
+--include=kitty
+--include=nix
+--include=nushell
+--include=nvim
+--include=sketchybar
+--include=waybar
+--include=wezterm
+--include=yazi

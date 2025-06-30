@@ -1,0 +1,3 @@
+--target=~/.ipython/profile_default
+--ignore=.stowrc
+--ignore=_setup

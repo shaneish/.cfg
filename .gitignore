@@ -13,3 +13,4 @@ fish/fish_variables
 fish/locals/cigna_certs.fish
 fish/fish_variables
 fish/certs.fish
+*.old

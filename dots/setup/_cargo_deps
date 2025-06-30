@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source "$HOME/.cargo/env"
+
+cargo install ripgrep
+cargo install sd
+cargo install rm-improved
+cargo install fd-find
+cargo install bhop
+cargo isntall xh
+cargo install --locked jaq
