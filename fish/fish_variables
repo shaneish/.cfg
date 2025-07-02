@@ -7,7 +7,7 @@ SETUVAR --export EDITOR:nvim
 SETUVAR --export FISH_CONFIG_DIRECTORY:/Users/h62756/\x2econfig/fish
 SETUVAR --export MACHINE_IDENTIFIER:JJ4DNV2JYM\x2etld__Darwin__arm64
 SETUVAR --export NVIM_DIRECTORY:/Users/h62756/\x2econfig/nvim
-SETUVAR --export PYTHON_VENV:\x2evenv
+SETUVAR --export PYTHON_VENV:/Users/h62756/\x2elocal/venvs/python
 SETUVAR --export PYTHON_VENV_DIR:/Users/h62756/\x2elocal/venvs
 SETUVAR --export SCRIPTS_DIRECTORY:/Users/h62756/\x2econfig/scripts
 SETUVAR SKIM_LEGACY_KEYBINDINGS:0

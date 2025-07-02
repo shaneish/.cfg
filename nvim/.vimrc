@@ -102,17 +102,10 @@ function! Fishified(path="")
     return trim(path_info)
 endfunction
 
-function! GitInfo(type="repo", dir="", label="", prefix="", suffix="", separator="")
+function! GitInfo(type="repo", dir="")
     let dir = a:dir
     let git_info = ""
-    let label = a:label
-    if a:label == ""
-        let label = a:type
-    endif
-    let git_info_suffix = a:suffix
-    let git_info_prefix = a:prefix
-    let git_info_separator = a:separator
-    if a:dir == ""
+    if dir == ""
         let dir = expand('%:p:h')
     endif
     let info = trim(system("basename $(git -C " . dir . " rev-parse --show-toplevel)"))
@@ -120,9 +113,17 @@ function! GitInfo(type="repo", dir="", label="", prefix="", suffix="", separator
         let info = trim(system("git -C " . dir . " branch --show-current"))
     endif
     if !(info =~ "fatal: *") && !(info =~ "basename: *")
-        let git_info = git_info . git_info_prefix . label . git_info_separator . info . git_info_suffix
+        return trim(info)
     endif
-    return trim(git_info)
+    return "¯\_(ツ)_/¯"
+endfunction
+
+function! CurrentGitRepo()
+    return GitInfo('repo')
+endfunction
+
+function! CurrentGitBranch()
+    return GitInfo('branch')
 endfunction
 
 function! Pairs(c)
@@ -191,13 +192,6 @@ set showbreak=·· " ↳…
 set formatoptions-=o
 set laststatus=2
 set wrap
-let g:sl_s = " | "
-let g:sl_p = "."
-let g:sl_sep = ": "
-let b:git_info_branch = GitInfo("branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
-let b:git_info_repo = GitInfo("repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
-let b:path_info = Fishified()
-set statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
 
 " #autcmd ish
 augroup new_file_types
@@ -223,12 +217,12 @@ augroup errytime
     autocmd VimEnter,BufEnter,WinEnter *.md setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.json setlocal conceallevel=0
     autocmd VimEnter,BufEnter,WinEnter *.yaml setlocal conceallevel=0
-    autocmd VimEnter,BufEnter,WinEnter * silent let b:git_info_branch = GitInfo("branch", "", "", g:sl_p, g:sl_s, g:sl_sep)
-    autocmd VimEnter,BufEnter,WinEnter * silent let b:git_info_repo = GitInfo("repo", "", "", g:sl_p, g:sl_s, g:sl_sep)
-    autocmd VimEnter,BufEnter,WinEnter * silent let b:path_info = Fishified()
     autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-,> :cprev<CR> " :lprev
     autocmd VimEnter,BufEnter,WinEnter * silent nmap <C-.> :cnext<CR> " :lnext
-    autocmd VimEnter,BufEnter,WinEnter * setlocal statusline=\ %{g:sl_p}buffnr%{g:sl_sep}%n%{g:sl_s}%{g:sl_p}lines%{g:sl_sep}%L%{g:sl_sep}%P%{g:sl_s}%{b:git_info_repo}%{b:git_info_branch}%{g:sl_p}path%{g:sl_sep}%{b:path_info}
+    autocmd VimEnter,BufEnter * silent let b:curr_repo = CurrentGitRepo()
+    autocmd VimEnter,BufEnter * silent let b:curr_branch = CurrentGitBranch()
+    autocmd VimEnter,BufEnter * silent let b:curr_path = Fishified()
+    autocmd VimEnter,BufEnter * setlocal statusline=\ \ \ #%n\ \|\ :%L\ =\ %P\ \|\ %{b:curr_path}\ \|\ %{b:curr_repo}\ ->\ %{b:curr_branch}
 augroup END
 
 augroup colorscheme_madness
@@ -279,10 +273,8 @@ imap <C-f><C-t> :call ToggleConcealLevel()<CR>
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --hidden\ --glob\ ‘!.git’
 endif
-nmap <silent> <expr> <C-g><C-f> ":grep " . input("> ") . " *<CR>:copen<CR>"
-nmap <silent> <expr> <C-g><C-h> ":grep " . input("> ") . " *." expand('%:e') . "<CR>:copen<CR>"
 nmap <silent> <C-g><C-g> :grep <cword> '%'<CR>:copen<CR>
-nmap <silent> <expr> <C-g><C-j> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
+nmap <silent> <expr> <C-g><C-f> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
 
 " window stuff
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
@@ -334,12 +326,6 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 " Insert
 inoremap  <Esc>
 inoremap <C-c> <Esc>0C
-for k in ["'", '"', "`", "(", "{", "[", "<"]
-"    execute 'inoremap '.k.' '.k.Pairs(k).'<Esc>i'
-"    if index(["(", "{", "[", "<"], k) == -1
-"        execute 'inoremap '.k.k.' '.k.Pairs(k).'<Esc>i'
-"    endif
-endfor
 
 " Visual remaps
 xnoremap < <gv

@@ -328,7 +328,7 @@ require("aerial").setup({
     vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
     vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
     vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#ffd700", bold = true })
+  vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#ffd700", bold = true })
     vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = "#ffd700", bold = true })
     vim.api.nvim_set_hl(0, 'AerialLine', { fg = "#ffd700", bold = true })
     vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = "#ffd700", bold = true })

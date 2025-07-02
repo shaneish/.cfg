@@ -37,10 +37,8 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'muniftanjim/nui.nvim'
-Plug 'tpope/vim-sensible'
-Plug 'alvan/vim-closetag'
-Plug 'tpope/vim-abolish'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-abolish'
 Plug 'Yggdroot/indentLine'
 Plug 'dkarter/bullets.vim'
 Plug 'wellle/context.vim'
@@ -66,7 +64,6 @@ Plug 'stevearc/aerial.nvim' " navigate by code structure
 Plug 'simrat39/symbols-outline.nvim' " view code structure
 Plug 'romgrk/barbar.nvim'
 Plug '3rd/image.nvim'
-Plug 'benlubas/molten-nvim'
 Plug 'SmiteshP/nvim-navic'
 Plug 'numToStr/Comment.nvim'
 Plug 'SmiteshP/nvim-navbuddy'
@@ -228,24 +225,6 @@ function! ReplCommand()
     endif
 endfunction
 
-function! PresentWild()
-    set background=light
-    colorscheme wildcharm
-    highlight Normal guibg=#ffffff guifg=#000000
-endfunction
-
-function! Present()
-    set background=light
-    colorscheme quiet
-    highlight Normal guibg=#ffffff guifg=#000000
-endfunction
-
-function! PresentMorning()
-    set background=light
-    colorscheme morning
-    highlight Normal guibg=#ffffff guifg=#000000
-endfunction
-
 let g:slime_split = "bottom"
 function! WezSlimeReplInitCmd(split=g:slime_split, cwd=getcwd())
     let wez_cli = "wezterm"
@@ -362,7 +341,7 @@ inoremap <C-h> <Plug>(copilot-dismiss)
 inoremap <C-/> <Plug>(copilot-suggest)
 
 " Terminal
-nmap <leader>t :call OpenTerm()<CR>
+nmap T :call OpenTerm()<CR>
 
 " Buffers -barbar
 nmap <C-b><C-b> <cmd>BufferPick<CR>
@@ -374,22 +353,21 @@ nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 
 " Plugin mappings
-nnoremap <C-t>f <cmd>Telescope find_files<cr>
-nnoremap <C-t>g <cmd>Telescope live_grep<cr>
-nnoremap <C-t>b <cmd>Telescope buffers<cr>
-nnoremap <C-t>/ <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <C-g><C-m> <cmd>MergetoolToggle<CR>
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>tt <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 
 " slime stuff
 nmap <C-c><C-n> :call WeztermSlimePane()<CR>
 nmap <C-c><C-p> <Plug>SlimeParagraphSend
 nmap <C-c><C-c> <Plug>SlimeSendCell
-nmap <C-c><C-l> <Plug>SlimeLineSend
 nmap <C-c><C-s> <Plug>SlimeConfig
-nmap <c-c><c-m> <Plug>SlimeCellsSendAndGoToNext
-nmap <c-c><leader> <Plug>SlimeCellsSendAndGoToNext
-nmap <c-c><c-j> <Plug>SlimeCellsNext
-nmap <c-c><c-k> <Plug>SlimeCellsPrev
+nmap <C-c><C-m> <Plug>SlimeCellsSendAndGoToNext
+nmap <C-c><leader> <Plug>SlimeCellsSendAndGoToNext
+nmap <C-c><C-j> <Plug>SlimeCellsNext
+nmap <C-c><C-k> <Plug>SlimeCellsPrev
 xmap <C-c><C-c> <Plug>SlimeRegionSend
 
 " tree climber
@@ -397,15 +375,15 @@ augroup TreeClimber
     autocmd!
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-j> :lua require('tree-climber').swap_next()<CR>zz
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> H :lua require('tree-climber').goto_parent({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-j> :lua require('tree-climber').swap_next()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
 augroup END
 
 nnoremap <C-s> <cmd>Pounce<CR>
@@ -413,9 +391,7 @@ nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g
 nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
 nnoremap <expr> <C-t><C-b> "A" . CodeBlock() . '<Esc>'
 nnoremap <expr> <C-t><C-j> "o<Esc>0C" . CodeBlock() . '<Esc>k'
-nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>k'
-nnoremap <expr> <C-t><C-j><C-j> "o<Esc>0C" . CodeBlock() . '<CR>'
-nnoremap <expr> <C-t><C-k><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>O'
+nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>j'
 
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
