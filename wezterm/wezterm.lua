@@ -103,25 +103,7 @@ NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
-local ansi_highlight = "#ffd700"
-local bright_highlight = "#f6cd61"
-local name = 'Grayscale (dark) (terminal.sexy)'
-local whitish = wezterm.color.get_builtin_schemes()[name]
-whitish.background = "#000000"
-whitish.cursor_bg = ansi_highlight
-whitish.cursor_border = ansi_highlight
-whitish.foreground = "#ffffff"
-whitish.selection_bg = "#ffffff"
-whitish.brights[4] = ansi_highlight
-whitish.ansi[4] = bright_highlight
-whitish.brights[6] = "#cccccc"
-whitish.ansi[6] = "#eeeeee"
-whitish.brights[5] = "#cccccc"
-whitish.ansi[5] = "#eeeeee"
-config.color_schemes = {
-  [name] = whitish
-}
-log_table(whitish)
+config.color_scheme = 'light'
 
 config.disable_default_key_bindings = true
 config.animation_fps = 30
@@ -129,12 +111,11 @@ config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
-config.color_scheme = name
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_opacity = 0.99
-config.use_fancy_tab_bar = true
+-- config.use_fancy_tab_bar = true
 config.show_new_tab_button_in_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.text_blink_rate = 300
@@ -157,19 +138,6 @@ config.font_rules = {
   },
 }
 
-config.colors = {
-  tab_bar = {
-    background = "rgba(0,0,0,0)",
-    active_tab = {
-      fg_color = "#f6cd61",
-      bg_color = "#000000"
-    },
-    inactive_tab = {
-      fg_color = "#8e8e8e",
-      bg_color = "#242424"
-    }
-  },
-}
 config.window_frame = {
   font_size = 11,
   font = wezterm.font 'JetBrains Mono'
@@ -470,7 +438,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#374f2f' } },
         { Text = 'Workspace name:' },
       },
       action = wezterm.action_callback(function(win, pane, line)
@@ -496,7 +464,7 @@ config.keys = {
 
   {
     key = 'f',
-    mods = 'LEADER',
+    mods = 'CTRL|SHIFT',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '[\\w\\-\\.\\/~]+',
@@ -505,7 +473,7 @@ config.keys = {
   },
   {
     key = 'f',
-    mods = 'CTRL|SHIFT',
+    mods = 'LEADER',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '\\S+',
@@ -524,11 +492,27 @@ config.keys = {
   {
     key = 'g',
     mods = 'LEADER',
-    action = wezterm.action.QuickSelectArgs {
-      patterns = {
-        '[\\w\\-\\.]+',
-      },
-    },
+    action = wezterm.action_callback(function(window, pane)
+      local temp_dir = '/tmp'
+      local handle = io.popen("mkdir -p /tmp/shsesh/; mktemp -d /tmp/shsesh/$(basename $(echo $SHELL))-XXXXXX", "r")
+      if handle then
+        temp_dir = handle:read("*a")
+        handle:close()
+      end
+      temp_dir = string.gsub(temp_dir, '^%s+', '')
+      temp_dir = string.gsub(temp_dir, '%s+$', '')
+      temp_dir = string.gsub(temp_dir, '[\n\r]+', ' ')
+      window:perform_action(
+        wezterm.action.SwitchToWorkspace {
+          name = temp_dir,
+          spawn = {
+            domain = "CurrentPaneDomain",
+            cwd = temp_dir,
+          },
+        },
+        pane
+      )
+      end),
   },
 
   {
@@ -536,7 +520,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#374f2f' } },
         { Text = 'Rename workspace:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -554,7 +538,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#374f2f' } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -577,7 +561,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#374f2f' } },
         { Text = 'Workspace name:' },
       },
     action = wezterm.action_callback(function(window, pane, line)

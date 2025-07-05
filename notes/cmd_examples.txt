@@ -28,10 +28,18 @@ cat eap_table_objects.csv | xsv sort -s platform,env | xsv table
 # get token metadata for databricks obo token; sp management; dbrx 
 databricks token-management get 4153e3bef0530f31e20e5494f2b1384743b148b7de80e3be5423abee6145de57
 
-
 # list only files that were created today
 fselect select abspath from ~/.local/share/wezterm where created = CURRENT_DATE
+
 # filter out all valid databricks config profiles with fnk
 databricks auth profiles | fnk -m '_.split()' -f '_[2] in ["YES", "Valid"]' -m 'f"{_[0].ljust(20)}{_[1]}"'
+
 # easily show readable grep from csv using cat, rg, and xsv
 cat access.audit.csv | rg -i deltaPipelines | xsv table
+
+# activate a deactivated user in databricks
+databricks users update 1023681293789594 --json '{"active":true,"userName":"email@domain.com"}' --profile dev-admin
+
+
+# search for shrtcut with fzf instead of gui
+rg '[\\w\-]+=\\"[\\w\\:/\\.\\?\+\\-\\\]+\\"' /Users/h62756/.config/.shrtcut.toml -N | awk -F'=' '{print $1}' | sk -i | xargs shrtcut --grab

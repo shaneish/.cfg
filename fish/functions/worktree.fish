@@ -1,6 +1,10 @@
 function worktree --d "Default location git worktree.  Last argument (argv[-1]) is the name of the branch/commit to switch to."
-    set current_repo (basename $(git rev-parse --show-toplevel))
-    set proj_gwt_folder $HOME/.local/gwt/$current_repo
+    set git_dir (git rev-parse --show-toplevel)
+    set ignored (cat "$git_dir/.gitignore" | grep '.worktrees')
+    if test -z "$ignored"
+        echo ".worktrees" >> "$git_dir/.gitignore"
+    end
+    set proj_gwt_folder $git_dir/.worktrees
     set current_short_hash (git rev-parse --short HEAD)
     set branch_dir $proj_gwt_folder/$argv[-1]__$current_short_hash
     if not test -e $proj_gwt_folder

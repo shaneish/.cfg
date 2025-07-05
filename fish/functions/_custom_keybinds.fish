@@ -1,15 +1,6 @@
 function _custom_keybinds -d "it is what it says it is"
     set -gx STARSHIP_SWITCHER (fd "aesthetic_switcher" $SCRIPTS_DIRECTORY -t f --follow | head -n 1)
 
-    function _copy_previous_command
-        set out (history | fz)
-        if test (uname) = "Darwin"
-            echo $out | sd '\s+$' '' | pbcopy
-        else if test (uname) = "Linux"
-            echo $out | sd '\s+$' '' | xclip -sel copy
-        end
-    end
-
     function _expand_dot_to_parent_directory_path -d 'expand ... to ../..'
         set -l cmd (commandline --cut-at-cursor)
         switch $cmd[-1]
@@ -78,17 +69,21 @@ function _custom_keybinds -d "it is what it says it is"
         end
     end
 
+    function _fg
+        fg 2&> /dev/null
+    end
+
     bind ! bind_bang
     bind '$' bind_dollar
     bind -M insert \cp __alternate_prompt
     bind -M insert \cs _fuzzy_grep_and_edit
-    bind -M insert \cu _copy_previous_command
-    bind -M insert \cf _open_yazi
+    bind -M insert \cy _open_yazi
     bind -M insert . _expand_dot_to_parent_directory_path
-    bind -M insert \cd _hp
     bind -M visual y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
     bind -M normal yy fish_clipboard_copy
-    bind -M insert \ch 'history | fz | string trim -r | clip'
+    bind -M insert \cu 'history | fz | string trim -r | clip'
     bind -M insert \cg _hpfuzzy
+    bind -M insert \cz _fg
+    bind -M insert \cl forward-word
 end
 
