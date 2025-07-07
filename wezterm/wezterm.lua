@@ -72,7 +72,7 @@ wezterm.on('update-right-status', function(window, pane)
     name = 'WINDOW: ' .. window:active_workspace() .. '  '
   end
   window:set_right_status(wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#416741' } },
         { Text = name },
       })
 end)
@@ -108,33 +108,13 @@ NonAlt = 'META'
 AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
-local ansi_highlight = "#ffd700"
-local bright_highlight = "#f6cd61"
-local name = 'Grayscale (dark) (terminal.sexy)'
-local whitish = wezterm.color.get_builtin_schemes()[name]
-whitish.background = "#000000"
-whitish.cursor_bg = ansi_highlight
-whitish.cursor_border = ansi_highlight
-whitish.foreground = "#ffffff"
-whitish.selection_bg = "#ffffff"
-whitish.brights[4] = ansi_highlight
-whitish.ansi[4] = bright_highlight
-whitish.brights[6] = "#cccccc"
-whitish.ansi[6] = "#eeeeee"
-whitish.brights[5] = "#cccccc"
-whitish.ansi[5] = "#eeeeee"
-config.color_schemes = {
-  [name] = whitish
-}
-log_table(whitish)
-
 config.disable_default_key_bindings = true
 config.animation_fps = 30
 config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
-config.color_scheme = name
+config.color_scheme = 'light'
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
@@ -164,14 +144,13 @@ config.font_rules = {
 
 config.colors = {
   tab_bar = {
-    background = "rgba(0,0,0,0)",
     active_tab = {
-      fg_color = "#f6cd61",
-      bg_color = "#000000"
+      fg_color = "#242424",
+      bg_color = "#f2fae9"
     },
     inactive_tab = {
-      fg_color = "#8e8e8e",
-      bg_color = "#242424"
+      bg_color = "#dddddd",
+      fg_color = "#a3a3a3"
     }
   },
 }
@@ -475,7 +454,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#416741' } },
         { Text = 'Workspace name:' },
       },
       action = wezterm.action_callback(function(win, pane, line)
@@ -557,7 +536,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#416741' } },
         { Text = 'Rename workspace:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -576,7 +555,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#416741' } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -599,7 +578,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#f6cd61' } },
+        { Foreground = { Color = '#416741' } },
         { Text = 'Workspace name:' },
       },
     action = wezterm.action_callback(function(window, pane, line)

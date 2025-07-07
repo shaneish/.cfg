@@ -1,3 +1,7 @@
+" GUI color definitions
+let g:lsp_bright = "#db6a00"
+let g:lsp = "#934e00"
+
 let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
 if filereadable(vimrc)
     execute 'source ' . vimrc
@@ -5,10 +9,9 @@ else
     source $HOME/.vimrc
 endif
 
-let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/theme.vim"
+let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/light.vim"
 if filereadable(theme)
     execute 'source ' . theme
-    set background=dark
 endif
 
 " plug-ish ish
@@ -251,6 +254,13 @@ function! GitPermalink()
     let @+ = url
 endfunction
 
+function! SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+
 " %%
 " config stuff
 let g:python_bin = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/bin/'
@@ -285,18 +295,9 @@ let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
 let g:repl_split = 'bottom'
 let g:repl_filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
-let g:big_jump = 0.25
 let g:filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
-let g:Left_jump = 0.25
-let g:small_jump = 0.1
-let g:small_jump = 0.1
-let g:ump = 0.25
-let g:Leftll_jump = 0.1
-let g:slime_cell_delimiter = CodeBlock()
-let g:slime_cell_delimiter = CodeBlock()
 let g:slime_target = "wezterm"
-let g:_cell_delimiter = CodeBlock()
-let g:Leftme_target = "wezterm"
+let g:slime_cell_delimiter = CodeBlock()
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
@@ -304,12 +305,12 @@ let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 augroup CheckEveryTime
     autocmd!
     autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
-    autocmd VimEnter,BufEnter,WinEnter * highlight LspInlayHint guifg=#ffd700 gui=bold,underdotted
-    autocmd VimEnter,BufEnter,WinEnter * highlight QuickFixLine guifg=#ffd700 gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineSel guifg=#ffd700 gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineFill guifg=#ffd700 gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight EyelinerPrimary guifg=#ffd700 guibg=#000000 gui=underline,bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight EyelinerSecondary guifg=#ffffff guibg=#767676 gui=underline
+    autocmd VimEnter,BufEnter,WinEnter * highlight LspInlayHint guifg=g:lsp gui=bold,underdotted
+    autocmd VimEnter,BufEnter,WinEnter * highlight QuickFixLine guifg=g:cursor_bg gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineSel guifg=g:cursor_bg gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineFill guifg=g:cursor_bg gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight BufferCurrent guifg=g:cursor_bg gui=bold
+    autocmd VimEnter,BufEnter,WinEnter * highlight BufferCurrentCHANGED guifg=g:warning gui=bold
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_suffix = InferCodeBlockSuffix()
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_current = CodeBlock()
     autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()
@@ -396,3 +397,4 @@ nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>j'
 nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
 xnoremap gp <Esc>:call GitPermalink()<CR>
+

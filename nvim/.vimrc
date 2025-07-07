@@ -1,3 +1,21 @@
+" GUI color definitions
+let g:bg        = "#ffffff"
+let g:fg        = "#000000"
+let g:selection = "#ececa3"
+let g:cursor_bg = "#809c13"
+let g:comment   = "#8e8e8e"
+let g:accent1   = "#416741" " Green
+let g:accent2   = "#304529" " Dark Green
+let g:accent3   = "#809c13" " Bright Green (Cursor)
+let g:error     = "#800400"
+let g:warning   = "#fe6b40"
+let g:dim_fg    = "#b9b9b9"
+let g:ui_bg1    = "#eeeeee"
+let g:ui_bg2    = "#dadada"
+let g:ui_fg1    = "#374f2f"
+let g:ui_fg2    = "#6c6c6c"
+let g:off_white = "#f2fae9"
+
 filetype plugin indent on
 let mapleader=" "
 let maplocalleader="\\"
@@ -211,6 +229,13 @@ augroup terminal_madness
     autocmd BufLeave term://* stopinsert
 augroup END
 
+augroup colorscheme_madness
+    autocmd!
+    " autocmd VimEnter,BufEnter,WinEnter * highlight StatusLine guibg=g:off_white guifg=g:ui_fg2 gui=bold
+    " autocmd VimEnter,BufEnter,WinEnter * highlight NonText guifg=g:accent1 gui=bold
+    " autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
+augroup END
+
 augroup errytime
     autocmd!
     autocmd VimEnter,BufEnter,WinEnter *.toml setlocal conceallevel=0
@@ -223,13 +248,6 @@ augroup errytime
     autocmd VimEnter,BufEnter * silent let b:curr_branch = CurrentGitBranch()
     autocmd VimEnter,BufEnter * silent let b:curr_path = Fishified()
     autocmd VimEnter,BufEnter * setlocal statusline=\ \ \ #%n\ \|\ :%L\ =\ %P\ \|\ %{b:curr_path}\ \|\ %{b:curr_repo}\ ->\ %{b:curr_branch}
-augroup END
-
-augroup colorscheme_madness
-    autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * highlight StatusLine guibg=#ffd700 guifg=#000000 gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight NonText guifg=#ffd700 gui=bold
-    " autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
 augroup END
 
 if ! has('nvim')

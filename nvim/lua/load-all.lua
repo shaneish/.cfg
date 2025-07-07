@@ -1,3 +1,6 @@
+local lsp_bright = "#db6a00"
+local lsp = "#934e00"
+
 -- %% simple deps
 require('telescope')
 -- require('telescope').load_extension('harpoon')
@@ -85,7 +88,6 @@ require('notebook').setup {
     insert_blank_line = true,
     show_index = true,
     show_cell_type = true,
-    virtual_text_style = { fg = "#ffd700", italic = true },
 }
 
 -- %% eyeliner
@@ -100,6 +102,8 @@ vim.keymap.set(
   end,
   {expr = true}
 )
+vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = lsp, bold = true, underline = true })
+vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg = lsp_bright, underline = true })
 
 -- %% symbols outline
 require("symbols-outline").setup()
@@ -327,17 +331,17 @@ require("aerial").setup({
   on_attach = function(bufnr)
     vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
     vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
-    vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = "#ffd700", bold = true })
-  vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLine', { fg = "#ffd700", bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = "#ffd700", bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineClass', { fg = lsp, bold = true })
+  vim.api.nvim_set_hl(0, 'AerialLineFunction', { fg = lsp, bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNormal', { fg = lsp, bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLine', { fg = lsp, bold = true })
+    vim.api.nvim_set_hl(0, 'AerialLineNC', { fg = "#222222", bg = lsp_bright, bold = true })
   end,
   highlight_on_hover = true,
   highlight_on_jump = 300,
   show_guides = true,
 })
-vim.api.nvim_set_hl(0, 'ArialLine', { fg = "#ffd700", bold = true })
+vim.api.nvim_set_hl(0, 'ArialLine', { fg = lsp, bold = true })
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
 
