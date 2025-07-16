@@ -1,0 +1,27 @@
+#
+# metadata fields
+#
+scheme: "spec-theme" # name of the theme
+author: "idunnosh" # name of author
+
+#
+# color fields
+#
+# comments on each field describe the color, it's intent, and it's relation to other color fields.
+# all fields which start with "base" are color fields.  for color field comments, the text shown before the ":" character is the referent or name of the color field and the text after the ":" is the description of that color field.
+base00: "ffffff" # bg: background color
+base01: "000000" # fg: foreground color
+base02: "bae847" # cursor: cursor color; should stand out against both background, foreground, palette, and grayscale colors, yet be a variant of the accent or base03 colors
+base03: "ececa3" # selection: highlight/selection color, should stand out against background, foreground, and grayscale colors, yet be a different complementary color to the palette colors
+base04: "f2fae9" # palette_accent_1: palette accent color closest to base00 (background color)
+base05: "d5f5d5" # palette_accent_2: palette accent color intermediate to base04 (palette_accent_1) and base06 (palette_accent_3)
+base06: "4d6b53" # palette_accent_3: intermediary palette color directly in between base04 (palette_accent_1; palette accent closest to background color) and base08 (palette_accent_5; palette accent closest to foreground color)
+base07: "374f2f" # palette_accent_4: palette accent color intermediate to base06 (palette_accent_3) and base08 (palette_accent_5; palette accent closest to foreground color)
+base08: "304529" # palette_accent_5: palette accent color closest to base01 (foreground color)
+base09: "eeeeee" # grayscale_1: gray color closest to base00 (background color)
+base0A: "b9b9b9" # grayscale_2: gray color intermediate to base09 (grayscale_1) and base0B (grayscale_3)
+base0B: "8e8e8e" # grayscale_3: intermediary color directly between base09 (grayscale_1; grayscale color closest to background color) and base0D (grayscale_5; grayscale color closest to foreground color)
+base0C: "747474" # grayscale_4: gray color intermediate to base0B (grayscale_3) and base0D (grayscale_5)
+base0D: "464646" # grayscale_5: gray color closest to base01 (foreground color)
+base0E: "800400" # alert_foreground: clearly distinct color which stands out against other background, foreground, palette accent, and grayscale colors (all colors besides base0F/alert_background).  Should be closer to foreground color than base0F (alert_background) but should also be a shade variant of base0F (alert_background)
+base0F: "ffd3d3" # alert_background: clearly distinct color which stands out against other background, foreground, palette accent, and grayscale colors (all colors besides base0E/alert_foreground).  Should be closer to background color than base0E (alert_foreground) but should also be a shade variant of base0E (alert_background)

@@ -1,0 +1,22 @@
+[metadata]
+name = "theme"
+author = "(me)"
+background = "light"
+
+[colors]
+bg                 = "#ffffff" # background color.
+fg                 = "#000000" # foreground color.
+cursor             = "#bae847" # cursor color - should stand out against both background, foreground, palette, and grayscale colors, yet be a variant of the accent or selection colors.
+selection          = "#ececa3" # highlight/selection color, should stand out against background, foreground, and grayscale colors, yet be a different complementary color to the palette colors.
+palette_accent_1   = "#f2fae9" # palette accent color closest to background.
+palette_accent_2   = "#d5f5d5" # palette accent color intermediate to palette_accent_1 and palette_accent_3.
+palette_accent_3   = "#4d6b53" # intermediary palette color directly in between palette_accent_1 (closest to background) and palette_accent_5 (closest to foreground).
+palette_accent_4   = "#374f2f" # palette accent color intermediate to palette_accent_3 and palette_accent_5.
+palette_accent_5   = "#304529" # palette accent color closest to foreground.
+gray_scale_1       = "#eeeeee" # gray color closest to background.
+gray_scale_2       = "#b9b9b9" # gray color intermediate to gray_scale_1 and gray_scale_3.
+gray_scale_3       = "#8e8e8e" # intermediary color directly between gray_scale_1 (closest to background) and gray_scale_5 (closest to foreground).
+gray_scale_4       = "#747474" # gray color intermeidate to gray_scale_3 and gray_scale_5
+gray_scale_5       = "#464646" # gray color closest to foreground.
+alert              = "#800400" # clearly distinct color that stands out against other background, foreground, cursor, selection, palette_accent, and gray_scale colors.  should be a variant shade of minor_alert color, yet closer to the foreground color than background color.
+minor_alert        = "#ffd3d3" # clearly distinct color that stands out against other background, foreground, cursor, selection, palette_accent, and gray_scale colors.  should be a variant shade of alert color, yet closer to the background color than foreground color.
