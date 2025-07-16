@@ -1,6 +1,6 @@
 " GUI color definitions
-let g:lsp_bright = "#db6a00"
-let g:lsp = "#934e00"
+let g:lsp = "#ffaa33"
+let g:lsp_bright = "#934e00"
 
 let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
 if filereadable(vimrc)
@@ -22,6 +22,8 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'SmiteshP/nvim-navic'
+Plug 'SmiteshP/nvim-navbuddy'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
@@ -67,9 +69,7 @@ Plug 'stevearc/aerial.nvim' " navigate by code structure
 Plug 'simrat39/symbols-outline.nvim' " view code structure
 Plug 'romgrk/barbar.nvim'
 Plug '3rd/image.nvim'
-Plug 'SmiteshP/nvim-navic'
 Plug 'numToStr/Comment.nvim'
-Plug 'SmiteshP/nvim-navbuddy'
 Plug 'jpalardy/vim-slime'
 Plug 'Klafyvel/vim-slime-cells'
 Plug 'drybalka/tree-climber.nvim'
@@ -79,7 +79,7 @@ Plug 'sindrets/diffview.nvim'
 Plug 'aaronik/treewalker.nvim'
 Plug 'jinh0/eyeliner.nvim'
 Plug 'jake-stewart/multicursor.nvim'
-Plug 'rhysd/clever-f.vim'
+" Plug 'rhysd/clever-f.vim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
 call plug#end()
 
@@ -345,11 +345,11 @@ inoremap <C-/> <Plug>(copilot-suggest)
 nmap T :call OpenTerm()<CR>
 
 " Buffers -barbar
-nmap <C-b><C-b> <cmd>BufferPick<CR>
+nmap <leader><leader>b <cmd>BufferPick<CR>
 nmap <leader><leader>g <cmd>BufferPick<CR>
-nmap <C-b><C-p> <cmd>BufferPin<CR>
-nmap <C-b><C-r> <cmd>BufferRestore<CR>
-nmap <C-b><C-d> <cmd>BufferOrderByDirectory<CR>
+nmap <leader>bp <cmd>BufferPin<CR>
+nmap <leader>br <cmd>BufferRestore<CR>
+nmap <leader>bo <cmd>BufferOrderByDirectory<CR>
 nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 

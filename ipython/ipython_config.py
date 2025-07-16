@@ -444,7 +444,7 @@ c = get_config()  #noqa
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
 #  Choices: any of ['Neutral', 'NoColor', 'LightBG', 'Linux'] (case-insensitive)
 #  Default: 'Neutral'
-c.InteractiveShell.colors = 'Linux'
+c.InteractiveShell.colors = 'LightBG'
 
 #  Default: False
 # c.InteractiveShell.debug = False
@@ -600,7 +600,7 @@ c.InteractiveShell.colors = 'Linux'
 
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
 #  See also: InteractiveShell.colors
-c.TerminalInteractiveShell.colors = 'Linux'
+c.TerminalInteractiveShell.colors = 'LightBG'
 
 ## Set to confirm when you try to exit IPython with an EOF (Control-D in Unix,
 #  Control-Z/Enter in Windows). By typing 'exit' or 'quit', you can force a
@@ -668,7 +668,7 @@ c.TerminalInteractiveShell.extra_open_editor_shortcuts = False
 ## The name or class of a Pygments style to use for syntax
 #          highlighting. To see available styles, run `pygmentize -L styles`.
 #  Default: traitlets.Undefined
-c.TerminalInteractiveShell.highlighting_style = 'coffee'
+c.TerminalInteractiveShell.highlighting_style = 'friendly_grayscale'
 
 ## Override highlighting format for specific tokens
 #  Default: {}
@@ -877,10 +877,10 @@ c.TerminalInteractiveShell.highlighting_style = 'coffee'
 ## Use 24bit colors instead of 256 colors in prompt highlighting.
 #          If your terminal supports true color, the following command should
 #          print ``TRUECOLOR`` in orange::
-#  
+# 
 #              printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
 #  Default: False
-# c.TerminalInteractiveShell.true_color = False
+# c.TerminalInteractiveShell.true_color = True
 
 ## The time in milliseconds that is waited for a key code
 #         to complete.

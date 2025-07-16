@@ -9,9 +9,9 @@ foreground = "#000000"
 background = "#ffffff"
 
 # Overrides the default cursor colors
-cursor_bg = "#809c13"
+cursor_bg = "#c7e847"
 cursor_fg = "#000000"
-cursor_border = "#809c13"
+cursor_border = "#c7e847"
 
 # Color for selected text
 selection_bg = "#ececa3"
@@ -42,8 +42,8 @@ brights = [
 ]
 
 # Optional: You can also set specific UI colors for a more faithful look
-[colors.tab_bar]
-background = "#dadada"
+# [colors.tab_bar]
+# background = "#dadada"
 
 [colors.tab_bar.active_tab]
 bg_color = "#eeeeee"

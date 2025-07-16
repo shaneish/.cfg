@@ -8,13 +8,13 @@ fish_color_command "304529"                # ansi[4] # #304529
 fish_color_param "464646"                  # ansi[7] # #464646
 fish_color_quote "416741"                  # ansi[1] # #416741
 
-fish_color_operator "809c13"               # cursor_bg # #809c13
+fish_color_operator "c7e847"               # cursor_bg # #c7e847
 fish_color_redirection "464646"            # param color # #464646
-fish_color_end "809c13"                    # operator color # #809c13
+fish_color_end "c7e847"                    # operator color # #c7e847
 
-fish_color_user "809c13" # #809c13
+fish_color_user "c7e847" # #c7e847
 fish_color_host "6c6c6c" # #6c6c6c
-fish_color_host_remote --bold "809c13"     # Make remote host stand out # #809c13
+fish_color_host_remote --bold "c7e847"     # Make remote host stand out # #c7e847
 
 fish_color_search_match --background="ececa3" # #ececa3
 fish_color_selection --background="ececa3" --color="000000" # #ececa3
@@ -27,6 +27,6 @@ fish_pager_color_progress "b9b9b9" # #b9b9b9
 fish_pager_color_selected_background --background="ececa3" # #ececa3
 fish_pager_color_selected_completion "000000" # #000000
 fish_pager_color_selected_description "464646" # #464646
-fish_pager_color_selected_prefix --bold --no-underline "809c13" # #809c13
+fish_pager_color_selected_prefix --bold --no-underline "c7e847" # #c7e847
 
 fish_color_history_current --bold

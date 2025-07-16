@@ -10,7 +10,8 @@ let s:bright_color = "#8b8000"
 let s:primary_color = "#f6cd61"
 let s:background_color = "#000000"
 let s:foreground_color = "#ffffff"
-let s:mid = "#a7a7a7"
+let s:light_grey = "#faf0e6" " "#f5f5dd" "#dbdbdb"
+let s:mid = "#a9a9a7"
 let s:dark = "#767676"
 let s:darkest = "#323232"
 
@@ -91,8 +92,8 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " Variable types
 " --------------------------------
 call H("Constant",       s:foreground_color,       "NONE", "NONE")
-call H("String",         s:foreground_color,       "NONE", "NONE")
-call H("StringDelimiter",s:foreground_color,       "NONE", "NONE")
+call H("String",         s:light_grey,             "NONE", "NONE")
+call H("StringDelimiter",s:light_grey,             "NONE", "NONE")
 call H("Character",      s:foreground_color,       "NONE", "NONE")
 call H("Number",         s:foreground_color,       "NONE", "NONE")
 call H("Boolean",        s:foreground_color,       "NONE", "NONE")

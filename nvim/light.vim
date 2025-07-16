@@ -6,17 +6,19 @@ if exists("syntax_on")
 endif
 
 let g:colors_name = "light"
+set termguicolors
 set background=light
 
 " GUI color definitions
 let s:bg        = "#ffffff"
 let s:fg        = "#000000"
 let s:selection = "#ececa3"
-let s:cursor_bg = "#809c13"
+let s:cursor_bg = "#c7e847"
 let s:comment   = "#8e8e8e"
 let s:accent1   = "#416741" " Green
 let s:accent2   = "#304529" " Dark Green
-let s:accent3   = "#809c13" " Bright Green (Cursor)
+let s:accent3   = "#4d6b53" " Gray Green (Cursor)
+let s:accent4   = "#c7e847" " Bright Green
 let s:error     = "#800400"
 let s:warning   = "#fe6b40"
 let s:dim_fg    = "#b9b9b9"
@@ -25,6 +27,7 @@ let s:ui_bg2    = "#dadada"
 let s:ui_fg1    = "#374f2f"
 let s:ui_fg2    = "#6c6c6c"
 let s:off_white = "#f2fae9"
+let s:dark_grey = "#464646"
 
 
 " Editor UI and Syntax Highlighting
@@ -32,22 +35,22 @@ let s:off_white = "#f2fae9"
 "                    ctermfg         ctermbg         guifg           guibg           cterm       gui
 hi Normal            ctermfg=black   ctermbg=white   guifg=#000000   guibg=#ffffff   cterm=NONE  gui=NONE
 hi Comment           ctermfg=darkgrey                guifg=#8e8e8e                   cterm=NONE  gui=NONE
-hi Constant          ctermfg=darkgreen               guifg=#416741                   cterm=NONE  gui=NONE
+hi Constant          ctermfg=darkgreen               guifg=#464646                   cterm=NONE  gui=NONE
 hi String            ctermfg=darkgreen               guifg=#416741                   cterm=NONE  gui=NONE
 hi Identifier        ctermfg=darkgreen               guifg=#304529                   cterm=NONE  gui=NONE
 hi Function          ctermfg=black                   guifg=#000000                   cterm=bold  gui=bold
-hi Statement         ctermfg=darkgreen               guifg=#304529                   cterm=bold  gui=bold
-hi PreProc           ctermfg=darkgreen               guifg=#416741                   cterm=NONE  gui=NONE
+hi Statement         ctermfg=darkgreen               guifg=#374f2f                   cterm=bold  gui=bold
+hi PreProc           ctermfg=darkgreen               guifg=#374f2f                   cterm=NONE  gui=NONE
 hi Type              ctermfg=darkgreen               guifg=#304529                   cterm=NONE  gui=NONE
-hi Special           ctermfg=darkred                 guifg=#809c13                   cterm=NONE  gui=NONE
-hi Operator          ctermfg=darkgreen               guifg=#809c13                   cterm=NONE  gui=NONE
-hi Todo              ctermfg=red     ctermbg=yellow  guifg=#000000   guibg=#fe6b40   cterm=bold  gui=bold
-hi Error             ctermfg=white   ctermbg=red     guifg=#ffffff   guibg=#800400   cterm=NONE  gui=NONE
-hi ErrorMsg          ctermfg=white   ctermbg=red     guifg=#ffffff   guibg=#800400   cterm=NONE  gui=NONE
-hi WarningMsg        ctermfg=black   ctermbg=yellow  guifg=#000000   guibg=#fe6b40   cterm=NONE  gui=NONE
+hi Special           ctermfg=darkred                 guifg=#4d6b53                   cterm=NONE  gui=NONE
+hi Operator          ctermfg=darkgreen               guifg=#4d6b53                   cterm=NONE  gui=NONE
+hi Todo              ctermfg=red     ctermbg=yellow                  guibg=#c7e847   cterm=bold  gui=bold,underline
+hi Error             ctermfg=white   ctermbg=red                     guifg=#800400   cterm=NONE  gui=bold,undercurl
+hi ErrorMsg          ctermfg=white   ctermbg=red                     guifg=#800400   cterm=NONE  gui=undercurl
+hi WarningMsg        ctermfg=black   ctermbg=yellow                  guifg=#fe6b40   cterm=NONE  gui=NONE
 
 " UI Elements
-hi Cursor                                            guifg=#000000   guibg=#809c13
+hi Cursor                                            guifg=#000000   guibg=#c7e847
 hi CursorLine                        ctermbg=255     guibg=#f2fae9                   cterm=NONE
 hi CursorLineNr      ctermfg=darkgreen               guifg=#374f2f                   cterm=bold  gui=bold
 hi ColorColumn                       ctermbg=255     guibg=#f2fae9
@@ -61,10 +64,10 @@ hi StatusLineNC      ctermfg=darkgrey ctermbg=white   guifg=#6c6c6c   guibg=#dad
 hi Pmenu                             ctermbg=lightgrey guifg=#464646   guibg=#dadada
 hi PmenuSel          ctermfg=black   ctermbg=darkgrey guifg=#000000   guibg=#ececa3
 hi PmenuSbar                         ctermbg=grey    guibg=#b9b9b9
-hi PmenuThumb        ctermfg=black   ctermbg=black   guifg=#809c13   guibg=#809c13
+hi PmenuThumb        ctermfg=black   ctermbg=black   guifg=#4d6b53   guibg=#4d6b53
 hi Search                            ctermbg=yellow  guibg=#ececa3
 hi IncSearch         ctermfg=black   ctermbg=darkgreen guifg=#000000   guibg=#ececa3
-hi MatchParen        ctermfg=white   ctermbg=darkgreen guifg=#000000   guibg=#809c13   cterm=bold  gui=bold
+hi MatchParen        ctermfg=white   ctermbg=darkgreen guifg=#000000   guibg=#ececa3   cterm=bold  gui=bold
 
 " Diffs
 hi DiffAdd                           ctermbg=darkgreen guibg=#eafaea
@@ -91,6 +94,10 @@ hi! link Structure Type
 hi! link Typedef Type
 hi! link Title Function
 hi! link StatusLine CursorLine
+
+" Plugin-specific highlights
+hi EyelinerPrimary      guifg=#000000 gui=bold
+hi EyelinerSecondary    guifg=#747474 gui=bold,italic
 
 " Terminal Colors
 if has('nvim')

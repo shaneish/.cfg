@@ -72,7 +72,8 @@ wezterm.on('update-right-status', function(window, pane)
     name = 'WINDOW: ' .. window:active_workspace() .. '  '
   end
   window:set_right_status(wezterm.format {
-        { Foreground = { Color = '#416741' } },
+        { Foreground = { Color = '#f2fae9' } },
+        { Background = { Color = '#393939' } },
         { Text = name },
       })
 end)
@@ -120,10 +121,10 @@ config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_opacity = 0.99
 config.use_fancy_tab_bar = true
-config.show_new_tab_button_in_tab_bar = false
+-- config.show_new_tab_button_in_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.text_blink_rate = 300
-config.cursor_thickness = 1
+config.cursor_thickness = 2
 config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
@@ -149,7 +150,7 @@ config.colors = {
       bg_color = "#f2fae9"
     },
     inactive_tab = {
-      bg_color = "#dddddd",
+      bg_color = "#242424",
       fg_color = "#a3a3a3"
     }
   },

@@ -1,5 +1,5 @@
 local lsp_bright = "#db6a00"
-local lsp = "#934e00"
+local lsp = "#ffaa33"
 
 -- %% simple deps
 require('telescope')
@@ -8,6 +8,7 @@ require('csvview').setup()
 require('rainbow_csv').setup()
 require('colorizer').setup()
 local navbuddy = require("nvim-navbuddy")
+vim.g.navic_silence = true
 
 -- %% modularly defined deps
 require('nvim-cmp-config')
@@ -50,7 +51,13 @@ require('nvim-treesitter.configs').setup {
         'terraform',
         'zig',
         'bash',
-        'fish'
+        'fish',
+        'yaml',
+        'json',
+        'html',
+        'typst',
+        'toml',
+        'sql',
     },
     sync_install = false,
     auto_install = true,
@@ -91,19 +98,22 @@ require('notebook').setup {
 }
 
 -- %% eyeliner
-require('eyeliner').setup({ forward = true})
-vim.g.clever_f_not_overwrites_standard_mappings = 1
-vim.keymap.set(
-  {"n", "x", "o"},
-  "f",
-  function() 
-    require("eyeliner").highlight({ forward = true })
-    return "<Plug>(clever-f-f)"
-  end,
-  {expr = true}
-)
-vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = lsp, bold = true, underline = true })
-vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg = lsp_bright, underline = true })
+require('eyeliner').setup({
+  highlight_on_key = true, -- this must be set to true for dimming to work!
+  dim = true
+})
+-- vim.g.clever_f_not_overwrites_standard_mappings = 1
+-- vim.keymap.set(
+--   {"n", "x", "o"},
+--   "f",
+--   function() 
+--     require("eyeliner").highlight({ forward = true })
+--     return "<Plug>(clever-f-f)"
+--   end,
+--   {expr = true}
+-- )
+-- vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg = lsp_bright, bold = true })
+-- vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg = lsp, bold = true, underline = true })
 
 -- %% symbols outline
 require("symbols-outline").setup()
@@ -295,7 +305,9 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gc', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader><leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    navbuddy.attach(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+      navbuddy.attach(client, bufnr)
+    end
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
