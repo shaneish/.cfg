@@ -1,0 +1,37 @@
+# name: 'active_theme'
+# url: ''
+# preferred_background: 1e1e1e #1e1e1e
+
+fish_color_normal "ffffff"                                                                   # Default foreground # #ffffff
+fish_color_comment "7d9b83"                                                        # #9e9e9e
+fish_color_autosuggestion "6b6b6b"                                                 # #6b6b6b
+fish_color_error "c4c4c4" --underline                                              # #c4c4c4
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "9e9e9e" --bold                                                  # #7d9b83
+fish_color_param "e6e6e6"                                                           # #e6e6e6
+fish_color_quote "7d9b83" --italic                                                # #7d9b83
+
+fish_color_operator "a7c09f"                                                   # bae847_1e1e1e # #a7c09f
+fish_color_redirection "e6e6e6"                                                    # param color # #e6e6e6
+fish_color_end "a7c09f"                                                        # operator color # #a7c09f
+
+fish_color_user "a7c09f"                                                       # #a7c09f
+fish_color_host "c4c4c4"                                                           # #c4c4c4
+fish_color_host_remote --bold "a7c09f"                                         # Make remote host stand out # #a7c09f
+
+fish_color_search_match --background="5e5e0a"                                         # #5e5e0a
+fish_color_5e5e0a --background="5e5e0a" --color="ffffff"         # #5e5e0a
+
+fish_pager_color_completion "e6e6e6"                                               # #e6e6e6
+fish_pager_color_description "9e9e9e"                                              # #9e9e9e
+fish_pager_color_prefix --bold "ffffff"                                                      # #ffffff
+fish_pager_color_progress "6b6b6b"                                                 # #6b6b6b
+
+fish_pager_color_selected_background --background="5e5e0a"                            # #5e5e0a
+fish_pager_color_selected_completion "ffffff"                                                # #ffffff
+fish_pager_color_selected_description "e6e6e6"                                     # #e6e6e6
+fish_pager_color_selected_prefix --bold --no-underline "a7c09f"                # #a7c09f
+
+fish_color_history_current --bold

@@ -3,6 +3,7 @@ function _source_local
     if not set -q MACHINE_IDENTIFIER; or not test $_MACHINE_IDENTIFIER = "$MACHINE_IDENTIFIER"
         _source_once
         set -Ux MACHINE_IDENTIFIER $_MACHINE_IDENTIFIER
+        fish
     end
     if test -e "$FISH_CONFIG_DIRECTORY/local/$_MACHINE_IDENTIFIER"
         "$FISH_CONFIG_DIRECTORY/$_MACHINE_IDENTIFIER"

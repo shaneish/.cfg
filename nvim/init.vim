@@ -9,7 +9,7 @@ else
     source $HOME/.vimrc
 endif
 
-let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/light.vim"
+let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/active_theme.vim"
 if filereadable(theme)
     execute 'source ' . theme
 endif
@@ -144,7 +144,7 @@ function! CodeBlock()
     if index(g:code_block_alt_file_types, &filetype) >= 0
         let g:code_block_comment = "```"
     else
-        let g:code_block_comment = substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g')
+        let g:code_block_comment = substitute(substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g'), '**', '', 'g')
     endif
     let g:code_block_current = g:code_block_comment . ' ' . g:code_block_suffix
     let g:slime_cell_delimiter = g:code_block_current

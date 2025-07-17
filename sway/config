@@ -139,6 +139,7 @@ output * bg ~/.config/background.png fill
 # Workspaces:
 #
     # Switch to workspace
+    bindsym $mod+s workspace number 1
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3

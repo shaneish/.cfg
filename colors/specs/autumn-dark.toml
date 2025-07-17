@@ -1,0 +1,22 @@
+[metadata]
+name = "active_theme"
+author = "(me)"
+background = "dark"
+
+[colors]
+bg                  = "#1e1e1e" # Dark background color.
+fg                  = "#ffffff" # Light foreground color.
+cursor              = "#e8a447" # Cursor color - still a warm orange, stands out on dark.
+selection           = "#5a3a1f" # Darker, richer highlight/selection, a warm earthy tone.
+palette_accent_1    = "#2d1a0e" # Darkest autumn accent, closest to background (deep brown).
+palette_accent_2    = "#4a2d18" # Deeper brown-orange.
+palette_accent_3    = "#7d5537" # Mid-tone autumn brown.
+palette_accent_4    = "#aa7b52" # Lighter, coppery autumn tone.
+palette_accent_5    = "#d4a97f" # Lightest autumn accent, closest to foreground (creamy orange-brown).
+gray_scale_1        = "#333333" # Gray color closest to background.
+gray_scale_2        = "#6b6b6b" # Intermediate gray.
+gray_scale_3        = "#9e9e9e" # Intermediary gray.
+gray_scale_4        = "#c4c4c4" # Lighter gray.
+gray_scale_5        = "#e6e6e6" # Gray color closest to foreground.
+alert               = "#ff4d4d" # Clearly distinct alert, bright against dark.
+minor_alert         = "#a00000" # Distinct minor alert, darker against dark.

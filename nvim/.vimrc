@@ -165,6 +165,13 @@ function! LorCorB(cmd)
     return ":" . attr . a:cmd
 endfunction
 
+function! WrapWarper(cmd)
+    if &wrap
+        return "g" . a:cmd
+    endif
+    return a:cmd
+endfunction
+
 " #settings ish"
 set termguicolors
 set linespace=10
@@ -291,12 +298,12 @@ nnoremap <C-o><C-j> o<Esc>k
 nnoremap <C-o><C-k> O<Esc>j
 
 " move stuff
-noremap j gj
-noremap k gk
+noremap <expr> j WrapWarper("j")
+noremap <expr> k WrapWarper("k")
 noremap J )zz
 noremap K (zz
-noremap <expr> <C-j> NextBlankLine() . 'jzzg^'
-noremap <expr> <C-k> PrevBlankLine() . 'kzzg^'
+noremap <expr> <C-j> NextBlankLine() . 'jzz'
+noremap <expr> <C-k> PrevBlankLine() . 'kzz'
 noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$

@@ -1,0 +1,66 @@
+[metadata]
+name = "active_theme"
+author = "(me)"
+background = "light"
+
+[colors]
+bg                  = "#ffffff" # background color.
+fg                  = "#000000" # foreground color.
+cursor              = "#b0ffb0" # Brighter pastel green cursor.
+selection           = "#e6e8c8" # Muted, slightly more visible yellow for selection.
+palette_accent_1    = "#f0fff0" # Very light green, closer to background.
+palette_accent_2    = "#dce8dc" # Slightly less green, distinguishable light tone.
+palette_accent_3    = "#6b876b" # Now a notably darker, more prominent green.
+palette_accent_4    = "#2a4c2a" # Significantly darker green.
+palette_accent_5    = "#103310" # Very deep, almost black-green accent.
+gray_scale_1        = "#ededed" # Slightly darker very light gray.
+gray_scale_2        = "#d0d0d0" # Slightly darker light gray.
+gray_scale_3        = "#707070" # Slightly darker mid-dark gray.
+gray_scale_4        = "#484848" # Very dark gray.
+gray_scale_5        = "#2e2e2e" # Extremely dark gray, close to black.
+alert               = "#e67373" # Darker, but still pastel-ish red for alerts.
+minor_alert         = "#ffe0e0" # Very light pastel red for minor alerts.
+
+### variations below ###
+
+# palette_accent_1    = "#f8fff8" # palette accent color closest to background - almost white, barely perceptible highlight.
+# palette_accent_2    = "#e6fae6" # palette accent color intermediate - distinct light green on top of accent_1.
+# palette_accent_3    = "#4a704e" # intermediary palette - deeper, richer green, closer to foreground for special font.
+
+# palette_accent_2    = "#dce8dc" # Slightly less green, distinguishable light tone.
+# palette_accent_3    = "#4f7d4f" # Now a notably darker, more prominent green.
+
+# selection           = "#ececa3" # Original highlight color.
+
+# gray_scale_2        = "#bdbdbd" # gray color intermediate - easily perceptible, much closer to background.
+
+# alert               = "#a30000" # clearly distinct alert color - darker, strong red, closer to foreground.
+# minor_alert         = "#ffdddd" # clearly distinct minor_alert - light, clear red, closer to background.
+
+# selection           = "#e0e8b0" # highlight/selection color - a muted, creamy yellow-green that complements greens well.
+
+
+### possible better theme ###
+
+# [metadata]
+# name = "theme_subtle_green_refined_accents_v9"
+# author = "(me)"
+# background = "light"
+# 
+# [colors]
+# bg                  = "#ffffff" # background color.
+# fg                  = "#000000" # foreground color.
+# cursor              = "#b0ffb0" # Brighter pastel green cursor.
+# selection           = "#e0e8b0" # highlight/selection color - a muted, creamy yellow-green that complements greens well.
+# palette_accent_1    = "#f0fff0" # Very light green, closer to background.
+# palette_accent_2    = "#e6fae6" # palette accent color intermediate - distinct light green on top of accent_1.
+# palette_accent_3    = "#4a704e" # intermediary palette - deeper, richer green, closer to foreground for special font.
+# palette_accent_4    = "#2a4c2a" # Significantly darker green.
+# palette_accent_5    = "#103310" # Very deep, almost black-green accent.
+# gray_scale_1        = "#ededed" # Slightly darker very light gray.
+# gray_scale_2        = "#d0d0d0" # Slightly darker light gray.
+# gray_scale_3        = "#707070" # Slightly darker mid-dark gray.
+# gray_scale_4        = "#484848" # Very dark gray.
+# gray_scale_5        = "#2e2e2e" # Extremely dark gray, close to black.
+# alert               = "#a30000" # clearly distinct alert color - darker, strong red, closer to foreground.
+# minor_alert         = "#ffdddd" # clearly distinct minor_alert - light, clear red, closer to background.

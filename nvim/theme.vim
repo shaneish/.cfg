@@ -10,7 +10,7 @@ let s:bright_color = "#8b8000"
 let s:primary_color = "#f6cd61"
 let s:background_color = "#000000"
 let s:foreground_color = "#ffffff"
-let s:light_grey = "#faf0e6" " "#f5f5dd" "#dbdbdb"
+let s:light_grey = "#dbdbdb"
 let s:mid = "#a9a9a7"
 let s:dark = "#767676"
 let s:darkest = "#323232"
@@ -75,8 +75,8 @@ call H("MoreMsg",      s:dark,          "NONE",      "NONE")
 " - Visual aid -
 " --------------
 call H("MatchParen",      s:background_color,     s:foreground_color, "bold")
-call H("Visual",          s:foreground_color,     s:bright_color,     "bold")
-call H("VisualNOS",       s:foreground_color,     s:bright_color,     "bold")
+call H("Visual",          s:foreground_color,     s:bright_color)
+call H("VisualNOS",       s:foreground_color,     s:bright_color)
 call H("NonText",         s:bright_color,         "NONE")
 call H("Todo",            s:bright_color,         "NONE",             "underline")
 call H("Underlined",      s:bright_color,         "NONE")
@@ -92,19 +92,19 @@ call H("WhiteSpace",      s:primary_color,        "NONE")
 " Variable types
 " --------------------------------
 call H("Constant",       s:foreground_color,       "NONE", "NONE")
-call H("String",         s:light_grey,             "NONE", "NONE")
+call H("String",         s:foreground_color,       "NONE", "NONE")
 call H("StringDelimiter",s:light_grey,             "NONE", "NONE")
 call H("Character",      s:foreground_color,       "NONE", "NONE")
 call H("Number",         s:foreground_color,       "NONE", "NONE")
 call H("Boolean",        s:foreground_color,       "NONE", "NONE")
 call H("Float",          s:foreground_color,       "NONE", "NONE")
-call H("Identifier",     s:foreground_color,       "NONE", "NONE")
-call H("Function",       s:foreground_color,       "NONE", "NONE")
+call H("Identifier",     s:foreground_color,       "NONE", "bold")
+call H("Function",       s:foreground_color,       "NONE", "bold")
 
 " --------------------------------
 " Language constructs
 " --------------------------------
-call H("Keyword",        s:foreground_color, "NONE", "bold")
+call H("Keyword",        s:foreground_color, "NONE", "bold,underline")
 call H("Statement",      s:foreground_color, "NONE", "bold")
 call H("Repeat",         s:foreground_color, "NONE", "NONE")
 call H("Comment",        s:grey,             "NONE", "italic")

@@ -1,0 +1,58 @@
+[metadata]
+# name = "{{metadata.name}}"
+name = "active_theme" # hardcode it so it's easy to switch out
+author = "{{metadata.author}}"
+
+# The most basic colors
+[colors]
+foreground = "#{{colors.fg}}"
+background = "#{{colors.bg}}"
+
+# Overrides the default cursor colors
+cursor_bg = "#{{colors.cursor}}"
+cursor_fg = "#{{colors.fg}}"
+cursor_border = "#{{colors.cursor}}"
+
+# Color for selected text
+selection_bg = "#{{colors.selection}}"
+selection_fg = "#{{colors.fg}}"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#{{colors.gray_scale_2}}",
+  "#{{colors.palette_accent_5}}",
+  "#{{colors.gray_scale_3}}",
+  "#{{colors.alert}}",
+  "#{{colors.palette_accent_5}}",
+  "#{{colors.gray_scale_4}}",
+  "#{{colors.gray_scale_5}}",
+  "#{{colors.palette_accent_2}}"
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#{{colors.gray_scale_1}}",
+  "#{{colors.palette_accent_3}}",
+  "#{{colors.gray_scale_2}}",
+  "#{{colors.minor_alert}}",
+  "#{{colors.palette_accent_4}}",
+  "#{{colors.gray_scale_3}}",
+  "#{{colors.gray_scale_4}}",
+  "#{{colors.palette_accent_1}}",
+]
+
+# [colors.tab_bar]
+# background = "#{{colors.gray_scale_2}}"
+
+[colors.tab_bar.active_tab]
+bg_color = "#{{colors.selection}}"
+fg_color = "#{{colors.fg}}"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#{{colors.gray_scale_1}}"
+fg_color = "#{{colors.palette_accent_2}}"
+
+[colors.tab_bar.new_tab]
+bg_color = "#{{colors.gray_scale_1}}"
+fg_color = "#{{colors.gray_scale_5}}"

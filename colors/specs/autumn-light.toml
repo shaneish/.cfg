@@ -1,0 +1,22 @@
+[metadata]
+name = "active_theme"
+author = "(me)"
+background = "light"
+
+[colors]
+bg                  = "#ffffff" # background color.
+fg                  = "#000000" # foreground color.
+cursor              = "#e8a447" # Cursor color - a warm orange that stands out.
+selection           = "#f7e1c8" # Highlight/selection color, a soft, light autumn shade.
+palette_accent_1    = "#fff8e1" # Lightest autumn accent, close to background.
+palette_accent_2    = "#fbe7c0" # Muted yellow-orange.
+palette_accent_3    = "#d9a164" # Mid-tone autumn brown/orange.
+palette_accent_4    = "#b87333" # Deeper, richer brown-orange.
+palette_accent_5    = "#8b4513" # Darkest autumn accent, close to foreground (a classic russet).
+gray_scale_1        = "#eeeeee" # gray color closest to background.
+gray_scale_2        = "#b9b9b9" # gray color intermediate to gray_scale_1 and gray_scale_3.
+gray_scale_3        = "#8e8e8e" # intermediary color directly between gray_scale_1 (closest to background) and gray_scale_5 (closest to foreground).
+gray_scale_4        = "#747474" # gray color intermeidate to gray_scale_3 and gray_scale_5
+gray_scale_5        = "#464646" # gray color closest to foreground.
+alert               = "#800400" # Clearly distinct alert, a deep red.
+minor_alert         = "#ffd3d3" # Lighter red for minor alerts.

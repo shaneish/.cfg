@@ -1,0 +1,57 @@
+[metadata]
+name = "default-light"
+author = "(me)"
+
+# The most basic colors
+[colors]
+foreground = "#000000"
+background = "#ffffff"
+
+# Overrides the default cursor colors
+cursor_bg = "#b0ffb0"
+cursor_fg = "#000000"
+cursor_border = "#b0ffb0"
+
+# Color for selected text
+selection_bg = "#e0e8b0"
+selection_fg = "#000000"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#d0d0d0",
+  "#103310",
+  "#707070",
+  "#a30000",
+  "#103310",
+  "#484848",
+  "#2e2e2e",
+  "#dce8dc"
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#ededed",
+  "#4a704e",
+  "#d0d0d0",
+  "#ffdddd",
+  "#2a4c2a",
+  "#707070",
+  "#484848",
+  "#f0fff0",
+]
+
+# [colors.tab_bar]
+# background = "#d0d0d0"
+
+[colors.tab_bar.active_tab]
+bg_color = "#484848"
+fg_color = "#b0ffb0"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#2e2e2e"
+fg_color = "#dce8dc"
+
+[colors.tab_bar.new_tab]
+bg_color = "#ededed"
+fg_color = "#2e2e2e"

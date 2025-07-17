@@ -72,8 +72,8 @@ wezterm.on('update-right-status', function(window, pane)
     name = 'WINDOW: ' .. window:active_workspace() .. '  '
   end
   window:set_right_status(wezterm.format {
-        { Foreground = { Color = '#f2fae9' } },
-        { Background = { Color = '#393939' } },
+        { Foreground = { Color = light_colors[8] } },
+        { Background = { Color = light_colors[7] } },
         { Text = name },
       })
 end)
@@ -115,7 +115,7 @@ config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
-config.color_scheme = 'light'
+config.color_scheme = 'active_theme'
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
@@ -143,18 +143,28 @@ config.font_rules = {
   },
 }
 
+local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/active_theme.toml")
+local dark_colors = color_conf.ansi
+local light_colors = color_conf.brights
+-- check if foreground is brighter than background
+if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
+  dark_colors = color_conf.brights
+  light_colors = color_conf.ansi
+end
 config.colors = {
   tab_bar = {
     active_tab = {
-      fg_color = "#242424",
-      bg_color = "#f2fae9"
+      bg_color = dark_colors[6],
+      fg_color = color_conf.cursor_bg,
+      intensity = "Bold",
     },
     inactive_tab = {
-      bg_color = "#242424",
-      fg_color = "#a3a3a3"
+      bg_color = dark_colors[7],
+      fg_color = dark_colors[8],
     }
   },
 }
+
 config.window_frame = {
   font_size = 11,
   font = wezterm.font 'JetBrains Mono'
@@ -164,12 +174,6 @@ config.inactive_pane_hsb = {
   saturation = 0.3,
   brightness = 0.8,
 }
-
--- config.active_pane_hsb = {
---   hue = 1.0,
---   saturation = 1.0,
---   brightness = 2.0,
--- }
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Arch'
   config.window_decorations = "RESIZE"
@@ -455,7 +459,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#416741' } },
+        { Foreground = { Color = light_colors[2] } },
         { Text = 'Workspace name:' },
       },
       action = wezterm.action_callback(function(win, pane, line)
@@ -537,7 +541,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#416741' } },
+        { Foreground = { Color = light_colors[2] } },
         { Text = 'Rename workspace:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -556,7 +560,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#416741' } },
+        { Foreground = { Color = light_colors[2] } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -579,7 +583,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = '#416741' } },
+        { Foreground = { Color = light_colors[2] } },
         { Text = 'Workspace name:' },
       },
     action = wezterm.action_callback(function(window, pane, line)

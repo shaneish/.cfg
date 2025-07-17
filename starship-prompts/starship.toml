@@ -15,10 +15,10 @@ $python"""
 truncation_length = 15
 truncate_to_repo = false
 fish_style_pwd_dir_length = 1
-repo_root_style = "#4e7a1c bold underline"
-read_only_style = "#4e7a1c bold"
-before_repo_root_style = "#4e7a1c bold"
-style = "#4e7a1c bold"
+repo_root_style = "#4e7a1c underline"
+read_only_style = "#4e7a1c"
+before_repo_root_style = "#4e7a1c"
+style = "#4e7a1c"
 format = "[$path$read_only]($style)"
 repo_root_format = "[>]($style) [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
 home_symbol = "~"
@@ -27,7 +27,7 @@ truncation_symbol = '.../'
 
 [git_status]
 format = " [$all_status$ahead_behind]($style) "
-style = "#4e7a1c bold"
+style = "#4e7a1c"
 ahead = ">"
 behind = "<"
 diverged = "!"
@@ -38,11 +38,11 @@ disabled = true
 [git_branch]
 format = "[$symbol$branch]($style)"
 symbol = ""
-style = "#4e7a1c bold"
+style = "#4e7a1c"
 
 [git_metrics]
-added_style = '#4e7a1c bold'
-deleted_style = '#4e7a1c bold'
+added_style = '#4e7a1c'
+deleted_style = '#4e7a1c'
 format = '( [↑$added]($added_style))([↓$deleted]($deleted_style) )'
 disabled = false
 
@@ -50,18 +50,18 @@ disabled = false
 symbol = ""
 format = " [$symbol$virtualenv $version]($style)"
 version_format = "\\($major.${minor}\\)"
-style = "#4e7a1c bold"
+style = "#4e7a1c"
 
 [line_break]
 disabled = true
 
 [character]
-error_symbol =              " [x](#4e7a1c bold blink)"
-success_symbol =            " [>](#4e7a1c bold)"
-vimcmd_symbol =             " [>](#4e7a1c bold)"
-vimcmd_visual_symbol =      " [>](#4e7a1c bold blink)"
-vimcmd_replace_symbol =     " [_](#4e7a1c bold)"
-vimcmd_replace_one_symbol = " [_](#4e7a1c bold blink)"
+error_symbol =              " [x](#4e7a1c blink)"
+success_symbol =            " [>](#4e7a1c)"
+vimcmd_symbol =             " [>](#4e7a1c)"
+vimcmd_visual_symbol =      " [>](#4e7a1c blink)"
+vimcmd_replace_symbol =     " [_](#4e7a1c)"
+vimcmd_replace_one_symbol = " [_](#4e7a1c blink)"
 
 [cmd_duration]
 disabled = true
@@ -73,12 +73,12 @@ disabled = true
 disabled = true
 
 [username]
-format = '[$user](#4e7a1c bold)'
+format = '[$user](#4e7a1c)'
 show_always = true
 
 [sudo]
 symbol = "~"
-format = '[$symbol](#4e7a1c bold)'
+format = '[$symbol](#4e7a1c)'
 disabled = false
 
 [hostname]
@@ -86,71 +86,71 @@ format = "[$symbol$hostname]($style)"
 trim_at = ""
 ssh_only = true
 ssh_symbol = "@"
-style = "#4e7a1c bold"
+style = "#4e7a1c"
 
 [package]
 symbol = ".pkg"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [perl]
 symbol = ".pl"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [php]
 symbol = ".php"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [pijul_channel]
 symbol = "pijul"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [pulumi]
 symbol = ".yml"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [purescript]
 symbol = ".purs"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [quarto]
 symbol = ".qmd"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [raku]
 symbol = ".raku"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [ruby]
 symbol = ".rb"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [rust]
 symbol = ".rs"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [scala]
 symbol = ".sc"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [spack]
 symbol = "spack"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [solidity]
 symbol = ".sol"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [status]
@@ -158,192 +158,192 @@ symbol = "x"
 
 [swift]
 symbol = ".swift"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [typst]
 symbol = "typst"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [terraform]
 symbol = ".tf"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [zig]
 symbol = ".zig"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [aws]
 symbol = ".aws"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [azure]
 symbol = ".az"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [bun]
 symbol = ".js"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [c]
 symbol = ".c"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [cobol]
 symbol = ".cbl"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [conda]
 symbol = ".conda"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [crystal]
 symbol = ".cr"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [cmake]
 symbol = ".cmake"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [daml]
 symbol = ".daml"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [dart]
 symbol = ".dart"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [deno]
 symbol = ".js"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [dotnet]
 symbol = ".net"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [docker_context]
 symbol = "docker "
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [elixir]
 symbol = ".exs"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [elm]
 symbol = ".elm"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [fennel]
 symbol = ".fnl"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [fossil_branch]
 symbol = ".fossil"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [gcloud]
 symbol = ".gcp"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [gleam]
 symbol = ".gleam"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [golang]
 symbol = ".go"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [gradle]
 symbol = ".gradle"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [guix_shell]
 symbol = ".guix"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [hg_branch]
 symbol = ".hg"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [java]
 symbol = ".java"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [julia]
 symbol = ".jl"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [kotlin]
 symbol = ".kt"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [lua]
 symbol = ".lua"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [nodejs]
 symbol = ".js"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [meson]
 symbol = ".meson"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [nats]
 symbol = ".nats"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [nim]
 symbol = ".nim"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [nix_shell]
 symbol = ".nix"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [ocaml]
 symbol = ".ml"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [opa]
 symbol = ".opa"
-format = '[$symbol](#4e7a1c bold) '
+format = '[$symbol](#4e7a1c) '
 disabled = true
 
 [os.symbols]

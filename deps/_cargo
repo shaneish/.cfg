@@ -20,7 +20,11 @@ cargo install tealdeer
 cargo install onefetch --force
 cargo install starship
 cargo install tree-rs
+cargo install --locked typst-cli
+cargo install --locked --git https://github.com/asciinema/asciinema/tree/v3.0.0-rc.5 # asciicinema
+cargo install --git https://github.com/asciinema/agg/tree/v1.5.0 #asciicinema gif maker
 
 _alias eza ll
 _alias fselect fs
 _alias rust-parallel rp
+_alias tree-rs tree

@@ -1,20 +1,24 @@
+# name: 'light'
+# url: ''
+# preferred_background: ffffff
+
 fish_color_normal "000000"                 # Default foreground # #000000
-fish_color_comment "8e8e8e"                # ansi[2] # #8e8e8e
-fish_color_autosuggestion "b9b9b9"         # ansi[0] # #b9b9b9
-fish_color_error "800400" --bold      # ansi[3] # #800400
+fish_color_comment "8e8e8e"                # #8e8e8e
+fish_color_autosuggestion "b9b9b9"         # #b9b9b9
+fish_color_error "6c6c6c" --bold --underline # #6c6c6c
 fish_color_valid_path --underline          # Underline valid paths to check them
 
-fish_color_command "304529"                # ansi[4] # #304529
-fish_color_param "464646"                  # ansi[7] # #464646
-fish_color_quote "416741"                  # ansi[1] # #416741
+fish_color_command "304529" --bold         # #304529
+fish_color_param "464646"                  # #464646
+fish_color_quote "4d6b53"                  # #4d6b53
 
-fish_color_operator "c7e847"               # cursor_bg # #c7e847
+fish_color_operator "374f2f"               # cursor_bg # #374f2f
 fish_color_redirection "464646"            # param color # #464646
-fish_color_end "c7e847"                    # operator color # #c7e847
+fish_color_end "374f2f"                    # operator color # #374f2f
 
-fish_color_user "c7e847" # #c7e847
+fish_color_user "374f2f" # #374f2f
 fish_color_host "6c6c6c" # #6c6c6c
-fish_color_host_remote --bold "c7e847"     # Make remote host stand out # #c7e847
+fish_color_host_remote --bold "374f2f"     # Make remote host stand out # #374f2f
 
 fish_color_search_match --background="ececa3" # #ececa3
 fish_color_selection --background="ececa3" --color="000000" # #ececa3
@@ -27,6 +31,6 @@ fish_pager_color_progress "b9b9b9" # #b9b9b9
 fish_pager_color_selected_background --background="ececa3" # #ececa3
 fish_pager_color_selected_completion "000000" # #000000
 fish_pager_color_selected_description "464646" # #464646
-fish_pager_color_selected_prefix --bold --no-underline "c7e847" # #c7e847
+fish_pager_color_selected_prefix --bold --no-underline "374f2f" # #374f2f
 
 fish_color_history_current --bold
