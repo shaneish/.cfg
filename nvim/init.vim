@@ -314,6 +314,7 @@ augroup CheckEveryTime
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_suffix = InferCodeBlockSuffix()
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_current = CodeBlock()
     autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()
+    autocmd VimEnter,BufEnter,WinEnter *.txt,*.md,*.typ,*.typst set spell
 augroup END
 
 

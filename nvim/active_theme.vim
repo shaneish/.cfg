@@ -94,7 +94,7 @@ hi EyelinerSecondary    guifg=#484848           gui=bold,italic
 " multiline strings (good for prompt engineering readability)
 syntax region MultiLineStringDouble start=/"""/ end=/"""/
 syntax region MultiLineStringSingle start=/'''/ end=/'''/
-syntax region MultiLineBacktick start=/```/ end=/```/
+" syntax region MultiLineBacktick start=/```/ end=/```/
 syntax region MultiLineSlash start=/\/\*/ end=/\*\//
 
 hi MultiLineStringDouble guibg=#ededed
