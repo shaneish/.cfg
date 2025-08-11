@@ -284,7 +284,7 @@ vim.keymap.set('n', '<C-e><C-t>', function()
 end)
 
 -- %% lsp
-local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls" }
+local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls", "tinymist", "bashls", "fish_lsp" }
 local opts = { noremap=true, silent=true }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require('lspconfig')
@@ -328,15 +328,23 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     ensure_installed = servers,
-    automatic_enable = false,
+    automatic_enable = true,
 })
 
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
+for _, lsp_name in ipairs(servers) do
+    lspconfig[lsp_name].setup {
         capabilities = capabilities,
         on_attach = on_attach,
     }
 end
+
+require("lspconfig")["tinymist"].setup {
+  settings = {
+    formatterMode = "typstyle",
+    exportPdf = "onType",
+    semanticTokens = "disable"
+  }
+}
 
 -- %% aerial
 require("aerial").setup({
