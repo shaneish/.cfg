@@ -385,6 +385,7 @@ augroup TreeClimber
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-j> :lua require('tree-climber').swap_next()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-i> J
 augroup END
 
 nnoremap <C-s> <cmd>Pounce<CR>

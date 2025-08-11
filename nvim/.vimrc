@@ -240,6 +240,7 @@ augroup errytime
     autocmd VimEnter,BufEnter * silent let b:curr_branch = CurrentGitBranch()
     autocmd VimEnter,BufEnter * silent let b:curr_path = Fishified()
     autocmd VimEnter,BufEnter * setlocal statusline=\ \ \ #%n\ \|\ :%L\ =\ %P\ \|\ %{b:curr_path}\ \|\ %{b:curr_repo}\ ->\ %{b:curr_branch}
+    autocmd VimEnter,BufEnter * call ToggleConcealLevel()
 augroup END
 
 if ! has('nvim')
@@ -311,6 +312,7 @@ noremap <leader>h g^
 noremap <expr> <leader>k WindowProportion(0.25) . 'k'
 noremap <expr> <leader>j WindowProportion(0.25) . 'j'
 nnoremap <C-i> J
+nnoremap <C-y> J
 nnoremap <C-h> ge
 nnoremap <C-l> w
 xnoremap <C-h> b
