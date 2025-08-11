@@ -81,6 +81,7 @@ Plug 'jinh0/eyeliner.nvim'
 Plug 'jake-stewart/multicursor.nvim'
 " Plug 'rhysd/clever-f.vim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
+Plug 'kaarmu/typst.vim'
 call plug#end()
 
 " %%
@@ -272,7 +273,6 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_folding_disabled = 0
-let g:conceallevel = 0
 let g:python3_host_prog = g:python3_host_prog
 let g:pydocstring_enable_mapping = 0
 let g:copilot_no_tab_map = v:true
@@ -318,7 +318,7 @@ augroup END
 
 
 autocmd FileType * set formatoptions-=ro
-
+autocmd CursorMoved,VimEnter,BufEnter,WinEnter,TabEnter * silent setlocal conceallevel=0
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
