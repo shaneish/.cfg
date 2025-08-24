@@ -146,7 +146,8 @@ config.font_rules = {
 local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/active_theme.toml")
 local dark_colors = color_conf.ansi
 local light_colors = color_conf.brights
--- check if foreground is brighter than background
+-- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
+-- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
 if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
   dark_colors = color_conf.brights
   light_colors = color_conf.ansi
