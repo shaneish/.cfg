@@ -1,22 +1,4 @@
 function _source_once
-    function add_to_path_maybe
-        if not test -e "$argv[1]"
-            mkdir -p "$argv[1]"
-        end
-        if type -q "$argv[2]"; or test -z "$argv[2]"
-            fish_add_path -U "$argv[1]"
-        end
-    end
-
-    function add_env_var_maybe
-        for v in $argv[2..]
-            if type -q "$v"
-                set -Ux "$argv[1]"
-                break
-            end
-        end
-    end
-
     set -Ux FISH_CONFIG_DIRECTORY (dirname (dirname (status --current-filename)))
     set -Ux fish_cursor_default block
     set -Ux fish_cursor_insert line blink

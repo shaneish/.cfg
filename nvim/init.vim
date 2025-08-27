@@ -82,6 +82,7 @@ Plug 'jake-stewart/multicursor.nvim'
 " Plug 'rhysd/clever-f.vim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'kaarmu/typst.vim'
+Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
 
 " %%
@@ -263,12 +264,43 @@ function! SynStack()
 endfunction
 
 " %%
+" deal with annoying unconceal logic from plugin
+let g:enforce_conceal = 1
+set conceallevel=0
+let g:indentLine_conceallevel = 2
+
+function! ConcealIt()
+    if g:enforce_conceal && (&conceallevel > 0)
+        set conceallevel=0
+        let g:indentLine_conceallevel=2
+    endif
+endfunction
+
+augroup ConcealEnforcement
+    autocmd CursorMoved,VimEnter,BufEnter,WinEnter,TabEnter * silent :call ConcealIt()
+augroup END
+
+function! ToggleConceal()
+    if &conceallevel == 0
+        set conceallevel=2
+        let b:enforce_conceal = 0
+        autocmd! ConcealEnforcement CursorMoved,VimEnter,BufEnter,WinEnter,TabEnter * silent
+    else
+        set conceallevel=0
+        let b:enforce_conceal = 1
+        autocmd! CursorMoved,VimEnter,BufEnter,WinEnter,TabEnter * silent :call ConcealIt()
+    endif
+    let g:indentLine_conceallevel=2
+endfunction
+
+" %%
 " config stuff
 let g:python_bin = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/bin/'
 let g:python_venv_dir = substitute($MYVIMRC, "/init.vim", "", "") . '/venv/'
 let g:python3_host_prog = g:python_bin . 'python3'
 let g:ipython3_host_prog = g:python_bin . 'ipython'
 let g:indentLine_defaultGroup = 'NonText'
+let g:indentLine_conceallevel=2
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
@@ -319,7 +351,6 @@ augroup END
 
 
 autocmd FileType * set formatoptions-=ro
-autocmd CursorMoved,VimEnter,BufEnter,WinEnter,TabEnter * silent setlocal conceallevel=0
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
@@ -353,6 +384,10 @@ nmap <leader>br <cmd>BufferRestore<CR>
 nmap <leader>bo <cmd>BufferOrderByDirectory<CR>
 nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
+
+" toggle conceal level
+nmap <C-f><C-t> :call ToggleConcealLevel()<CR>
+imap <C-f><C-t> :call ToggleConcealLevel()<CR>
 
 " Plugin mappings
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
