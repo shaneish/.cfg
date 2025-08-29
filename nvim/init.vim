@@ -6,7 +6,7 @@ let nvim_config_dir = substitute($MYVIMRC, "/init.vim", "", "") . "/"
 for additional_vim_sources in [".vimrc", "active_theme.vim"]
     let source_file = nvim_config_dir . additional_vim_sources
     if filereadable(source_file)
-        execute 'source ' . vimrc
+        execute 'source ' . source_file
     endif
 endfor
 
