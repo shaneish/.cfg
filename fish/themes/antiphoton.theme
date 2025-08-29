@@ -1,0 +1,53 @@
+# Fish theme based on antiphoton.vim
+# Original Author: Alex Vear <alex@vear.uk>
+# Webpage: https://github.com/axvr/photon.vim
+# Converter: AI Assistant
+
+# This theme should be placed in ~/.config/fish/conf.d/antiphoton.fish
+# It will be loaded automatically on shell startup.
+
+# --- General Colors ---
+# These colors are based on the main foreground/background and comment colors.
+set -g fish_color_normal "121212"                # Normal guifg=#121212
+set -g fish_color_comment "949494"                # Comment guifg=#949494
+set -g fish_color_autosuggestion "ffe577"         # Use comment color for suggestions #ffe577
+set -g fish_color_error "af0000"                  # Error guifg=#af0000
+set -g fish_color_valid_path --underline          # Underline valid paths to check them
+
+# --- Command and Arguments ---
+# Based on Identifier, Statement, and Constant colors.
+set -g fish_color_command "121212"                # Identifier guifg=#121212
+set -g fish_color_param "6c6c6c"                  # Statement guifg=#6c6c6c
+set -g fish_color_keyword "fda63a"                # Use the main accent for keywords
+set -g fish_color_quote "008700"                  # DiffAdd guifg=#008700 (like a string literal)
+
+# --- Operators and Redirection ---
+set -g fish_color_operator "fda63a"               # Constant guifg=#fda63a
+set -g fish_color_redirection "6c6c6c"            # Statement guifg=#6c6c6c
+set -g fish_color_end "6c6c6c"                    # (eg. 'end' in a 'for' loop)
+
+# --- Prompt ---
+# Using the main accent color for the user and a muted gray for the host.
+set -g fish_color_user "fda63a"
+set -g fish_color_host "6c6c6c"
+set -g fish_color_host_remote --bold "fda63a"     # Make remote host stand out
+
+# --- Matching and Selection ---
+# Based on Visual, Search, and PmenuSel highlight groups.
+set -g fish_color_search_match --background="e4e4e4" # Mimics PmenuSel guibg
+set -g fish_color_selection --background="e4e4e4"    # Visual guibg=#e4e4e4
+
+# --- Completion Pager ---
+# Based on Pmenu and PmenuSel highlight groups.
+set -g fish_pager_color_completion "6c6c6c"
+set -g fish_pager_color_description "949494"
+set -g fish_pager_color_prefix --bold "121212"
+set -g fish_pager_color_progress "6c6c6c"
+
+set -g fish_pager_color_selected_background --background="e4e4e4"
+set -g fish_pager_color_selected_completion "121212"
+set -g fish_pager_color_selected_description "6c6c6c"
+set -g fish_pager_color_selected_prefix --bold --no-underline "fda63a"
+
+# --- VTE workaround (if colors appear incorrect in some terminals) ---
+# set -g VTE_VERSION 5803

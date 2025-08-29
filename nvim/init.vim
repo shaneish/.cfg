@@ -2,17 +2,26 @@
 let g:lsp = "#ffaa33"
 let g:lsp_bright = "#934e00"
 
-let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
-if filereadable(vimrc)
-    execute 'source ' . vimrc
-else
-    source $HOME/.vimrc
-endif
+let nvim_config_dir = substitute($MYVIMRC, "/init.vim", "", "") . "/"
+for additional_vim_sources in [".vimrc", "active_theme.vim"]
+    let source_file = nvim_config_dir . additional_vim_sources
+    if filereadable(source_file)
+        execute 'source ' . vimrc
+    endif
+endfor
 
-let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/active_theme.vim"
-if filereadable(theme)
-    execute 'source ' . theme
-endif
+" " below commented block has been deprecated and should be removed if above
+" " loop works
+" let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
+" if filereadable(vimscript_source)
+"     execute 'source ' . vimrc
+" else
+"     source $HOME/.vimrc
+" endif
+" let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/active_theme.vim"
+" if filereadable(theme)
+"     execute 'source ' . theme
+" endif
 
 " plug-ish ish
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'

@@ -309,6 +309,8 @@ noremap <expr> D WindowProportion() . 'jzz'
 noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$
 noremap <leader>h g^
+xnoremap <leader>l g$h
+xnoremap <leader>h g^
 noremap <expr> <leader>k WindowProportion(0.25) . 'k'
 noremap <expr> <leader>j WindowProportion(0.25) . 'j'
 nnoremap <C-i> J
@@ -344,16 +346,18 @@ xnoremap < <gv
 xnoremap > >gv
 xnoremap Svv <Esc>`<hv`>l
 for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-    execute 'xnoremap S'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>`<'
-    execute 'xnoremap Sv'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>v`<'
-    execute 'xnoremap Sr'.k.' <Esc>`<r'.Pairs(k).'`>r'.k.'v`<'
-endfor
-for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-    for v in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-        execute 'nmap Ss'.k.v.' F'.k.'vf'.k.'Sr'.v.'<Esc>'
-    endfor
+    execute 'xnoremap S'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>v`<'
+    execute 'xnoremap SI'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k
+    execute 'xnoremap SS'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>'
+    execute 'xnoremap SV'.k.' <Esc>`<i'.Pairs(k).'<Esc>`>la'.k.'<Esc>v`<'
+    execute 'xnoremap SR'.k.' <Esc>`<r'.Pairs(k).'`>r'.k.'v`<'
 endfor
 
 for k in ["\'", '"', "`", ")", "]", "}", ">", "_", "<Space>", "*", '.']
-    execute 'nmap Sw'.k.' viwS'.k.'l'
+    execute 'nmap MI'.k.' viwS'.Pairs(k)
+    execute 'nmap MA'.k.' vawS'.Pairs(k)
+    execute 'nmap MW'.k.' BvES'.Pairs(k)
+    execute 'nmap MII'.k.' viwSI'.Pairs(k)
+    execute 'nmap MAI'.k.' vawSI'.Pairs(k)
+    execute 'nmap MWI'.k.' BvESI'.Pairs(k)
 endfor

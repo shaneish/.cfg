@@ -284,7 +284,7 @@ vim.keymap.set('n', '<C-e><C-t>', function()
 end)
 
 -- %% lsp
-local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls", "tinymist", "bashls", "fish_lsp" }
+local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls", "tinymist", "bashls" }
 local opts = { noremap=true, silent=true }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require('lspconfig')
@@ -338,6 +338,7 @@ for _, lsp_name in ipairs(servers) do
     }
 end
 
+-- %% special lsps
 require("lspconfig")["tinymist"].setup {
   settings = {
     formatterMode = "typstyle",

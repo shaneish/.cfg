@@ -1,0 +1,57 @@
+[metadata]
+name = "green"
+author = "botnet"
+
+# The most basic colors
+[colors]
+foreground = "#000000"
+background = "#ffffff"
+
+# Overrides the default cursor colors
+cursor_bg = "#607c3c"
+cursor_fg = "#ffffff"
+cursor_border = "#607c3c"
+
+# Color for selected text
+selection_bg = "#ececa3"
+selection_fg = "#000000"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#b9b9b9",
+  "#b5e550",
+  "#8e8e8e",
+  "#fe6b40",
+  "#809c13",
+  "#747474",
+  "#868686",
+  "#464646",
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#ababab",
+  "#b5e550",
+  "#8e8e8e",
+  "#ffb366",
+  "#809c13",
+  "#747474",
+  "#868686",
+  "#e4e4e4",
+]
+
+# Optional: Specific UI colors for a more integrated look
+[colors.tab_bar]
+background = "#e3e3e3"
+
+[colors.tab_bar.active_tab]
+bg_color = "#ffffff"
+fg_color = "#809c13"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#e3e3e3"
+fg_color = "#525252"
+
+[colors.tab_bar.new_tab]
+bg_color = "#e3e3e3"
+fg_color = "#525252"
