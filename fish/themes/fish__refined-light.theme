@@ -4,7 +4,7 @@
 
 fish_color_normal "000000"                                                                   # Default foreground # #000000
 fish_color_comment "4a704e"                                                        # #707070
-fish_color_autosuggestion "d0d0d0"                                                 # #d0d0d0
+fish_color_autosuggestion "bbbbbb"                                                 # #bbbbbb
 fish_color_error "484848" --underline                                              # #484848
 fish_color_valid_path --underline                                                                   # Underline valid paths to check them
 fish_pager_color_prefix normal --underline
@@ -27,7 +27,7 @@ fish_color_e0e8b0 --background="e0e8b0" --color="000000"         # #e0e8b0
 fish_pager_color_completion "2e2e2e"                                               # #2e2e2e
 fish_pager_color_description "707070"                                              # #707070
 fish_pager_color_prefix --bold "000000"                                                      # #000000
-fish_pager_color_progress "d0d0d0"                                                 # #d0d0d0
+fish_pager_color_progress "bbbbbb"                                                 # #bbbbbb
 
 fish_pager_color_selected_background --background="e0e8b0"                            # #e0e8b0
 fish_pager_color_selected_completion "000000"                                                # #000000

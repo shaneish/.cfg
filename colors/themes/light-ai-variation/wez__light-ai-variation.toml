@@ -19,7 +19,7 @@ selection_fg = "#000000"
 
 # ANSI colors (colors 0-7)
 ansi = [
-  "#d0d0d0",
+  "#bbbbbb",
   "#103310",
   "#707070",
   "#e67373",
@@ -33,7 +33,7 @@ ansi = [
 brights = [
   "#ededed",
   "#6b876b",
-  "#d0d0d0",
+  "#bbbbbb",
   "#ffe0e0",
   "#2a4c2a",
   "#707070",
@@ -42,7 +42,7 @@ brights = [
 ]
 
 # [colors.tab_bar]
-# background = "#d0d0d0"
+# background = "#bbbbbb"
 
 [colors.tab_bar.active_tab]
 bg_color = "#e6e8c8"

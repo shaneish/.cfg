@@ -30,8 +30,8 @@ hi Operator         guifg=#103310                                           gui=
 hi Statement        guifg=#000000                                           gui=bold
 hi PreProc          guifg=#103310                                           gui=bold
 hi Todo                                                   guibg=#dce8dc     gui=bold
-hi Error            guifg=#a30000        guibg=#d0d0d0                                              gui=bold,undercurl
-hi ErrorMsg         guifg=#a30000        guibg=#d0d0d0                                              gui=undercurl
+hi Error            guifg=#a30000        guibg=#bbbbbb                                              gui=bold,undercurl
+hi ErrorMsg         guifg=#a30000        guibg=#bbbbbb                                              gui=undercurl
 hi WarningMsg       guifg=#707070        guibg=#ffdddd          gui=NONE
 
 " UI Elements
@@ -41,14 +41,14 @@ hi CursorLineNr     guifg=#2a4c2a                                           gui=
 hi ColorColumn                                            guibg=#f0fff0
 hi Visual           guifg=#000000                  guibg=#e0e8b0
 hi CursorColumn     guifg=NONE                            guibg=NONE                             gui=NONE
-hi LineNr           guifg=#d0d0d0
-hi NonText          guifg=#d0d0d0
-hi VertSplit        guifg=#d0d0d0        guibg=#484848
+hi LineNr           guifg=#bbbbbb
+hi NonText          guifg=#bbbbbb
+hi VertSplit        guifg=#bbbbbb        guibg=#484848
 hi StatusLine       guifg=#2a4c2a    guibg=#ededed         gui=bold
-hi StatusLineNC     guifg=#484848        guibg=#d0d0d0         gui=NONE
-hi Pmenu            guifg=#2e2e2e        guibg=#d0d0d0
+hi StatusLineNC     guifg=#484848        guibg=#bbbbbb         gui=NONE
+hi Pmenu            guifg=#2e2e2e        guibg=#bbbbbb
 hi PmenuSel         guifg=#000000                  guibg=#e0e8b0
-hi PmenuSbar                                              guibg=#d0d0d0
+hi PmenuSbar                                              guibg=#bbbbbb
 hi PmenuThumb       guifg=#4a704e    guibg=#4a704e
 hi Search                                                 guibg=#e0e8b0
 hi IncSearch        guifg=#000000                  guibg=#e0e8b0
@@ -61,10 +61,10 @@ hi DiffChange                                             guibg=#f0fff0
 hi DiffText         guifg=#000000                  guibg=#e0e8b0            gui=bold
 
 " Spelling
-hi SpellBad        guifg=#a30000        guibg=#d0d0d0                                              gui=undercurl
-hi SpellCap        guifg=#a30000        guibg=#d0d0d0                                              gui=undercurl
-hi SpellLocal      guifg=#a30000        guibg=#d0d0d0                                              gui=undercurl
-hi SpellRare       guifg=#a30000        guibg=#d0d0d0                                              gui=undercurl
+hi SpellBad        guifg=#a30000        guibg=#bbbbbb                                              gui=undercurl
+hi SpellCap        guifg=#a30000        guibg=#bbbbbb                                              gui=undercurl
+hi SpellLocal      guifg=#a30000        guibg=#bbbbbb                                              gui=undercurl
+hi SpellRare       guifg=#a30000        guibg=#bbbbbb                                              gui=undercurl
 
 " Linking common groups for consistency
 hi! link Number Constant

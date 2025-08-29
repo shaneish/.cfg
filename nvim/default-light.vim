@@ -36,14 +36,14 @@ hi CursorLineNr     guifg=#2a4c2a                                           gui=
 hi ColorColumn                                            guibg=#f0fff0
 hi Visual           guifg=#000000                  guibg=#e0e8b0
 hi CursorColumn     guifg=NONE                            guibg=NONE                             gui=NONE
-hi LineNr           guifg=#d0d0d0
-hi NonText          guifg=#d0d0d0
-hi VertSplit        guifg=#d0d0d0        guibg=#484848
+hi LineNr           guifg=#bbbbbb
+hi NonText          guifg=#bbbbbb
+hi VertSplit        guifg=#bbbbbb        guibg=#484848
 hi StatusLine       guifg=#2a4c2a    guibg=#ededed         gui=bold
-hi StatusLineNC     guifg=#484848        guibg=#d0d0d0         gui=NONE
-hi Pmenu            guifg=#2e2e2e        guibg=#d0d0d0
+hi StatusLineNC     guifg=#484848        guibg=#bbbbbb         gui=NONE
+hi Pmenu            guifg=#2e2e2e        guibg=#bbbbbb
 hi PmenuSel         guifg=#000000                  guibg=#e0e8b0
-hi PmenuSbar                                              guibg=#d0d0d0
+hi PmenuSbar                                              guibg=#bbbbbb
 hi PmenuThumb       guifg=#4a704e    guibg=#4a704e
 hi Search                                                 guibg=#e0e8b0
 hi IncSearch        guifg=#000000                  guibg=#e0e8b0
