@@ -83,7 +83,7 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M normal yy fish_clipboard_copy
     bind -M insert \cu 'history | fz | string trim -r | clip'
     bind -M insert \cg _hpfuzzy
-    bind -M insert \cz _fg
+    bind -M insert \cb _fg
     bind -M insert \cl forward-word
 end
 

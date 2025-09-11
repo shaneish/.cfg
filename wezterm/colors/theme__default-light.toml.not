@@ -1,5 +1,5 @@
 [metadata]
-name = "default-light"
+name = "active_theme" # hardcode it so it's easy to switch out
 author = "(me)"
 
 # The most basic colors
