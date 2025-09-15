@@ -5,7 +5,7 @@ function pyv
         set -Ux PYTHON_VENV "$PYTHON_VENV_DIR/$argv"
         source $PYTHON_VENV/bin/activate.fish
     else
-        set local_venv (_activate_local_venv --validate)
+        set local_venv (_activate_local_venv validate)
         if test -n "$local_venv"
             source $local_venv/bin/activate.fish
         else if test -n "$PYTHON_VENV"; and test -e "$PYTHON_VENV/bin/activate.fish"

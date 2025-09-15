@@ -496,7 +496,7 @@ config.keys = {
 
   {
     key = 'f',
-    mods = 'LEADER',
+    mods = 'CTRL|SHIFT',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '[\\w\\-\\.\\/~]+',
@@ -505,7 +505,7 @@ config.keys = {
   },
   {
     key = 'f',
-    mods = 'CTRL|SHIFT',
+    mods = 'LEADER',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '\\S+',
@@ -524,11 +524,27 @@ config.keys = {
   {
     key = 'g',
     mods = 'LEADER',
-    action = wezterm.action.QuickSelectArgs {
-      patterns = {
-        '[\\w\\-\\.]+',
-      },
-    },
+    action = wezterm.action_callback(function(window, pane)
+      local temp_dir = '/tmp'
+      local handle = io.popen("mkdir -p /tmp/shsesh/; mktemp -d /tmp/shsesh/$(basename $(echo $SHELL))-XXXXXX", "r")
+      if handle then
+        temp_dir = handle:read("*a")
+        handle:close()
+      end
+      temp_dir = string.gsub(temp_dir, '^%s+', '')
+      temp_dir = string.gsub(temp_dir, '%s+$', '')
+      temp_dir = string.gsub(temp_dir, '[\n\r]+', ' ')
+      window:perform_action(
+        wezterm.action.SwitchToWorkspace {
+          name = temp_dir,
+          spawn = {
+            domain = "CurrentPaneDomain",
+            cwd = temp_dir,
+          },
+        },
+        pane
+      )
+      end),
   },
 
   {

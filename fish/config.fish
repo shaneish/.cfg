@@ -42,3 +42,6 @@ if status is-interactive
     # set python venv
     pyv
 end
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish

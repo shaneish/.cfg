@@ -44,3 +44,11 @@ abbr -a dxw databricks workspace
 abbr -a dxwc workspace-conf
 
 alias dxp="databricks auth profiles | grep -E '(YES|Valid)'"
+
+# custom keybind for inserting profile into cli commands
+function _databricks_profile
+    set profile $(databricks auth profiles | grep -E '(YES|VALID)' | fz | awk '{print $1}')
+    commandline --insert " --profile $profile"
+end
+bind -M insert \cd _databricks_profile
+

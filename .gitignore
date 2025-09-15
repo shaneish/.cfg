@@ -4,6 +4,9 @@ bhop
 bhop/db/*
 bhop/scripts/*
 fish/fish_variables
+.DS_Store
+**/.DS_Store
+*.patch
 **/.venv
 **/venv
 **/_generated*

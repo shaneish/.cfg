@@ -1,0 +1,50 @@
+#!/bin/bash
+# tmpv - Temporary Python Virtual Environment
+
+# help ish
+if [[ $1 = *"-h"* ]]; then
+    echo
+    echo "Usage: tmpv [PYTHON_EXECUTABLE] [DEPENDENCIES...]"
+    echo
+    echo "Example: tmpv python3.13 databricks-cli databricks-api ~/projects/someproj/pyproject.toml requirements.txt"
+    echo
+    echo "The above example will create a temporary Python 3.13 virtual environment and install the following dependencies:"
+    echo "  - Pypi package:                            databricks-cli"
+    echo "  - Pypi package:                            databricks-api"
+    echo "  - Project defined by pyproject.toml file:  ~/projects/someproj/pyproject.toml"
+    echo "  - Recursive requirements file:             requirements.txt"
+    echo ""
+    echo "Flags:"
+    echo "  NONE.  No flags.  No fucks.  No worries."
+    exit 0
+fi
+
+# create temp venv dir just to reduce clutter
+mkdir -p "/tmp/venvs/"
+# make temp dir in temp venv dir for new temp venv (say that 3 times fast!)
+venv_dir=$(mktemp -d "/tmp/venvs/$argv[1]-$(date +%Y-%m-%d_%m-%S).XXXXXX")
+$1 -m venv $venv_dir
+echo "Created: $venv_dir"
+
+# activate that bish
+source "$venv_dir/bin/activate"
+echo "Activated: $venv_dir"
+
+# iterate over any specified dependencies and install
+for dep in "${@:2}"; do
+    echo "Installing: $dep"
+    if [ "$dep" = "*.txt" ]; then
+        echo 1
+        python -m pip install -r $dep
+    elif [[ $dep == *.toml ]]; then
+        echo 2
+        python -m pip install $(dirname $dep)
+    elif [ "$dep" = "..." ]; then
+        echo 3
+        echo "Installing critical deps: build, wheel, ruff, ipython"
+        python -m pip install build wheel ruff ipython
+    else
+        echo 4
+        python -m pip install $dep
+    fi
+done

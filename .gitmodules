@@ -1,0 +1,6 @@
+[submodule "notes/lit/cosmere-ish"]
+	path = notes/lit/cosmere-ish
+	url = https://github.com/shaneish/cosmere-ish.git
+[submodule "notes/lit/religion/bible-parser"]
+	path = notes/lit/religion/bible-parser
+	url = https://github.com/shaneish/bible-parser.git

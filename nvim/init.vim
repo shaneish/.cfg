@@ -45,7 +45,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'dkarter/bullets.vim'
 Plug 'wellle/context.vim'
 Plug 'hashivim/vim-terraform'
-Plug 'ThePrimeagen/harpoon'
 Plug 'rlane/pounce.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'ellisonleao/glow.nvim'
@@ -81,6 +80,7 @@ Plug 'aaronik/treewalker.nvim'
 Plug 'jinh0/eyeliner.nvim'
 Plug 'jake-stewart/multicursor.nvim'
 Plug 'rhysd/clever-f.vim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 call plug#end()
 
 " %%
@@ -228,6 +228,24 @@ function! ReplCommand()
     endif
 endfunction
 
+function! PresentWild()
+    set background=light
+    colorscheme wildcharm
+    highlight Normal guibg=#ffffff guifg=#000000
+endfunction
+
+function! Present()
+    set background=light
+    colorscheme quiet
+    highlight Normal guibg=#ffffff guifg=#000000
+endfunction
+
+function! PresentMorning()
+    set background=light
+    colorscheme morning
+    highlight Normal guibg=#ffffff guifg=#000000
+endfunction
+
 let g:slime_split = "bottom"
 function! WezSlimeReplInitCmd(split=g:slime_split, cwd=getcwd())
     let wez_cli = "wezterm"
@@ -290,9 +308,18 @@ let g:terraform_align = 1
 let g:repl_split = 'bottom'
 let g:repl_filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
 let g:big_jump = 0.25
+let g:filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
+let g:Left_jump = 0.25
 let g:small_jump = 0.1
+let g:small_jump = 0.1
+let g:ump = 0.25
+let g:Leftll_jump = 0.1
+let g:slime_cell_delimiter = CodeBlock()
 let g:slime_cell_delimiter = CodeBlock()
 let g:slime_target = "wezterm"
+let g:_cell_delimiter = CodeBlock()
+let g:Leftme_target = "wezterm"
+let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
 let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
@@ -310,7 +337,9 @@ augroup CheckEveryTime
     autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()
 augroup END
 
+
 autocmd FileType * set formatoptions-=ro
+
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
@@ -326,18 +355,19 @@ autocmd FileType csv nmap <leader>f :call ToggleMappings()<CR>
 autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
-let g:copilot_enabled = v:false
-imap <silent><script><expr> <C-s><C-l> copilot#Accept("\<CR>")
-imap <C-s><C-j> <Plug>(copilot-next)
-imap <C-s><C-k> <Plug>(copilot-previous)
-imap <C-s><C-h> <Plug>(copilot-dismiss)
-imap <C-s><C-s> <Plug>(copilot-suggest)
+let g:copilot_enabled = v:true
+inoremap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+inoremap <C-j> <Plug>(copilot-next)
+inoremap <C-k> <Plug>(copilot-previous)
+inoremap <C-h> <Plug>(copilot-dismiss)
+inoremap <C-/> <Plug>(copilot-suggest)
 
 " Terminal
 nmap <leader>t :call OpenTerm()<CR>
 
-" Buffers
-nmap <C-b><C-f> <cmd>BufferPick<CR>
+" Buffers -barbar
+nmap <C-b><C-b> <cmd>BufferPick<CR>
+nmap <leader><leader>g <cmd>BufferPick<CR>
 nmap <C-b><C-p> <cmd>BufferPin<CR>
 nmap <C-b><C-r> <cmd>BufferRestore<CR>
 nmap <C-b><C-d> <cmd>BufferOrderByDirectory<CR>
@@ -349,14 +379,6 @@ nnoremap <C-t>f <cmd>Telescope find_files<cr>
 nnoremap <C-t>g <cmd>Telescope live_grep<cr>
 nnoremap <C-t>b <cmd>Telescope buffers<cr>
 nnoremap <C-t>/ <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <C-t>m <cmd>lua require("harpoon.mark").add_file()<CR>
-nnoremap <C-t>t <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <C-t>] <cmd>lua require("harpoon.ui").nav_next()<CR>
-nnoremap <C-t>[ <cmd>lua require("harpoon.ui").nav_prev()<CR>
-nnoremap <C-t>1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <C-t>2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <C-t>3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <C-t>h <cmd>Telescope harpoon marks<CR>
 nnoremap <C-g><C-m> <cmd>MergetoolToggle<CR>
 
 " slime stuff
