@@ -110,6 +110,7 @@ AltAlt = 'ALT'
 Desktop = os.getenv("DESKTOP_SESSION")
 
 config.disable_default_key_bindings = true
+config.enable_kitty_keyboard = true
 config.animation_fps = 30
 config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
@@ -353,6 +354,23 @@ config.keys = {
     key = 'Q',
     mods = 'LEADER',
     action = wezterm.action.CloseCurrentTab { confirm = false },
+  },
+
+  {
+    key = 'I',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.Multiple({
+      wezterm.action.ActivatePaneDirection('Next'),
+      wezterm.action.TogglePaneZoomState
+    }),
+  },
+  {
+    key = 'O',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.Multiple({
+      wezterm.action.ActivatePaneDirection('Prev'),
+      wezterm.action.TogglePaneZoomState
+    }),
   },
 
   {

@@ -8,7 +8,9 @@ function hp --description "Hop around the terminal"
         sh -c "$cmds[2]"
         if type -q "wezterm"
             if test $TERM_PROGRAM = "WezTerm"
-                wezterm cli set-tab-title "$argv[1]"
+                if test "$cmds[1]" != "."
+                    wezterm cli set-tab-title "$argv[1]"
+                end
             end
         end
     end

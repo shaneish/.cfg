@@ -27,11 +27,11 @@ abbr -a gwtr git worktree remove
 abbr -a gd git diff
 
 if type -q nvim
-    abbr -a merge git mergetool --tool=nvimdiff1
-    abbr -a gmt git mergetool --tool=nvimdiff1
+    abbr -a merge git mergetool --tool=nvimdiff2
+    abbr -a gmt git mergetool --tool=nvimdiff2
 else if type -q vim
-    abbr -a merge git mergetool --tool=vimdiff1
-    abbr -a gmt git mergetool --tool=vimdiff1
+    abbr -a merge git mergetool --tool=vimdiff2
+    abbr -a gmt git mergetool --tool=vimdiff2
 else
     abbr -a merge git mergetool
     abbr -a gmt git mergetool

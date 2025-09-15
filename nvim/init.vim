@@ -92,6 +92,7 @@ Plug 'jake-stewart/multicursor.nvim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'kaarmu/typst.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'samoshkin/vim-mergetool'
 call plug#end()
 
 " %%
@@ -376,7 +377,11 @@ autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:true
-inoremap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+" inoremap <silent><script><expr><C-l> copilot#Accept("\<CR>")
+inoremap <silent><script><expr><C-Return> copilot#Accept("\<CR>")
+inoremap <silent><script><expr><C-a><C-a> copilot#Accept("\<CR>")
+inoremap <C-l> <Plug>(copilot-accept-word)
+inoremap <C-a><C-l> <Plug>(copilot-accept-line)
 inoremap <C-j> <Plug>(copilot-next)
 inoremap <C-k> <Plug>(copilot-previous)
 inoremap <C-h> <Plug>(copilot-dismiss)
@@ -395,8 +400,7 @@ nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 
 " toggle conceal level
-nmap <C-f><C-t> :call ToggleConcealLevel()<CR>
-imap <C-f><C-t> :call ToggleConcealLevel()<CR>
+imap <leader><leader>f :call ToggleConcealLevel()<CR>
 
 " Plugin mappings
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
@@ -430,13 +434,13 @@ augroup TreeClimber
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-j> :lua require('tree-climber').swap_next()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-i> J
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-y> J
 augroup END
 
 nnoremap <C-s> <cmd>Pounce<CR>
 nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g:code_block_current<CR>
 nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
-nnoremap <expr> <C-t><C-b> "A" . CodeBlock() . '<Esc>'
+nnoremap <expr> <C-t><C-b> "o<Esc>0C" . CodeBlock() . '<Esc>o'
 nnoremap <expr> <C-t><C-j> "o<Esc>0C" . CodeBlock() . '<Esc>k'
 nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>j'
 

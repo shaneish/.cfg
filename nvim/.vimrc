@@ -277,8 +277,7 @@ inoremap <C-v> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap \ :call ToggleNetrw()<CR>
-nmap <C-f><C-t> :call ToggleConcealLevel()<CR>
-imap <C-f><C-t> :call ToggleConcealLevel()<CR>
+nmap <leader><leader>f :call ToggleConcealLevel()<CR>
 
 " grepy grep
 if executable('rg')
@@ -294,9 +293,9 @@ nmap cow <C-w><C-w>:clo<CR>
 nnoremap <leader>b :call BuffJump()<CR>
 
 " line stuff
-nnoremap <C-o><C-o> O<Esc>jo<Esc>k
-nnoremap <C-o><C-j> o<Esc>k
-nnoremap <C-o><C-k> O<Esc>j
+nnoremap <leader>oo O<Esc>jo<Esc>k
+nnoremap <leader>od o<Esc>k
+nnoremap <leader>ou O<Esc>j
 
 " move stuff
 noremap <expr> j WrapWarper("j")
@@ -313,7 +312,6 @@ xnoremap <leader>l g$h
 xnoremap <leader>h g^
 noremap <expr> <leader>k WindowProportion(0.25) . 'k'
 noremap <expr> <leader>j WindowProportion(0.25) . 'j'
-nnoremap <C-i> J
 nnoremap <C-y> J
 nnoremap <C-h> ge
 nnoremap <C-l> w
@@ -340,6 +338,7 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 " Insert
 inoremap  <Esc>
 inoremap <C-c> <Esc>0C
+inoremap <C-r> <C-a>
 
 " Visual remaps
 xnoremap < <gv

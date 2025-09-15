@@ -16,4 +16,4 @@
     dark = true
 
 [merge]
-    conflictstyle = diff3
+    conflictStyle = diff3
