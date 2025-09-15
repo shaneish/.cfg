@@ -171,12 +171,21 @@ window#waybar {
 }
 
 #cpu {
+    color: #ffffff;
+    background: #383c4a;
+    opacity: 0.85
 }
 
 #memory {
+    color: #ffffff;
+    background: #383c4a;
+    opacity: 0.85
 }
 
 #network {
+    color: #ffffff;
+    background: #383c4a;
+    opacity: 0.85
 }
 
 #network.disconnected {

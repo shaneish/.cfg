@@ -1,0 +1,2 @@
+sudo wg-quick up shane-laptop
+sudo wg

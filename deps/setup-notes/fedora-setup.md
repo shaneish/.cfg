@@ -41,7 +41,7 @@ _lnkr() { # Link - Rip (also, like LINKER)
   ln -rs $1 $2
 }
 
-export -f _linkr
+export -f _lnkr
 export -f _alias
 export -f _rm
 export -f _env

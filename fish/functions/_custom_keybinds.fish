@@ -73,6 +73,11 @@ function _custom_keybinds -d "it is what it says it is"
         fg 2&> /dev/null
     end
 
+    function _fg_select
+        set selected $(jobs | fz | awk '{print $1}')
+        fg %$selected 2&> /dev/null
+    end
+
     bind ! bind_bang
     bind '$' bind_dollar
     bind -M insert \cp __alternate_prompt
@@ -83,7 +88,8 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M normal yy fish_clipboard_copy
     bind -M insert \cu 'history | fz | string trim -r | clip'
     bind -M insert \cg _hpfuzzy
-    bind -M insert \cz _fg
+    bind -M insert \cb _fg
+    bind -M insert \cj _fg_select
     bind -M insert \cl forward-word
 end
 

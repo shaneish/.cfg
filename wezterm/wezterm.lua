@@ -121,7 +121,7 @@ config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_opacity = 0.99
 config.use_fancy_tab_bar = true
--- config.show_new_tab_button_in_tab_bar = false
+config.show_new_tab_button_in_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.text_blink_rate = 300
 config.cursor_thickness = 2
@@ -205,7 +205,7 @@ elseif wezterm.target_triple:find("darwin") ~= nil then
   }
 
 else
-  config.window_decorations = "RESIZE"
+  config.window_decorations = "NONE"
   config.set_environment_variables = {
    PATH = wezterm.home_dir .. "/.fzf/bin:" .. wezterm.home_dir .. "/.cargo/bin:" .. wezterm.home_dir .. "/.local/bin:/usr/bin:/bin:/home/linuxbrew/bin:/home/linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:" .. wezterm.home_dir .. "/go/bin",
   }
@@ -213,7 +213,7 @@ else
     left = 10,
     right = 10,
     top = 5,
-    bottom = 5,
+    bottom = 15,
   }
   if Desktop then
     if Desktop:find('hyprland') ~= nil then
