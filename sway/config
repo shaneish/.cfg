@@ -27,10 +27,19 @@ client.focused "#ffc300" "#ffc300" "#000000" "#ffc300" "#ffc300"
 blur enable
 corner_radius 20
 
+# turn on swaybar
 exec ~/.config/scripts/waybar_setup
 bar {
     swaybar_command "waybar"
 }
+
+# turn on discord
+assign [class="discord"] workspace 3.msg
+exec /usr/bin/Discord
+
+# turn on browser
+assign [app_id="zen"] workspace 2.web
+exec $browser
 
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen

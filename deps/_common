@@ -6,6 +6,7 @@ export SETUP_FISH_PATH=$HOME/.init.fish
 export OS="$(uname -s)"
 export ARCH="$(uname -m)"
 export TEMP="$(mktemp -d)"
+export SCRIPT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 case $OS in
     "Linux")
@@ -43,7 +44,8 @@ case $OS in
         PLATFORM="darwin-$ARCH"
     ;;
 esac
-_path() {
+
+_add_path() {
   export PATH="$PATH:$1"
   echo "export PATH=$PATH:$1" >> $SETUP_PATH
   echo "fish_add_path $1" >> $SETUP_FISH_PATH
@@ -64,7 +66,7 @@ _env() {
   echo "set -Ux $1 \"$2\"" >> $SETUP_FISH_PATH
 }
 
-_src() {
+_source() {
   source "$1"
   echo "source \"$1\"" >> $SOURCE_PATH
   if [ -n "$2" ]; then
@@ -78,14 +80,14 @@ _src() {
 }
 
 _eval() {
-  eval "$($1)"
-  echo "eval \"$($1)\"" >> $SETUP_PATH
+  eval "$1"
+  echo "eval \"$1\"" >> $SETUP_PATH
   if [ -n "$2" ]; then
-    echo "eval \"$($2)\"" >> $SETUP_FISH_PATH
+    echo "eval \"$2\"" >> $SETUP_FISH_PATH
   else
-    echo "eval \"$($1)\"" >> $SETUP_FISH_PATH
+    echo "eval \"$1\"" >> $SETUP_FISH_PATH
   fi
   if [ -n "$3" ]; then
-    echo "eval \"$($3)\"" >> $SETUP_ZSH_PATH
+    echo "eval \"$3\"" >> $SETUP_ZSH_PATH
   fi
 }

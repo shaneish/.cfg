@@ -1,0 +1,42 @@
+[os.linux]
+components = [["Linux", "x86_64"]]
+
+[os.fedora]
+parent = "linux"
+components = [["fc40"], ["fc39"], ["fc38"]]
+
+[os.ubuntu]
+parent = "linux"
+components = [["ubuntu"]]
+
+[os.linux.wsl]
+parent = "linux"
+components = [["WSL2"]]
+
+[pkg_manager.apt]
+sudo = true
+install_pkg = ["apt", "install", "-y"]
+add_repo = ["add-apt-repository"]
+
+[pkg_manager.dnf]
+sudo = true
+install_pkg = ["dnf", "install", "-y"]
+
+[pkg_manager.rpm]
+sudo = true
+deps = ["dnf"]
+[pkg_manager.rpm.setup.fedora]
+setup = ["dnf", "install", "-y", "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"]
+
+[pkg_manager.flatpak]
+sudo = false
+install_pkg = ["flatpak", "install"]
+add_repo = ["flatpak", "add-remote"]
+
+[[task]]
+stage = 1
+
+[task.neovim.fedora]
+pkg_manager = "dnf"
+pkg_name = "neovim"
+

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+source $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/_common # bring in common utils
+
+# install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [[ "$(uname -s)" = *"Linux"* ]]; then
+    _eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+

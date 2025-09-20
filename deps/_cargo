@@ -1,30 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set +e
 
-cargo install ripgrep
-cargo install sd
-cargo install rm-improved
-cargo install --locked bat
-cargo install fd-find
-cargo install --locked jaq
-cargo install --locked yazi-fm yazi-cli
-cargo install rust-parallel
-cargo install fselect
-cargo isntall xh
-cargo install coreutils
-cargo install bhop
-cargo install xsv
-cargo install eza
-cargo install ouch
-cargo install choose
-cargo install tealdeer
-cargo install onefetch --force
-cargo install starship
-cargo install tree-rs
-cargo install --locked typst-cli
-cargo install --locked --git https://github.com/asciinema/asciinema/tree/v3.0.0-rc.5 # asciicinema
-cargo install --git https://github.com/asciinema/agg/tree/v1.5.0 #asciicinema gif maker
+# install rust and cargo if not exists
+if ! command -v cargo >/dev/null 2>&1; then
+    sh $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/_rust
+fi
 
-_alias eza ll
-_alias fselect fs
-_alias rust-parallel rp
-_alias tree-rs tree
+declare -a crates
+crates=( # in format "<cli command>:<crate>" or simply "<crate>" if the crate name and cli name are the same
+    "rg:ripgrep"
+    "sd"
+    "rip:rm-improved"
+    "bat --locked"
+    "fd:fd-find"
+    "jaq --locked"
+    "yazi:yazi-fm yazi-cli --locked"
+    "rust-parallel"
+    "fselect"
+    "xh"
+    "coreutils"
+    "bhop"
+    "xsv"
+    "eza --features git"
+    "ouch"
+    "choose"
+    "tldr:tealdeer"
+    "onefetch --force"
+    "starship"
+    "tree-rs"
+    "sk:skim"
+    "typst:typst-cli --locked"
+    "mdcat:mdcat@2.7.1 --locked"
+    "wasmer:wasmer-cli"
+    "asciinema:https://github.com/asciinema/asciinema --locked --git" # asciinema
+    "agg:https://github.com/asciinema/agg/ --git" #asciinema gif creator
+)
+for crate in "${crates[@]}"; do
+    crate_info=$(echo "$crate" | cut -d ':' -f 2)
+    if [[ "$crate" == *":"* ]]; then
+        cmd=$(echo "$crate" | cut -d ':' -f 1)
+    else
+        cmd=$(echo "$crate" | cut -d ' ' -f 1)
+    fi
+    if [[ "$@" = *"$cmd"* ]] || [[ -z "$@" ]]; then
+        if command -v $cmd >/dev/null 2>&1; then
+            echo "skipping '$cmd' installation, crate already exists..."
+        else
+            echo "installing '$cmd'..."
+            cargo install --quiet $crate_info > /dev/null 2>&1
+        fi
+    fi
+done
+

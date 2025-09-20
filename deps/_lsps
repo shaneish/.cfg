@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if type -P npm >/dev/null 2>&1; then
+if command -v npm >/dev/null 2>&1; then
     npm install -g fish-lsp
     npm install -g pyright
 fi
