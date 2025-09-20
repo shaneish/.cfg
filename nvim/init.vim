@@ -10,19 +10,6 @@ for additional_vim_sources in [".vimrc", "active_theme.vim"]
     endif
 endfor
 
-" " below commented block has been deprecated and should be removed if above
-" " loop works
-" let vimrc = substitute($MYVIMRC, "/init.vim", "", "") . "/.vimrc"
-" if filereadable(vimscript_source)
-"     execute 'source ' . vimrc
-" else
-"     source $HOME/.vimrc
-" endif
-" let theme = substitute($MYVIMRC, "/init.vim", "", "") . "/active_theme.vim"
-" if filereadable(theme)
-"     execute 'source ' . theme
-" endif
-
 " plug-ish ish
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -51,15 +38,13 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'muniftanjim/nui.nvim'
-" Plug 'tpope/vim-sensible'
-" Plug 'tpope/vim-abolish'
-Plug 'Yggdroot/indentLine'
-Plug 'dkarter/bullets.vim'
-Plug 'wellle/context.vim'
-Plug 'hashivim/vim-terraform'
-Plug 'rlane/pounce.nvim'
-Plug 'ggandor/leap.nvim'
-Plug 'ellisonleao/glow.nvim'
+" Plug 'Yggdroot/indentLine'
+" Plug 'dkarter/bullets.vim'
+Plug 'wellle/context.vim' " used for markdown bullets
+Plug 'hashivim/vim-terraform' " terraform
+Plug 'rlane/pounce.nvim' " movement - possible remove
+Plug 'ggandor/leap.nvim' " movement
+Plug 'ellisonleao/glow.nvim' " markdown preview - deprecate in favor of mdcat
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'rhysd/conflict-marker.vim'
@@ -88,11 +73,11 @@ Plug 'sindrets/diffview.nvim'
 Plug 'aaronik/treewalker.nvim'
 Plug 'jinh0/eyeliner.nvim'
 Plug 'jake-stewart/multicursor.nvim'
-" Plug 'rhysd/clever-f.vim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'kaarmu/typst.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'samoshkin/vim-mergetool'
+Plug 'stevearc/oil.nvim'
 call plug#end()
 
 " %%
@@ -190,31 +175,6 @@ function! CycleCodeBlockSuffix()
 endfunction
 
 " %%
-" Terminal-ish stuff
-let g:term_proportion_default = 3
-let g:term_lines_to_resize = 40
-let g:term_default_window_size = 20
-
-function! OpenTermSize(vertical=0)
-    if a:vertical == 0
-        let current_window_size = &lines
-    else
-        let current_window_size = &columns
-    endif
-    if current_window_size < g:term_lines_to_resize
-        return g:term_default_window_size
-    endif
-    let new_term_window_size = current_window_size / g:term_proportion_default
-    return float2nr(new_term_window_size)
-endfunction
-
-function! OpenTerm()
-    execute "belowright split +term"
-    execute "resize " . OpenTermSize()
-    execute "startinsert"
-endfunction
-
-" %%
 " slime stuff
 function! ReplCommand()
     if &filetype == "python"
@@ -258,6 +218,8 @@ function! WeztermSlimePane()
     let g:slime_cell_delimiter = CodeBlock()
 endfunction
 
+" %%
+" other stuff
 function! GitPermalink()
     let [_, l1, _, _] = getpos("'<")
     let [_, l2, _, _] = getpos("'>")
@@ -346,13 +308,6 @@ let g:slime_cells_bg_gui = synIDattr(synIDtrans(hlID("CursorLine")), "bg#")
 
 augroup CheckEveryTime
     autocmd!
-    autocmd VimEnter,BufEnter,WinEnter * highlight SignColumn guibg=NONE
-    autocmd VimEnter,BufEnter,WinEnter * highlight LspInlayHint guifg=g:lsp gui=bold,underdotted
-    autocmd VimEnter,BufEnter,WinEnter * highlight QuickFixLine guifg=g:cursor_bg gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineSel guifg=g:cursor_bg gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight TabLineFill guifg=g:cursor_bg gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight BufferCurrent guifg=g:cursor_bg gui=bold
-    autocmd VimEnter,BufEnter,WinEnter * highlight BufferCurrentCHANGED guifg=g:warning gui=bold
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_suffix = InferCodeBlockSuffix()
     autocmd VimEnter,BufEnter,WinEnter * let g:code_block_current = CodeBlock()
     autocmd VimEnter,BufEnter,WinEnter * let g:slime_cell_delimiter = CodeBlock()
@@ -386,9 +341,6 @@ inoremap <C-j> <Plug>(copilot-next)
 inoremap <C-k> <Plug>(copilot-previous)
 inoremap <C-h> <Plug>(copilot-dismiss)
 inoremap <C-/> <Plug>(copilot-suggest)
-
-" Terminal
-nmap T :call OpenTerm()<CR>
 
 " Buffers -barbar
 nmap <leader><leader>b <cmd>BufferPick<CR>

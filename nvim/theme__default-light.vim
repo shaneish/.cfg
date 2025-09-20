@@ -19,11 +19,6 @@ hi Constant         guifg=#103310                                               
 hi String           guifg=#4a704e                                             gui=NONE
 hi Function         guifg=#000000                                           gui=NONE
 hi Type             guifg=#000000                                           gui=underdotted
-" hi Identifier       guifg=#103310                                           gui=NONE
-" hi Statement        guifg=#2a4c2a                                           gui=bold
-" hi PreProc          guifg=#2a4c2a                                           gui=NONE
-" hi Special          guifg=#4a704e                                           gui=NONE
-" hi Operator         guifg=#4a704e                                           gui=NONE
 hi Identifier       guifg=#484848                                           gui=bold
 hi Special          guifg=#2e2e2e                                           gui=NONE
 hi Operator         guifg=#103310                                           gui=NONE
@@ -87,20 +82,26 @@ hi! link Title Function
 hi! link StatusLine CursorLine
 
 " Plugin-specific highlights
-hi EyelinerPrimary      guifg=#000000           gui=bold
-hi EyelinerSecondary    guifg=#484848           gui=bold,italic
+hi! EyelinerPrimary      guifg=#000000           gui=bold
+hi! EyelinerSecondary    guifg=#484848           gui=bold,italic
+hi! SignColumn guibg=NONE
+hi! LspInlayHint guifg=#ffaa33 gui=bold,underdotted
+hi! QuickFixLine guifg=#b0ffb0 gui=bold
+hi! TabLineSel guifg=#b0ffb0 gui=bold
+hi! TabLineFill guifg=#b0ffb0 gui=bold
+hi! BufferCurrent guifg=#000000 gui=bold
 
 " Special syntax groups
 " multiline strings (good for prompt engineering readability)
-syntax region MultiLineStringDouble start=/"""/ end=/"""/
-syntax region MultiLineStringSingle start=/'''/ end=/'''/
+" syntax region MultiLineStringDouble start=/"""/ end=/"""/
+" syntax region MultiLineStringSingle start=/'''/ end=/'''/
 " syntax region MultiLineBacktick start=/```/ end=/```/
-syntax region MultiLineSlash start=/\/\*/ end=/\*\//
+" syntax region MultiLineSlash start=/\/\*/ end=/\*\//
 
-hi MultiLineStringDouble guibg=#ededed
-hi! link MultiLineStringSingle MultiLineStringDouble
-hi! link MultiLineBacktick MultiLineStringDouble
-hi! link MultiLineSlash MultiLineStringDouble
+" hi MultiLineStringDouble guibg=#ededed
+" hi! link MultiLineStringSingle MultiLineStringDouble
+" hi! link MultiLineBacktick MultiLineStringDouble
+" hi! link MultiLineSlash MultiLineStringDouble
 
 " f-string interpolation
 " syntax region FStringDouble start=/f"[^"]/ skip=/\\"/ end=/"/
