@@ -1,8 +1,16 @@
 #!/bin/bash
 
+# install uv (easiest package-manager-independent way to install multiple python versions)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+latest_cpython_v=$(uv python list | rg "^cpython" | head -n 1 | awk '{print $1}')
+latest_cpython_free_v=$(uv python list | rg "^cpython" | rg "\+freethreaded" |  head -n 1 | awk '{print $1}')
+latest_pypy_v=$(uv python list | rg "^pypy" | head -n 1 | awk '{print $1}')
+
 python3 -m ensurepip
 python3 -m pip install pipx
 pipx install ruff
 pipx install dunk
 pipx install poetry
+pipx install nbpreview
 pipx install git+https://github.com/shaneish/fnkpy.git
