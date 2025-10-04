@@ -72,8 +72,8 @@ wezterm.on('update-right-status', function(window, pane)
     name = 'WINDOW: ' .. window:active_workspace() .. '  '
   end
   window:set_right_status(wezterm.format {
-        { Foreground = { Color = light_colors[8] } },
-        { Background = { Color = light_colors[7] } },
+        { Foreground = { Color = FG_ALT } },
+        { Background = { Color = BG_ALT } },
         { Text = name },
       })
 end)
@@ -143,29 +143,6 @@ config.font_rules = {
   },
 }
 
-local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/active_theme.toml")
-local dark_colors = color_conf.ansi
-local light_colors = color_conf.brights
--- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
--- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
-if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
-  dark_colors = color_conf.brights
-  light_colors = color_conf.ansi
-end
-config.colors = {
-  tab_bar = {
-    active_tab = {
-      bg_color = dark_colors[6],
-      fg_color = color_conf.cursor_bg,
-      intensity = "Bold",
-    },
-    inactive_tab = {
-      bg_color = dark_colors[7],
-      fg_color = dark_colors[8],
-    }
-  },
-}
-
 config.window_frame = {
   font_size = 11,
   font = wezterm.font 'JetBrains Mono'
@@ -175,6 +152,39 @@ config.inactive_pane_hsb = {
   saturation = 0.3,
   brightness = 0.8,
 }
+if wezterm.target_triple:find("windows") == nil then
+    local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/active_theme.toml")
+    local dark_colors = color_conf.ansi
+    local light_colors = color_conf.brights
+    -- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
+    -- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
+    if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
+      dark_colors = color_conf.brights
+      light_colors = color_conf.ansi
+    end
+    config.colors = {
+      tab_bar = {
+        active_tab = {
+          bg_color = dark_colors[6],
+          fg_color = color_conf.cursor_bg,
+          intensity = "Bold",
+        },
+        inactive_tab = {
+          bg_color = dark_colors[7],
+          fg_color = dark_colors[8],
+        }
+      },
+    }
+
+    FG_PRIMARY = FG_PRIMARY
+    FG_ALT = light_colors[8]
+    BG_ALT = light_colors[7]
+else
+    FG_PRIMARY = "#4a704e"
+    FG_ALT = "#f0fff0"
+    BG_ALT = "#484848"
+end
+
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Arch'
   config.window_decorations = "RESIZE"
@@ -460,7 +470,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = FG_PRIMARY } },
         { Text = 'Workspace name:' },
       },
       action = wezterm.action_callback(function(win, pane, line)
@@ -489,7 +499,7 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = wezterm.action.QuickSelectArgs {
       patterns = {
-        '[\\w\\-\\.\\/~]+',
+        '[\\w\\-\\.\\/~:]+',
       },
     },
   },
@@ -499,15 +509,6 @@ config.keys = {
     action = wezterm.action.QuickSelectArgs {
       patterns = {
         '\\S+',
-      },
-    },
-  },
-  {
-    key = 'g',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.QuickSelectArgs {
-      patterns = {
-        '^([🌵 \\-=>_\\.]{4,5}\\s*)?(.+)'
       },
     },
   },
@@ -542,7 +543,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = FG_PRIMARY } },
         { Text = 'Rename workspace:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -561,7 +562,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = FG_PRIMARY } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -584,7 +585,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = FG_PRIMARY } },
         { Text = 'Workspace name:' },
       },
     action = wezterm.action_callback(function(window, pane, line)
