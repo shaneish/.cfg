@@ -1,0 +1,42 @@
+[metadata]
+name = "theme"
+author = "(me)"
+background = "darker"
+
+[colors]
+# Core UI (high contrast)
+bg                 = "#050505"
+fg                 = "#f2f2f2"
+
+# Interaction (high contrast focus without neon)
+cursor             = "#c9b83a"   # warm gold cursor for visibility
+selection          = "#1f1f1f"   # strong but neutral selection background
+
+# Accents (still subtle yellow, but clearer separation)
+palette_accent_1   = "#6f6821"   # dark olive-gold
+palette_accent_2   = "#8a7f2a"   # mid gold/olive
+palette_accent_3   = "#c9b83a"   # primary accent (matches cursor)
+palette_accent_4   = "#e3d36a"   # bright accent (sparingly)
+palette_accent_5   = "#f4efb2"   # very light warm highlight
+
+# Grayscale ramp (wider spread for higher contrast layering)
+gray_scale_5       = "#ffffff"
+gray_scale_4       = "#cfcfcf"
+gray_scale_3       = "#8a8a8a"
+gray_scale_2       = "#3a3a3a"
+gray_scale_1       = "#171717"
+
+# Status (keep readable on dark, but not screaming)
+alert              = "#ffb3b3"
+minor_alert        = "#d64b4b"
+
+[colors.wezterm]
+ansi_final         = "#d8c65a"
+bright_final       = "#9b8f37"
+
+[colors.nvim]
+lsp_inlay_hint     = "#8f8630"
+lsp_bright         = "#d8c65a"
+
+[colors.starship]
+default_style      = "#d8c65a"

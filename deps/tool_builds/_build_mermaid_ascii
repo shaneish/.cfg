@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+export LOCAL_BIN_DIR=$HOME/.local/bin
+cd /tmp
+
+# Get the latest release
+curl -s https://api.github.com/repos/AlexanderGrooff/mermaid-ascii/releases/latest | grep "browser_download_url.*mermaid-ascii" | grep "$(uname)_$(uname -m)" | cut -d: -f2,3 | tr -d \" | wget -qi -
+
+# Unzip it
+tar xvzf mermaid-ascii_*.tar.gz
+
+# Test it
+./mermaid-ascii --help
+
+mv mermaid-ascii $LOCAL_BIN_DIR

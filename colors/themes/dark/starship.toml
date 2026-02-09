@@ -1,0 +1,73 @@
+format = " $sudo$username$hostname $character"
+command_timeout = 1000
+
+right_format = """$directory $git_branch $git_status$git_metrics $python"""
+
+[directory]
+truncation_length = 15
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+repo_root_style = "#ffda00 underline"
+read_only_style = "#ffda00"
+before_repo_root_style = "#ffda00"
+style = "#ffda00"
+format = "[$path$read_only]($style)"
+repo_root_format = "[Δ]($style bold) [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
+home_symbol = "~"
+read_only = '!'
+truncation_symbol = '…/'
+
+[git_status]
+format = "[$all_status$ahead_behind]($style)"
+style = "#ffda00"
+ahead = ">"
+behind = "<"
+diverged = "!"
+renamed = "r"
+deleted = "x"
+disabled = true
+
+[git_branch]
+format = "[$symbol]($style bold) [$branch]($style)"
+symbol = "Γ"
+style = "#ffda00"
+
+[git_metrics]
+added_style = '#ffda00'
+deleted_style = '#ffda00'
+format = '[↑$added]($added_style)[↓$deleted]($deleted_style)'
+disabled = false
+
+[python]
+symbol = "Π"
+format = "[$symbol]($style bold) [$virtualenv $version]($style)"
+version_format = "$major.$minor"
+style = "#ffda00"
+
+[line_break]
+disabled = true
+
+[character]
+error_symbol =              "[⊘](#ffda00 bold blink)"
+success_symbol =            "[○](#ffda00 bold)"
+vimcmd_symbol =             "[○](#ffda00 bold)"
+vimcmd_visual_symbol =      "[○](#ffda00 bold blink)"
+vimcmd_replace_symbol =     "[⊝](#ffda00 bold)"
+vimcmd_replace_one_symbol = "[⊝](#ffda00 bold blink)"
+
+[username]
+format = '[$user](#ffda00)'
+show_always = true
+
+[sudo]
+symbol = "αω"
+format = '[$symbol](#ffda00 bold blink)'
+disabled = false
+
+[hostname]
+format = "[$symbol]($style bold)[$hostname]($style)"
+trim_at = ""
+ssh_only = true
+ssh_symbol = "@"
+style = "#ffda00"
+

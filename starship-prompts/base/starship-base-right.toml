@@ -6,8 +6,6 @@ $hostname\
 $directory\
 $git_branch\
 $git_status\
-$git_commit\
-$git_state\
 $git_metrics\
 $python"""
 
@@ -20,10 +18,10 @@ read_only_style = "#ffffff"
 before_repo_root_style = "#ffffff"
 style = "#ffffff"
 format = "[$path$read_only]($style)"
-repo_root_format = "[>]($style) [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
+repo_root_format = "[Δ]($style) [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($read_only_style) "
 home_symbol = "~"
 read_only = '!'
-truncation_symbol = '.../'
+truncation_symbol = '…/'
 
 [git_status]
 format = " [$all_status$ahead_behind]($style) "
@@ -33,12 +31,6 @@ behind = "<"
 diverged = "!"
 renamed = "r"
 deleted = "x"
-disabled = true
-
-[git_branch]
-format = "[$symbol$branch]($style)"
-symbol = ""
-style = "#ffffff"
 
 [git_metrics]
 added_style = '#ffffff'
@@ -47,7 +39,7 @@ format = '( [↑$added]($added_style))([↓$deleted]($deleted_style) )'
 disabled = false
 
 [python]
-symbol = ""
-format = " [$symbol$virtualenv$version]($style)"
+symbol = "Π"
+format = " [$symbol]($style) $virtualenv - $version"
 version_format = ".${minor}"
 style = "#ffffff"

@@ -13,6 +13,7 @@ function _source_once
     set -Ux NVIM_DIRECTORY $CONFIG_DIRECTORY/nvim
     set -Ux PYTHON_VENV_DIR $HOME/.local/venvs
     set -Ux CLI_NOTES $CONFIG_DIRECTORY/notes/cmd_examples.txt
+    set -Ux BAT_THEME gruvbox-light
 
     add_env_var_maybe EDITOR nvim vim vi
     add_env_var_maybe SHELL fish zsh dash bash powershell sh
@@ -25,6 +26,7 @@ function _source_once
     add_to_path_maybe $HOME/.config/scripts
     add_to_path_maybe $HOME/.go/bin
     add_to_path_maybe $HOME/go/bin
+    add_to_path_maybe $HOME/.opencode/bin
 
     pyv
     change_greeting small

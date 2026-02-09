@@ -31,9 +31,9 @@ hi WarningMsg       guifg=#707070        guibg=#ffdddd          gui=NONE
 
 " UI Elements
 hi Cursor           guifg=#000000                  guibg=#b0ffb0
-hi CursorLine                                             guibg=#f0fff0
+hi CursorLine                                             guibg=#dce8dc
 hi CursorLineNr     guifg=#2a4c2a                                           gui=bold
-hi ColorColumn                                            guibg=#f0fff0
+hi ColorColumn                                            guibg=#dce8dc
 hi Visual           guifg=#000000                  guibg=#e0e8b0
 hi CursorColumn     guifg=NONE                            guibg=NONE                             gui=NONE
 hi LineNr           guifg=#bbbbbb
@@ -48,6 +48,7 @@ hi PmenuThumb       guifg=#4a704e    guibg=#4a704e
 hi Search                                                 guibg=#e0e8b0
 hi IncSearch        guifg=#000000                  guibg=#e0e8b0
 hi MatchParen       guifg=#000000                  guibg=#dce8dc     gui=bold
+hi Folded           guibg=#f0fff0
 
 " Diffs
 hi DiffAdd                                                guibg=#dce8dc

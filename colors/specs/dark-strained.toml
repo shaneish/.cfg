@@ -1,0 +1,43 @@
+[metadata]
+name = "theme"
+author = "(me)"
+background = "dark"
+
+[colors]
+# Core UI
+bg                 = "#0b0b0b"
+fg                 = "#e6e6e6"
+
+# Interaction
+cursor             = "#6e6a1e"   # muted olive-yellow
+selection          = "#2a2a2a"   # purely neutral selection
+
+# Accents (very subtle yellow influence)
+palette_accent_1   = "#5c5a2a"
+palette_accent_2   = "#4a4824"
+palette_accent_3   = "#7a742f"   # strongest yellow, still muted
+palette_accent_4   = "#8a853f"
+palette_accent_5   = "#9a9550"
+
+# Grayscale ramp (dominant visual language)
+gray_scale_5       = "#d9d9d9"
+gray_scale_4       = "#a8a8a8"
+gray_scale_3       = "#6a6a6a"
+gray_scale_2       = "#3a3a3a"
+gray_scale_1       = "#242424"
+
+# Status
+alert              = "#5a2a2a"   # dark, non-intrusive red
+minor_alert        = "#7a3a3a"
+
+[colors.wezterm]
+ansi_final         = "#b0ab6a"
+bright_final       = "#7f7b45"
+
+[colors.nvim]
+lsp_inlay_hint     = "#6a6738"
+lsp_bright         = "#8a8648"
+
+[colors.starship]
+default_style      = "#8a8648"
+``

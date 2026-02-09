@@ -39,6 +39,7 @@ function _custom_keybinds -d "it is what it says it is"
 
     function __alternate_prompt
         $STARSHIP_SWITCHER 0
+        commandline -r ''
         commandline -f repaint
     end
 
@@ -46,6 +47,15 @@ function _custom_keybinds -d "it is what it says it is"
         set d (hp ls | fz | string split ' -> ')
         if string length --quiet $d[2]
             cd $d[2]
+            commandline -f repaint
+        end
+    end
+
+    function _wez_workspace_hpfuzzy
+        set d (hp ls | fz | string split ' -> ')
+        if string length --quiet $d[2]
+            cd (string trim $d[2])
+            wezterm cli rename-workspace (string trim $d[1])
             commandline -f repaint
         end
     end
@@ -88,6 +98,7 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M normal yy fish_clipboard_copy
     bind -M insert \cu 'history | fz | string trim -r | clip'
     bind -M insert \cg _hpfuzzy
+    bind -M insert \cw _wez_workspace_hpfuzzy
     bind -M insert \cb _fg
     bind -M insert \cj _fg_select
     bind -M insert \cl forward-word

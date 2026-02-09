@@ -3,7 +3,7 @@ let g:lsp = "#ffaa33"
 let g:lsp_bright = "#934e00"
 
 let nvim_config_dir = substitute($MYVIMRC, "/init.vim", "", "") . "/"
-for additional_vim_sources in [".vimrc", "active_theme.vim"]
+for additional_vim_sources in [".vimrc", "theme.vim"]
     let source_file = nvim_config_dir . additional_vim_sources
     if filereadable(source_file)
         execute 'source ' . source_file
@@ -38,8 +38,6 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'muniftanjim/nui.nvim'
-" Plug 'Yggdroot/indentLine'
-" Plug 'dkarter/bullets.vim'
 Plug 'wellle/context.vim' " used for markdown bullets
 Plug 'hashivim/vim-terraform' " terraform
 Plug 'rlane/pounce.nvim' " movement - possible remove
@@ -78,6 +76,10 @@ Plug 'kaarmu/typst.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'samoshkin/vim-mergetool'
 Plug 'stevearc/oil.nvim'
+
+" folds
+" Plug 'anuvyklack/pretty-fold.nvim'
+Plug 'chrisgrieser/nvim-origami'
 call plug#end()
 
 " %%
@@ -178,12 +180,13 @@ endfunction
 " slime stuff
 function! ReplCommand()
     if &filetype == "python"
-        if exists("g:ipython3_host_prog")
-            if g:ipython3_host_prog != ""
-                return g:ipython3_host_prog . " --no-autoindent"
-            endif
-        endif
-        return "python3 -m ipython --no-autoindent"
+        " if exists("g:ipython3_host_prog")
+        "     if g:ipython3_host_prog != ""
+        "         return g:ipython3_host_prog . " --no-autoindent"
+        "     endif
+        " endif
+        " return "python3 -m ipython --no-autoindent"
+        return "ipython --no-autoindent"
     elseif &filetype == "rust"
         return "evcxr"
     elseif &filetype == "julia"
@@ -201,17 +204,22 @@ function! ReplCommand()
 endfunction
 
 let g:slime_split = "bottom"
-function! WezSlimeReplInitCmd(split=g:slime_split, cwd=getcwd())
+function! WezSlimeReplInitCmd(split=g:slime_split, cwd=getcwd(), repl="")
     let wez_cli = "wezterm"
     if !empty($WSL_INTEROP) || has('windows') == 0
         let wez_cli = wez_cli . ".exe"
     endif
     let cmd = wez_cli . " cli split-pane --" . a:split . " --cwd " . a:cwd . " -- "
-    return cmd . ReplCommand()
+    return cmd . a:repl
 endfunction
 
-function! WeztermSlimePane()
-    let pane_id = system(WezSlimeReplInitCmd())
+function! WeztermSlimePane(infer=1)
+    if a:infer == 1
+        let repl_cmd = ReplCommand()
+    else
+        let repl_cmd = "fish"
+    endif
+    let pane_id = system(WezSlimeReplInitCmd("bottom", getcwd(), repl_cmd))
     let b:slime_config = {"pane_id": trim(pane_id)}
     let g:slime_default_config = {"pane_id": trim(pane_id)}
     let g:slime_dont_ask_default = 1
@@ -314,7 +322,6 @@ augroup CheckEveryTime
     autocmd VimEnter,BufEnter,WinEnter *.txt,*.md,*.typ,*.typst set spell
 augroup END
 
-
 autocmd FileType * set formatoptions-=ro
 autocmd BufRead,BufNewFile *.hcl set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
@@ -327,6 +334,9 @@ autocmd BufWritePre *.tf lua vim.lsp.buf.format()
 autocmd BufRead,BufNewFile *.csv.txt set filetype=csv
 autocmd BufRead,BufNewFile *.tsv.txt set filetype=tsv
 autocmd BufRead,BufNewFile *.toml set filetype=toml
+
+" toggle conceal level
+imap <leader><leader>f :call ToggleConcealLevel()<CR>
 autocmd FileType csv nmap <leader>f :call ToggleMappings()<CR>
 autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
@@ -351,9 +361,6 @@ nmap <leader>bo <cmd>BufferOrderByDirectory<CR>
 nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 
-" toggle conceal level
-imap <leader><leader>f :call ToggleConcealLevel()<CR>
-
 " Plugin mappings
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tg <cmd>Telescope live_grep<cr>
@@ -363,6 +370,7 @@ nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 
 " slime stuff
 nmap <C-c><C-n> :call WeztermSlimePane()<CR>
+nmap <C-c><C-h> :call WeztermSlimePane(0)<CR>
 nmap <C-c><C-p> <Plug>SlimeParagraphSend
 nmap <C-c><C-c> <Plug>SlimeSendCell
 nmap <C-c><C-s> <Plug>SlimeConfig

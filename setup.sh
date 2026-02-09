@@ -14,7 +14,7 @@ if [ ! -d $BACKUP_DIRECTORY ]; then
     echo "Created backup directory..."
 fi
 
-if ! command -v rip 2>&1 >/dev/null; then
+if ! command -v rip 2>&1 /dev/null; then
     alias DEL="rip"
 fi
 
@@ -31,11 +31,11 @@ _prop() {
 }
 
 _cargo() {
-    if ! command -v cargo 2>&1 >/dev/null; then
+    if ! command -v cargo 2>&1 /dev/null; then
         curl https://sh.rustup.rs -sSf | sh
         echo "Installing Cargo..."
     fi
-    if ! command -v $1 2>&1 >/dev/null}; then
+    if ! command -v $1 2>&1 /dev/null}; then
         if [ "$2" != "" ]; then
             cargo install "${@:2}"
         else
@@ -45,11 +45,11 @@ _cargo() {
 }
 
 _pipx() {
-    if ! command -v pipx 2>&1 >/dev/null; then
+    if ! command -v pipx 2>&1 /dev/null; then
         python3 -m pip install pipx
         echo "Installing pipx..."
     fi
-    if ! command -v $1 2>&1 >/dev/null}; then
+    if ! command -v $1 2>&1 /dev/null}; then
         pipx install $1
     fi
 }

@@ -1,0 +1,39 @@
+format = " $sudo $character"
+right_format = "$directory $git_branch"
+command_timeout = 1000
+
+[directory]
+truncate_to_repo = false
+truncation_length = 1
+fish_style_pwd_dir_length = 1
+style = "#4e7a1c"
+format = "[Δ]($style bold) [$path$read_only]($style)"
+home_symbol = "~"
+read_only = '!'
+truncation_symbol = '…/'
+
+[line_break]
+disabled = true
+
+[character]
+error_symbol =              "[⊘](#4e7a1c bold blink)"
+success_symbol =            "[○](#4e7a1c bold)"
+vimcmd_symbol =             "[○](#4e7a1c bold)"
+vimcmd_visual_symbol =      "[○](#4e7a1c bold blink)"
+vimcmd_replace_symbol =     "[⊝](#4e7a1c bold)"
+vimcmd_replace_one_symbol = "[⊝](#4e7a1c bold blink)"
+
+[git_branch]
+format = "[$symbol]($style bold) [$branch]($style)"
+symbol = "Γ"
+style = "#4e7a1c"
+
+[sudo]
+symbol = "αω"
+format = '[$symbol](#4e7a1c bold blink)'
+disabled = false
+
+[python]
+symbol = "Π"
+format = "[$symbol]($style bold) [$virtualenv]($style)"
+style = "#4e7a1c"

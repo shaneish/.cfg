@@ -2,12 +2,17 @@
 disabled = true
 
 [character]
-error_symbol =              " [x](#ffffff blink)"
-success_symbol =            " [>](#ffffff)"
-vimcmd_symbol =             " [>](#ffffff)"
-vimcmd_visual_symbol =      " [>](#ffffff blink)"
-vimcmd_replace_symbol =     " [_](#ffffff)"
-vimcmd_replace_one_symbol = " [_](#ffffff blink)"
+error_symbol =              " [⊘](#ffffff blink)"
+success_symbol =            " [○](#ffffff)"
+vimcmd_symbol =             " [○](#ffffff)"
+vimcmd_visual_symbol =      " [○](#ffffff blink)"
+vimcmd_replace_symbol =     " [⊝](#ffffff)"
+vimcmd_replace_one_symbol = " [⊝](#ffffff blink)"
+
+[git_branch]
+format = "[$symbol]($style) $branch"
+symbol = "Γ"
+style = "#ffffff"
 
 [cmd_duration]
 disabled = true
@@ -28,8 +33,8 @@ format = '[$symbol](#ffffff)'
 disabled = false
 
 [hostname]
-format = "[$symbol$hostname]($style)"
-trim_at = ""
+format = "[$symbol]($style) $hostname"
+trim_at = " "
 ssh_only = true
 ssh_symbol = "@"
 style = "#ffffff"

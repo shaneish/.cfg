@@ -1,0 +1,36 @@
+# name: 'theme'
+
+fish_color_normal "f2f2f2"                                                                   #f2f2f2
+fish_color_comment "c9b83a"                                                    #c9b83a
+fish_color_autosuggestion "3a3a3a"                                                 #3a3a3a
+fish_color_error "cfcfcf" --underline                                              #cfcfcf
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "8a8a8a" --bold                                                 #c9b83a
+fish_color_param "ffffff"                                                          #ffffff
+fish_color_quote "c9b83a" --italic                                             #c9b83a
+
+fish_color_operator "e3d36a"                                                   #e3d36a
+fish_color_redirection "ffffff"                                                    #ffffff - param color
+fish_color_end "e3d36a"                                                        #e3d36a - operator color
+
+fish_color_user "e3d36a"                                                       #e3d36a
+fish_color_host "cfcfcf"                                                           #cfcfcf
+fish_color_host_remote --bold "e3d36a"                                         #e3d36a - make remote host stand out
+
+fish_color_search_match --background="1f1f1f"                                         #1f1f1f
+fish_color_1f1f1f --background="1f1f1f" --color="f2f2f2"         #1f1f1f
+
+fish_pager_color_completion "ffffff"                                               #ffffff
+fish_pager_color_description "8a8a8a"                                              #8a8a8a
+fish_pager_color_prefix --bold "f2f2f2"                                                      #f2f2f2
+fish_pager_color_progress "3a3a3a"                                                 #3a3a3a
+
+fish_pager_color_selected_background --background="1f1f1f"                            #1f1f1f
+fish_pager_color_selected_completion "f2f2f2"                                                #f2f2f2
+fish_pager_color_selected_description "ffffff"                                     #ffffff
+fish_pager_color_selected_prefix --bold --no-underline "e3d36a"                #e3d36a
+
+fish_color_history_current --bold
+fish_color_selection ffffff --bold --background 1f1f1f               #ffffff #1f1f1f

@@ -1,0 +1,36 @@
+# name: '{{metadata.name}}'
+
+fish_color_normal "{{colors.fg}}"                                                                   #{{colors.fg}}
+fish_color_comment "{{colors.palette_accent_3}}"                                                    #{{colors.palette_accent_3}}
+fish_color_autosuggestion "{{colors.gray_scale_2}}"                                                 #{{colors.gray_scale_2}}
+fish_color_error "{{colors.gray_scale_4}}" --underline                                              #{{colors.gray_scale_4}}
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "{{colors.gray_scale_3}}" --bold                                                 #{{colors.palette_accent_3}}
+fish_color_param "{{colors.gray_scale_5}}"                                                          #{{colors.gray_scale_5}}
+fish_color_quote "{{colors.palette_accent_3}}" --italic                                             #{{colors.palette_accent_3}}
+
+fish_color_operator "{{colors.palette_accent_4}}"                                                   #{{colors.palette_accent_4}}
+fish_color_redirection "{{colors.gray_scale_5}}"                                                    #{{colors.gray_scale_5}} - param color
+fish_color_end "{{colors.palette_accent_4}}"                                                        #{{colors.palette_accent_4}} - operator color
+
+fish_color_user "{{colors.palette_accent_4}}"                                                       #{{colors.palette_accent_4}}
+fish_color_host "{{colors.gray_scale_4}}"                                                           #{{colors.gray_scale_4}}
+fish_color_host_remote --bold "{{colors.palette_accent_4}}"                                         #{{colors.palette_accent_4}} - make remote host stand out
+
+fish_color_search_match --background="{{colors.selection}}"                                         #{{colors.selection}}
+fish_color_{{colors.selection}} --background="{{colors.selection}}" --color="{{colors.fg}}"         #{{colors.selection}}
+
+fish_pager_color_completion "{{colors.gray_scale_5}}"                                               #{{colors.gray_scale_5}}
+fish_pager_color_description "{{colors.gray_scale_3}}"                                              #{{colors.gray_scale_3}}
+fish_pager_color_prefix --bold "{{colors.fg}}"                                                      #{{colors.fg}}
+fish_pager_color_progress "{{colors.gray_scale_2}}"                                                 #{{colors.gray_scale_2}}
+
+fish_pager_color_selected_background --background="{{colors.selection}}"                            #{{colors.selection}}
+fish_pager_color_selected_completion "{{colors.fg}}"                                                #{{colors.fg}}
+fish_pager_color_selected_description "{{colors.gray_scale_5}}"                                     #{{colors.gray_scale_5}}
+fish_pager_color_selected_prefix --bold --no-underline "{{colors.palette_accent_4}}"                #{{colors.palette_accent_4}}
+
+fish_color_history_current --bold
+fish_color_selection {{colors.gray_scale_5}} --bold --background {{colors.selection}}               #{{colors.gray_scale_5}} #{{colors.selection}}

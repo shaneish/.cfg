@@ -29,7 +29,7 @@ PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]$\[\033[00m\] '
 
 set -o vi
 
-if command -v fzf 2>&1 >/dev/null; then
+if command -v fzf 2>&1 /dev/null; then
     eval "$(fzf --bash)"
 fi
 

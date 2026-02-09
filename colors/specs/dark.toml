@@ -1,22 +1,33 @@
 [metadata]
-name = "active_theme"
+name = "theme"
 author = "(me)"
 background = "dark"
 
 [colors]
-bg               = "#1e1e1e" # Dark background color.
-fg               = "#ffffff" # Light foreground color.
-cursor           = "#bae847" # Cursor color - maintained to stand out, still a variant of the accent.
-selection        = "#5e5e0a" # Highlight/selection color, adjusted for dark background.
-palette_accent_1 = "#293d2c" # Darker palette accent color closest to background.
-palette_accent_2 = "#3a573e" # Intermediate dark palette accent.
-palette_accent_3 = "#7d9b83" # Intermediary palette color for contrast.
-palette_accent_4 = "#a7c09f" # Lighter palette accent, closer to foreground.
-palette_accent_5 = "#c2d4bc" # Palette accent color closest to foreground.
-gray_scale_1     = "#333333" # Gray color closest to background.
-gray_scale_2     = "#6b6b6b" # Intermediate gray.
-gray_scale_3     = "#9e9e9e" # Intermediary gray.
-gray_scale_4     = "#c4c4c4" # Lighter gray.
-gray_scale_5     = "#e6e6e6" # Gray color closest to foreground.
-alert            = "#ff4d4d" # Clearly distinct alert color, bright against dark.
-minor_alert      = "#a00000" # Distinct minor alert, darker against dark.
+bg                 = "#000000" # foreground color.
+fg                 = "#ffffff" # background color.
+cursor             = "#8c8804"
+selection          = "#5a5802"
+palette_accent_1   = "#737003"
+palette_accent_2   = "#695200"
+palette_accent_3   = "#fce205"
+palette_accent_4   = "#fdefb2"
+palette_accent_5   = "#ffffe0"
+gray_scale_5       = "#ededed"
+gray_scale_4       = "#bbbbbb"
+gray_scale_3       = "#707070"
+gray_scale_2       = "#454545"
+gray_scale_1       = "#2f2f2f"
+alert              = "#ffdddd"
+minor_alert        = "#a30000"
+
+[colors.wezterm]
+ansi_final = "#dfc98a"
+bright_final = "#978942"
+
+[colors.nvim]
+lsp_inlay_hint = "#f4ab6a"
+lsp_bright = "#eabd8c"
+
+[colors.starship]
+default_style = "#ffda00"

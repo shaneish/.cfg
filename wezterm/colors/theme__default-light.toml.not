@@ -25,19 +25,19 @@ ansi = [
   "#103310",
   "#484848",
   "#2e2e2e",
-  "#e6fae6"
+  "#a8b3a8"
 ]
 
 # Bright variants of the ANSI colors (colors 8-15)
 brights = [
-  "#ededed",
+  "#cccccc",
   "#4a704e",
   "#bbbbbb",
   "#ffdddd",
   "#2a4c2a",
   "#707070",
   "#484848",
-  "#f0fff0",
+  "#c2d1c2",
 ]
 
 # [colors.tab_bar]

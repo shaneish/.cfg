@@ -59,6 +59,9 @@ require('nvim-treesitter.configs').setup {
         'toml',
         'sql',
     },
+    folds = {
+        enable = true
+    },
     sync_install = false,
     auto_install = true,
     highlight = {
@@ -383,6 +386,34 @@ end
 -- %% copilot chat
 require("CopilotChat").setup()
 vim.keymap.set("n", "<leader><leader>c", ":CopilotChatToggle<CR>")
+
+-- %% folds
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldlevel = 1
+-- vim.opt.foldmethod = "expr"
+
+-- require("origami").setup {
+--   useLspFoldsWithTreesitterFallback = true,
+--   pauseFoldsOnSearch = true,
+--   foldtext = {
+--     enabled = true,
+--     padding = 3,
+--     lineCount = {
+--       template = vim.opt.commentstring:get() .. " lines - %d", -- `%d` is replaced with the number of folded lines
+--       hlgroup = "Comment",
+--     },
+--     diagnosticsCount = true, -- uses hlgroups and icons from `vim.diagnostic.config().signs`
+--     gitsignsCount = true, -- requires `gitsigns.nvim`
+--   },
+--   autoFold = {
+--     enabled = false,
+--     kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
+--   },
+--   foldKeymaps = {
+--     setup = true, -- modifies `h`, `l`, and `$`
+--     hOnlyOpensOnFirstColumn = false,
+--   },
+-- }
 
 -- %% archived
 

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "yet-another-opencode-cursor-auth"
+  ],
+  "provider": {
+    "cursor": {
+      "name": "Cursor"
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": "ask"
+  },
+  "agent": {
+    "build": {
+      "permission": {
+        "edit": "allow",
+        "write": "allow",
+        "bash": {
+          "git push": "ask",
+          "grep *": "allow"
+        }
+      }
+    }
+  },
+  "watcher": {
+    "ignore": ["dist/**", ".git/**"]
+  }
+}

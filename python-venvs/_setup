@@ -15,7 +15,7 @@ _optional() {
 
 _find_newest_python() {
     for i in $(seq 15 -1 9); do
-        if command -v "python3.${i}" 2>&1 >/dev/null; then
+        if command -v "python3.${i}" 2>&1 /dev/null; then
             PYTHON="python3.${i}"
             echo "Found $PYTHON as most recent version..."
             _create_venv $PYTHON $DEFAULT_PYTHON_NAME $1
@@ -69,7 +69,7 @@ __main__() {
         export PYTHON_BIN="$PYTHON_VENV_DIR/$DEFAULT_PYTHON_NAME/bin"
     fi
 
-    if command -v pypy3 2>&1 >/dev/null; then
+    if command -v pypy3 2>&1 /dev/null; then
         pypy3 -m ensurepip
         _create_venv pypy3 $DEFAULT_PYPY_NAME $SRC_DIR/pypy.txt
         export PYPY_BIN="$PYTHON_VENV_DIR/$DEFAULT_PYPY_NAME/bin"

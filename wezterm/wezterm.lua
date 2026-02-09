@@ -3,15 +3,38 @@ local io = require 'io';
 local os = require 'os';
 local config = {}
 
-local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
-wezterm.on("gui-startup", resurrect.state_manager.resurrect_on_gui_startup)
-resurrect.state_manager.periodic_save({
-    interval_seconds = 300,
-    save_tabs = true,
-    save_windows = true,
-    save_workspaces = true,
-})
-resurrect.state_manager.set_max_nlines(5000)
+-- global vars use to unify across operating systems (mac sucks)
+Alt = 'ALT'
+NonAlt = 'META'
+AltAlt = 'ALT'
+Desktop = os.getenv("DESKTOP_SESSION")
+
+-- defined functions
+local function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+local function log_table(t)
+  print(dump(t))
+end
+
+local function hash(str)
+    local h = 5381;
+
+    for c in str:gmatch"." do
+        h = math.fmod(((h << 5) + h) + string.byte(c), 2147483648)
+    end
+    return h
+end
 
 local function read_file(path)
     local file = io.open(path, "rb") -- r read mode and b binary mode
@@ -32,7 +55,7 @@ local function tab_title(tab_info)
     return tab_info.active_pane.title
 end
 
-function on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_width)
+local function on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_width)
     local zoomed = ''
     local index = tab.tab_index + 1
     local title = tab_title(tab)
@@ -44,38 +67,90 @@ function on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_width)
     }
 end
 
-wezterm.on('format-tab-title', on_format_tab_title)
+local function set_theme(wez_config, toml_name)
+  local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/" .. toml_name .. ".toml")
+  wez_config.color_scheme = toml_name
+  local dark_colors = color_conf.ansi
+  local light_colors = color_conf.brights
+  -- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
+  -- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
+  if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
+    dark_colors = color_conf.brights
+    light_colors = color_conf.ansi
+    -- wez_config.colors = color_conf
+    wez_config.colors = {
+      tab_bar = {
+        active_tab = {
+          bg_color = color_conf.ansi[1],
+          fg_color = color_conf.cursor_fg,
+          intensity = "Bold",
+        },
+        inactive_tab = {
+          bg_color = color_conf.brights[1],
+          fg_color = color_conf.brights[5],
+        }
+      },
+    }
+  else
+    wez_config.colors = {
+      tab_bar = {
+        active_tab = {
+          bg_color = color_conf.brights[6],
+          fg_color = color_conf.cursor_fg,
+          intensity = "Bold",
+        },
+        inactive_tab = {
+          bg_color = color_conf.brights[7],
+          fg_color = color_conf.brights[8],
+        }
+      },
+    }
+  end
+  wezterm.add_to_config_reload_watch_list(wezterm.home_dir .. "/.config/wezterm/colors/" .. toml_name .. ".toml")
+  return config, color_conf, dark_colors, light_colors
+end
 
+function update_right_status(window, pane)
+  local name = '<--  ' .. window:active_workspace() .. '  -->   '
+  local key_table = window:active_key_table()
+  local extra = ''
+  if key_table ~= nil and key_table ~= '' then
+    extra = extra .. key_table
+  end
+  if extra ~= '' then
+    name = name .. ' [ ' .. extra .. ' ] '
+  end
+  window:set_right_status(wezterm.format {
+        { Foreground = { Color = ColorConf.cursor_bg } },
+        { Attribute = { Intensity = "Bold" } },
+        -- { Attribute = { Underline = "Single" } },
+        { Text = name },
+      })
+end
+
+-- triggered events
+wezterm.add_to_config_reload_watch_list(wezterm.home_dir .. "/.config/wezterm/colors/theme.toml")
+wezterm.add_to_config_reload_watch_list(wezterm.home_dir .. "/.config/wezterm/colors/")
+wezterm.on('format-tab-title', on_format_tab_title)
+wezterm.on('update-status', update_right_status)
 wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   local scrollback = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows);
 
   local name = os.tmpname();
   local f = io.open(name, "w+");
+  -- yes, i know, below needs nil check.  it's a temp file that doesn't really matter & i want readability
   f:write(scrollback);
   f:flush();
   f:close();
-  window:perform_action(wezterm.action{ SpawnCommandInNewTab = {
+  local curr_tab = window:active_tab()
+  local nt, _, _ = window:mux_window():spawn_tab {
     domain = "CurrentPaneDomain",
-    args={ 'nvim', '+', name }
-    }
-  }, pane)
-
+    args = { 'nvim', '+', name, '-c', 'set nowrap'},
+  }
+  nt:set_title(curr_tab:get_title() .. '.' .. hash(scrollback))
+  window:perform_action(wezterm.action.MoveTab(curr_tab:tab_id() - 1), pane)
   wezterm.sleep_ms(1000);
   os.remove(name);
-end)
-
-wezterm.on('update-right-status', function(window, pane)
-  local name = window:active_key_table()
-  if name then
-    name = 'TABLE: ' .. name .. '  '
-  else
-    name = 'WINDOW: ' .. window:active_workspace() .. '  '
-  end
-  window:set_right_status(wezterm.format {
-        { Foreground = { Color = light_colors[8] } },
-        { Background = { Color = light_colors[7] } },
-        { Text = name },
-      })
 end)
 
 wezterm.on('select-and-paste', function(window, pane)
@@ -87,28 +162,8 @@ wezterm.on('select-and-paste', function(window, pane)
   wezterm.action.PasteFrom 'Clipboard'
 end)
 
-function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
-
-function log_table(t)
-  print(dump(t))
-end
-
-Alt = 'ALT'
-NonAlt = 'META'
-AltAlt = 'ALT'
-Desktop = os.getenv("DESKTOP_SESSION")
-
+-- basic configuration
+config, ColorConf, Darks, Lights = set_theme(config, "theme")
 config.disable_default_key_bindings = true
 config.enable_kitty_keyboard = true
 config.animation_fps = 30
@@ -116,7 +171,6 @@ config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 10
 config.enable_scroll_bar = false
-config.color_scheme = 'active_theme'
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
@@ -130,6 +184,7 @@ config.cursor_blink_rate = 300
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 config.warn_about_missing_glyphs = false
+config.status_update_interval = 1000
 
 config.font_rules = {
   {
@@ -144,29 +199,6 @@ config.font_rules = {
   },
 }
 
-local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/active_theme.toml")
-local dark_colors = color_conf.ansi
-local light_colors = color_conf.brights
--- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
--- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
-if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
-  dark_colors = color_conf.brights
-  light_colors = color_conf.ansi
-end
-config.colors = {
-  tab_bar = {
-    active_tab = {
-      bg_color = dark_colors[6],
-      fg_color = color_conf.cursor_bg,
-      intensity = "Bold",
-    },
-    inactive_tab = {
-      bg_color = dark_colors[7],
-      fg_color = dark_colors[8],
-    }
-  },
-}
-
 config.window_frame = {
   font_size = 11,
   font = wezterm.font 'JetBrains Mono'
@@ -176,6 +208,8 @@ config.inactive_pane_hsb = {
   saturation = 0.3,
   brightness = 0.8,
 }
+
+-- os specific jazz
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = 'WSL:Arch'
   config.window_decorations = "RESIZE"
@@ -189,7 +223,6 @@ if wezterm.target_triple:find("windows") ~= nil then
     top = 5,
     bottom = 5,
   }
-
 elseif wezterm.target_triple:find("darwin") ~= nil then
   Alt = 'OPT'
   NonAlt = 'CMD'
@@ -204,7 +237,6 @@ elseif wezterm.target_triple:find("darwin") ~= nil then
     top = 5,
     bottom = 2,
   }
-
 else
   config.window_decorations = "NONE"
   config.set_environment_variables = {
@@ -235,8 +267,8 @@ else
   end
 end
 
+-- key tables
 config.key_tables = {
-
   pane_adjust = {
     { key = 'm', action = wezterm.action.AdjustPaneSize { 'Left', 1 } },
     { key = '/', action = wezterm.action.AdjustPaneSize { 'Right', 1 } },
@@ -262,7 +294,6 @@ config.key_tables = {
     },
     { key = 'Escape', action = 'PopKeyTable' },
   },
-
   scroll_mode = {
     { key = "Escape", action = 'PopKeyTable' },
     { key = "UpArrow", action = wezterm.action.ScrollByLine(-1) },
@@ -289,23 +320,53 @@ config.key_tables = {
   },
 }
 
+-- key bindings
 config.keys = {
+  -- basic keybinds
+  { key = '"', mods = 'CTRL|SHIFT', action = wezterm.action.TogglePaneZoomState },
+  { key = '{', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(-1) },
+  { key = '}', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(1) },
+  { key = 'L', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(1) },
+  { key = 'H', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 'Tab', mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
+  { key = 'Tab', mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
+  { key = 'J', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
+  { key = 'K', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
+  { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
+  { key = '_', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
+  { key = 'e', mods = "LEADER", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
+  { key = 'd', mods = 'LEADER', action = wezterm.action.ShowDebugOverlay },
+  { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-0.5) },
+  { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
+  { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
+  { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
+  { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
+  { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
+  { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
+  { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
+  { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
+  { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
+  { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
+  { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
+  { key = 'c', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
+  { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
+  { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
   {
     key = 'R',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.ReloadConfiguration,
   },
   {
-    key = 'P',
-    mods = 'CTRL|SHIFT',
+    key = '1',
+    mods = 'LEADER',
     action = wezterm.action.ActivateKeyTable {
         name = 'pane_adjust',
         one_shot = false,
     },
   },
   {
-    key = ':',
-    mods = 'CTRL|SHIFT',
+    key = '2',
+    mods = 'LEADER',
     action = wezterm.action.ActivateKeyTable {
         name = 'scroll_mode',
         one_shot = false,
@@ -339,7 +400,6 @@ config.keys = {
         domain = 'CurrentPaneDomain',
     },
   },
-
   {
     key = 'Q',
     mods = 'CTRL|SHIFT',
@@ -355,7 +415,6 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.CloseCurrentTab { confirm = false },
   },
-
   {
     key = 'I',
     mods = 'CTRL|SHIFT',
@@ -378,8 +437,9 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SpawnTab 'CurrentPaneDomain'
   },
+  -- weird custom keybinds i should prolly clean up
   {
-    key = 'S',
+    key = 's',
     mods = 'LEADER',
     action = wezterm.action_callback(function(window, pane)
       local choices = {}
@@ -439,46 +499,12 @@ config.keys = {
       )
     end),
   },
-
-  {
-    key = '"',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.TogglePaneZoomState,
-  },
-
-  { key = '{', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(-1) },
-  { key = '}', mods = 'CTRL|SHIFT', action = wezterm.action.MoveTabRelative(1) },
-  { key = 'L', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(1) },
-  { key = 'H', mods = "CTRL|SHIFT", action = wezterm.action.ActivateTabRelative(-1) },
-  { key = 'Tab', mods = AltAlt, action = wezterm.action.ActivatePaneDirection('Next') },
-  { key = 'Tab', mods = AltAlt .. "|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
-  { key = 'J', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Next') },
-  { key = 'K', mods = "CTRL|SHIFT", action = wezterm.action.ActivatePaneDirection('Prev') },
-  { key = '+', mods = 'CTRL|SHIFT', action = wezterm.action.IncreaseFontSize },
-  { key = '_', mods = 'CTRL|SHIFT', action = wezterm.action.DecreaseFontSize },
-  { key = 'e', mods = "LEADER", action = wezterm.action{ EmitEvent = "trigger-vim-with-scrollback" } },
-  { key = 'd', mods = 'LEADER', action = wezterm.action.ShowDebugOverlay },
-  { key = 'U', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(-0.5) },
-  { key = 'D', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByPage(0.5) },
-  { key = ')', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(-1) },
-  { key = '(', mods = 'CTRL|SHIFT', action = wezterm.action.ScrollByLine(1) },
-  { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
-  { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
-  { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
-  { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
-  { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
-  { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
-  { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
-  { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
-  { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
-  { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
-
   {
     key = 'M',
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = Lights[2] } },
         { Text = 'Workspace name:' },
       },
       action = wezterm.action_callback(function(win, pane, line)
@@ -501,7 +527,6 @@ config.keys = {
       local tab, window = pane:move_to_new_tab()
     end),
   },
-
   {
     key = 'f',
     mods = 'CTRL|SHIFT',
@@ -554,13 +579,12 @@ config.keys = {
       )
       end),
   },
-
   {
     key = 'R',
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = Lights[2] } },
         { Text = 'Rename workspace:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -570,7 +594,7 @@ config.keys = {
             line
           )
         end
-        window:set_right_status(window:active_workspace())
+        update_right_status(window, pane)
       end),
     },
   },
@@ -579,7 +603,7 @@ config.keys = {
     mods = 'LEADER',
     action = wezterm.action.PromptInputLine {
       description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
+        { Foreground = { Color = Lights[2] } },
         { Text = 'Rename tab:' },
       },
       action = wezterm.action_callback(function(window, pane, line)
@@ -589,32 +613,18 @@ config.keys = {
       end),
     },
   },
-
-  {
-    key = 's',
-    mods = 'LEADER',
-    action = wezterm.action.ShowLauncherArgs {
-      flags = 'WORKSPACES',
-    },
-  },
   {
     key = 'w',
     mods = 'LEADER',
-    action = wezterm.action.PromptInputLine {
-      description = wezterm.format {
-        { Foreground = { Color = light_colors[2] } },
-        { Text = 'Workspace name:' },
-      },
-    action = wezterm.action_callback(function(window, pane, line)
-      if line then
-        window:perform_action(
-          wezterm.action.SwitchToWorkspace {
-            name = line,
-          },
-          pane
-          )
-        end
-      end),
+    action = wezterm.action.ShowLauncherArgs {
+      flags = 'FUZZY|WORKSPACES',
+    },
+  },
+  {
+    key = 'W',
+    mods = 'LEADER',
+    action = wezterm.action.ShowLauncherArgs {
+      flags = 'WORKSPACES',
     },
   },
   {
@@ -625,85 +635,16 @@ config.keys = {
       wezterm.action.Search({ CaseSensitiveString = "" }),
     }),
   },
-
   { key = 'N', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function(window, pane, line)
       window:perform_action(wezterm.action.SwitchWorkspaceRelative(1), pane)
-      window:update_right_status(window:active_workspace())
+      update_right_status(window, pane)
     end),
   },
   { key = 'B', mods = 'CTRL|SHIFT', action = wezterm.action_callback(function(window, pane, line)
       window:perform_action(wezterm.action.SwitchWorkspaceRelative(-1), pane)
-      window:update_right_status(window:active_workspace())
+      update_right_status(window, pane)
     end),
   },
-
-  {
-    key = 'P',
-    mods = "LEADER",
-    action = wezterm.action_callback(function(win, pane)
-        resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())
-      end),
-  },
-  {
-    key = 'W',
-    mods = "LEADER",
-    action = resurrect.window_state.save_window_action(),
-  },
-  {
-    key = 'T',
-    mods = "LEADER",
-    action = resurrect.tab_state.save_tab_action(),
-  },
-  {
-    key = 'p',
-    mods = "LEADER",
-    action = wezterm.action_callback(function(win, pane)
-        resurrect.state_manager.save_state(resurrect.workspace_state.get_workspace_state())
-        resurrect.window_state.save_window_action()
-      end),
-  },
-
-  {
-    key = 'L',
-    mods = "LEADER",
-    action = wezterm.action_callback(function(win, pane)
-      resurrect.fuzzy_loader.fuzzy_load(win, pane, function(id, label)
-        local type = string.match(id, "^([^/]+)") -- match before '/'
-        id = string.match(id, "([^/]+)$") -- match after '/'
-        id = string.match(id, "(.+)%..+$") -- remove file extention
-        local opts = {
-          relative = true,
-          restore_text = true,
-          on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-        }
-        if type == "workspace" then
-          local opts = {
-            close_open_tabs = true,
-            window = pane:window(),
-            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-            relative = true,
-            restore_text = true,
-          }
-          local state = resurrect.state_manager.load_state(id, "workspace")
-          resurrect.workspace_state.restore_workspace(state, opts)
-        elseif type == "window" then
-          local opts = {
-            close_open_tabs = true,
-            window = pane:window(),
-            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-            relative = true,
-            restore_text = true,
-          }
-          local state = resurrect.state_manager.load_state(id, "window")
-          resurrect.window_state.restore_window(pane:window(), state, opts)
-        elseif type == "tab" then
-          local state = resurrect.state_manager.load_state(id, "tab")
-          resurrect.tab_state.restore_tab(pane:tab(), state, opts)
-        end
-      end)
-    end),
-  },
-
 }
 
 return config
