@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+cd $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source _common
+
+sh _cargo rg sd rip fd xh jaq yazi # cargo-packaged tools
+sh _fzf # fzf
+sh _tmux # tmux

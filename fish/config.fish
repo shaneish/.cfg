@@ -30,7 +30,6 @@ if status is-interactive
     end
 
     # random stuff not worth putting elsewhere
-    alias lh="history | fz | clip"
     alias ll="eza"
     alias cls="clear; fish"
     alias opn="fd '' . | fz -m | xargs $EDITOR"

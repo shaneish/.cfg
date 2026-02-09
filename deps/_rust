@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+source $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/_common # load in common utils
 
 export CARGO_DIR=$HOME/.cargo
 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source "$CARGO_DIR/env"
+_add_path "$CARGO_DIR/bin"
 
 rustup component add rust-src
 rustup component add rust-analyzer

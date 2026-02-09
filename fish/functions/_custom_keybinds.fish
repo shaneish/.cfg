@@ -27,7 +27,7 @@ function _custom_keybinds -d "it is what it says it is"
 
     function _fuzzy_grep_and_edit
         set -l loc (commandline --cut-at-cursor)
-        sk --ansi -i -c 'rg -i --color=always --line-number "{}"' | awk -F':' '{print $1} {print "-c +" $2}' | xargs nvim
+        fz --ansi -i -c 'rg -i --color=always --line-number "{}"' | awk -F':' '{print $1} {print "-c +" $2}' | xargs nvim
     end
 
     function _hp

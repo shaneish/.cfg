@@ -32,4 +32,16 @@ wezterm cli set-tab-title "fish" --pane-id "$fish_pane_id"
 wezterm_pane_id=$(wezterm cli spawn --cwd "$WORKSPACE_DIR/wezterm" -- "$EDITOR" wezterm.lua)
 wezterm cli set-tab-title "wezterm" --pane-id "$wezterm_pane_id"
 
+# open scripts tab
+new_pane_id=$(wezterm cli spawn --cwd "$WORKSPACE_DIR/scripts" -- "$EDITOR" *)
+wezterm cli set-tab-title "wezterm" --pane-id "$new_pane_id"
+
+# open deps tab
+new_pane_id=$(wezterm cli spawn --cwd "$WORKSPACE_DIR/deps" -- "$EDITOR" *)
+wezterm cli set-tab-title "wezterm" --pane-id "$new_pane_id"
+
+# open bin tab
+new_pane_id=$(wezterm cli spawn --cwd "$WORKSPACE_DIR/bin" -- "$EDITOR" _*)
+wezterm cli set-tab-title "wezterm" --pane-id "$new_pane_id"
+
 wezterm cli kill-pane
