@@ -71,13 +71,12 @@ def switch(input, themes_dir, theme_referent):
             target.parent.mkdir(parents=True, exist_ok=True)
         try:
             link_unlink(theme_file, target)
-            print(f"Linked {theme_file} to {target}")
         except Exception as e:
             print(f"Failed to link {theme_file} to {target}: {e}")
         else:
             match theme_file.name:
                 case "fish.theme":
-                    system(f"fish -c 'fish_config theme choose {theme_referent}; yes | fish_config theme save'; and fish")
+                    system(f"fish -c 'fish_config theme choose {theme_referent}; yes | fish_config theme save;'")
                 case "starship.toml":
                     system("aesthetic_switcher 0")
                     system("aesthetic_switcher 0")
