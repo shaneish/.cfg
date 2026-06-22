@@ -21,7 +21,6 @@ call plug#begin()
 Plug 'SmiteshP/nvim-navic'
 Plug 'SmiteshP/nvim-navbuddy'
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -41,7 +40,7 @@ Plug 'muniftanjim/nui.nvim'
 Plug 'wellle/context.vim' " used for markdown bullets
 Plug 'hashivim/vim-terraform' " terraform
 Plug 'rlane/pounce.nvim' " movement - possible remove
-Plug 'ggandor/leap.nvim' " movement
+Plug 'ggandor/leap.nvim'
 Plug 'ellisonleao/glow.nvim' " markdown preview - deprecate in favor of mdcat
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'

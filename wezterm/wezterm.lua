@@ -165,7 +165,8 @@ end)
 -- basic configuration
 config, ColorConf, Darks, Lights = set_theme(config, "theme")
 config.disable_default_key_bindings = true
-config.enable_kitty_keyboard = true
+config.enable_kitty_keyboard = false
+config.enable_csi_u_key_encoding = true
 config.animation_fps = 30
 config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'
@@ -349,8 +350,8 @@ config.keys = {
   { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
   { key = 'c', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
-  { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
-  { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
+  -- { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
+  -- { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
   {
     key = 'R',
     mods = 'CTRL|SHIFT',

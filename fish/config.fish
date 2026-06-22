@@ -5,6 +5,7 @@ end
 
 if status is-interactive
     _source_local # source machine-specific config (machine is id'd by the _machine_id function and $MACHINE_ID env var
+    fish_vi_key_bindings
     _custom_keybinds # obvious what this is
 
     # tool-specific configs
@@ -38,7 +39,21 @@ if status is-interactive
     abbr -a rp rust-parallel
     abbr -a fs fselect
 
+    if type -q bat
+        alias cat="bat"
+    end
+
     # set python venv
     pyv
 end
 
+# wasmer
+if type -q wasmer
+    export WASMER_DIR="$HOME/.wasmer"
+    [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+end
+
+# brew
+if type -q /home/linuxbrew/.linuxbrew/bin/brew
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+end

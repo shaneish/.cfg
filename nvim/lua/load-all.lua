@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd( { 'BufEnter', 'VimEnter' }, {
 require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 
 -- %% treesitter
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.config').setup {
     ensure_installed = {
         'python',
         'comment',
@@ -290,7 +290,6 @@ end)
 local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls", "tinymist", "bashls" }
 local opts = { noremap=true, silent=true }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -335,20 +334,20 @@ require('mason-lspconfig').setup({
 })
 
 for _, lsp_name in ipairs(servers) do
-    lspconfig[lsp_name].setup {
+    vim.lsp.config(lsp_name, {
         capabilities = capabilities,
         on_attach = on_attach,
-    }
+    })
 end
 
 -- %% special lsps
-require("lspconfig")["tinymist"].setup {
+vim.lsp.config("tinymist", {
   settings = {
     formatterMode = "typstyle",
     exportPdf = "onType",
     semanticTokens = "disable"
   }
-}
+})
 
 -- %% aerial
 require("aerial").setup({
