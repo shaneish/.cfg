@@ -1,0 +1,40 @@
+[metadata]
+name = "lightscale"
+author = "(me)"
+background = "light"
+
+[colors]
+bg                 = "#ffffff" # true white background
+fg                 = "#000000" # true black foreground
+
+cursor             = "#ffd700" # very dark cursor for visibility on white
+selection          = "#d0d0d0" # clearly separated from white
+
+# Palette accents (pure grayscale, flipped from dark theme)
+palette_accent_1   = "#fff3b1"
+palette_accent_2   = "#fff9d8"
+palette_accent_3   = "#6d6644"
+palette_accent_4   = "#555035"
+palette_accent_5   = "#3c3926"
+
+# Grayscale ramp (high contrast against white)
+gray_scale_1       = "#f6f6f6" # closest to background
+gray_scale_2       = "#cecece"
+gray_scale_3       = "#b1b1b1"
+gray_scale_4       = "#808080"
+gray_scale_5       = "#0a0a0a" # closest to foreground
+
+# Alerts (red scale, tuned for white backgrounds)
+alert              = "#c40000" # strong, readable red on white
+minor_alert        = "#ffb3b3" # light red, background-adjacent
+
+[colors.wezterm]
+ansi_final         = "#2a2a2a"
+bright_final       = "#000000"
+
+[colors.nvim]
+lsp_inlay_hint     = "#b04a4a" # subtle red hint on white
+lsp_bright         = "#c40000" # strong diagnostic emphasis
+
+[colors.starship]
+default_style      = "#000000"

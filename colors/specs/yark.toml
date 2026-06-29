@@ -1,0 +1,40 @@
+[metadata]
+name = "dark-yellow"
+author = "(me)"
+background = "dark"
+
+[colors]
+bg                 = "#0a0a0a" # background color.
+fg                 = "#f2f2f2" # foreground color.
+
+cursor             = "#c9bc5a" # cursor color – stands out against bg/fg, variant of accent.
+selection          = "#2a2a1a" # complementary to palette, neutral-dark with yellow bias.
+
+# Yellow palette (reduced range, tightly clustered)
+palette_accent_1   = "#1a1a12" # closest to background.
+palette_accent_2   = "#2f2f1c" # intermediate.
+palette_accent_3   = "#6f6730" # midpoint between bg-adjacent and fg-adjacent.
+palette_accent_4   = "#a89c45" # intermediate.
+palette_accent_5   = "#d8cd6a" # closest to foreground.
+
+# Grayscale ramp (mirrors light theme, inverted)
+gray_scale_1       = "#1a1a1a" # gray closest to background.
+gray_scale_2       = "#3a3a3a" # intermediate.
+gray_scale_3       = "#707070" # midpoint.
+gray_scale_4       = "#b0b0b0" # intermediate.
+gray_scale_5       = "#e6e6e6" # gray closest to foreground.
+
+# Alerts (same semantic relationship as light theme)
+alert              = "#ff9a9a" # closer to foreground.
+minor_alert        = "#5a1f1f" # closer to background.
+
+[colors.wezterm]
+ansi_final = "#8f8845"
+bright_final = "#bfb45a"
+
+[colors.nvim]
+lsp_inlay_hint = "#7a7335"
+lsp_bright = "#d8cd6a"
+
+[colors.starship]
+default_style = "#a89c45"

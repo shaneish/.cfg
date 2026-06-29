@@ -1,7 +1,6 @@
 local wezterm = require 'wezterm'
 local io = require 'io';
 local os = require 'os';
-local config = {}
 
 -- global vars use to unify across operating systems (mac sucks)
 Alt = 'ALT'
@@ -67,47 +66,74 @@ local function on_format_tab_title(tab, _tabs, _panes, _config, _hover, _max_wid
     }
 end
 
-local function set_theme(wez_config, toml_name)
-  local color_conf, _ = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/" .. toml_name .. ".toml")
-  wez_config.color_scheme = toml_name
+local function init_config_with_theme(toml_name)
+  toml_name = toml_name or "theme"
+  local wez_config = {}
+  local color_conf, metadata = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/" .. toml_name .. ".toml")
+  local color_name = metadata["name"] or "active_theme"
+  wez_config.color_schemes = {
+    [ color_name ] = color_conf,
+  }
+  wez_config.color_scheme = color_name
   local dark_colors = color_conf.ansi
   local light_colors = color_conf.brights
+
+  -- tab stuff
+  local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+  local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+  local active_bg = color_conf.ansi[1]
+  local active_fg = color_conf.cursor_fg
+  local inactive_bg = color_conf.brights[1]
+  local inactive_fg = color_conf.brights[5]
+
   -- check if foreground is brighter than background (is a simple, fuzzy formula, won't work well if background
   -- and foreground colors have similar vibrancy but you'd have to be an absolute lunatic to do that anyways)
-  if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) >= 0 then
+  if tonumber(color_conf.foreground:gsub("#", ""), 16) - tonumber(color_conf.background:gsub("#", ""), 16) < 0 then
     dark_colors = color_conf.brights
     light_colors = color_conf.ansi
     -- wez_config.colors = color_conf
-    wez_config.colors = {
-      tab_bar = {
-        active_tab = {
-          bg_color = color_conf.ansi[1],
-          fg_color = color_conf.cursor_fg,
-          intensity = "Bold",
-        },
-        inactive_tab = {
-          bg_color = color_conf.brights[1],
-          fg_color = color_conf.brights[5],
-        }
-      },
-    }
-  else
-    wez_config.colors = {
-      tab_bar = {
-        active_tab = {
-          bg_color = color_conf.brights[6],
-          fg_color = color_conf.cursor_fg,
-          intensity = "Bold",
-        },
-        inactive_tab = {
-          bg_color = color_conf.brights[7],
-          fg_color = color_conf.brights[8],
-        }
-      },
-    }
+    active_bg = color_conf.brights[6]
+    active_fg = color_conf.cursor_fg
+    inactive_bg = color_conf.brights[7]
+    inactive_fg = color_conf.brights[8]
   end
+  wez_config.colors = {
+    tab_bar = {
+      active_tab = {
+        bg_color = active_bg,
+        fg_color = active_fg,
+        intensity = "Bold",
+      },
+      inactive_tab = {
+        bg_color = inactive_bg,
+        fg_color = inactive_fg,
+      }
+    },
+  }
+  -- wez_config.tab_bar_style = {
+  --   active_tab_left = wezterm.format {
+  --     { Background = { Color = active_bg } },
+  --     { Foreground = { Color = active_fg } },
+  --     { Text = SOLID_LEFT_ARROW },
+  --   },
+  --   active_tab_right = wezterm.format {
+  --     { Background = { Color = active_bg } },
+  --     { Foreground = { Color = active_fg } },
+  --     { Text = SOLID_RIGHT_ARROW },
+  --   },
+  --   inactive_tab_left = wezterm.format {
+  --     { Background = { Color = inactive_bg } },
+  --     { Foreground = { Color = inactive_fg } },
+  --     { Text = SOLID_LEFT_ARROW },
+  --   },
+  --   inactive_tab_right = wezterm.format {
+  --     { Background = { Color = inactive_bg } },
+  --     { Foreground = { Color = inactive_fg } },
+  --     { Text = SOLID_RIGHT_ARROW },
+  --   },
+  -- }
   wezterm.add_to_config_reload_watch_list(wezterm.home_dir .. "/.config/wezterm/colors/" .. toml_name .. ".toml")
-  return config, color_conf, dark_colors, light_colors
+  return wez_config, color_conf, dark_colors, light_colors
 end
 
 function update_right_status(window, pane)
@@ -163,7 +189,7 @@ wezterm.on('select-and-paste', function(window, pane)
 end)
 
 -- basic configuration
-config, ColorConf, Darks, Lights = set_theme(config, "theme")
+config, ColorConf, Darks, Lights = init_config_with_theme("theme")
 config.disable_default_key_bindings = true
 config.enable_kitty_keyboard = true
 config.animation_fps = 30
@@ -175,7 +201,8 @@ config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_opacity = 0.99
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = true
 config.show_new_tab_button_in_tab_bar = false
 config.tab_and_split_indices_are_zero_based = true
 config.text_blink_rate = 300
@@ -351,6 +378,7 @@ config.keys = {
   { key = 'c', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
   { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
   { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
+
   {
     key = 'R',
     mods = 'CTRL|SHIFT',

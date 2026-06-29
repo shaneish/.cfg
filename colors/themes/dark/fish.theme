@@ -7,8 +7,8 @@ fish_color_error "bbbbbb" --underline                                           
 fish_color_valid_path --underline                                                                   # Underline valid paths to check them
 fish_pager_color_prefix normal --underline
 
-fish_color_command "707070" --bold                                                 #fce205
-fish_color_param "ededed"                                                          #ededed
+fish_color_command "ededed" --bold                                                 #ffffe0
+fish_color_param "bbbbbb"                                                          #bbbbbb
 fish_color_quote "fce205" --italic                                             #fce205
 
 fish_color_operator "fdefb2"                                                   #fdefb2

@@ -92,7 +92,3 @@ hi! QuickFixLine        guifg=#b0ffb0                                    gui=bol
 hi! TabLineSel          guifg=#b0ffb0                                    gui=bold
 hi! TabLineFill         guifg=#b0ffb0                                    gui=bold
 hi! BufferCurrent       guifg=#000000                                        gui=bold
-
-
-let g:lsp = "#ffaa33"
-let g:lsp_bright = "#934e00"

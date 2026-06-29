@@ -1,0 +1,40 @@
+[metadata]
+name = "darkscale"
+author = "(me)"
+background = "dark"
+
+[colors]
+bg                 = "#000000" # true black background
+fg                 = "#ffffff" # true white foreground
+
+cursor             = "#f0f0f0" # extremely visible cursor
+selection          = "#3a3a3a" # clearly separated from black
+
+# Palette accents (pure grayscale, pushed away from black)
+palette_accent_1   = "#1c1c1c"
+palette_accent_2   = "#2f2f2f"
+palette_accent_3   = "#6f6f6f"
+palette_accent_4   = "#b5b5b5"
+palette_accent_5   = "#eeeeee"
+
+# Grayscale ramp (high contrast against black)
+gray_scale_1       = "#202020"
+gray_scale_2       = "#404040"
+gray_scale_3       = "#808080"
+gray_scale_4       = "#c0c0c0"
+gray_scale_5       = "#f5f5f5"
+
+# Alerts (red scale, lifted for contrast on black)
+alert              = "#ff3b3b" # bright, urgent red
+minor_alert        = "#8a1f1f" # clearly red, but darker
+
+[colors.wezterm]
+ansi_final         = "#dcdcdc"
+bright_final       = "#ffffff"
+
+[colors.nvim]
+lsp_inlay_hint     = "#9b2d2d" # readable red hint on black
+lsp_bright         = "#ff7a7a" # high-visibility diagnostic
+
+[colors.starship]
+default_style      = "#ffffff"

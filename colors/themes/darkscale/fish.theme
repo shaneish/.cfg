@@ -1,0 +1,36 @@
+# name: 'darkscale'
+
+fish_color_normal "ffffff"                                                                   #ffffff
+fish_color_comment "6f6f6f"                                                    #6f6f6f
+fish_color_autosuggestion "404040"                                                 #404040
+fish_color_error "c0c0c0" --underline                                              #c0c0c0
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "808080" --bold                                                 #6f6f6f
+fish_color_param "f5f5f5"                                                          #f5f5f5
+fish_color_quote "6f6f6f" --italic                                             #6f6f6f
+
+fish_color_operator "b5b5b5"                                                   #b5b5b5
+fish_color_redirection "f5f5f5"                                                    #f5f5f5 - param color
+fish_color_end "b5b5b5"                                                        #b5b5b5 - operator color
+
+fish_color_user "b5b5b5"                                                       #b5b5b5
+fish_color_host "c0c0c0"                                                           #c0c0c0
+fish_color_host_remote --bold "b5b5b5"                                         #b5b5b5 - make remote host stand out
+
+fish_color_search_match --background="3a3a3a"                                         #3a3a3a
+fish_color_3a3a3a --background="3a3a3a" --color="ffffff"         #3a3a3a
+
+fish_pager_color_completion "f5f5f5"                                               #f5f5f5
+fish_pager_color_description "808080"                                              #808080
+fish_pager_color_prefix --bold "ffffff"                                                      #ffffff
+fish_pager_color_progress "404040"                                                 #404040
+
+fish_pager_color_selected_background --background="3a3a3a"                            #3a3a3a
+fish_pager_color_selected_completion "ffffff"                                                #ffffff
+fish_pager_color_selected_description "f5f5f5"                                     #f5f5f5
+fish_pager_color_selected_prefix --bold --no-underline "b5b5b5"                #b5b5b5
+
+fish_color_history_current --bold
+fish_color_selection f5f5f5 --bold --background 3a3a3a               #f5f5f5 #3a3a3a

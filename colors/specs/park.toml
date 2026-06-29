@@ -1,0 +1,40 @@
+[metadata]
+name = "dark-pink"
+author = "(me)"
+background = "dark"
+
+[colors]
+bg                 = "#0a0a0a" # background color.
+fg                 = "#f2f2f2" # foreground color.
+
+cursor             = "#c98a9c" # muted rose cursor, high visibility
+selection          = "#2a1a20" # dark complementary pink-neutral
+
+# Pink palette (reduced range, tightly clustered)
+palette_accent_1   = "#1a1215" # closest to background
+palette_accent_2   = "#2f1c23" # intermediate
+palette_accent_3   = "#6f3a4a" # midpoint
+palette_accent_4   = "#a85a70" # intermediate
+palette_accent_5   = "#d88fa3" # closest to foreground
+
+# Grayscale ramp (unchanged semantics)
+gray_scale_1       = "#1a1a1a" # closest to background
+gray_scale_2       = "#3a3a3a"
+gray_scale_3       = "#707070"
+gray_scale_4       = "#b0b0b0"
+gray_scale_5       = "#e6e6e6" # closest to foreground
+
+# Alerts (same relational intent as light theme)
+alert              = "#ff9aa5" # closer to foreground
+minor_alert        = "#5a1f2a" # closer to background
+
+[colors.wezterm]
+ansi_final = "#8f4f5f"
+bright_final = "#bf7287"
+
+[colors.nvim]
+lsp_inlay_hint = "#7a3f4d"
+lsp_bright = "#d88fa3"
+
+[colors.starship]
+default_style = "#a85a70"

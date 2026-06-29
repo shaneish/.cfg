@@ -1,7 +1,3 @@
-" GUI color definitions
-let g:lsp = "#ffaa33"
-let g:lsp_bright = "#934e00"
-
 let nvim_config_dir = substitute($MYVIMRC, "/init.vim", "", "") . "/"
 for additional_vim_sources in [".vimrc", "theme.vim"]
     let source_file = nvim_config_dir . additional_vim_sources
@@ -18,68 +14,52 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'SmiteshP/nvim-navic'
-Plug 'SmiteshP/nvim-navbuddy'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'muniftanjim/nui.nvim'
-Plug 'wellle/context.vim' " used for markdown bullets
-Plug 'hashivim/vim-terraform' " terraform
-Plug 'rlane/pounce.nvim' " movement - possible remove
-Plug 'ggandor/leap.nvim' " movement
-Plug 'ellisonleao/glow.nvim' " markdown preview - deprecate in favor of mdcat
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'rhysd/conflict-marker.vim'
-Plug 'cameron-wags/rainbow_csv.nvim'
-Plug 'hat0uma/csvview.nvim'
-Plug 'github/copilot.vim'
-Plug 'UnsafeOats/oatjump.nvim'
-Plug 'folke/zen-mode.nvim'
-Plug 'chentoast/marks.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'oatish/smartcolumn.nvim'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'scalameta/nvim-metals'
-Plug 'czheo/mojo.vim'
-Plug 'stevearc/aerial.nvim' " navigate by code structure
-Plug 'simrat39/symbols-outline.nvim' " view code structure
-Plug 'romgrk/barbar.nvim'
-Plug '3rd/image.nvim'
-Plug 'numToStr/Comment.nvim'
-Plug 'jpalardy/vim-slime'
-Plug 'Klafyvel/vim-slime-cells'
-Plug 'drybalka/tree-climber.nvim'
-Plug 'milanglacier/yarepl.nvim' " https://github.com/milanglacier/yarepl.nvim
-Plug 'meatballs/notebook.nvim'
-Plug 'sindrets/diffview.nvim'
-Plug 'aaronik/treewalker.nvim'
-Plug 'jinh0/eyeliner.nvim'
-Plug 'jake-stewart/multicursor.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim'
-Plug 'kaarmu/typst.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'samoshkin/vim-mergetool'
-Plug 'stevearc/oil.nvim'
-
-" folds
-" Plug 'anuvyklack/pretty-fold.nvim'
-Plug 'chrisgrieser/nvim-origami'
+    Plug 'SmiteshP/nvim-navic'
+    Plug 'SmiteshP/nvim-navbuddy'
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/playground'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    Plug 'hrsh7th/cmp-nvim-lua'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'muniftanjim/nui.nvim'
+    Plug 'wellle/context.vim' " used for markdown bullets
+    Plug 'hashivim/vim-terraform' " terraform
+    Plug 'rlane/pounce.nvim' " movement
+    Plug 'ggandor/leap.nvim' " movement
+    Plug 'ellisonleao/glow.nvim' " markdown preview - deprecate in favor of mdcat
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'rhysd/conflict-marker.vim'
+    Plug 'hat0uma/csvview.nvim'
+    Plug 'github/copilot.vim'
+    Plug 'chentoast/marks.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'oatish/smartcolumn.nvim'
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'stevearc/aerial.nvim' " navigate by code structure
+    Plug 'romgrk/barbar.nvim'
+    Plug 'jpalardy/vim-slime'
+    Plug 'Klafyvel/vim-slime-cells'
+    Plug 'drybalka/tree-climber.nvim'
+    Plug 'sindrets/diffview.nvim'
+    Plug 'aaronik/treewalker.nvim'
+    Plug 'jinh0/eyeliner.nvim'
+    Plug 'CopilotC-Nvim/CopilotChat.nvim'
+    Plug 'kaarmu/typst.vim'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'samoshkin/vim-mergetool'
+    Plug 'nvim-mini/mini.files', { 'branch': 'stable' }
+    " Plug 'chrisgrieser/nvim-origami'
 call plug#end()
 
 " %%
@@ -90,17 +70,6 @@ EOF
 
 " %%
 " util functions
-let s:mappingsState=1
-command! TM call ToggleMappings()
-function! ToggleMappings()
-    if s:mappingsState
-        :CsvViewEnable
-    else
-        :CsvViewDisable
-    endif
-    let s:mappingsState = !s:mappingsState
-endfunction
-
 function! MovePane(direction=1)
     if winwidth(0) != &columns
         if a:direction == 1
@@ -143,7 +112,7 @@ function! CodeBlock()
     if index(g:code_block_alt_file_types, &filetype) >= 0
         let g:code_block_comment = "```"
     else
-        let g:code_block_comment = substitute(substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g'), '**', '', 'g')
+        let g:code_block_comment = substitute(substitute(substitute(&commentstring, '%s', '', 'g'), '\s\+', '', 'g'), '**', '', 'lsp_g')
     endif
     let g:code_block_current = g:code_block_comment . ' ' . g:code_block_suffix
     let g:slime_cell_delimiter = g:code_block_current
@@ -178,29 +147,42 @@ endfunction
 
 " %%
 " slime stuff
+let g:term_choice = "fish"
 function! ReplCommand()
     if &filetype == "python"
-        " if exists("g:ipython3_host_prog")
-        "     if g:ipython3_host_prog != ""
-        "         return g:ipython3_host_prog . " --no-autoindent"
-        "     endif
-        " endif
-        " return "python3 -m ipython --no-autoindent"
-        return "ipython --no-autoindent"
+        if executable('ipython')
+            return "ipython --no-autoindent"
+        elseif executable('python3')
+            return "python3"
+        elseif executable('pypy3')
+            return "pypy3"
+        endif
     elseif &filetype == "rust"
-        return "evcxr"
+        if executable('evcxr')
+            return "evcxr"
+        endif
     elseif &filetype == "julia"
-        return "julia"
+        if executable('julia')
+            return "julia"
+        endif
     elseif &filetype == "fish"
-        return "fish"
+        if executable('fish')
+            return "fish"
+        endif
     elseif &filetype == "sh" || &filetype == "bash"
-        return "bash"
+        if executable('bash')
+            return "bash"
+        endif
+    elseif &filetype == "zsh"
+        if executable('zsh')
+            return "zsh"
+        endif
     elseif &filetype == "go"
-        return "gore"
-    else
-        let repl = input("Enter command to launch: ")
-        return repl
+        if executable('gore')
+            return "gore"
+        endif
     endif
+    return g:term_choice
 endfunction
 
 let g:slime_split = "bottom"
@@ -220,6 +202,7 @@ function! WeztermSlimePane(infer=1)
         let repl_cmd = "fish"
     endif
     let pane_id = system(WezSlimeReplInitCmd("bottom", getcwd(), repl_cmd))
+    echo pane_id
     let b:slime_config = {"pane_id": trim(pane_id)}
     let g:slime_default_config = {"pane_id": trim(pane_id)}
     let g:slime_dont_ask_default = 1
@@ -306,8 +289,6 @@ let g:rbql_with_headers = 1
 let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
 let g:repl_split = 'bottom'
-let g:repl_filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
-let g:filetype_commands = {'python': g:ipython3_host_prog . " --no-autoindent" , 'rust': 'evcxr'}
 let g:slime_target = "wezterm"
 let g:slime_cell_delimiter = CodeBlock()
 let g:slime_cells_fg_gui = synIDattr(synIDtrans(hlID("CursorLineNR")), "fg#")
@@ -336,21 +317,18 @@ autocmd BufRead,BufNewFile *.tsv.txt set filetype=tsv
 autocmd BufRead,BufNewFile *.toml set filetype=toml
 
 " toggle conceal level
-imap <leader><leader>f :call ToggleConcealLevel()<CR>
 autocmd FileType csv nmap <leader>f :call ToggleMappings()<CR>
 autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:true
-" inoremap <silent><script><expr><C-l> copilot#Accept("\<CR>")
-inoremap <silent><script><expr><C-Return> copilot#Accept("\<CR>")
-inoremap <silent><script><expr><C-a><C-a> copilot#Accept("\<CR>")
-inoremap <C-l> <Plug>(copilot-accept-word)
-inoremap <C-a><C-l> <Plug>(copilot-accept-line)
-inoremap <C-j> <Plug>(copilot-next)
-inoremap <C-k> <Plug>(copilot-previous)
-inoremap <C-h> <Plug>(copilot-dismiss)
-inoremap <C-/> <Plug>(copilot-suggest)
+inoremap <silent><script><expr><C-c><C-c> copilot#Accept("\<CR>")
+inoremap <C-c><C-l> <Plug>(copilot-accept-word)
+inoremap <C-c><C-a> <Plug>(copilot-accept-line)
+inoremap <C-c><C-j> <Plug>(copilot-next)
+inoremap <C-c><C-k> <Plug>(copilot-previous)
+inoremap <C-c><C-e> <Plug>(copilot-dismiss)
+inoremap <C-c><C-/> <Plug>(copilot-suggest)
 
 " Buffers -barbar
 nmap <leader><leader>b <cmd>BufferPick<CR>
@@ -358,6 +336,8 @@ nmap <leader><leader>g <cmd>BufferPick<CR>
 nmap <leader>bp <cmd>BufferPin<CR>
 nmap <leader>br <cmd>BufferRestore<CR>
 nmap <leader>bo <cmd>BufferOrderByDirectory<CR>
+nmap <C-]> <cmd>BufferMoveNext<CR>
+nmap <C-[> <cmd>BufferMovePrevious<CR>
 nmap <silent> <Tab> <cmd>BufferNext<CR>
 nmap <silent> <S-Tab> <cmd>BufferPrevious<CR>
 
@@ -369,16 +349,14 @@ nnoremap <leader>tt <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 
 " slime stuff
-nmap <C-c><C-n> :call WeztermSlimePane()<CR>
-nmap <C-c><C-h> :call WeztermSlimePane(0)<CR>
-nmap <C-c><C-p> <Plug>SlimeParagraphSend
-nmap <C-c><C-c> <Plug>SlimeSendCell
-nmap <C-c><C-s> <Plug>SlimeConfig
-nmap <C-c><C-m> <Plug>SlimeCellsSendAndGoToNext
-nmap <C-c><leader> <Plug>SlimeCellsSendAndGoToNext
-nmap <C-c><C-j> <Plug>SlimeCellsNext
-nmap <C-c><C-k> <Plug>SlimeCellsPrev
-xmap <C-c><C-c> <Plug>SlimeRegionSend
+nmap <leader>rn :call WeztermSlimePane(0)<CR>
+nmap <leader>rm <Plug>SlimeMotionSend
+nmap <leader>rr <Plug>SlimeSendCell
+nmap <leader>rs <Plug>SlimeConfig
+nmap <leader>rc <Plug>SlimeCellsSendAndGoToNext
+nmap <leader>rj <Plug>SlimeCellsNext
+nmap <leader>rk <Plug>SlimeCellsPrev
+xmap <leader>rr <Plug>SlimeRegionSend
 
 " tree climber
 augroup TreeClimber
@@ -391,20 +369,20 @@ augroup TreeClimber
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> L :lua require('tree-climber').goto_child({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> J :lua require('tree-climber').goto_next({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * xnoremap <silent> K :lua require('tree-climber').goto_prev({highlight = true, timeout = 250, skip_comments = true})<CR>zzv:lua require('tree-climber').select_node()<CR>
-    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-j> :lua require('tree-climber').swap_next()<CR>zz
+    autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-s><C-k> :lua require('tree-climber').swap_prev()<CR>zz
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <leader>v v:lua require('tree-climber').select_node()<CR>
     autocmd VimEnter,BufEnter,WinEnter * nnoremap <silent> <C-y> J
 augroup END
 
 nnoremap <C-s> <cmd>Pounce<CR>
+nnoremap csv <cmd>CSVViewToggle<CR>
 nnoremap <C-t><C-t> :call CycleCodeBlockSuffix()<CR>:echo "Cell delimiter: " . g:code_block_current<CR>
 nnoremap <C-t><C-n> :call UpdateCodeBlockSuffix()<CR>
-nnoremap <expr> <C-t><C-b> "o<Esc>0C" . CodeBlock() . '<Esc>o'
+nnoremap <expr> <C-t><C-b> "0C" . CodeBlock() . '<Esc>'
 nnoremap <expr> <C-t><C-j> "o<Esc>0C" . CodeBlock() . '<Esc>k'
 nnoremap <expr> <C-t><C-k> "O<Esc>0C" . CodeBlock() . '<Esc>j'
 
-nmap \ :NvimTreeFindFileToggle<CR>:set number<CR>:set nowrap<CR>
 nnoremap <leader><leader>r :source $MYVIMRC<CR>
 xnoremap gp <Esc>:call GitPermalink()<CR>
 

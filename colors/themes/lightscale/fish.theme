@@ -1,0 +1,36 @@
+# name: 'lightscale'
+
+fish_color_normal "000000"                                                                   #000000
+fish_color_comment "6d6644"                                                    #6d6644
+fish_color_autosuggestion "cecece"                                                 #cecece
+fish_color_error "808080" --underline                                              #808080
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "0a0a0a" --bold                                                 #3c3926
+fish_color_param "808080"                                                          #808080
+fish_color_quote "6d6644" --italic                                             #6d6644
+
+fish_color_operator "555035"                                                   #555035
+fish_color_redirection "0a0a0a"                                                    #0a0a0a - param color
+fish_color_end "555035"                                                        #555035 - operator color
+
+fish_color_user "555035"                                                       #555035
+fish_color_host "808080"                                                           #808080
+fish_color_host_remote --bold "555035"                                         #555035 - make remote host stand out
+
+fish_color_search_match --background="d0d0d0"                                         #d0d0d0
+fish_color_d0d0d0 --background="d0d0d0" --color="000000"         #d0d0d0
+
+fish_pager_color_completion "0a0a0a"                                               #0a0a0a
+fish_pager_color_description "b1b1b1"                                              #b1b1b1
+fish_pager_color_prefix --bold "000000"                                                      #000000
+fish_pager_color_progress "cecece"                                                 #cecece
+
+fish_pager_color_selected_background --background="d0d0d0"                            #d0d0d0
+fish_pager_color_selected_completion "000000"                                                #000000
+fish_pager_color_selected_description "0a0a0a"                                     #0a0a0a
+fish_pager_color_selected_prefix --bold --no-underline "555035"                #555035
+
+fish_color_history_current --bold
+fish_color_selection 0a0a0a --bold --background d0d0d0               #0a0a0a #d0d0d0
