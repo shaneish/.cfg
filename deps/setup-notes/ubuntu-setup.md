@@ -63,7 +63,7 @@ _path /usr/local/bin
 ubuntu-stuff
 ```bash
 # sudo dnf install -y git gcc glibc-devel cmake gdb nodejs python3.13 neovim fzf fish golang stow gh wget libxcb openssl-devel libX11-devel fuse-libs glibc llvm
-sudo apt install git gh stow
+sudo apt install git gh stow cliphist
 ```
 
 git

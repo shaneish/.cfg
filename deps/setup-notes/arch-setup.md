@@ -67,7 +67,7 @@ git clone https://github.com/shaneish/.cfg.git $HOME/.config/.cfg
 cd $HOME/.config/.cfg
 stow .
 
-sudo pacman -S ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols-mono github-cli cmake keyd fish wezterm pypy3 go kitty waybar discord spotify-launcher nodejs npm base-devel zig jq hyprland waybar wofi hyprpaper neovim
+sudo pacman -S ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols-mono github-cli cmake keyd fish wezterm pypy3 go kitty waybar discord spotify-launcher nodejs npm base-devel zig jq hyprland waybar wofi hyprpaper neovim cliphist
 yay -S swayfx
 yay -S hyprshot
 ```

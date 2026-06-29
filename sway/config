@@ -19,6 +19,9 @@ gaps outer 0
 set $term wezterm
 set $browser brave
 
+# start watching clipboard if cliphist is installed
+exec command -v wl-paste >/dev/null 2>&1 && wl-paste --watch cliphist store
+
 default_border pixel 4
 default_floating_border pixel 4
 titlebar_padding 1
@@ -35,7 +38,7 @@ bar {
 }
 
 # turn on discord
-assign [class="discord"] workspace 3.msg
+assign [class="discord"] workspace 1.msg
 exec /usr/bin/discord
 
 # turn on browser
@@ -43,7 +46,7 @@ assign [app_id="brave"] workspace 2.web
 exec $browser
 
 # turn on terminal
-assign [app_id="wezterm"] workspace 1.term
+assign [app_id="wezterm"] workspace s.term
 exec $term
 
 for_window [class="^.*"] inhibit_idle fullscreen
@@ -108,7 +111,7 @@ exec sway-audio-idle-inhibit
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return workspace 0.scratch; exec $term; exec $browser
+    bindsym $mod+Return workspace s.term; exec $term; exec $browser
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
 
@@ -172,10 +175,10 @@ exec sway-audio-idle-inhibit
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+s workspace 0.scratch
-    bindsym $mod+1 workspace 1.term
+    bindsym $mod+s workspace s.term
+    bindsym $mod+1 workspace 1.msg
     bindsym $mod+2 workspace 2.web
-    bindsym $mod+3 workspace 3.msg
+    bindsym $mod+3 workspace 3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
     bindsym $mod+6 workspace 6
@@ -184,10 +187,10 @@ exec sway-audio-idle-inhibit
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
     # Move focused container to workspace
-    bindsym $mod+Shift+s move container to workspace 0.scratch
-    bindsym $mod+Shift+1 move container to workspace 1.term
+    bindsym $mod+Shift+s move container to workspace s.term
+    bindsym $mod+Shift+1 move container to workspace 1.msg
     bindsym $mod+Shift+2 move container to workspace 2.web
-    bindsym $mod+Shift+3 move container to workspace 3.msg
+    bindsym $mod+Shift+3 move container to workspace 3
     bindsym $mod+Shift+4 move container to workspace 4
     bindsym $mod+Shift+5 move container to workspace 5
     bindsym $mod+Shift+6 move container to workspace 6
