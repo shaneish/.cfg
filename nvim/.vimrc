@@ -333,7 +333,8 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 
 " Insert
 inoremap  <Esc>
-inoremap <C-c> <Esc>0C
+inoremap <C-c> <Esc>
+inoremap <C-d> <Esc>0C
 
 " Visual remaps
 xnoremap < <gv

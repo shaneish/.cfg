@@ -191,7 +191,8 @@ end)
 -- basic configuration
 config, ColorConf, Darks, Lights = init_config_with_theme("theme")
 config.disable_default_key_bindings = true
-config.enable_kitty_keyboard = true
+config.enable_kitty_keyboard = false
+config.enable_csi_u_key_encoding = true
 config.animation_fps = 30
 config.max_fps = 144
 config.font = wezterm.font 'JetBrains Mono'

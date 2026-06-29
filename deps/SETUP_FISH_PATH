@@ -1,0 +1,8 @@
+set -Ux SETUP_FISH_PATH "/home/shane/.init.fish"
+set -Ux SETUP_ZSH_PATH "/home/shane/.init.zsh"
+set -Ux CONFIG_DIR "/home/shane/.config/.cfg"
+alias eza="ll"
+alias fselect="fs"
+alias rust-parallel="rp"
+set -Ux GOROOT "/home/shane/.go"
+set -Ux GOPATH "/home/shane/go"

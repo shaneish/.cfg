@@ -8,6 +8,7 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $alt Mod1
 set $left h
 set $down j
 set $up k
@@ -16,7 +17,10 @@ gaps inner 5
 gaps outer 0
 
 set $term wezterm
-set $browser zen-browser
+set $browser brave
+
+# start watching clipboard if cliphist is installed
+exec command -v wl-paste >/dev/null 2>&1 && wl-paste --watch cliphist store
 
 default_border pixel 4
 default_floating_border pixel 4
@@ -34,18 +38,20 @@ bar {
 }
 
 # turn on discord
-assign [class="discord"] workspace 3.msg
-exec /usr/bin/Discord
+assign [class="discord"] workspace 1.msg
+exec /usr/bin/discord
 
 # turn on browser
-assign [app_id="zen"] workspace 2.web
+assign [app_id="brave"] workspace 2.web
 exec $browser
+
+# turn on terminal
+assign [app_id="wezterm"] workspace s.term
+exec $term
 
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
-# Your preferred terminal emulator
-# Recommends: foot
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -61,7 +67,7 @@ set $menu $wofi_cmd --show=drun
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg ~/.config/background.png fill
+output "*" bg ~/.config/background.png fill
 
 #
 # Example configuration:
@@ -74,11 +80,14 @@ output * bg ~/.config/background.png fill
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+
+
+exec swayidle -w \
+         timeout 600 'swaylock -f -c 000000' # \
+         # timeout 630 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         # before-sleep 'swaylock -f -c 000000'
+exec sway-audio-idle-inhibit
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -102,9 +111,27 @@ output * bg ~/.config/background.png fill
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return workspace 0.scratch; exec $term; exec $browser
+    bindsym $mod+Return workspace s.term; exec $term; exec $browser
     bindsym $mod+t exec $term
     bindsym $mod+b exec $browser
+
+    # control volume
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    bindsym XF86MonBrightnessUp exec brightnessctl s 10%+
+    bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+
+    # Requires playerctl
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPause exec playerctl play-pause
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioPrev exec playerctl previous
+
+    # screen cap
+    bindsym $alt+Shift+4 exec grim -g "$(slurp)" - | wl-copy
+    bindsym $alt+Shift+3 exec grim -g "$(slurp)" - | tee ~/Pictures/screenshot.png
 
     # Kill focused window
     bindsym $mod+q kill
@@ -125,7 +152,6 @@ output * bg ~/.config/background.png fill
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-    bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 #
 # Moving around:
 #
@@ -149,10 +175,10 @@ output * bg ~/.config/background.png fill
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+s workspace 0.scratch
-    bindsym $mod+1 workspace 1.term
+    bindsym $mod+s workspace s.term
+    bindsym $mod+1 workspace 1.msg
     bindsym $mod+2 workspace 2.web
-    bindsym $mod+3 workspace 3.msg
+    bindsym $mod+3 workspace 3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
     bindsym $mod+6 workspace 6
@@ -161,10 +187,10 @@ output * bg ~/.config/background.png fill
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
     # Move focused container to workspace
-    bindsym $mod+Shift+s move container to workspace 0.scratch
-    bindsym $mod+Shift+1 move container to workspace 1.term
+    bindsym $mod+Shift+s move container to workspace s.term
+    bindsym $mod+Shift+1 move container to workspace 1.msg
     bindsym $mod+Shift+2 move container to workspace 2.web
-    bindsym $mod+Shift+3 move container to workspace 3.msg
+    bindsym $mod+Shift+3 move container to workspace 3
     bindsym $mod+Shift+4 move container to workspace 4
     bindsym $mod+Shift+5 move container to workspace 5
     bindsym $mod+Shift+6 move container to workspace 6
@@ -196,10 +222,10 @@ output * bg ~/.config/background.png fill
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+Shift+space focus mode_toggle
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -262,3 +288,6 @@ bindsym $mod+r mode "resize"
 # the trick, it's all in the `wordexp(3)`.
 #
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+
+# force portal daemon to start so that file browsers pop up when trying to download/save in brave/zen
+exec --no-startup-id /usr/lib/xdg-desktop-portal-gtk

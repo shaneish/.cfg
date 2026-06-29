@@ -18,6 +18,7 @@ if status is-interactive
         set_color normal
     else
         _custom_keybinds # obvious what this is
+        fish_vi_key_bindings
 
         if type -q "starship"
             starship init fish | source
@@ -55,3 +56,13 @@ if status is-interactive
     end
 end
 
+# wasmer
+if type -q wasmer
+    export WASMER_DIR="$HOME/.wasmer"
+    [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+end
+
+# brew
+if type -q /home/linuxbrew/.linuxbrew/bin/brew
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+end

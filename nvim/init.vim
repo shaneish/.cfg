@@ -17,7 +17,6 @@ call plug#begin()
     Plug 'SmiteshP/nvim-navic'
     Plug 'SmiteshP/nvim-navbuddy'
     Plug 'nvim-treesitter/nvim-treesitter'
-    Plug 'nvim-treesitter/playground'
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
