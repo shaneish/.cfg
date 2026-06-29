@@ -96,7 +96,7 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M insert . _expand_dot_to_parent_directory_path
     bind -M visual y 'fish_clipboard_copy; commandline -f end-selection repaint-mode'
     bind -M normal yy fish_clipboard_copy
-    bind -M insert \cu 'history | fz | string trim -r | clip'
+    bind -M insert \ch 'history | fz | string trim -r | clip'
     bind -M insert \cg _hpfuzzy
     bind -M insert \cw _wez_workspace_hpfuzzy
     bind -M insert \cb _fg

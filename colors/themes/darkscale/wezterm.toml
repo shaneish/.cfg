@@ -1,0 +1,58 @@
+[metadata]
+# name = "darkscale"
+name = "theme" # hardcode it so it's easy to switch out
+author = "(me)"
+
+# The most basic colors
+[colors]
+foreground = "#ffffff"
+background = "#000000"
+
+# Overrides the default cursor colors
+cursor_bg = "#f0f0f0"
+cursor_fg = "#ffffff"
+cursor_border = "#f0f0f0"
+
+# Color for selected text
+selection_bg = "#3a3a3a"
+selection_fg = "#ffffff"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#404040",
+  "#eeeeee",
+  "#808080",
+  "#ff3b3b",
+  "#eeeeee",
+  "#c0c0c0",
+  "#f5f5f5",
+  "#dcdcdc",
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#202020",
+  "#6f6f6f",
+  "#404040",
+  "#8a1f1f",
+  "#b5b5b5",
+  "#808080",
+  "#c0c0c0",
+  "#ffffff",
+]
+
+# [colors.tab_bar]
+# background = "#404040"
+
+[colors.tab_bar.active_tab]
+bg_color = "#202020"
+fg_color = "#b5b5b5"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#404040"
+fg_color = "#eeeeee"
+
+[colors.tab_bar.new_tab]
+bg_color = "#404040"
+fg_color = "#f5f5f5"

@@ -1,0 +1,58 @@
+[metadata]
+# name = "dark-yellow"
+name = "theme" # hardcode it so it's easy to switch out
+author = "(me)"
+
+# The most basic colors
+[colors]
+foreground = "#f2f2f2"
+background = "#0a0a0a"
+
+# Overrides the default cursor colors
+cursor_bg = "#c9bc5a"
+cursor_fg = "#f2f2f2"
+cursor_border = "#c9bc5a"
+
+# Color for selected text
+selection_bg = "#2a2a1a"
+selection_fg = "#f2f2f2"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#3a3a3a",
+  "#d8cd6a",
+  "#707070",
+  "#ff9a9a",
+  "#d8cd6a",
+  "#b0b0b0",
+  "#e6e6e6",
+  "#8f8845",
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#1a1a1a",
+  "#6f6730",
+  "#3a3a3a",
+  "#5a1f1f",
+  "#a89c45",
+  "#707070",
+  "#b0b0b0",
+  "#bfb45a",
+]
+
+# [colors.tab_bar]
+# background = "#3a3a3a"
+
+[colors.tab_bar.active_tab]
+bg_color = "#1a1a1a"
+fg_color = "#a89c45"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#3a3a3a"
+fg_color = "#d8cd6a"
+
+[colors.tab_bar.new_tab]
+bg_color = "#3a3a3a"
+fg_color = "#e6e6e6"

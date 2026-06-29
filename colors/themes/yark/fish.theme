@@ -1,0 +1,36 @@
+# name: 'dark-yellow'
+
+fish_color_normal "f2f2f2"                                                                   #f2f2f2
+fish_color_comment "6f6730"                                                    #6f6730
+fish_color_autosuggestion "3a3a3a"                                                 #3a3a3a
+fish_color_error "b0b0b0" --underline                                              #b0b0b0
+fish_color_valid_path --underline                                                                   # Underline valid paths to check them
+fish_pager_color_prefix normal --underline
+
+fish_color_command "707070" --bold                                                 #6f6730
+fish_color_param "e6e6e6"                                                          #e6e6e6
+fish_color_quote "6f6730" --italic                                             #6f6730
+
+fish_color_operator "a89c45"                                                   #a89c45
+fish_color_redirection "e6e6e6"                                                    #e6e6e6 - param color
+fish_color_end "a89c45"                                                        #a89c45 - operator color
+
+fish_color_user "a89c45"                                                       #a89c45
+fish_color_host "b0b0b0"                                                           #b0b0b0
+fish_color_host_remote --bold "a89c45"                                         #a89c45 - make remote host stand out
+
+fish_color_search_match --background="2a2a1a"                                         #2a2a1a
+fish_color_2a2a1a --background="2a2a1a" --color="f2f2f2"         #2a2a1a
+
+fish_pager_color_completion "e6e6e6"                                               #e6e6e6
+fish_pager_color_description "707070"                                              #707070
+fish_pager_color_prefix --bold "f2f2f2"                                                      #f2f2f2
+fish_pager_color_progress "3a3a3a"                                                 #3a3a3a
+
+fish_pager_color_selected_background --background="2a2a1a"                            #2a2a1a
+fish_pager_color_selected_completion "f2f2f2"                                                #f2f2f2
+fish_pager_color_selected_description "e6e6e6"                                     #e6e6e6
+fish_pager_color_selected_prefix --bold --no-underline "a89c45"                #a89c45
+
+fish_color_history_current --bold
+fish_color_selection e6e6e6 --bold --background 2a2a1a               #e6e6e6 #2a2a1a

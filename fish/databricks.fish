@@ -4,9 +4,22 @@ databricks completion fish | source
 # all the abbrv
 abbr -a dx databricks
 abbr -a dxapi databricks api
-abbr -a dxa databricks auth
+abbr -a dxa databricks account
+abbr -a dxas databricks account settings-v2
+abbr -a dxag databricks account groups-v2
+abbr -a dxas databricks account service-principals-v2
+abbr -a dxasp databricks account service-principals-v2
+abbr -a dxau databricks account users-v2
+abbr -a dxai databricks account iam-v2
+abbr -a dxac databricks account access-control
+abbr -a dxau databricks auth
+abbr -a dxauth databricks auth
+abbr -a dxapp databricks apps
+abbr -a dxapps databricks apps
 abbr -a dxb databricks bundle
+abbr -a dxbundle databricks bundle
 abbr -a dxcats databricks catalogs
+abbr -a dxcatalogs databricks catalogs
 abbr -a dxcp databricks cluster-policies
 abbr -a dxc databricks clusters
 abbr -a dxcl databricks clusters

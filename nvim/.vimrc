@@ -273,7 +273,7 @@ nnoremap <expr> <C-b> LorCorB("prev") . "<CR>"
 nnoremap <expr> <C-n> LorCorB("next") . "<CR>"
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprev<CR>
-inoremap <C-v> <C-r>+
+inoremap <C-p> <C-r>+
 nmap <silent> <leader><leader>t :call TrimWhitespace()<CR>
 nmap <silent> <leader><leader>h :noh<CR>
 nmap \ :call ToggleNetrw()<CR>
@@ -300,12 +300,8 @@ nnoremap <leader>ou O<Esc>j
 " move stuff
 noremap <expr> j WrapWarper("j")
 noremap <expr> k WrapWarper("k")
-noremap J )zz
-noremap K (zz
 noremap <expr> <C-j> NextBlankLine() . 'jzz'
 noremap <expr> <C-k> PrevBlankLine() . 'kzz'
-noremap <expr> D WindowProportion() . 'jzz'
-noremap <expr> U WindowProportion() . 'kzz'
 noremap <leader>l g$
 noremap <leader>h g^
 xnoremap <leader>l g$h
@@ -337,8 +333,8 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 
 " Insert
 inoremap  <Esc>
-" inoremap <C-c> <Esc>0C
-" inoremap <C-r> <C-a>
+inoremap <C-c> <Esc>
+inoremap <C-d> <Esc>0C
 
 " Visual remaps
 xnoremap < <gv

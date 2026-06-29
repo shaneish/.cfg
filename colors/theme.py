@@ -30,11 +30,6 @@ def unthread(d: dict, h: str | None = None):
     return l
 
 
-def link_unlink(source: Path, target: Path):
-    target.unlink(missing_ok=True)
-    target.symlink_to(source, target_is_directory=False)
-
-
 def build(input, spec_dir, template_dir, themes_dir):
     spec_file = spec_dir / input
     with open(spec_file, "rb") as f:
@@ -70,7 +65,8 @@ def switch(input, themes_dir, theme_referent):
         if not target.parent.exists():
             target.parent.mkdir(parents=True, exist_ok=True)
         try:
-            link_unlink(theme_file, target)
+            target.unlink(missing_ok=True)
+            target.symlink_to(theme_file, target_is_directory=False)
         except Exception as e:
             print(f"Failed to link {theme_file} to {target}: {e}")
         else:

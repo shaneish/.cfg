@@ -1,0 +1,58 @@
+[metadata]
+# name = "lightscale"
+name = "theme" # hardcode it so it's easy to switch out
+author = "(me)"
+
+# The most basic colors
+[colors]
+foreground = "#000000"
+background = "#ffffff"
+
+# Overrides the default cursor colors
+cursor_bg = "#ffd700"
+cursor_fg = "#000000"
+cursor_border = "#ffd700"
+
+# Color for selected text
+selection_bg = "#d0d0d0"
+selection_fg = "#000000"
+
+# ANSI colors (colors 0-7)
+ansi = [
+  "#cecece",
+  "#3c3926",
+  "#b1b1b1",
+  "#c40000",
+  "#3c3926",
+  "#808080",
+  "#0a0a0a",
+  "#2a2a2a",
+]
+
+# Bright variants of the ANSI colors (colors 8-15)
+brights = [
+  "#555035",
+  "#6d6644",
+  "#cecece",
+  "#ffb3b3",
+  "#555035",
+  "#b1b1b1",
+  "#808080",
+  "#000000",
+]
+
+# [colors.tab_bar]
+# background = "#cecece"
+
+[colors.tab_bar.active_tab]
+bg_color = "#f6f6f6"
+fg_color = "#555035"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+bg_color = "#cecece"
+fg_color = "#3c3926"
+
+[colors.tab_bar.new_tab]
+bg_color = "#cecece"
+fg_color = "#0a0a0a"
