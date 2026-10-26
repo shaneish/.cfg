@@ -1,6 +1,6 @@
 function pyv
     if test "$argv" = "ls"
-        ls $PYTHON_VENV_DIR
+        fish -c "cd \"$PYTHON_VENV_DIR\"; fd \"activate\" | awk -F '/' '{print \$1}' | sort | uniq"
     else if test -e "$PYTHON_VENV_DIR/$argv/bin/activate.fish"
         set -Ux PYTHON_VENV "$PYTHON_VENV_DIR/$argv"
         source $PYTHON_VENV/bin/activate.fish

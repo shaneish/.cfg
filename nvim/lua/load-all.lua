@@ -271,23 +271,23 @@ require("lspconfig")["tinymist"].setup {
 }
 
 -- %% aerial
-require("aerial").setup({
-  on_attach = function(bufnr)
-    vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
-    vim.api.nvim_set_hl(0, 'AerialLineClass', { bold = true })
-  vim.api.nvim_set_hl(0, 'AerialLineFunction', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNormal', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLine', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNC', { bold = true })
-  end,
-  highlight_on_hover = true,
-  highlight_on_jump = 300,
-  show_guides = true,
-})
-vim.api.nvim_set_hl(0, 'ArialLine', { fg = lsp, bold = true })
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
-vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
+-- require("aerial").setup({
+--   on_attach = function(bufnr)
+--     vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+--     vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
+--     vim.api.nvim_set_hl(0, 'AerialLineClass', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineFunction', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineNormal', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLine', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineNC', { bold = true })
+--   end,
+--   highlight_on_hover = true,
+--   highlight_on_jump = 300,
+--   show_guides = true,
+-- })
+-- vim.api.nvim_set_hl(0, 'ArialLine', { fg = lsp, bold = true })
+-- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+-- vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
 
 -- %% metals lsp
 local function jvmish(on_attach_params)
@@ -306,6 +306,13 @@ end
 -- %% copilot chat
 require("CopilotChat").setup()
 vim.keymap.set("n", "<leader><leader>c", ":CopilotChatToggle<CR>")
+
+-- %% cursor agent
+require("cursor-agent").setup({
+  args = {
+    "--workspace", ".",
+  }
+})
 
 -- %% folds
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"

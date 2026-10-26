@@ -23,10 +23,13 @@ if status is-interactive
             starship init fish | source
         end
 
+        if type -q sk
+            skim_key_bindings
+            alias fz="sk --bind 'ctrl-l:toggle+out,ctrl-h:toggle+in,ctrl-space:toggle'"
+        end
         if type -q fzf
             fzf --fish | source
-        else if type -q sk
-            skim_key_bindings
+            alias fz="fzf --bind 'ctrl-l:toggle-out,ctrl-h:toggle-in,ctrl-space:toggle'"
         end
         if type -q databricks
             source $FISH_CONFIG_DIRECTORY/databricks.fish

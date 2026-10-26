@@ -1,1 +1,1 @@
-/Users/h62756/.config/colors/themes/light/nvim.vim
+../colors/themes/light/nvim.vim

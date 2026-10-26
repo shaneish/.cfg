@@ -32,7 +32,7 @@ call plug#begin()
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'muniftanjim/nui.nvim'
-    Plug 'wellle/context.vim' " used for markdown bullets
+    Plug 'wellle/context.vim'
     Plug 'hashivim/vim-terraform' " terraform
     Plug 'rlane/pounce.nvim' " movement
     Plug 'ggandor/leap.nvim' " movement
@@ -46,7 +46,6 @@ call plug#begin()
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'oatish/smartcolumn.nvim'
     Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'stevearc/aerial.nvim' " navigate by code structure
     Plug 'romgrk/barbar.nvim'
     Plug 'jpalardy/vim-slime'
     Plug 'Klafyvel/vim-slime-cells'
@@ -282,7 +281,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_folding_disabled = 0
 let g:conceallevel = 0
 let g:cursorhold_updatetime = 100
-let g:context_nvim_no_redraw = 1
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 let g:rbql_with_headers = 1
@@ -322,13 +320,13 @@ autocmd FileType tsv nmap <leader>f :call ToggleMappings()<CR>
 
 " Copilot
 let g:copilot_enabled = v:true
-inoremap <silent><script><expr><C-c><C-c> copilot#Accept("\<CR>")
-inoremap <C-c><C-l> <Plug>(copilot-accept-word)
-inoremap <C-c><C-a> <Plug>(copilot-accept-line)
-inoremap <C-c><C-j> <Plug>(copilot-next)
-inoremap <C-c><C-k> <Plug>(copilot-previous)
-inoremap <C-c><C-e> <Plug>(copilot-dismiss)
-inoremap <C-c><C-/> <Plug>(copilot-suggest)
+inoremap <silent><script><expr><C-h><C-h> copilot#Accept("\<CR>")
+inoremap <C-h><C-l> <Plug>(copilot-accept-word)
+inoremap <C-h><C-a> <Plug>(copilot-accept-line)
+inoremap <C-h><C-j> <Plug>(copilot-next)
+inoremap <C-h><C-k> <Plug>(copilot-previous)
+inoremap <C-h><C-e> <Plug>(copilot-dismiss)
+inoremap <C-h><C-/> <Plug>(copilot-suggest)
 
 " Buffers -barbar
 nmap <leader><leader>b <cmd>BufferPick<CR>
@@ -349,11 +347,11 @@ nnoremap <leader>tt <cmd>Telescope current_buffer_fuzzy_find<cr>
 nnoremap <leader>gm <cmd>MergetoolToggle<CR>
 
 " slime stuff
-nmap <leader>rn :call WeztermSlimePane(0)<CR>
+nmap <leader>ri :call WeztermSlimePane(0)<CR>
 nmap <leader>rm <Plug>SlimeMotionSend
 nmap <leader>rr <Plug>SlimeSendCell
 nmap <leader>rs <Plug>SlimeConfig
-nmap <leader>rc <Plug>SlimeCellsSendAndGoToNext
+nmap <leader>rn <Plug>SlimeCellsSendAndGoToNext
 nmap <leader>rj <Plug>SlimeCellsNext
 nmap <leader>rk <Plug>SlimeCellsPrev
 xmap <leader>rr <Plug>SlimeRegionSend

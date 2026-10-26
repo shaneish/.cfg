@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# make new directory (recursively -- i don't know why this isn't default behavior)
+mkdir -p "$1"
+
+if type hp >/dev/null 2>&1; then
+    echo hopping "${@:2}"
+    hp ${@:2}
+else
+    echo cding "$1"
+    cd "$1"
+fi
+
+pwd
+ls

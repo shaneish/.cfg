@@ -284,7 +284,7 @@ if executable('rg')
     set grepprg=rg\ --vimgrep\ --hidden\ --glob\ ‘!.git’
 endif
 nmap <silent> <C-g><C-g> :grep <cword> '%'<CR>:copen<CR>
-nmap <silent> <expr> <C-g><C-f> ":grep <cword> *." . expand('%:e') . "<CR>:copen<CR>"
+nmap <silent> <expr> <C-g><C-f> ":grep <cword> *." . (expand('%:e') ?? "*") . "<CR>:copen<CR>"
 
 " window stuff
 nnoremap <expr> <leader>- ResizePane("-5") . '<CR>'
@@ -294,8 +294,10 @@ nnoremap <leader>b :call BuffJump()<CR>
 
 " line stuff
 nnoremap <leader>oo O<Esc>jo<Esc>k
-nnoremap <leader>od o<Esc>k
-nnoremap <leader>ou O<Esc>j
+nnoremap <leader>oj o<Esc>k
+nnoremap <leader>ok O<Esc>j
+nnoremap <leader>od o<Esc>j<Esc>o
+nnoremap <leader>ou O<Esc>k<Esc>O
 
 " move stuff
 noremap <expr> j WrapWarper("j")
@@ -330,10 +332,11 @@ noremap C "1C
 noremap <leader>p "1p
 noremap <leader>P "1P
 noremap <leader><C-p> :call TrimAndPaste()<CR>
+nnoremap <C-\> <CR>
 
 " Insert
 inoremap  <Esc>
-inoremap <C-c> <Esc>0C
+inoremap <C-c> <Esc>
 
 " Visual remaps
 xnoremap < <gv

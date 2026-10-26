@@ -1,0 +1,11 @@
+#!/bin/sh
+# shameless ganked from:
+#    https://rogeriopvl.com/posts/202405210-toggle-microphone-on-macos/
+
+if [ $(osascript -e "input volume of (get volume settings)") -eq 0 ]; then
+        osascript -e "set volume input volume 100"
+        osascript -e "display notification \"You are now unmuted\" with title \"🎤 on\" sound name \"Funk\""
+else
+        osascript -e "set volume input volume 0"
+        osascript -e "display notification \"You are now muted\" with title \"🎤 off\" sound name \"Funk\""
+fi

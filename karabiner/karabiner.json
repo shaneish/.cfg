@@ -156,6 +156,26 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                      "description": "Toggle Mic",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "m",
+                            "modifiers": {
+                                "mandatory": ["left_control", "left_command"],
+                                "optional": []
+                            }
+                          },
+                          "to": [
+                            {
+                              "shell_command": "~/.config/.cfg/bin/macos__toggle_mute"
+                            }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
                     }
                 ]
             },
