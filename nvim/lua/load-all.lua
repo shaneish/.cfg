@@ -254,38 +254,39 @@ require('mason-lspconfig').setup({
 })
 
 for _, lsp_name in ipairs(servers) do
-    vim.lsp.config(lsp_name, {
+    lspconfig[lsp_name].setup {
         capabilities = capabilities,
-        on_attach = on_attach,
-    })
+        on_attach = lsp_on_attach,
+    }
 end
 
 -- %% special lsps
-vim.lsp.config("tinymist", {
+require("lspconfig")["tinymist"].setup {
   settings = {
     formatterMode = "typstyle",
     exportPdf = "onType",
     semanticTokens = "disable"
   }
-})
+}
+
 -- %% aerial
-require("aerial").setup({
-  on_attach = function(bufnr)
-    vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
-    vim.api.nvim_set_hl(0, 'AerialLineClass', { bold = true })
-  vim.api.nvim_set_hl(0, 'AerialLineFunction', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNormal', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLine', { bold = true })
-    vim.api.nvim_set_hl(0, 'AerialLineNC', { bold = true })
-  end,
-  highlight_on_hover = true,
-  highlight_on_jump = 300,
-  show_guides = true,
-})
-vim.api.nvim_set_hl(0, 'ArialLine', { fg = lsp, bold = true })
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
-vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
+-- require("aerial").setup({
+--   on_attach = function(bufnr)
+--     vim.keymap.set("n", "U", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+--     vim.keymap.set("n", "D", "<cmd>AerialNext<CR>", { buffer = bufnr })
+--     vim.api.nvim_set_hl(0, 'AerialLineClass', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineFunction', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineNormal', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLine', { bold = true })
+--     vim.api.nvim_set_hl(0, 'AerialLineNC', { bold = true })
+--   end,
+--   highlight_on_hover = true,
+--   highlight_on_jump = 300,
+--   show_guides = true,
+-- })
+-- vim.api.nvim_set_hl(0, 'ArialLine', { fg = lsp, bold = true })
+-- vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+-- vim.keymap.set("n", "<leader><leader>a", "<cmd>AerialNavToggle<CR>")
 
 -- %% metals lsp
 local function jvmish(on_attach_params)
@@ -304,6 +305,43 @@ end
 -- %% copilot chat
 require("CopilotChat").setup()
 vim.keymap.set("n", "<leader><leader>c", ":CopilotChatToggle<CR>")
+
+-- %% cursor agent
+-- require("cursor-agent").setup({
+--   args = {
+--     "--workspace", ".",
+--   }
+-- })
+
+-- %% folds
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldlevel = 1
+-- vim.opt.foldmethod = "expr"
+
+-- require("origami").setup {
+--   useLspFoldsWithTreesitterFallback = true,
+--   pauseFoldsOnSearch = true,
+--   foldtext = {
+--     enabled = true,
+--     padding = 3,
+--     lineCount = {
+--       template = vim.opt.commentstring:get() .. " lines - %d", -- `%d` is replaced with the number of folded lines
+--       hlgroup = "Comment",
+--     },
+--     diagnosticsCount = true, -- uses hlgroups and icons from `vim.diagnostic.config().signs`
+--     gitsignsCount = true, -- requires `gitsigns.nvim`
+--   },
+--   autoFold = {
+--     enabled = false,
+--     kinds = { "comment", "imports" }, ---@type lsp.FoldingRangeKind[]
+--   },
+--   foldKeymaps = {
+--     setup = true, -- modifies `h`, `l`, and `$`
+--     hOnlyOpensOnFirstColumn = false,
+--   },
+-- }
+
+-- %% archived
 
 -- %% lualine
 -- require('lualine').setup {

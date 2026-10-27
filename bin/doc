@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+from datetime import datetime as dt
+from pathlib import Path
+from sys import argv, stderr, exit
+
+EXECUTABLE = Path(argv[0]).name
+if argv[1] in ("-h", "--help"):
+    print(f"Usage: {EXECUTABLE} \"<title>\" [<tag> ...]")
+    print("  [--subject <subject>]")
+    print("  [--author <author>]")
+    print("  [--date <date>]")
+    print("  [--tags <tag1,tag2,...>]")
+    print("  [--file_name <file_name>]")
+    print("  [--directory <directory>]")
+    print("  [--<doc_metadata_field> <value> ...]")
+    print("\nIf not file_name is provided, it will be generated from the title.")
+    print("If no directory is provided, the file will be created in the current directory.")
+    print("The generated .md file will be created in the fs at location `<directory>/<file_name>`.")
+    print("Any additional metadata field flags passed will be added to the metadata section of the generated .md file.")
+    exit(1)
+elif argv[1] in ("-v", "--version"):
+    print(f"{EXECUTABLE} - version: lol do you really think this script is versioned?")
+    exit(1)
+elif argv[1].startswith("-"):
+    stderr.write(f"Error: Title must be the first argument, not a flag: {argv[1]}")
+    exit(0)
+
+TITLE = argv[1]
+FILE_METADATA_FIELDS = [
+    "title",
+    "file_name",
+    "directory",
+]
+ORDERED_DOC_METADATA_FIELDS = [
+    "subject",
+    "author",
+    "date",
+    "tags",
+]
+default_metadata = {
+    "date": dt.now().strftime("%Y-%m-%d"),
+    "title": TITLE,
+    "author": "shane stephenson <shane.stephenson@evernorth.com>",
+    "file_name": TITLE.replace(" ", "_").replace("_-_", "__").lower() + ".md",
+    "directory": ".",
+}
+collected_metadata = {}
+
+current_flag = "tags"
+collected_flags = set(default_metadata.keys())
+for arg in argv[2:]:
+    if arg.startswith("-"):
+        current_flag = arg.lstrip("-")
+        if not arg.startswith("--"):
+            for flag in collected_flags:
+                if current_flag == flag[0]:
+                    current_flag = flag
+                    break
+        collected_flags.add(current_flag)
+        if "=" in arg:
+            key, value = current_flag.split("=", 1)
+            collected_metadata[key] = value
+    else:
+        if collected_metadata.get(current_flag):
+            collected_metadata[current_flag] += f", {arg}"
+        else:
+            collected_metadata[current_flag] = arg
+
+unordered_metadata = {**default_metadata, **collected_metadata}
+ordered_metadata = {k: unordered_metadata.get(k) for k in ORDERED_DOC_METADATA_FIELDS if k in unordered_metadata}
+metadata = {k: v for k, v in {**ordered_metadata, **unordered_metadata}.items() if k not in FILE_METADATA_FIELDS}
+file_metadata = {k: v for k, v in {**ordered_metadata, **unordered_metadata}.items() if k in FILE_METADATA_FIELDS}
+
+max_key_length = max(len(k) for k in metadata.keys())
+metadata_str = "\n".join(f"{(k + ':').ljust(max_key_length)} {v}" for k, v in metadata.items())
+doc = f"""# {file_metadata['title']}
+~~~
+{metadata_str}
+~~~
+
+"""
+
+p = Path(file_metadata["directory"]) / file_metadata["file_name"]
+with p.open("w") as f:
+    f.write(doc)
+    print(p)

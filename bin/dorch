@@ -1,0 +1,188 @@
+#!/bin/bash
+
+# Set the script to fail if any command has an issue
+set -e
+
+if [[ $1 = *"-h"* ]]; then
+    echo
+    echo "Usage: ./dorch [FLAGS]"
+    echo
+    echo "Description:"
+    echo "  This script will allow you to deploy an asset bundle to all production targets and run the"
+    echo "  asset bundle in all production targets."
+    echo
+    echo "Examples:"
+    echo "  ./dorch --deploy --run"
+    echo "    This will deploy the asset bundle to all production targets and trigger an ad hoc run of"
+    echo "    the 'finops_ingestion' workflow on all production targets."
+    echo
+    echo "  ./dorch --run aws_historical_costs --target development-*"
+    echo "    This will trigger an ad hoc run of the 'aws_historical_costs' workflow on all development targets."
+    echo
+    echo "  ./dorch --deploy --target production-chc-*"
+    echo "    This will debloy the asset bundle to all production CHC targets."
+    echo
+    echo "Custom configurations:"
+    echo "  If you have custom target/profile mappings, you can create a '.dab_target_profiles' file in the"
+    echo "  root directory of the asset bundle or in your home directory '~/.dab_target_profiles'."
+    echo "  If the file exists, the script will read it and use the provided target/profile mappings."
+    echo "  The file should contain lines in the format:"
+    echo "    <TARGET 1> -> <PROFILE 1>"
+    echo "    <TARGET 2> -> <PROFILE 2>"
+    echo "  For example:"
+    echo "    development-chc -> DEVELOPMENT-CHC"
+    echo "    development-ehs -> DEVELOPMENT-EHS"
+    echo "    production-ehs-dev -> DEV-EHS-SP"
+    echo "    production-chc-dev -> DEV-CHC-SP"
+    echo
+    echo "Flags:"
+    echo "  -h, --help        display help"
+    echo "  -d, --deploy      deploy the asset bundle to all production targets"
+    echo "  -r, --run         run the asset bundle with this name in all production targets.  if no name is provided, it will use the current directory name as the bundle name"
+    echo "  -s, --skip-tests  skip running unit tests (default is to run tests)"
+    echo "  -n, --no-venv     skip creating a temporary virtual environment (default is to create a venv)"
+    echo "  -t, --target      target pattern to deploy (uses glob pattern; default is all production targets 'production-*')"
+    echo
+    echo "Example target patterns:"
+    echo "  '--target production-chc-dev' for just production-chc-dev target"
+    echo "  '--target development-*' for all development targets"
+    echo "  '--target production-ehs-*' for all production EHS targets"
+    echo "  '--target *-chc-*' for all CHC targets, production and development"
+    echo
+    exit 0
+fi
+
+# ensure dependencies are installed
+if ! command -v databricks &> /dev/null; then
+    echo "Databricks CLI is not installed. Please install it to use this script."
+    echo "Installation instructions: https://docs.databricks.com/aws/en/dev-tools/cli/install"
+    exit 0
+elif ! command -v rg &> /dev/null; then
+    echo "Ripgrep (rg) is not installed. Please install it to use this script."
+    echo "Installation instructions: https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation"
+    exit 0
+fi
+
+# This isn't used for anything other than to remove a warning that kept ending up in the output related to pyarrow
+export PYARROW_IGNORE_TIMEZONE="1"
+
+# create temp venv
+if [[ " $@ " != *" -n "* ]] && [[ " $@ " != *" --no-venv "* ]]; then
+    TMP_VENV=$(mktemp -d "/tmp/python-venv.XXXXXX")
+    echo "Creating temporary venv in $TMP_VENV"
+    python3 -m venv $TMP_VENV
+    source $TMP_VENV/bin/activate
+
+    # install build dependencies
+    # python -m pip install -r requirements.txt --index-url $ARTIFACTORY_LINK
+    python -m pip install . -q --upgrade --index-url $ARTIFACTORY_LINK
+    python -m pip install '.[build]' --upgrade --index-url $ARTIFACTORY_LINK
+
+    # build and install packages
+    rm -rf dist/ # clean out dist folder so that fresh wheel is used
+fi
+
+if [[ " $@ " != *" -s "* ]] && [[ " $@ " != *" --skip-tests "* ]]; then
+
+    # Testing dependencies
+    python -m pip install '.[testing]' . -q --upgrade --index-url $ARTIFACTORY_LINK
+
+    # lint and format
+    ruff check
+    ruff format
+
+    # run unit tests
+    coverage run -m pytest
+    coverage report # --fail-under 80  # TODO: We should enable a threshold after getting unit tests for existing code
+fi
+
+# default auth profile mappings
+# NOTE: if you have personal target/profile mappings, you can add them to a '.dab_target_profiles' file
+# in the dab root directory
+target_profiles=(
+    # "<TARGET>              -> <PROFILE>"
+    "development-chc-dev     -> ap-chc-dev"
+    "development-ehs-dev     -> ap-ehs-dev"
+    "production-ehs-dev      -> ap-ehs-dev"
+    "production-ehs-test     -> ap-ehs-test"
+    "production-ehs-prod     -> ap-ehs-prod"
+    "production-chc-dev      -> ap-chc-dev"
+    "production-chc-test     -> ap-chc-test"
+    "production-chc-prod     -> ap-chc-prod"
+)
+if [ -f ".dab_target_profiles" ]; then
+    # if .dab_target_profiles file exists, read it and override the default target profiles
+    echo "Reading target profiles from .dab_target_profiles file..."
+    export target_profiles=( $(tr -d " " < .dab_target_profiles) )
+elif [ -f "$HOME/.dab_target_profiles" ]; then
+    # if ~/.dab_target_profiles file exists, read it and override the default target profiles
+    echo "Reading target profiles from ~/.dab_target_profiles file..."
+    export target_profiles=( $(tr -d " " < "$HOME/.dab_target_profiles") )
+else
+    echo "Using default target profiles.  If you need to override them, create a .dab_target_profiles file in the dab root directory."
+fi
+
+# parse defined target profile mappings and validate profiles
+echo "Target profile maps:"
+declare -a targets=()
+declare -a profiles=()
+valid_profiles=" $(databricks auth profiles | grep ' YES' | awk '{print $1}' | xargs) "
+expired_profiles=" $(databricks auth profiles | grep ' NO' | awk '{print $1}' | xargs) "
+target_indices=$(eval echo "{0..$((${#target_profiles[@]} - 1))}")
+for idx in $target_indices; do
+    target_map=$(echo "${target_profiles[$idx]}" | tr -d " ") # remove spaces
+    if [[ "$target_map" = *"->"* ]]; then
+        profile="${target_map#*->}"
+        target="${target_map%%->*}"
+        if [[ "$valid_profiles" = *" $profile "* ]]; then
+            echo "    [VALID PROFILE] $target -> $profile"
+            profiles+=( "$profile" )
+            targets+=( "$target" )
+        elif [[ "$expired_profiles" = *" $profile "* ]]; then
+            echo "    [EXPIRED PROFILE] $target -> $profile"
+        else
+            echo "    [PROFILE NOT DEFINED] $target -> $profile"
+        fi
+    fi
+done
+target_indices=$(eval echo "{0..$((${#targets[@]} - 1))}") # only include indices for valid targets
+
+parsed_targets="production-*"
+if [[ " $@ " = *" -t "* ]] || [[ " $@ " = *" --target "* ]]; then
+    # if -t flag is passed, use the provided targets
+    export parsed_targets=$(echo $@ | rg '\-+t(arget)*\s+([\w\*]+[a-zA-Z0-9_\-\*]*)+' -o | awk '{print $2}')
+    echo "Using provided targets: $parsed_targets"
+else
+    echo "Using default production targets: $parsed_targets"
+fi
+
+RUN_IT=0
+if [[ " $@ " = *" -r "* ]] || [[ " $@ " = *" --run "* ]]; then
+    RUN_IT=1
+    # if -n flag is passed, use the directory name as the bundle name
+    BUNDLE_NAME=$(echo "$@" | rg '\-r(un)*\s+(\w+[a-zA-Z0-9_\-]*)' -o | awk '{print $2}')
+    if [[ -z "$BUNDLE_NAME" ]]; then
+        BUNDLE_NAME=$(basename "$PWD")
+        echo "Using default bundle name: $BUNDLE_NAME"
+    else
+        echo "Using provided bundle name: $BUNDLE_NAME"
+    fi
+fi
+
+# deploy and run the asset bundle in all production targets
+for idx in $target_indices; do
+    if [[ "${targets[$idx]}" = "$parsed_targets" ]] && [ -n "${targets[$idx]}" ]; then
+        if [[ -z "${profiles[$idx]}" ]]; then
+            echo "No profile found for target $target, skipping deployment and/or run."
+            continue
+        fi
+        if [[ " $@ " = *" -d "* ]] || [[ " $@ " = *" --deploy "* ]]; then
+            echo "Deploying target ${targets[$idx]} with profile ${profiles[$idx]}..."
+            databricks bundle deploy --target "${targets[$idx]}" --profile "${profiles[$idx]}" --force-lock
+        fi
+        if [[ "$RUN_IT" = "1" ]]; then
+            echo "Running workflow $BUNDLE_NAME in target ${targets[$idx]} with profile ${profiles[$idx]}..."
+            databricks bundle run --target "${targets[$idx]}" --profile "${profiles[$idx]}" --no-wait "$BUNDLE_NAME"
+        fi
+    fi
+done

@@ -54,7 +54,8 @@ abbr -a dxu databricks users
 abbr -a dxv databricks volumes
 abbr -a dxwh databricks warehouses
 abbr -a dxw databricks workspace
-abbr -a dxwc workspace-conf
+abbr -a dxwc databricks workspace-conf
+abbr -a dxwb databricks workspace-bindings
 
 alias dxp="databricks auth profiles | grep -E '(YES|Valid)'"
 
