@@ -1,6 +1,6 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
@@ -189,11 +189,6 @@ rules = [
   { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "red" },
   { mime = "application/{pdf,doc,rtf,vnd.*}", fg = "cyan" },
   # { mime = "inode/x-empty", fg = "red" },
-  { name = "*", is = "orphan", bg = "red" },
-  { name = "*", is = "exec"  , fg = "green" },
-  { name = "*", is = "dummy", bg = "red" },
-  { name = "*/", is = "dummy", bg = "red" },
-  { name = "*/", fg = "blue" }
 ]
 
 [icon]

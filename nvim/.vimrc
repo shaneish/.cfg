@@ -335,6 +335,8 @@ noremap <leader><C-p> :call TrimAndPaste()<CR>
 inoremap  <Esc>
 inoremap <C-c> <Esc>
 inoremap <C-d> <Esc>0C
+inoremap <C-l> <C-o>:bnext<CR>
+inoremap <C-h> <C-o>:bprev<CR>
 
 " Visual remaps
 xnoremap < <gv

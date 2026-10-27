@@ -1,0 +1,23 @@
+# Mode can be: run, drun, or dmenu
+mode=drun
+
+# Window Layout & Dimensions
+width=1200
+height=400
+location=center
+allow_markup=true
+allow_images=true
+image_size=14
+
+# Behavior Flags
+insensitive=true
+prompt=i hate you
+matching=fuzzy
+
+# Display tweaks
+always_parse_args=true
+show=drun
+print_command=true
+layer=overlay
+line_wrap=word
+close_on_focus_loss=true

@@ -60,25 +60,6 @@ function _custom_keybinds -d "it is what it says it is"
         end
     end
 
-    function bind_bang
-        switch (commandline -t)[-1]
-            case "!"
-                commandline -t -- $history[1]
-                commandline -f repaint
-            case "*"
-                commandline -i !
-        end
-    end
-
-    function bind_dollar
-        switch (commandline -t)[-1]
-            case "!"
-                commandline -f backward-delete-char history-token-search-backward
-            case "*"
-                commandline -i '$'
-        end
-    end
-
     function _fg
         fg 2&> /dev/null
     end
@@ -88,8 +69,22 @@ function _custom_keybinds -d "it is what it says it is"
         fg %$selected 2&> /dev/null
     end
 
-    bind ! bind_bang
-    bind '$' bind_dollar
+    function __run_last_command
+        eval $history[1]
+    end
+
+    function __select_from_last
+        # Re-run the last command and pipe it to fzf
+        set -l chosen_line (eval $history[1] | fzf -m --height 20%)
+
+        if test -n "$chosen_line"
+            # Inject the text into your current command buffer
+            commandline -i (string escape -- $chosen_line)
+        end
+    end
+
+    abbr --add !! --position anywhere --function __run_last_command
+    bind -M insert \cf __select_from_last
     bind -M insert \cp __alternate_prompt
     bind -M insert \cs _fuzzy_grep_and_edit
     bind -M insert \cy _open_yazi
@@ -102,5 +97,28 @@ function _custom_keybinds -d "it is what it says it is"
     bind -M insert \cb _fg
     bind -M insert \cj _fg_select
     bind -M insert \cl forward-word
+
+    # function bind_bang
+    #     switch (commandline -t)[-1]
+    #         case "!"
+    #             commandline -t -- $history[1]
+    #             commandline -f repaint
+    #         case "*"
+    #             commandline -i !
+    #     end
+    # end
+    #
+    # function bind_dollar
+    #     switch (commandline -t)[-1]
+    #         case "!"
+    #             commandline -f backward-delete-char history-token-search-backward
+    #         case "*"
+    #             commandline -i '$'
+    #     end
+    # end
+    #
+    # bind -M insert ! bind_bang
+    # bind -M insert '$' bind_dollar
+
 end
 
