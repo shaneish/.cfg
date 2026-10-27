@@ -308,11 +308,11 @@ require("CopilotChat").setup()
 vim.keymap.set("n", "<leader><leader>c", ":CopilotChatToggle<CR>")
 
 -- %% cursor agent
-require("cursor-agent").setup({
-  args = {
-    "--workspace", ".",
-  }
-})
+-- require("cursor-agent").setup({
+--   args = {
+--     "--workspace", ".",
+--   }
+-- })
 
 -- %% folds
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
