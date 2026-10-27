@@ -79,8 +79,8 @@ local function init_config_with_theme(toml_name)
   local light_colors = color_conf.brights
 
   -- tab stuff
-  local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
-  local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+  -- local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
+  -- local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
   local active_bg = color_conf.ansi[1]
   local active_fg = color_conf.cursor_fg
   local inactive_bg = color_conf.brights[1]

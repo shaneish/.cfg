@@ -1,18 +1,18 @@
-function clip --description "a single command to clip from clipboard on any operating system"
+function clip --description "a single command to clip to clipboard on any operating system"
     switch (uname)
         case Linux
             if type -q "wl-copy"
-                cat $argv | tr -d '\n' | wl-copy
+                wl-copy
             else if type -q "xclip"
-                cat $argv | tr -d '\n' | xclip -selection clipboard
+                xclip -selection clipboard
             else if type -q "xsel"
-                cat $argv | tr -d '\n' | xsel --clipboard --input
+                xsel --clipboard --input
             else
                 echo "Unable to copy, unable to find xclip, xsel, or wl-copy: $argv"
             end
         case Darwin
-            cat $argv | tr -d '\n' | pbcopy
+            pbcopy
         case '*'
-            clip < $argv
+            clip
     end
 end

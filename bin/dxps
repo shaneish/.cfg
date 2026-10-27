@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# select a valid databricks CLI profile and pin it for current shell session
+export DATABRICKS_CONFIG_PROFILE="$(databricks auth profiles | grep -E 'YES' | sed -E 's/YES$//' | fzf | awk '{print $1}')"

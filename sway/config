@@ -37,9 +37,11 @@ bar {
     swaybar_command "waybar"
 }
 
-# turn on discord
-assign [class="discord"] workspace 1.msg
-exec /usr/bin/discord
+# turn on discord (FUTURE-SELF NOTE: we use goofcord now)
+# assign [class="discord"] workspace 1.msg
+# exec /usr/bin/discord
+assign [app_id="goofcord"] workspace 1.msg
+exec /usr/bin/goofcord
 
 # turn on browser
 assign [app_id="brave"] workspace 2.web
@@ -48,6 +50,10 @@ exec $browser
 # turn on terminal
 assign [app_id="wezterm"] workspace s.term
 exec $term
+
+# turn on sway notification center
+exec swaync
+bindsym $mod+n exec swaync-client -t -sw
 
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
@@ -120,10 +126,12 @@ exec sway-audio-idle-inhibit
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-    bindsym XF86MonBrightnessUp exec brightnessctl s 10%+
-    bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 
-    # Requires playerctl
+    # brightness
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+    # requires playerctl
     bindsym XF86AudioNext exec playerctl next
     bindsym XF86AudioPause exec playerctl play-pause
     bindsym XF86AudioPlay exec playerctl play-pause
