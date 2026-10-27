@@ -254,20 +254,24 @@ require('mason-lspconfig').setup({
 })
 
 for _, lsp_name in ipairs(servers) do
-    lspconfig[lsp_name].setup {
+    vim.lsp.config(lsp_name, {
+      settings = {
         capabilities = capabilities,
-        on_attach = lsp_on_attach,
-    }
+        on_attach = on_attach,
+      }
+    })
+    vim.lsp.enable(lsp_name)
 end
 
 -- %% special lsps
-require("lspconfig")["tinymist"].setup {
+vim.lsp.config("tinymist", {
   settings = {
     formatterMode = "typstyle",
     exportPdf = "onType",
     semanticTokens = "disable"
   }
-}
+})
+vim.lsp.enable("tinymist")
 
 -- %% aerial
 -- require("aerial").setup({
