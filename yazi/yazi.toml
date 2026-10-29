@@ -6,5 +6,5 @@ show_symlink = true
 wrap = "yes"
 
 [opener]
-edit = [{ run = 'nvim "$@"', block = true }]
-text = [{ run = 'nvim "$@"', block = true }]
+edit = [{ run = 'nvim %s', block = true }]
+text = [{ run = 'nvim %s', block = true }]

@@ -169,23 +169,22 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   f:flush();
   f:close();
   local curr_tab = window:active_tab()
+  local cur = 0
+  for _, info in ipairs(window:mux_window():tabs_with_info()) do
+    if info.is_active then
+      cur = info.index
+      break
+    end
+  end
   local nt, _, _ = window:mux_window():spawn_tab {
     domain = "CurrentPaneDomain",
     args = { 'nvim', '+', name, '-c', 'set nowrap'},
   }
   nt:set_title(curr_tab:get_title() .. '.' .. hash(scrollback))
-  window:perform_action(wezterm.action.MoveTab(curr_tab:tab_id() - 1), pane)
+  nt:activate()
+  window:perform_action(wezterm.action.MoveTab(cur), pane)
   wezterm.sleep_ms(1000);
   os.remove(name);
-end)
-
-wezterm.on('select-and-paste', function(window, pane)
-  wezterm.action.QuickSelectArgs {
-   patterns = {
-      '[\\w\\-\\.\\/~]+',
-    },
-  }
-  wezterm.action.PasteFrom 'Clipboard'
 end)
 
 -- basic configuration
@@ -371,7 +370,7 @@ config.keys = {
   { key = 'k', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(-1) },
   { key = 'j', mods = 'LEADER', action = wezterm.action.ScrollToPrompt(1) },
   { key = 't', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
-  { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action { EmitEvent = "select-and-paste" } },
+  { key = 'C', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
   { key = 'm', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
   { key = '?', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Right', 5 } },
   { key = '>', mods = 'CTRL|SHIFT', action = wezterm.action.AdjustPaneSize { 'Up', 5 } },
@@ -379,6 +378,7 @@ config.keys = {
   { key = 'c', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
   { key = 'c', mods = AltAlt, action = wezterm.action.CopyTo 'ClipboardAndPrimarySelection' },
   { key = 'v', mods = AltAlt, action = wezterm.action.PasteFrom 'Clipboard' },
+  { key = 'V', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom 'Clipboard' },
 
   {
     key = 'R',
@@ -464,7 +464,18 @@ config.keys = {
   {
     key = 'T',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.SpawnTab 'CurrentPaneDomain'
+    action = wezterm.action_callback(function(window, pane)
+      -- spawn the new tab immediately to the left of the current one
+      local cur = 0
+      for _, info in ipairs(window:mux_window():tabs_with_info()) do
+        if info.is_active then
+          cur = info.index
+          break
+        end
+      end
+      window:perform_action(wezterm.action.SpawnTab 'CurrentPaneDomain', pane)
+      window:perform_action(wezterm.action.MoveTab(cur), pane)
+    end)
   },
   -- weird custom keybinds i should prolly clean up
   {

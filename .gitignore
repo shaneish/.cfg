@@ -14,3 +14,6 @@ fish/locals/cigna_certs.fish
 fish/fish_variables
 fish/certs.fish
 *.old
+
+# claude.ai-managed skills, synced per account/machine
+agents/skills/synced/

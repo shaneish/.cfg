@@ -184,6 +184,7 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
+    underline = false,
     virtual_text = {
         prefix = '●', -- Could be '●', '▎', 'x'
     }
@@ -232,12 +233,6 @@ local on_attach = function(client, bufnr)
     end
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false
-      }
-    )
-
 require('mason').setup({
     ui = {
         icons = {
@@ -250,15 +245,13 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     ensure_installed = servers,
-    automatic_enable = true,
+    automatic_enable = false, -- servers are enabled explicitly below
 })
 
 for _, lsp_name in ipairs(servers) do
     vim.lsp.config(lsp_name, {
-      settings = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+      capabilities = capabilities,
+      on_attach = on_attach,
     })
     vim.lsp.enable(lsp_name)
 end
@@ -271,7 +264,6 @@ vim.lsp.config("tinymist", {
     semanticTokens = "disable"
   }
 })
-vim.lsp.enable("tinymist")
 
 -- %% aerial
 -- require("aerial").setup({
