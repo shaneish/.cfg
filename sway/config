@@ -228,10 +228,10 @@ exec sway-audio-idle-inhibit
     bindsym $mod+w layout toggle splitv splith tabbed
     bindsym $mod+Shift+v layout toggle split
 
-    bindsym $mod+Shift+m resize shrink height 10px
-    bindsym $mod+Shift+slash resize grow height 10px
-    bindsym $mod+Shift+comma resize shrink width 10px
-    bindsym $mod+Shift+period resize grow width 10px
+    bindsym $mod+Shift+slash resize shrink height 20px
+    bindsym $mod+Shift+m resize grow height 20px
+    bindsym $mod+Shift+period resize shrink width 10px
+    bindsym $mod+Shift+comma resize grow width 10px
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "editor": { "vimMode": true },
+  "permissions": {
+    "allow": [
+      "Shell(ls)",
+      "Shell(echo)",
+      "Shell(grep)",
+      "Shell(cat)",
+      "Shell(touch)",
+      "Shell(rg)",
+      "Shell(find)",
+      "Shell(fzf)",
+      "Shell(rip)",
+      "python3 -m py_compile *",
+      "python3 -m pip *",
+      "python3 -m venv *",
+      "python3 -m ensurepip",
+      "python3 -m pytest",
+      "python3 -m unittest",
+      "source */venv/bin/activate",
+      "pytest",
+      "ruff check"
+    ],
+    "deny": [
+      "Read(*.env*)",
+      "Read(**/*.env*)"
+    ]
+  }
+}

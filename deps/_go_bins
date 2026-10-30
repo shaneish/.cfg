@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# landrun
+go install github.com/zouuup/landrun/cmd/landrun@latest
