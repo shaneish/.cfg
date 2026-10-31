@@ -34,7 +34,78 @@ c = get_config()  #noqa
 
 ## lines of code to run at IPython startup.
 #  Default: []
-# c.InteractiveShellApp.exec_lines = []
+#
+# this exception hook helps better manage the user experience of using ipython as a
+# slime REPL from my text editor (n/vim).  by default, if the REPL is sent a line of
+# code which fails, slime doesn't know and just keeps sending the lines of code after
+# the failed line -- which frequently leads to even more issues.
+#
+# what this hook does is basically intercept all the keys being sent to the ipython session
+# after an exception and ignores them completely until the user (me) presses <Esc> twice.
+# this ensures that my REPL actually stops on failed code and doesn't bury it or, even more
+# insidiously, continue to run subsequent code which frequently runs fine and makes it look
+# like the failed code block sent to ipython ran just fine.
+_EXC_HOOK = '''
+def _install_exc_hook():
+    import os, select, signal, sys, termios, tty
+
+    def hook(shell, etype, value, tb, tb_offset=None):
+        # what %debug / %tb read; IPython's default handler sets these, custom hooks must do it themselves
+        sys.last_type, sys.last_value, sys.last_traceback = etype, value, tb
+        sys.last_exc = value
+        stb = shell.InteractiveTB.structured_traceback(etype, value, tb, tb_offset=tb_offset)
+        print(shell.InteractiveTB.stb2text(stb))
+        if not sys.stdin.isatty():
+            return stb
+        print("-- press <Esc> twice (or <C-c>) to continue --", flush=True)
+        fd = sys.stdin.fileno()
+        saved = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)  # raw: no echo, no signal generation, everything arrives as bytes
+            escs = 0
+            while escs < 2:
+                key = os.read(fd, 1)
+                if key == b"\\x03":  # <C-c>: same as <Esc><Esc>
+                    break
+                if key == b"\\x1a":  # <C-z>: suspend like the normal prompt does, resume waiting on fg
+                    termios.tcsetattr(fd, termios.TCSADRAIN, saved)
+                    os.kill(os.getpid(), signal.SIGTSTP)
+                    tty.setraw(fd)
+                    escs = 0
+                    continue
+                if key != b"\\x1b":
+                    escs = 0
+                    continue
+                # a lone Esc has nothing following it; arrow keys etc. send a sequence
+                if select.select([fd], [], [], 0.05)[0]:
+                    os.read(fd, 32)
+                    escs = 0
+                else:
+                    escs += 1
+        finally:
+            termios.tcsetattr(fd, termios.TCSAFLUSH, saved)  # also drops pending input
+        return stb
+
+    ip = get_ipython()
+
+    def exchook(line):
+        """%exchook on|off -- toggle the custom exception hook (off => default handler, so %pdb on opens pdb)."""
+        arg = line.strip().lower()
+        if arg == "on":
+            ip.set_custom_exc((Exception,), hook)
+        elif arg == "off":
+            ip.set_custom_exc((), None)
+        else:
+            print("usage: %exchook on|off  (currently " + ("on" if ip.custom_exceptions else "off") + ")")
+
+    ip.register_magic_function(exchook, "line", "exchook")
+    if not os.environ.get("IPY_NOEXCHOOK"):
+        exchook("on")
+
+_install_exc_hook()
+del _install_exc_hook
+'''
+c.InteractiveShellApp.exec_lines = ["%alias_magic --line dbg debug", _EXC_HOOK]
 
 ## A list of dotted module names of IPython extensions to load.
 #  Default: []
@@ -956,7 +1027,7 @@ c.TerminalInteractiveShell.highlighting_style = 'friendly_grayscale'
 
 ## Should the history database include output? (default: no)
 #  Default: False
-c.HistoryManager.db_log_output = False
+c.HistoryManager.db_log_output = True
 
 ## enable the SQLite history
 #  See also: HistoryAccessor.enabled

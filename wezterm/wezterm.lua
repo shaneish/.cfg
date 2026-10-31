@@ -182,7 +182,7 @@ wezterm.on("trigger-vim-with-scrollback", function(window, pane)
   }
   nt:set_title(curr_tab:get_title() .. '.' .. hash(scrollback))
   nt:activate()
-  window:perform_action(wezterm.action.MoveTab(cur), pane)
+  window:perform_action(wezterm.action.MoveTab(cur + 1), pane)
   wezterm.sleep_ms(1000);
   os.remove(name);
 end)
@@ -212,6 +212,7 @@ config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 config.warn_about_missing_glyphs = false
 config.status_update_interval = 1000
+config.switch_to_last_active_tab_when_closing_tab = true
 
 config.font_rules = {
   {
@@ -465,7 +466,7 @@ config.keys = {
     key = 'T',
     mods = 'CTRL|SHIFT',
     action = wezterm.action_callback(function(window, pane)
-      -- spawn the new tab immediately to the left of the current one
+      -- spawn the new tab immediately to the right of the current one
       local cur = 0
       for _, info in ipairs(window:mux_window():tabs_with_info()) do
         if info.is_active then
@@ -474,7 +475,7 @@ config.keys = {
         end
       end
       window:perform_action(wezterm.action.SpawnTab 'CurrentPaneDomain', pane)
-      window:perform_action(wezterm.action.MoveTab(cur), pane)
+      window:perform_action(wezterm.action.MoveTab(cur + 1), pane)
     end)
   },
   -- weird custom keybinds i should prolly clean up

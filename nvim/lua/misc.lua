@@ -31,26 +31,12 @@ vim.g.python_venv_dir = config .. '/venv/'
 vim.g.python3_host_prog = vim.g.python_bin .. 'python3'
 vim.g.ipython3_host_prog = vim.g.python_bin .. 'ipython'
 
-vim.g.indentLine_defaultGroup = 'NonText'
-vim.g.indentLine_conceallevel = 2
-vim.g.indentLine_char = '▏'
 vim.g.vim_json_syntax_conceal = 0
-vim.g.vim_markdown_conceal = 0
-vim.g.vim_markdown_conceal_code_blocks = 0
-vim.g.vim_markdown_folding_disabled = 0
-vim.g.pydocstring_enable_mapping = 0
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_enabled = true
-vim.g.signify_sign_add = '│'
-vim.g.signify_sign_delete = '│'
-vim.g.signify_sign_change = '│'
 vim.g.conceallevel = 0
-vim.g.cursorhold_updatetime = 100
 vim.g.mergetool_layout = 'mr'
 vim.g.mergetool_prefer_revision = 'local'
-vim.g.rbql_with_headers = 1
-vim.g.terraform_fmt_on_save = 1
-vim.g.terraform_align = 1
 
 -- %% filetypes
 vim.api.nvim_create_autocmd('FileType', {

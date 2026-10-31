@@ -12,29 +12,13 @@
       "rev": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
       "src": "https://github.com/hrsh7th/cmp-buffer"
     },
-    "cmp-cmdline": {
-      "rev": "d126061b624e0af6c3a556428712dd4d4194ec6d",
-      "src": "https://github.com/hrsh7th/cmp-cmdline"
-    },
     "cmp-nvim-lsp": {
       "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
       "src": "https://github.com/hrsh7th/cmp-nvim-lsp"
     },
-    "cmp-nvim-lsp-signature-help": {
-      "rev": "fd3e882e56956675c620898bf1ffcf4fcbe7ec84",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
-    },
-    "cmp-nvim-lua": {
-      "rev": "e3a22cb071eb9d6508a156306b102c45cd2d573d",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lua"
-    },
     "cmp-path": {
       "rev": "c642487086dbd9a93160e1679a1327be111cbc25",
       "src": "https://github.com/hrsh7th/cmp-path"
-    },
-    "cmp-vsnip": {
-      "rev": "989a8a73c44e926199bfd05fa7a516d51f2d2752",
-      "src": "https://github.com/hrsh7th/cmp-vsnip"
     },
     "conflict-marker.vim": {
       "rev": "62742b2ffe7a433988759c67b5c5a22eff74a14b",
@@ -51,10 +35,6 @@
     "csvview.nvim": {
       "rev": "f190de76d2eca0380ddcb2425cd582d740699b55",
       "src": "https://github.com/hat0uma/csvview.nvim"
-    },
-    "diffview.nvim": {
-      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
-      "src": "https://github.com/sindrets/diffview.nvim"
     },
     "eyeliner.nvim": {
       "rev": "8f197eb30cecdf4c2cc9988a5eecc6bc34c0c7d6",
@@ -141,10 +121,6 @@
       "rev": "9a6fdfb186f70b3e454031c20b9d50aac02ff500",
       "src": "https://github.com/drybalka/tree-climber.nvim"
     },
-    "treewalker.nvim": {
-      "rev": "976eb9921c2f26a9a4314b5a0f4842d447a49592",
-      "src": "https://github.com/aaronik/treewalker.nvim"
-    },
     "typst.vim": {
       "rev": "1d5436c0f55490893892441c0eca55e6cdf4916c",
       "src": "https://github.com/kaarmu/typst.vim"
@@ -164,14 +140,6 @@
     "vim-slime-cells": {
       "rev": "2252bc83fc0174c8e67bcf9a519edf2d328b8bc9",
       "src": "https://github.com/Klafyvel/vim-slime-cells"
-    },
-    "vim-terraform": {
-      "rev": "520498fab16a3a11f2ae1b8cb65e0a1684bc317a",
-      "src": "https://github.com/hashivim/vim-terraform"
-    },
-    "vim-vsnip": {
-      "rev": "9bcfabea653abdcdac584283b5097c3f8760abaa",
-      "src": "https://github.com/hrsh7th/vim-vsnip"
     }
   }
 }

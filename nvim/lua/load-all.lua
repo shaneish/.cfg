@@ -67,7 +67,7 @@ require('nvim-treesitter.config').setup {
 
 -- %% nvim.files
 require('mini.files').setup()
-function toggle_minifiles()
+local function toggle_minifiles()
   local MiniFiles = require("mini.files")
   if not MiniFiles.close() then
     local current_file = vim.api.nvim_buf_get_name(0)
@@ -79,21 +79,7 @@ function toggle_minifiles()
     end
   end
 end
-vim.keymap.set('n', '\\', ':lua toggle_minifiles()<CR>', { silent = true })
-
--- %% treewalker
--- require('treewalker').setup({ highlight = true, highlight_duration = 250, highlight_group = 'CursorLine' })
--- -- movement
--- vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
--- 
--- -- swapping
--- vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
--- vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
--- vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<cr>', { silent = true })
--- vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<cr>', { silent = true })
+vim.keymap.set('n', '\\', toggle_minifiles, { silent = true })
 
 -- %% eyeliner
 require('eyeliner').setup({
@@ -175,19 +161,28 @@ require("smartcolumn").setup({
 })
 
 -- %% diagnostics
-local signs = { Error = "✘", Warn = "", Hint = "•", Info = "" }
+local severity = vim.diagnostic.severity
 local diagnostics_active = true
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 vim.diagnostic.config({
     underline = false,
     virtual_text = {
         prefix = '●', -- Could be '●', '▎', 'x'
-    }
+    },
+    signs = {
+        text = {
+            [severity.ERROR] = "✘",
+            [severity.WARN] = "",
+            [severity.HINT] = "•",
+            [severity.INFO] = "",
+        },
+        numhl = {
+            [severity.ERROR] = "DiagnosticSignError",
+            [severity.WARN] = "DiagnosticSignWarn",
+            [severity.HINT] = "DiagnosticSignHint",
+            [severity.INFO] = "DiagnosticSignInfo",
+        },
+    },
 })
 
 local function toggle_diagnostics()
@@ -199,39 +194,47 @@ local function toggle_diagnostics()
   end
 end
 
-vim.keymap.set('n', '<C-e><C-h>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.keymap.set('n', '<C-e><C-k>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.keymap.set('n', '<C-e><C-j>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.keymap.set('n', '<C-e><C-l>', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+vim.keymap.set('n', '<C-e><C-h>', vim.diagnostic.open_float, { silent = true })
+vim.keymap.set('n', '<C-e><C-k>', function() vim.diagnostic.jump({ count = -1 }) end, { silent = true })
+vim.keymap.set('n', '<C-e><C-j>', function() vim.diagnostic.jump({ count = 1 }) end, { silent = true })
+vim.keymap.set('n', '<C-e><C-l>', vim.diagnostic.setloclist, { silent = true })
 vim.keymap.set('n', '<C-e><C-t>', function()
     toggle_diagnostics()
 end)
 
 -- %% lsp
 local servers = { "lua_ls", "vimls", "rust_analyzer", "zls", "pyright", "gopls", "ruff", "terraformls", "tflint", "sqlls", "tinymist", "bashls" }
-local opts = { noremap=true, silent=true }
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gfl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gc', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader><leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    if client.server_capabilities.documentSymbolProvider then
-      navbuddy.attach(client, bufnr)
-    end
-end
+vim.lsp.config('*', { capabilities = capabilities })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        local bufnr = ev.buf
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        local function nmap(lhs, rhs)
+            vim.keymap.set('n', lhs, rhs, { buffer = bufnr, silent = true })
+        end
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        nmap('<leader>gD', vim.lsp.buf.declaration)
+        nmap('<leader>gh', vim.lsp.buf.hover)
+        nmap('<leader>gd', vim.lsp.buf.definition)
+        nmap('<leader>gi', vim.lsp.buf.implementation)
+        nmap('<leader>gs', vim.lsp.buf.signature_help)
+        nmap('<leader>gfa', vim.lsp.buf.add_workspace_folder)
+        nmap('<leader>gfr', vim.lsp.buf.remove_workspace_folder)
+        nmap('<leader>gfl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end)
+        nmap('<leader>gt', vim.lsp.buf.type_definition)
+        nmap('<leader>gR', vim.lsp.buf.rename)
+        nmap('<leader>gc', vim.lsp.buf.code_action)
+        nmap('<leader>gr', vim.lsp.buf.references)
+        nmap('<leader><leader>f', function() vim.lsp.buf.format() end)
+        if client and client.server_capabilities.documentSymbolProvider then
+            navbuddy.attach(client, bufnr)
+        end
+    end,
+})
 
 require('mason').setup({
     ui = {
@@ -248,13 +251,7 @@ require('mason-lspconfig').setup({
     automatic_enable = false, -- servers are enabled explicitly below
 })
 
-for _, lsp_name in ipairs(servers) do
-    vim.lsp.config(lsp_name, {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-    vim.lsp.enable(lsp_name)
-end
+vim.lsp.enable(servers)
 
 -- %% special lsps
 vim.lsp.config("tinymist", {
