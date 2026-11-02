@@ -18,15 +18,14 @@ function _source_once
     add_env_var_maybe EDITOR nvim vim vi
     add_env_var_maybe SHELL fish zsh dash bash powershell sh
 
-    set -U fish_user_paths
-    add_to_path_maybe $CFG_DIRECTORY/bin
-    add_to_path_maybe $HOME/.local/bin
-    add_to_path_maybe $HOME/.cargo/bin
-    add_to_path_maybe $HOME/.modular/bin
-    add_to_path_maybe $HOME/.config/scripts
-    add_to_path_maybe $HOME/.go/bin
-    add_to_path_maybe $HOME/go/bin
-    add_to_path_maybe $HOME/.opencode/bin
+    add_to_path_maybe "$CFG_DIRECTORY/bin"
+    add_to_path_maybe "$HOME/.local/bin"
+    add_to_path_maybe "$HOME/.cargo/bin"
+    add_to_path_maybe "$HOME/.modular/bin"
+    add_to_path_maybe "$HOME/.config/scripts"
+    add_to_path_maybe "$HOME/.go/bin"
+    add_to_path_maybe "$HOME/go/bin"
+    add_to_path_maybe "$HOME/.opencode/bin"
 
     pyv
     change_greeting small
