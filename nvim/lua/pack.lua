@@ -44,7 +44,6 @@ vim.pack.add({
     gh('romgrk/barbar.nvim'),
     gh('jpalardy/vim-slime'),
     gh('Klafyvel/vim-slime-cells'),
-    gh('drybalka/tree-climber.nvim'),
     gh('jinh0/eyeliner.nvim'),
     gh('CopilotC-Nvim/CopilotChat.nvim'),
     gh('kaarmu/typst.vim'),

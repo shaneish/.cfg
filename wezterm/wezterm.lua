@@ -43,6 +43,15 @@ local function read_file(path)
     return content
 end
 
+-- ask the user's login shell for its PATH; returns nil on failure
+local function shell_path()
+  local shell = os.getenv('SHELL') or '/bin/sh'
+  local ok, out, _ = wezterm.run_child_process({ shell, '-l', '-c', 'printenv PATH' })
+  if not ok or not out then return nil end
+  out = out:gsub('%s+$', '')
+  return out ~= '' and out or nil
+end
+
 local function tab_title(tab_info)
     local title = tab_info.tab_title
     -- if the tab title is explicitly set, take that
@@ -292,6 +301,15 @@ else
     elseif os_info:find("arch") ~= nil then
       config.font = wezterm.font 'JetBrains Mono'
    end
+  end
+end
+
+-- use the login shell's PATH for spawned panes (hardcoded values above are the fallback)
+if wezterm.target_triple:find("windows") == nil then
+  local sp = shell_path()
+  if sp then
+    config.set_environment_variables = config.set_environment_variables or {}
+    config.set_environment_variables.PATH = sp
   end
 end
 

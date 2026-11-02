@@ -37,20 +37,8 @@ bar {
     swaybar_command "waybar"
 }
 
-# turn on discord (FUTURE-SELF NOTE: we use goofcord now)
-# assign [class="discord"] workspace 1.msg
-# exec /usr/bin/discord
-assign [app_id="goofcord"] workspace 1.msg
-exec /usr/bin/goofcord
-
-# turn on browser
-# (startup windows get a distinct app_id so the assign rule doesn't also catch $mod+b / $mod+t spawns)
-assign [app_id="startup-brave"] workspace 2.web
-exec $browser --class=startup-brave
-
-# turn on terminal
-assign [app_id="startup-wezterm"] workspace s.term
-exec $term start --class startup-wezterm
+# launch terminal, browser, goofcord and move them to their workspaces
+exec ~/.config/sway/startup-apps.sh
 
 # per-app keyd remaps (~/.config/keyd/app.conf); needs user in the keyd group
 exec keyd-application-mapper -d
@@ -64,7 +52,7 @@ for_window [app_id="^.*"] inhibit_idle fullscreen
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 # hotkey-spawned browser/terminal: float in the current workspace
 for_window [app_id="^brave(-browser)?$"] floating enable, resize set 58 ppt 58 ppt, move position center
-for_window [app_id="^wezterm-float$"] floating enable, resize set 33 ppt 33 ppt, move position center
+for_window [app_id="^terminal-float$"] floating enable, resize set 33 ppt 33 ppt, move position center
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -125,7 +113,7 @@ exec sway-audio-idle-inhibit
 #
     # Start a terminal
     # bindsym $mod+Return workspace s.term; exec $term; exec $browser
-    bindsym $mod+t exec $term start --class wezterm-float
+    bindsym $mod+t exec $term start --class terminal-float
     bindsym $mod+b exec $browser --new-window
 
     # control volume
@@ -235,6 +223,7 @@ exec sway-audio-idle-inhibit
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
+    bindsym $mod+Shift+f inhibit_fullscreen toggle
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+space floating toggle
