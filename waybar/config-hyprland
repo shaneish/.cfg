@@ -1,12 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar at the bottom of your screen
-    "height": 24, // Waybar height
+    "height": 28, // Waybar height
     "spacing": 8,
     "reload_style_on_change": true,
     "position": "top",
-    "margin-bottom": 0,
-    "margin-top": 6,
+    "margin-bottom": 2,
+    "margin-top": 2,
     // "width": 1366, // Waybar width
     "modules-left": ["hyprland/workspaces", "hyprland/submap", "custom/media"],
     "modules-right": ["network", "pulseaudio", "battery", "clock"],
@@ -39,7 +39,9 @@
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
         "format-wifi": "{signalStrength}% ",
         "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-disconnected": "⚠"
+        "format-disconnected": "⚠",
+        "tooltip-format-wifi": "{essid}",
+        "on-click": "$HOME/.config/waybar/wifi_menu.sh"
     },
     "pulseaudio": {
         //"scroll-step": 1,

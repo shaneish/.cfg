@@ -18,6 +18,8 @@ gaps outer 0
 
 set $term wezterm
 set $browser brave
+set $menu wofi --show=drun
+set $files dolphin
 
 # start watching clipboard if cliphist is installed
 exec command -v wl-paste >/dev/null 2>&1 && wl-paste --watch cliphist store
@@ -32,10 +34,10 @@ blur enable
 corner_radius 20
 
 # turn on swaybar
-exec ~/.config/scripts/waybar_setup
 bar {
     swaybar_command "waybar"
 }
+bindsym $mod+p exec killall -SIGUSR1 waybar
 
 # launch terminal, browser, goofcord and move them to their workspaces
 exec ~/.config/sway/startup-apps.sh
@@ -47,22 +49,14 @@ exec keyd-application-mapper -d
 exec swaync
 bindsym $mod+n exec swaync-client -t -sw
 
+
 for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
-# hotkey-spawned browser/terminal: float in the current workspace
-for_window [app_id="^brave(-browser)?$"] floating enable, resize set 58 ppt 58 ppt, move position center
-for_window [app_id="^terminal-float$"] floating enable, resize set 33 ppt 33 ppt, move position center
+for_window [app_id="org.kde.dolphin"] floating enable, resize set 58 ppt 58 ppt, move position center
+# for_window [app_id="^brave(-browser)?$"] floating enable, resize set 58 ppt 58 ppt, move position center
+# for_window [app_id="^terminal-float$"] floating enable, resize set 33 ppt 33 ppt, move position center
 
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-# Recommends: wofi-wayland
-set $wofi_cmd wofi
-# Shows a combined list of the applications with desktop files and
-# executables from PATH.
-# TODO: add window with the next release of wofi-wayland
-set $menu $wofi_cmd --show=drun
 
 ### Output configuration
 #
@@ -111,10 +105,10 @@ exec sway-audio-idle-inhibit
 #
 # Basics:
 #
-    # Start a terminal
-    # bindsym $mod+Return workspace s.term; exec $term; exec $browser
-    bindsym $mod+t exec $term start --class terminal-float
+    # terminal browser files etc
+    bindsym $mod+t exec $term start
     bindsym $mod+b exec $browser --new-window
+    bindsym $mod+m exec $files --new-window
 
     # control volume
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%

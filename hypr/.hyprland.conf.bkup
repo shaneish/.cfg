@@ -1,0 +1,246 @@
+# Hyprland config mirroring ~/.config/sway/config
+# Wiki: https://wiki.hyprland.org/Configuring/Configuring-Hyprland/
+
+################
+### MONITORS ###
+################
+monitor = eDP-1, 2560x1600@60, auto, 1.2
+
+#################
+### VARIABLES ###
+#################
+$mod = SUPER
+$alt = ALT
+$term = wezterm
+$browser = brave
+$menu = wofi --show=drun
+$files = dolphin
+
+#################
+### AUTOSTART ###
+#################
+env = XDG_CURRENT_DESKTOP,Hyprland
+
+# clipboard history
+exec-once = command -v wl-paste >/dev/null 2>&1 && wl-paste --watch cliphist store
+
+# wallpaper (see hyprpaper.conf)
+exec-once = hyprpaper
+
+# bar, notification center
+exec-once = waybar -c ~/.config/waybar/config-hyprland
+exec-once = swaync
+
+# per-app keyd remaps (~/.config/keyd/app.conf); needs user in the keyd group
+exec-once = keyd-application-mapper -d
+
+# idle: lock after 10 min, inhibit while audio plays
+exec-once = swayidle -w timeout 600 'swaylock -f -c 000000'
+exec-once = sway-audio-idle-inhibit
+
+# portal daemon so file pickers appear in brave/zen
+exec-once = /usr/lib/xdg-desktop-portal-gtk
+
+# startup apps, each placed on its workspace
+exec-once = [workspace name:s.term silent] wezterm start
+exec-once = [workspace name:2.web silent] brave
+exec-once = [workspace name:1.msg silent] /usr/bin/goofcord
+
+#####################
+### LOOK AND FEEL ###
+#####################
+general {
+    gaps_in = 1
+    gaps_out = 0
+    border_size = 4
+    col.active_border = rgb(ffc300)
+    col.inactive_border = rgba(595959aa)
+    resize_on_border = false
+    allow_tearing = false
+    layout = dwindle
+}
+
+decoration {
+    rounding = 5
+    active_opacity = 1.0
+    inactive_opacity = 0.9
+
+    blur {
+        enabled = false
+        size = 2
+        passes = 1
+        vibrancy = 0.1696
+    }
+}
+
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+
+    animation = windows, 1, 1, myBezier
+    animation = windowsOut, 1, 1, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 1, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    preserve_split = true
+}
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+#############
+### INPUT ###
+#############
+input {
+    kb_layout = us
+    follow_mouse = 1
+    sensitivity = 0
+
+    touchpad {
+        natural_scroll = false
+    }
+}
+
+###################
+### KEYBINDINGS ###
+###################
+
+# launch
+bind = $mod, t, exec, $term start
+bind = $mod, b, exec, $browser --new-window
+bind = $mod, m, exec, $files --new-window
+bind = $mod, d, exec, $menu
+bind = $mod SHIFT, p, exec, ~/.config/scripts/aesthetic_switcher
+bind = $mod, p, exec, killall -SIGUSR1 waybar
+bind = $mod, n, exec, swaync-client -t -sw
+
+# window / session
+bind = $mod, q, killactive,
+bind = $mod SHIFT, r, exec, hyprctl reload
+bind = $mod SHIFT, e, exit,
+
+# focus
+bind = $mod, h, movefocus, l
+bind = $mod, j, movefocus, d
+bind = $mod, k, movefocus, u
+bind = $mod, l, movefocus, r
+
+# move window
+bind = $mod CONTROL, h, movewindow, l
+bind = $mod CONTROL, j, movewindow, d
+bind = $mod CONTROL, k, movewindow, u
+bind = $mod CONTROL, l, movewindow, r
+
+# next / previous workspace
+bind = $mod SHIFT, l, workspace, e+1
+bind = $mod SHIFT, h, workspace, e-1
+
+# workspaces
+bind = $mod, s, workspace, name:s.term
+bind = $mod, 1, workspace, name:1.msg
+bind = $mod, 2, workspace, name:2.web
+bind = $mod, 3, workspace, 3
+bind = $mod, 4, workspace, 4
+bind = $mod, 5, workspace, 5
+bind = $mod, 6, workspace, 6
+bind = $mod, 7, workspace, 7
+bind = $mod, 8, workspace, 8
+bind = $mod, 9, workspace, 9
+bind = $mod, 0, workspace, 10
+
+bind = $mod SHIFT, s, movetoworkspace, name:s.term
+bind = $mod SHIFT, 1, movetoworkspace, name:1.msg
+bind = $mod SHIFT, 2, movetoworkspace, name:2.web
+bind = $mod SHIFT, 3, movetoworkspace, 3
+bind = $mod SHIFT, 4, movetoworkspace, 4
+bind = $mod SHIFT, 5, movetoworkspace, 5
+bind = $mod SHIFT, 6, movetoworkspace, 6
+bind = $mod SHIFT, 7, movetoworkspace, 7
+bind = $mod SHIFT, 8, movetoworkspace, 8
+bind = $mod SHIFT, 9, movetoworkspace, 9
+bind = $mod SHIFT, 0, movetoworkspace, 10
+
+# layout
+bind = $mod, w, togglegroup,
+bind = $mod SHIFT, v, layoutmsg, togglesplit
+bind = $mod, f, fullscreen,
+# fake fullscreen: app thinks it is fullscreen, Hyprland keeps it tiled
+bind = $mod SHIFT, f, fullscreenstate, 0 2
+bind = $mod, space, exec, hyprctl dispatch togglefloating && hyprctl --batch "dispatch resizeactive exact 50% 50% ; dispatch centerwindow"
+bind = $mod SHIFT, space, cyclenext, floating
+
+# resize (sway: shrink/grow height on / and m, width on . and ,)
+binde = $mod SHIFT, slash, resizeactive, 0 -30
+binde = $mod SHIFT, m, resizeactive, 0 30
+binde = $mod SHIFT, comma, resizeactive, -30 0
+binde = $mod SHIFT, period, resizeactive, 30 0
+
+# scratchpad
+bind = $mod SHIFT, minus, movetoworkspace, special:scratchpad
+bind = $mod, minus, togglespecialworkspace, scratchpad
+
+# drag floating windows: mod + LMB move, mod + RMB resize
+bindm = $mod, mouse:272, movewindow
+bindm = $mod, mouse:273, resizewindow
+
+# resize mode ($mod+r)
+bind = $mod, r, submap, resize
+submap = resize
+binde = , h, resizeactive, -10 0
+binde = , j, resizeactive, 0 10
+binde = , k, resizeactive, 0 -10
+binde = , l, resizeactive, 10 0
+binde = , left, resizeactive, -10 0
+binde = , down, resizeactive, 0 10
+binde = , up, resizeactive, 0 -10
+binde = , right, resizeactive, 10 0
+bind = , return, submap, reset
+bind = , escape, submap, reset
+submap = reset
+
+# volume / mic / brightness
+bindel = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindel = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindl  = , XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindl  = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindel = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
+bindel = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
+# media (playerctl)
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+# screenshots
+bind = $alt SHIFT, 4, exec, grim -g "$(slurp)" - | wl-copy
+bind = $alt SHIFT, 3, exec, grim -g "$(slurp)" - | tee ~/Pictures/screenshot.png
+
+##############################
+### WINDOWS AND WORKSPACES ###
+##############################
+
+# inhibit idle when any window is fullscreen
+windowrule = idle_inhibit fullscreen, match:class .*
+# browsers: fake fullscreen by default
+windowrule = fullscreen_state 0 2, match:class ^brave(-browser)?$
+
+windowrule = float on, match:class ^org\.pulseaudio\.pavucontrol$
+
+# brave + dolphin: floating, 58% of the screen, centered
+# windowrule = float on, match:class ^brave(-browser)?$
+# windowrule = size monitor_w*0.58 monitor_h*0.58, match:class ^brave(-browser)?$
+# windowrule = center on, match:class ^brave(-browser)?$
+
+windowrule = float on, match:class ^org\.kde\.dolphin$
+windowrule = size monitor_w*0.58 monitor_h*0.58, match:class ^org\.kde\.dolphin$
+windowrule = center on, match:class ^org\.kde\.dolphin$
+
+# ignore maximize requests from apps
+windowrule = suppress_event maximize, match:class .*
