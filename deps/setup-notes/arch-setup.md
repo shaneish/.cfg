@@ -131,7 +131,8 @@ cargo isntall xh
 cargo install grex
 cargo install choose
 cargo install tealdeer
-cargo install --locked yazi-fm yazi-cli
+# cargo install --locked yazi-fm yazi-cli
+cargo install --force yazi-build
 cargo install onefetch --force
 cargo install coreutils
 cargo install fselect

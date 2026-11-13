@@ -26,44 +26,47 @@ vim.api.nvim_create_autocmd( { 'BufEnter', 'VimEnter' }, {
 require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 
 -- %% treesitter
-require('nvim-treesitter.config').setup {
-    ensure_installed = {
-        'python',
-        'comment',
-        'lua',
-        'rust',
-        'go',
-        'cpp',
-        'lua',
-        'typescript',
-        'javascript',
-        'vim',
-        'vimdoc',
-        'query',
-        'markdown',
-        'markdown_inline',
-        'nim',
-        'terraform',
-        'zig',
-        'bash',
-        'fish',
-        'yaml',
-        'json',
-        'html',
-        'typst',
-        'toml',
-        'sql',
-    },
-    folds = {
-        enable = true
-    },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
+local ts_langs = {
+    'python',
+    'comment',
+    'lua',
+    'rust',
+    'go',
+    'cpp',
+    'typescript',
+    'javascript',
+    'vim',
+    'vimdoc',
+    'query',
+    'markdown',
+    'markdown_inline',
+    'nim',
+    'terraform',
+    'zig',
+    'bash',
+    'zsh',
+    'fish',
+    'yaml',
+    'json',
+    'html',
+    'typst',
+    'toml',
+    'sql',
 }
+
+require('nvim-treesitter').install(ts_langs):wait(300000)
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('TreesitterStart', { clear = true }),
+    callback = function()
+        pcall(vim.treesitter.start)
+        pcall(function()
+            vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo[0][0].foldmethod = 'expr'
+            vim.wo[0][0].foldlevel = 99
+        end)
+    end,
+})
 
 -- %% nvim.files
 require('mini.files').setup()

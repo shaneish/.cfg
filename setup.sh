@@ -87,7 +87,8 @@ if [ "$@" == *"apps"* ]; then
     _cargo rargs
     _cargo xh
     _cargo grex
-    _cargo yazi yazi-fm yaza-cli
+    # _cargo yazi yazi-fm yaza-cli
+    _cargo yazi-build
     _cargo choose
     _cargo onefetch
     _cargo tldr tealdeer

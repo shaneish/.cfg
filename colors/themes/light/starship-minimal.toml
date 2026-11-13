@@ -1,5 +1,5 @@
 format = " $sudo $character"
-right_format = "$directory $git_branch"
+right_format = "$directory $git_branch $time"
 command_timeout = 1000
 
 [directory]
@@ -37,3 +37,9 @@ disabled = false
 symbol = "Π"
 format = "[$symbol]($style bold) [$virtualenv]($style)"
 style = "#4e7a1c"
+
+[time]
+disabled = false
+style = "#4e7a1c"
+format = '[@$time]($style) '
+time_format = '%R'

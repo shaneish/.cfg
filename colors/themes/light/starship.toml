@@ -1,7 +1,13 @@
 format = " $sudo$username$hostname $character"
 command_timeout = 1000
 
-right_format = """$directory $git_branch $git_status$git_metrics $python"""
+right_format = """$directory $git_branch $git_status$git_metrics $python $time"""
+
+[time]
+disabled = false
+style = "#4e7a1c"
+format = '[@$time]($style) '
+time_format = '%R'
 
 [directory]
 truncation_length = 15
